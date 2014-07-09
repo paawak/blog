@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="discoveryManager" class="net.jini.discovery.LookupLocatorDiscovery">
+		<constructor-arg>
+			<list>
+				<bean class="net.jini.core.discovery.LookupLocator">
+					<constructor-arg value="jini://localhost:4160" />
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="leaseRenewalManager" class="net.jini.lease.LeaseRenewalManager" />
+
+	<bean id="serviceExporter" class="net.jini.jrmp.JrmpExporter" scope="prototype" />
+
+
+	<bean class="com.swayam.demo.rmi.core.ServiceExporter">
+		<property name="discoveryManager" ref="discoveryManager"/>
+		<property name="leaseRenewalManager" ref="leaseRenewalManager"/>
+		<property name="exporter" ref="serviceExporter" />
+		<property name="serviceName" value="BankAccountService" />
+		<property name="service">
+			<bean class="com.swayam.demo.rmi.service.impl.BankAccountServiceImpl" />
+		</property>
+	</bean>
+	
+	<bean class="com.swayam.demo.rmi.core.ServiceExporter">
+		<property name="discoveryManager" ref="discoveryManager"/>
+		<property name="leaseRenewalManager" ref="leaseRenewalManager"/>
+		<property name="exporter" ref="serviceExporter" />
+		<property name="serviceName" value="UserService" />
+		<property name="service">
+			<bean class="com.swayam.demo.rmi.service.impl.UserServiceImpl" />
+		</property>
+	</bean>
+
+</beans>

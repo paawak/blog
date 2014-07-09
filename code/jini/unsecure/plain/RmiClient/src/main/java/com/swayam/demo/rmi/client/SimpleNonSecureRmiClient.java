@@ -1,7 +1,5 @@
 package com.swayam.demo.rmi.client;
 
-import java.rmi.RMISecurityManager;
-
 import net.jini.core.discovery.LookupLocator;
 import net.jini.core.entry.Entry;
 import net.jini.core.lookup.ServiceRegistrar;
@@ -21,11 +19,12 @@ public class SimpleNonSecureRmiClient {
 	 * </ul>
 	 */
     public static void main(String[] args) throws Exception {
-        System.setSecurityManager(new RMISecurityManager());
-
         LookupLocator lookup = new LookupLocator("jini://localhost:4160");
 
         ServiceRegistrar registrar = lookup.getRegistrar();
+        
+        //give the poor guys some time to lookup
+		Thread.sleep(10); 
 
         UserService userService = (UserService) registrar.lookup(new ServiceTemplate(null,
                 new Class[] { UserService.class }, new Entry[] { new Name(UserService.class.getSimpleName()) }));
