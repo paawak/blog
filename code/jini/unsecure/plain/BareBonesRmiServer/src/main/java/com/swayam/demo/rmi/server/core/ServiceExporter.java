@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.core;
+package com.swayam.demo.rmi.server.core;
 
 import java.rmi.Remote;
 

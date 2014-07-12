@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.service.impl;
+package com.swayam.demo.rmi.server.impl;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.core;
+package com.swayam.demo.rmi.server.core;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

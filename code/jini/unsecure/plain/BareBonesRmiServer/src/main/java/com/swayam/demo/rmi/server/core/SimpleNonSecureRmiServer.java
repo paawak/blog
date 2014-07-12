@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.core;
+package com.swayam.demo.rmi.server.core;
 
 import java.rmi.Remote;
 
@@ -13,10 +13,10 @@ import net.jini.lease.LeaseRenewalManager;
 import net.jini.lookup.JoinManager;
 import net.jini.lookup.entry.Name;
 
+import com.swayam.demo.rmi.server.impl.BankAccountServiceImpl;
+import com.swayam.demo.rmi.server.impl.UserServiceImpl;
 import com.swayam.demo.rmi.service.BankAccountService;
 import com.swayam.demo.rmi.service.UserService;
-import com.swayam.demo.rmi.service.impl.BankAccountServiceImpl;
-import com.swayam.demo.rmi.service.impl.UserServiceImpl;
 
 public class SimpleNonSecureRmiServer {
 	
