@@ -16,24 +16,11 @@
  * limitations under the License.
  */
 
-/* Configuration file for starting non-secure Reggie */
+/* Security policy for non-secure Reggie */
 
-import com.sun.jini.config.ConfigUtil;
-import com.sun.jini.start.NonActivatableServiceDescriptor;
-import com.sun.jini.start.ServiceDescriptor;
+/* Grant all permissions to our classes */
+grant codeBase "file:/home/paawak/kaaj/code/blog-git/blog/code/jini/jini-services/lib-dl/*" {
+    permission java.security.AllPermission;
+};
 
-com.sun.jini.start {
 
-    private static codebase = "http://localhost:8080/reggie-dl.jar http://localhost:8080/jsk-dl.jar http://localhost:8080/RmiService-1.0.jar";
-    private static policy = "config${/}reggie.policy";
-    private static classpath = "lib${/}reggie.jar";
-    private static config = "config${/}jrmp-reggie.config";
-
-    static serviceDescriptors = new ServiceDescriptor[] {
-	new NonActivatableServiceDescriptor(
-	    codebase, policy, classpath,
-	    "com.sun.jini.reggie.TransientRegistrarImpl",
-	    new String[] { config })
-    };
-
-}//end com.sun.jini.start 

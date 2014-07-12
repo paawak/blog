@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.swayam.demo.rmi.client</groupId>
-	<artifactId>RmiClientNoCodeDownload</artifactId>
+	<artifactId>rmi-client-dynamic-code-download</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
-	<name>RmiClientNoCodeDownload</name>
+	<name>RmiClientDynamicCodeDownload</name>
 	<description>
-	The RmiClientNoCodeDownload does not permit dynamic code downloading, and hence, all the dependencies has to be bundled together.
+	The RmiClientDynamicCodeDownload tries to dynamically download the server proxy code.
 	</description>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -39,12 +39,14 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>	
-	<dependencies>
+	<dependencies>		
+		<!-- 
 		<dependency>
-			<groupId>com.swayam.demo.rmi</groupId>
-			<artifactId>RmiShared</artifactId>
+			<groupId>com.swayam.demo.rmi.api</groupId>
+			<artifactId>rmi-service-api</artifactId>
 			<version>1.0</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
