@@ -1,11 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.swayam.demo.rmi</groupId>
-	<artifactId>RmiClient</artifactId>
+	<groupId>com.swayam.demo.rmi.client</groupId>
+	<artifactId>RmiClientNoCodeDownload</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
-	<name>RmiClient</name>
+	<name>RmiClientNoCodeDownload</name>
+	<description>
+	The RmiClientNoCodeDownload does not permit dynamic code downloading, and hence, all the dependencies has to be bundled together.
+	</description>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>

@@ -6,6 +6,9 @@
 	<version>1.0</version>
 	<packaging>jar</packaging>
 	<name>BareBonesRmiServer</name>
+	<description>
+	This is a non secured implementation of a Jini server. This has only a small no. of functionalities.
+	</description>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>

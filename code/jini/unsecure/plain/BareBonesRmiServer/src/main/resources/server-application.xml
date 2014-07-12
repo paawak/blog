@@ -23,23 +23,23 @@
 	<bean id="serviceExporter" class="net.jini.jrmp.JrmpExporter" scope="prototype" />
 
 
-	<bean class="com.swayam.demo.rmi.core.ServiceExporter">
+	<bean class="com.swayam.demo.rmi.server.core.ServiceExporter">
 		<property name="discoveryManager" ref="discoveryManager"/>
 		<property name="leaseRenewalManager" ref="leaseRenewalManager"/>
 		<property name="exporter" ref="serviceExporter" />
 		<property name="serviceName" value="BankAccountService" />
 		<property name="service">
-			<bean class="com.swayam.demo.rmi.service.impl.BankAccountServiceImpl" />
+			<bean class="com.swayam.demo.rmi.server.impl.BankAccountServiceImpl" />
 		</property>
 	</bean>
 	
-	<bean class="com.swayam.demo.rmi.core.ServiceExporter">
+	<bean class="com.swayam.demo.rmi.server.core.ServiceExporter">
 		<property name="discoveryManager" ref="discoveryManager"/>
 		<property name="leaseRenewalManager" ref="leaseRenewalManager"/>
 		<property name="exporter" ref="serviceExporter" />
 		<property name="serviceName" value="UserService" />
 		<property name="service">
-			<bean class="com.swayam.demo.rmi.service.impl.UserServiceImpl" />
+			<bean class="com.swayam.demo.rmi.server.impl.UserServiceImpl" />
 		</property>
 	</bean>
 
