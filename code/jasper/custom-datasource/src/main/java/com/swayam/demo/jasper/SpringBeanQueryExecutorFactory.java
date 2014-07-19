@@ -26,6 +26,10 @@ import org.springframework.context.ApplicationContext;
  *     </util:list>
  * </pre>
  * 
+ * Also, you need to register this in: WEB-INF/classes/jasperreports.properties<br/>
+ * net.sf.jasperreports.query.executer.factory.SpringBeanQuery=com.swayam.demo.
+ * jasper.SpringBeanQueryExecutorFactory
+ * 
  */
 public class SpringBeanQueryExecutorFactory extends AbstractQueryExecuterFactory {
 
