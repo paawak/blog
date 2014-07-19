@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<bean id="bookServiceBean" class="com.swayam.demo.jasper.DummyBookServiceImpl" />
+
+	<bean id="customDelegatedDataSourceServiceFactory"
+		class="com.swayam.demo.jasper.SpringBeanDataSourceServiceFactory" />
+
+	<bean id="springBeanDataSource"
+		class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.CustomDataSourceDefinition">
+		<property name="serviceClassName"
+			value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.client.CustomReportDataSourceImpl" />
+		<property name="factory" ref="customDataSourceServiceFactory" />
+		<property name="name" value="SpringBeanDataSource" />
+		<property name="customFactory" ref="customDelegatedDataSourceServiceFactory" />
+		<property name="propertyDefinitions">
+			<list>
+				<map>
+					<entry key="name" value="beanName" />
+				</map>
+				<map>
+					<entry key="name" value="methodName" />
+				</map>
+			</list>
+		</property>
+		<property name="queryExecuterMap">
+			<map>
+				<entry key="SpringBeanQuery"
+					value="com.swayam.demo.jasper.SpringBeanQueryExecutorFactory" />
+			</map>
+		</property>
+	</bean>
+
+	<bean
+		class="com.jaspersoft.jasperserver.api.common.util.spring.GenericBeanUpdater">
+		<property name="definition" ref="addMessageCatalog" />
+		<property name="value">
+			<list>
+				<value>WEB-INF/springBeanDataSource</value>
+			</list>
+		</property>
+		<property name="valueType" value="stringList" />
+	</bean>
+
+</beans>
