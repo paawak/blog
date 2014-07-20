@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-  <classpathentry kind="src" path="src/test/java" output="target/test-classes" including="**/*.java"/>
-  <classpathentry kind="src" path="src/test/resources" output="target/test-classes" excluding="**/*.java"/>
-  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
-  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
-  <classpathentry kind="output" path="target/classes"/>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="var" path="M2_REPO/net/sf/jasperreports/jasperreports/5.6.0/jasperreports-5.6.0.jar" sourcepath="M2_REPO/net/sf/jasperreports/jasperreports/5.6.0/jasperreports-5.6.0-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar" sourcepath="M2_REPO/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar" sourcepath="M2_REPO/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/commons-digester/commons-digester/2.1/commons-digester-2.1.jar" sourcepath="M2_REPO/commons-digester/commons-digester/2.1/commons-digester-2.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/lowagie/itext/2.1.7.js2/itext-2.1.7.js2.jar"/>
-  <classpathentry kind="var" path="M2_REPO/bouncycastle/bcmail-jdk14/138/bcmail-jdk14-138.jar"/>
-  <classpathentry kind="var" path="M2_REPO/bouncycastle/bcprov-jdk14/138/bcprov-jdk14-138.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/bouncycastle/bctsp-jdk14/1.38/bctsp-jdk14-1.38.jar" sourcepath="M2_REPO/org/bouncycastle/bctsp-jdk14/1.38/bctsp-jdk14-1.38-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcprov-jdk14/1.38/bcprov-jdk14-1.38.jar" sourcepath="M2_REPO/org/bouncycastle/bcprov-jdk14/1.38/bcprov-jdk14-1.38-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcmail-jdk14/1.38/bcmail-jdk14-1.38.jar" sourcepath="M2_REPO/org/bouncycastle/bcmail-jdk14/1.38/bcmail-jdk14-1.38-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jfree/jcommon/1.0.15/jcommon-1.0.15.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jfree/jfreechart/1.0.12/jfreechart-1.0.12.jar"/>
-  <classpathentry kind="var" path="M2_REPO/xml-apis/xml-apis/1.3.02/xml-apis-1.3.02.jar"/>
-  <classpathentry kind="var" path="M2_REPO/eclipse/jdtcore/3.1.0/jdtcore-3.1.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/codehaus/castor/castor/1.2/castor-1.2.jar" sourcepath="M2_REPO/org/codehaus/castor/castor/1.2/castor-1.2-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.1.4/jackson-core-2.1.4.jar" sourcepath="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.1.4/jackson-core-2.1.4-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.1.4/jackson-databind-2.1.4.jar" sourcepath="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.1.4/jackson-databind-2.1.4-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.1.4/jackson-annotations-2.1.4.jar" sourcepath="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.1.4/jackson-annotations-2.1.4-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-core/4.5.1/lucene-core-4.5.1.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-core/4.5.1/lucene-core-4.5.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-analyzers-common/4.5.1/lucene-analyzers-common-4.5.1.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-analyzers-common/4.5.1/lucene-analyzers-common-4.5.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-queryparser/4.5.1/lucene-queryparser-4.5.1.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-queryparser/4.5.1/lucene-queryparser-4.5.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-queries/4.5.1/lucene-queries-4.5.1.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-queries/4.5.1/lucene-queries-4.5.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-sandbox/4.5.1/lucene-sandbox-4.5.1.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-sandbox/4.5.1/lucene-sandbox-4.5.1-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jakarta-regexp/jakarta-regexp/1.4/jakarta-regexp-1.4.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/olap4j/olap4j/0.9.7.309-JS-3/olap4j-0.9.7.309-JS-3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/jaspersoft/jasperserver/api/engine/impl/jasperserver-api-engine-impl/5.6.0/jasperserver-api-engine-impl-5.6.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/jaspersoft/jasperserver/api/metadata/jasperserver-api-metadata/5.6.0/jasperserver-api-metadata-5.6.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/3.1.4.RELEASE/spring-core-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-core/3.1.4.RELEASE/spring-core-3.1.4.RELEASE-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-asm/3.1.4.RELEASE/spring-asm-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-asm/3.1.4.RELEASE/spring-asm-3.1.4.RELEASE-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/3.1.4.RELEASE/spring-context-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-context/3.1.4.RELEASE/spring-context-3.1.4.RELEASE-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/3.1.4.RELEASE/spring-aop-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-aop/3.1.4.RELEASE/spring-aop-3.1.4.RELEASE-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/3.1.4.RELEASE/spring-beans-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-beans/3.1.4.RELEASE/spring-beans-3.1.4.RELEASE-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-expression/3.1.4.RELEASE/spring-expression-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-expression/3.1.4.RELEASE/spring-expression-3.1.4.RELEASE-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
+	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
+	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="M2_REPO/net/sf/jasperreports/jasperreports/5.6.0/jasperreports-5.6.0.jar" sourcepath="M2_REPO/net/sf/jasperreports/jasperreports/5.6.0/jasperreports-5.6.0-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar" sourcepath="M2_REPO/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar" sourcepath="M2_REPO/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-digester/commons-digester/2.1/commons-digester-2.1.jar" sourcepath="M2_REPO/commons-digester/commons-digester/2.1/commons-digester-2.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lowagie/itext/2.1.7.js2/itext-2.1.7.js2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/bouncycastle/bcmail-jdk14/138/bcmail-jdk14-138.jar"/>
+	<classpathentry kind="var" path="M2_REPO/bouncycastle/bcprov-jdk14/138/bcprov-jdk14-138.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/bouncycastle/bctsp-jdk14/1.38/bctsp-jdk14-1.38.jar" sourcepath="M2_REPO/org/bouncycastle/bctsp-jdk14/1.38/bctsp-jdk14-1.38-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcprov-jdk14/1.38/bcprov-jdk14-1.38.jar" sourcepath="M2_REPO/org/bouncycastle/bcprov-jdk14/1.38/bcprov-jdk14-1.38-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcmail-jdk14/1.38/bcmail-jdk14-1.38.jar" sourcepath="M2_REPO/org/bouncycastle/bcmail-jdk14/1.38/bcmail-jdk14-1.38-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jfree/jcommon/1.0.15/jcommon-1.0.15.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jfree/jfreechart/1.0.12/jfreechart-1.0.12.jar"/>
+	<classpathentry kind="var" path="M2_REPO/xml-apis/xml-apis/1.3.02/xml-apis-1.3.02.jar"/>
+	<classpathentry kind="var" path="M2_REPO/eclipse/jdtcore/3.1.0/jdtcore-3.1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/castor/castor/1.2/castor-1.2.jar" sourcepath="M2_REPO/org/codehaus/castor/castor/1.2/castor-1.2-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.1.4/jackson-core-2.1.4.jar" sourcepath="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.1.4/jackson-core-2.1.4-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.1.4/jackson-databind-2.1.4.jar" sourcepath="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.1.4/jackson-databind-2.1.4-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.1.4/jackson-annotations-2.1.4.jar" sourcepath="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.1.4/jackson-annotations-2.1.4-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-core/4.5.1/lucene-core-4.5.1.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-core/4.5.1/lucene-core-4.5.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-analyzers-common/4.5.1/lucene-analyzers-common-4.5.1.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-analyzers-common/4.5.1/lucene-analyzers-common-4.5.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-queryparser/4.5.1/lucene-queryparser-4.5.1.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-queryparser/4.5.1/lucene-queryparser-4.5.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-queries/4.5.1/lucene-queries-4.5.1.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-queries/4.5.1/lucene-queries-4.5.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-sandbox/4.5.1/lucene-sandbox-4.5.1.jar" sourcepath="M2_REPO/org/apache/lucene/lucene-sandbox/4.5.1/lucene-sandbox-4.5.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/jakarta-regexp/jakarta-regexp/1.4/jakarta-regexp-1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/olap4j/olap4j/0.9.7.309-JS-3/olap4j-0.9.7.309-JS-3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/jaspersoft/jasperserver/api/engine/impl/jasperserver-api-engine-impl/5.6.0/jasperserver-api-engine-impl-5.6.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/jaspersoft/jasperserver/api/metadata/jasperserver-api-metadata/5.6.0/jasperserver-api-metadata-5.6.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/3.1.4.RELEASE/spring-core-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-core/3.1.4.RELEASE/spring-core-3.1.4.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-asm/3.1.4.RELEASE/spring-asm-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-asm/3.1.4.RELEASE/spring-asm-3.1.4.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/3.1.4.RELEASE/spring-context-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-context/3.1.4.RELEASE/spring-context-3.1.4.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/3.1.4.RELEASE/spring-aop-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-aop/3.1.4.RELEASE/spring-aop-3.1.4.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/3.1.4.RELEASE/spring-beans-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-beans/3.1.4.RELEASE/spring-beans-3.1.4.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-expression/3.1.4.RELEASE/spring-expression-3.1.4.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-expression/3.1.4.RELEASE/spring-expression-3.1.4.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
