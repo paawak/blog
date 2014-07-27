@@ -159,5 +159,39 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>MavenAssemble</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>appassembler-maven-plugin</artifactId>
+						<version>1.8.1</version>
+						<configuration>
+							<repositoryLayout>flat</repositoryLayout>
+							<repositoryName>lib</repositoryName>
+							<showConsoleWindow>false</showConsoleWindow>
+							<platforms>
+								<platform>unix</platform>
+							</platforms>
+							<programs>
+								<program>
+									<mainClass>com.swayam.demo.rmi.server.core.SpringNonSecureRmiServer</mainClass>
+									<name>run_rmi_server</name>
+								</program>
+							</programs>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>assemble</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 </project>
