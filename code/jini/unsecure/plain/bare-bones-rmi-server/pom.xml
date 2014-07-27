@@ -96,8 +96,9 @@
 		</dependency>
 	</dependencies>
 	<profiles>
+		<!-- This works with only Maven 2.x -->
 		<profile>
-			<id>AntBuilder</id>
+			<id>MavenAntRunPluginExample</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -112,7 +113,7 @@
 										<property name="project.name" value="${project.name}" />
 										<property name="project.version" value="${project.version}" />
 										<property name="maven.local.repo" value="${settings.localRepository}" />
-										<ant antfile="${project.basedir}/build.xml" />
+										<ant antfile="${project.basedir}/build-with-maven-ant-task.xml" />
 										<attachartifact
 											file="${project.build.directory}/${project.name}-${project.version}.zip"
 											classifier="deployable" type="zip" />

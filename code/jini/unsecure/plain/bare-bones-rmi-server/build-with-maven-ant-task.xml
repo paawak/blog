@@ -1,4 +1,4 @@
-<project name="Rmi Server Builder" default="create-zip" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+<project name="Rmi Server builder which works with maven-ant-task" default="create-zip" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
 	<path id="maven-ant-tasks.classpath" path="lib/maven-ant-tasks-2.1.3.jar" />
 	<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
