@@ -1,0 +1,42 @@
+<project name="Rmi Server Builder" default="create-zip" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+
+	<path id="maven-ant-tasks.classpath" path="lib/maven-ant-tasks-2.1.3.jar" />
+	<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
+	           uri="antlib:org.apache.maven.artifact.ant"
+	           classpathref="maven-ant-tasks.classpath" />
+
+	<condition property="maven.local.repo" else="${user.home}/.m2/repository">
+		<isset property="maven.local.repo"/>
+	</condition>
+
+	<condition property="project.name" else="no-name">
+		<isset property="project.name"/>
+	</condition>
+
+	<condition property="project.version" else="no-version">
+		<isset property="project.version"/>
+	</condition>
+
+	<property name="ant.build.directory" value="${basedir}/target/ant-build"/>
+
+	<target name="clean">
+		<delete dir="${ant.build.directory}"/>
+		<mkdir dir="${ant.build.directory}"/>
+	</target>
+
+	<target name="gather-dependencies-from-maven" depends="clean">
+		<artifact:dependencies filesetId="deps.fileset" useScope="runtime">
+			<pom file="pom.xml"/>
+			<localRepository path="${maven.local.repo}"/>
+		</artifact:dependencies>
+		<copy todir="${ant.build.directory}/lib">
+			<fileset refid="deps.fileset"/>
+			<mapper type="flatten"/>
+		</copy>
+	</target>
+
+	<target name="create-zip" depends="gather-dependencies-from-maven">
+		<zip destfile="${basedir}/target/${project.name}-${project.version}.zip" basedir="${ant.build.directory}"/>
+	</target>
+
+</project>
