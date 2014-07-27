@@ -5,6 +5,7 @@
 	           uri="antlib:org.apache.maven.artifact.ant"
 	           classpathref="maven-ant-tasks.classpath" />
 
+	<!-- The below properties should either come from Maven or from command line while invoking ant -->
 	<condition property="maven.local.repo" else="${user.home}/.m2/repository">
 		<isset property="maven.local.repo"/>
 	</condition>
