@@ -170,14 +170,15 @@
 						<configuration>
 							<repositoryLayout>flat</repositoryLayout>
 							<repositoryName>lib</repositoryName>
-							<showConsoleWindow>false</showConsoleWindow>
+							<showConsoleWindow>true</showConsoleWindow>
 							<platforms>
 								<platform>unix</platform>
+								<platform>windows</platform>
 							</platforms>
 							<programs>
 								<program>
 									<mainClass>com.swayam.demo.rmi.server.core.SpringNonSecureRmiServer</mainClass>
-									<name>run_rmi_server</name>
+									<id>run_rmi_server</id>
 								</program>
 							</programs>
 						</configuration>
