@@ -9,12 +9,8 @@ import org.jdesktop.swingx.treetable.AbstractTreeTableModel;
 
 public class BankDetailTreeTableModel extends AbstractTreeTableModel {
 
-	private static final int COULMN_COUNT = 19;
-
 	private static final String[] COLUMN_NAMES = new String[] { "id", "age",
-			"job", "marital", "education", "default", "balance", "housing",
-			"loan", "contact", "day", "month", "duration", "campaign", "pdays",
-			"previous", "poutcome", "y" };
+			"job", "marital", "education", "default", "balance" };
 
 	private static final String ROOT = "_ROOT_";
 
@@ -30,7 +26,7 @@ public class BankDetailTreeTableModel extends AbstractTreeTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return COULMN_COUNT;
+		return COLUMN_NAMES.length + 1;
 	}
 
 	@Override
@@ -102,17 +98,6 @@ public class BankDetailTreeTableModel extends AbstractTreeTableModel {
 		row[4] = bankDetail.getEducation();
 		row[5] = bankDetail.getDefaulted();
 		row[6] = bankDetail.getBalance().toPlainString();
-		row[7] = bankDetail.getHousing();
-		row[8] = bankDetail.getLoan();
-		row[9] = bankDetail.getContact();
-		row[10] = Integer.toString(bankDetail.getDay());
-		row[11] = bankDetail.getMonth();
-		row[12] = Integer.toString(bankDetail.getDuration());
-		row[13] = Integer.toString(bankDetail.getCampaign());
-		row[14] = Integer.toString(bankDetail.getPdays());
-		row[15] = Integer.toString(bankDetail.getPrevious());
-		row[16] = bankDetail.getPoutcome();
-		row[17] = bankDetail.getY();
 		return row;
 	}
 
