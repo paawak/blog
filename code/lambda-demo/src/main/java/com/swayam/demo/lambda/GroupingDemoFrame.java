@@ -1,15 +1,10 @@
 package com.swayam.demo.lambda;
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 import org.jdesktop.swingx.JXTreeTable;
-import org.jdesktop.swingx.treetable.TreeTableModel;
 
 /**
  *
@@ -46,57 +41,11 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 			Map<String, List<BankDetail>> groupedBankDetails = bankDetailService
 					.getBankDetails(selectedGroup);
 
-			// TableModel tableModel = createTableModel(groupedBankDetails);
-
 			tblBankDetails.setTreeTableModel(new BankDetailTreeTableModel(
 					groupedBankDetails));
 
 		});
 
-	}
-
-	private TableModel createTableModel(
-			Map<String, List<BankDetail>> groupedBankDetails) {
-
-		TreeTableModel treeTableModel;
-
-		List<String[]> tableData = new ArrayList<>();
-
-		groupedBankDetails
-				.forEach((String key, List<BankDetail> groupedData) -> {
-					groupedData.forEach((BankDetail bankDetail) -> {
-						tableData.add(createTableRow(bankDetail));
-					});
-				});
-
-		return new DefaultTableModel(tableData.toArray(new String[0][0]),
-				new String[] { "id", "age", "job", "marital", "education",
-						"default", "balance", "housing", "loan", "contact",
-						"day", "month", "duration", "campaign", "pdays",
-						"previous", "poutcome", "y" });
-	}
-
-	private String[] createTableRow(BankDetail bankDetail) {
-		String[] row = new String[18];
-		row[0] = Integer.toString(bankDetail.getId());
-		row[1] = Integer.toString(bankDetail.getAge());
-		row[2] = bankDetail.getJob();
-		row[3] = bankDetail.getMarital();
-		row[4] = bankDetail.getEducation();
-		row[5] = bankDetail.getDefaulted();
-		row[6] = bankDetail.getBalance().toPlainString();
-		row[7] = bankDetail.getHousing();
-		row[8] = bankDetail.getLoan();
-		row[9] = bankDetail.getContact();
-		row[10] = Integer.toString(bankDetail.getDay());
-		row[11] = bankDetail.getMonth();
-		row[12] = Integer.toString(bankDetail.getDuration());
-		row[13] = Integer.toString(bankDetail.getCampaign());
-		row[14] = Integer.toString(bankDetail.getPdays());
-		row[15] = Integer.toString(bankDetail.getPrevious());
-		row[16] = bankDetail.getPoutcome();
-		row[17] = bankDetail.getY();
-		return row;
 	}
 
 	/**

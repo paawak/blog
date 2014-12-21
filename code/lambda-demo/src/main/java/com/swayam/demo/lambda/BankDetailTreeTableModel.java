@@ -34,6 +34,14 @@ public class BankDetailTreeTableModel extends AbstractTreeTableModel {
 	}
 
 	@Override
+	public String getColumnName(int column) {
+		if (column == 0) {
+			return "Group";
+		}
+		return COLUMN_NAMES[column - 1];
+	}
+
+	@Override
 	public Object getValueAt(Object node, int column) {
 		if (node instanceof String) {
 			if (column == 0) {
