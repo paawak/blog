@@ -34,14 +34,18 @@ public class BankDetailService {
 				.groupingBy(groupByClassifier);
 
 		Map<String, List<BankDetail>> groupedBankDetails;
+		List<BankDetail> unGroupedBankDetails;
 
 		try {
-			groupedBankDetails = bankDetailDao.getAllBankDetails()
-					.parallelStream().collect(groupByCollector);
+			unGroupedBankDetails = bankDetailDao.getAllBankDetails();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 
+		groupedBankDetails = unGroupedBankDetails.parallelStream().collect(
+				groupByCollector);
+
 		return groupedBankDetails;
 	}
+
 }
