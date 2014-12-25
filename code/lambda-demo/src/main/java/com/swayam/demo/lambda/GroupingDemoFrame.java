@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.Map;
 
-import org.jdesktop.swingx.JXTreeTable;
-
 /**
  *
  * @author paawak
@@ -14,18 +12,16 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private final BankDetailService bankDetailService;
+	private final BankDetailService bankDetailServiceJava8;
+	private final BankDetailService bankDetailServicePreJava8;
 
 	/**
 	 * Creates new form GroupingDemoFrame
 	 */
 	public GroupingDemoFrame() {
 
-		if (false) {
-			bankDetailService = new BankDetailServiceImplJava8();
-		} else {
-			bankDetailService = new BankDetailServiceImplPreJava8();
-		}
+		bankDetailServiceJava8 = new BankDetailServiceImplJava8();
+		bankDetailServicePreJava8 = new BankDetailServiceImplPreJava8();
 
 		initComponents();
 		attachListeners();
@@ -43,10 +39,18 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 				selectedGroup = BankDetailGroups.JOB;
 			}
 
-			Map<String, List<BankDetail>> groupedBankDetails = bankDetailService
+			BankDetailService bankDetailServiceToUse;
+
+			if (rdBtFeatureJdk8.isSelected()) {
+				bankDetailServiceToUse = bankDetailServiceJava8;
+			} else {
+				bankDetailServiceToUse = bankDetailServicePreJava8;
+			}
+
+			Map<String, List<BankDetail>> groupedBankDetails = bankDetailServiceToUse
 					.getBankDetails(selectedGroup);
 
-			tblBankDetails.setTreeTableModel(new BankDetailTreeTableModel(
+			treeTblBankDetails.setTreeTableModel(new BankDetailTreeTableModel(
 					groupedBankDetails));
 
 		});
@@ -64,18 +68,23 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 	// <editor-fold defaultstate="collapsed"
 	// <editor-fold defaultstate="collapsed"
 	// <editor-fold defaultstate="collapsed"
+	// <editor-fold defaultstate="collapsed"
 	// desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
 		btGrpBankDetails = new javax.swing.ButtonGroup();
+		btGrpFeatureToUse = new javax.swing.ButtonGroup();
 		jLabel1 = new javax.swing.JLabel();
 		jPanel1 = new javax.swing.JPanel();
 		rdBtJob = new javax.swing.JRadioButton();
 		rdBtMaritalStatus = new javax.swing.JRadioButton();
 		rdBtEducation = new javax.swing.JRadioButton();
 		btSubmit = new javax.swing.JButton();
-		jScrollPane1 = new javax.swing.JScrollPane();
-		tblBankDetails = new JXTreeTable();
+		jPanel2 = new javax.swing.JPanel();
+		rdBtFeatureJdk8 = new javax.swing.JRadioButton();
+		rdBtFeaturePreJdk8 = new javax.swing.JRadioButton();
+		jScrollPane2 = new javax.swing.JScrollPane();
+		treeTblBankDetails = new org.jdesktop.swingx.JXTreeTable();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Grouping Demo");
@@ -157,13 +166,46 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 										.addComponent(btSubmit)
 										.addContainerGap()));
 
-		// tblBankDetails.setModel(new javax.swing.table.DefaultTableModel(
-		// new Object[][] {
-		//
-		// }, new String[] {
-		//
-		// }));
-		jScrollPane1.setViewportView(tblBankDetails);
+		jPanel2.setBorder(javax.swing.BorderFactory
+				.createTitledBorder("Feature to use for group by"));
+
+		btGrpFeatureToUse.add(rdBtFeatureJdk8);
+		rdBtFeatureJdk8.setSelected(true);
+		rdBtFeatureJdk8.setText("JDK 8");
+
+		btGrpFeatureToUse.add(rdBtFeaturePreJdk8);
+		rdBtFeaturePreJdk8.setText("Pre JDK 8");
+
+		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(
+				jPanel2);
+		jPanel2.setLayout(jPanel2Layout);
+		jPanel2Layout
+				.setHorizontalGroup(jPanel2Layout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								jPanel2Layout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												jPanel2Layout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(
+																rdBtFeaturePreJdk8)
+														.addComponent(
+																rdBtFeatureJdk8))
+										.addContainerGap(122, Short.MAX_VALUE)));
+		jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+				jPanel2Layout
+						.createSequentialGroup()
+						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
+								Short.MAX_VALUE).addComponent(rdBtFeatureJdk8)
+						.addGap(18, 18, 18).addComponent(rdBtFeaturePreJdk8)
+						.addGap(42, 42, 42)));
+
+		jScrollPane2.setViewportView(treeTblBankDetails);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
 				getContentPane());
@@ -178,13 +220,14 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 										javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addGap(0, 0, Short.MAX_VALUE))
-				.addGroup(
-						layout.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(jScrollPane1,
+								.addPreferredGap(
+										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jPanel2,
+										javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE,
-										709, Short.MAX_VALUE).addContainerGap()));
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addGap(0, 344, Short.MAX_VALUE))
+				.addComponent(jScrollPane2));
 		layout.setVerticalGroup(layout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(
@@ -192,14 +235,25 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 								.addComponent(jLabel1)
 								.addPreferredGap(
 										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jPanel1,
-										javax.swing.GroupLayout.PREFERRED_SIZE,
+								.addGroup(
+										layout.createParallelGroup(
+												javax.swing.GroupLayout.Alignment.LEADING,
+												false)
+												.addComponent(
+														jPanel1,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														Short.MAX_VALUE)
+												.addComponent(
+														jPanel2,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														Short.MAX_VALUE))
+								.addPreferredGap(
+										javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+								.addComponent(jScrollPane2,
 										javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addGap(18, 18, 18)
-								.addComponent(jScrollPane1,
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										249, Short.MAX_VALUE).addContainerGap()));
+										267, Short.MAX_VALUE)));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -253,13 +307,17 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.ButtonGroup btGrpBankDetails;
+	private javax.swing.ButtonGroup btGrpFeatureToUse;
 	private javax.swing.JButton btSubmit;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JPanel jPanel1;
-	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JPanel jPanel2;
+	private javax.swing.JScrollPane jScrollPane2;
 	private javax.swing.JRadioButton rdBtEducation;
+	private javax.swing.JRadioButton rdBtFeatureJdk8;
+	private javax.swing.JRadioButton rdBtFeaturePreJdk8;
 	private javax.swing.JRadioButton rdBtJob;
 	private javax.swing.JRadioButton rdBtMaritalStatus;
-	private JXTreeTable tblBankDetails;
+	private org.jdesktop.swingx.JXTreeTable treeTblBankDetails;
 	// End of variables declaration//GEN-END:variables
 }
