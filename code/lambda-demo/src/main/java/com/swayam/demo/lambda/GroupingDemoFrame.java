@@ -20,7 +20,12 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 	 * Creates new form GroupingDemoFrame
 	 */
 	public GroupingDemoFrame() {
-		bankDetailService = new BankDetailService();
+
+		if (false) {
+			bankDetailService = new BankDetailServiceImplJava8();
+		} else {
+			bankDetailService = new BankDetailServiceImplPreJava8();
+		}
 
 		initComponents();
 		attachListeners();
