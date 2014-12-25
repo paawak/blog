@@ -1,6 +1,7 @@
 package com.swayam.demo.lambda;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -47,9 +48,7 @@ public class BankDetailTreeTableModel extends AbstractTreeTableModel {
 			if (column == 0) {
 				return null;
 			}
-			BankDetail bankDetail = (BankDetail) node;
-			String[] row = createTableRow(bankDetail);
-			return row[column - 1];
+			return displayColumnValue((BankDetail) node, column - 1);
 		}
 
 		return null;
@@ -84,20 +83,30 @@ public class BankDetailTreeTableModel extends AbstractTreeTableModel {
 	private List<String> getGroups(
 			Map<String, List<BankDetail>> groupedBankDetails) {
 		List<String> groups = new ArrayList<>(groupedBankDetails.keySet());
-		// Collections.sort(groups);
+		Collections.sort(groups);
 		return groups;
 	}
 
-	private String[] createTableRow(BankDetail bankDetail) {
-		String[] row = new String[18];
-		row[0] = Integer.toString(bankDetail.getId());
-		row[1] = Integer.toString(bankDetail.getAge());
-		row[2] = bankDetail.getJob();
-		row[3] = bankDetail.getMarital();
-		row[4] = bankDetail.getEducation();
-		row[5] = bankDetail.getDefaulted();
-		row[6] = bankDetail.getBalance().toPlainString();
-		return row;
+	private String displayColumnValue(BankDetail bankDetail, int columnIndex) {
+		switch (columnIndex) {
+		case 0:
+			return Integer.toString(bankDetail.getId());
+		case 1:
+			return Integer.toString(bankDetail.getAge());
+		case 2:
+			return bankDetail.getJob();
+		case 3:
+			return bankDetail.getMarital();
+		case 4:
+			return bankDetail.getEducation();
+		case 5:
+			return bankDetail.getDefaulted();
+		case 6:
+			return bankDetail.getBalance().toPlainString();
+		default:
+			throw new IllegalArgumentException("columnIndex " + columnIndex
+					+ " is not handled");
+		}
 	}
 
 }
