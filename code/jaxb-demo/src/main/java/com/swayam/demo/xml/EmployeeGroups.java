@@ -8,14 +8,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class EmployeeGroups {
 
+    private final int groupSize;
+
     private final Map<EmployeeRole, List<Employee>> employeeGroups;
 
-    public EmployeeGroups(Map<EmployeeRole, List<Employee>> employeeGroups) {
+    public EmployeeGroups(int groupSize, Map<EmployeeRole, List<Employee>> employeeGroups) {
+        this.groupSize = groupSize;
         this.employeeGroups = employeeGroups;
     }
 
     public EmployeeGroups() {
-        this(null);
+        this(0, null);
+    }
+
+    public int getGroupSize() {
+        return groupSize;
     }
 
     public Map<EmployeeRole, List<Employee>> getEmployeeGroups() {

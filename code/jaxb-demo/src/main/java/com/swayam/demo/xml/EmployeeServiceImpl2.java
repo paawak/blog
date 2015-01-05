@@ -33,6 +33,6 @@ public class EmployeeServiceImpl2 implements EmployeeService {
         employeeGroups.put(EmployeeRole.TECHNICIAN, technicians);
         employeeGroups.put(EmployeeRole.SUPERVISOR, superviors);
 
-        return new EmployeeGroups(employeeGroups);
+        return new EmployeeGroups(3, employeeGroups);
     }
 }
