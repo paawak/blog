@@ -1,6 +1,5 @@
 package com.swayam.demo.xml;
 
-import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.xml.bind.JAXBContext;
@@ -38,12 +37,6 @@ public class PlainJaxbSerializer implements XmlSerializer {
             marshaller.marshal(object, xmlResultCapturer);
         } catch (Exception e) {
             LOG.error("could not convert rmi output to xml", e);
-        } finally {
-            try {
-                outputStream.close();
-            } catch (IOException e) {
-                LOG.warn("could not close the output stream", e);
-            }
         }
 
     }

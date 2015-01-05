@@ -1,6 +1,5 @@
 package com.swayam.demo.xml;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +19,7 @@ public class JaxbSerializerWithSpring implements XmlSerializer {
     public void serialize(Object object, OutputStream outputStream) {
 
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setClassesToBeBound(EmployeeGroups.class, HashMap.class);
+        marshaller.setClassesToBeBound(EmployeeGroups.class);
         Map<String, Object> marshallerProperties = new HashMap<>();
         marshallerProperties.put(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.setMarshallerProperties(marshallerProperties);
@@ -30,12 +29,6 @@ public class JaxbSerializerWithSpring implements XmlSerializer {
             marshaller.marshal(object, xmlResultCapturer);
         } catch (Exception e) {
             LOG.error("could not convert rmi output to xml", e);
-        } finally {
-            try {
-                outputStream.close();
-            } catch (IOException e) {
-                LOG.warn("could not close the output stream", e);
-            }
         }
 
     }
