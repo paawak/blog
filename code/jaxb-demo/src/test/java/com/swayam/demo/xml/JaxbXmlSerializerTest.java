@@ -18,9 +18,9 @@ public class JaxbXmlSerializerTest {
 
     @Test
     public void testJaxbSerialization() throws FileNotFoundException {
-        XmlSerializer xmlSerializer = new JaxbXmlSerializer();
+        XmlSerializer xmlSerializer = new JaxbSpringSerializer();
         OutputStream outputStream = new FileOutputStream("jaxb.xml");
-        xmlSerializer.serialize(employeeGroups, outputStream);
+        xmlSerializer.serialize(employeeGroups.getEmployeeGroups(), outputStream);
     }
 
 }
