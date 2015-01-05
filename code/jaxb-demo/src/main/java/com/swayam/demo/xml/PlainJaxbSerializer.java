@@ -21,10 +21,11 @@ public class PlainJaxbSerializer implements XmlSerializer {
 
         JAXBContext jaxbContext;
         try {
-            jaxbContext = JAXBContext.newInstance("com.swayam.demo.xml");
+            jaxbContext = JAXBContext.newInstance(EmployeeGroups.class);
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
+
         Marshaller marshaller;
         try {
             marshaller = jaxbContext.createMarshaller();
