@@ -17,7 +17,6 @@ public class PlainJaxbSerializer implements XmlSerializer {
 
     @Override
     public void serialize(Object object, OutputStream outputStream) {
-
         JAXBContext jaxbContext;
         try {
             jaxbContext = JAXBContext.newInstance(EmployeeGroups.class);
@@ -38,7 +37,6 @@ public class PlainJaxbSerializer implements XmlSerializer {
         } catch (Exception e) {
             LOG.error("could not convert rmi output to xml", e);
         }
-
     }
 
 }

@@ -17,7 +17,6 @@ public class JaxbSerializerWithSpring implements XmlSerializer {
 
     @Override
     public void serialize(Object object, OutputStream outputStream) {
-
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(EmployeeGroups.class);
         Map<String, Object> marshallerProperties = new HashMap<>();
@@ -30,7 +29,6 @@ public class JaxbSerializerWithSpring implements XmlSerializer {
         } catch (Exception e) {
             LOG.error("could not convert rmi output to xml", e);
         }
-
     }
 
 }
