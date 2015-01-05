@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.swayam.demo.xml.jaxb.JaxbMapAdapter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -13,6 +16,7 @@ public class EmployeeGroups {
 
     private final int groupSize;
 
+    @XmlJavaTypeAdapter(JaxbMapAdapter.class)
     private final Map<EmployeeRole, List<Employee>> employeeGroups;
 
     public EmployeeGroups(int groupSize, Map<EmployeeRole, List<Employee>> employeeGroups) {
