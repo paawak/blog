@@ -1,0 +1,50 @@
+package com.swayam.demo.xml;
+
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class PlainJaxbSerializer implements XmlSerializer {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PlainJaxbSerializer.class);
+
+    @Override
+    public void serialize(Object object, OutputStream outputStream) {
+
+        JAXBContext jaxbContext;
+        try {
+            jaxbContext = JAXBContext.newInstance("com.swayam.demo.xml");
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
+        Marshaller marshaller;
+        try {
+            marshaller = jaxbContext.createMarshaller();
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
+
+        Result xmlResultCapturer = new StreamResult(outputStream);
+        try {
+            marshaller.marshal(object, xmlResultCapturer);
+        } catch (Exception e) {
+            LOG.error("could not convert rmi output to xml", e);
+        } finally {
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                LOG.warn("could not close the output stream", e);
+            }
+        }
+
+    }
+
+}

@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
-public class JaxbXmlSerializerTest {
+public class PlainJaxbSerializerTest {
 
     private EmployeeGroups employeeGroups;
 
@@ -17,8 +17,8 @@ public class JaxbXmlSerializerTest {
     }
 
     @Test
-    public void testJaxbSerialization() throws FileNotFoundException {
-        XmlSerializer xmlSerializer = new JaxbSpringSerializer();
+    public void testSerialization() throws FileNotFoundException {
+        XmlSerializer xmlSerializer = new PlainJaxbSerializer();
         OutputStream outputStream = new FileOutputStream("jaxb.xml");
         xmlSerializer.serialize(employeeGroups.getEmployeeGroups(), outputStream);
     }
