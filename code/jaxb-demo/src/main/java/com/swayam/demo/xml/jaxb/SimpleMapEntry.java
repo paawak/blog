@@ -2,13 +2,21 @@ package com.swayam.demo.xml.jaxb;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
 import com.swayam.demo.xml.Employee;
 import com.swayam.demo.xml.EmployeeRole;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class SimpleMapEntry {
 
     private EmployeeRole employeeRole;
 
+    @XmlElementWrapper(name = "employees")
+    @XmlElement(name = "employee")
     private List<Employee> employees;
 
     public EmployeeRole getEmployeeRole() {

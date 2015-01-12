@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
+import com.swayam.demo.xml.jaxb.SimpleMapEntry;
+
 public class JaxbSerializerWithSpring implements XmlSerializer {
 
     private static final Logger LOG = LoggerFactory.getLogger(JaxbSerializerWithSpring.class);
@@ -19,8 +21,9 @@ public class JaxbSerializerWithSpring implements XmlSerializer {
     @Override
     public void serialize(Object object, OutputStream outputStream) {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setClassesToBeBound(EmployeeGroups.class);
+        marshaller.setClassesToBeBound(EmployeeGroups.class, SimpleMapEntry.class);
         Map<String, Object> marshallerProperties = new HashMap<>();
+        // for formatted xml
         marshallerProperties.put(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.setMarshallerProperties(marshallerProperties);
 
