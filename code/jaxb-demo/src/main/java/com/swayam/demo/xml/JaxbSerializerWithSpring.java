@@ -4,6 +4,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.bind.Marshaller;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 
@@ -20,7 +21,7 @@ public class JaxbSerializerWithSpring implements XmlSerializer {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(EmployeeGroups.class);
         Map<String, Object> marshallerProperties = new HashMap<>();
-        marshallerProperties.put(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshallerProperties.put(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.setMarshallerProperties(marshallerProperties);
 
         Result xmlResultCapturer = new StreamResult(outputStream);

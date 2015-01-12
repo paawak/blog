@@ -10,10 +10,10 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import com.swayam.demo.xml.Employee;
 import com.swayam.demo.xml.EmployeeRole;
 
-public class JaxbMapAdapter extends XmlAdapter<List<SimpleMapEntry>, Map<EmployeeRole, List<Employee>>> {
+public class JaxbMapAdapter extends XmlAdapter<ListWrapper<SimpleMapEntry>, Map<EmployeeRole, List<Employee>>> {
 
     @Override
-    public List<SimpleMapEntry> marshal(Map<EmployeeRole, List<Employee>> employeeGroups) {
+    public ListWrapper<SimpleMapEntry> marshal(Map<EmployeeRole, List<Employee>> employeeGroups) {
         List<SimpleMapEntry> simpleEntries = new ArrayList<>();
 
         for (Entry<EmployeeRole, List<Employee>> employeeGroupEntry : employeeGroups.entrySet()) {
@@ -23,11 +23,11 @@ public class JaxbMapAdapter extends XmlAdapter<List<SimpleMapEntry>, Map<Employe
             simpleEntries.add(simpleMapEntry);
         }
 
-        return simpleEntries;
+        return new ListWrapper<>(simpleEntries);
     }
 
     @Override
-    public Map<EmployeeRole, List<Employee>> unmarshal(List<SimpleMapEntry> v) {
+    public Map<EmployeeRole, List<Employee>> unmarshal(ListWrapper<SimpleMapEntry> v) {
         throw new UnsupportedOperationException();
     }
 

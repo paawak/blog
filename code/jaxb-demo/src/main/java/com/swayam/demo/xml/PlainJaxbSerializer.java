@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 
@@ -29,6 +30,12 @@ public class PlainJaxbSerializer implements XmlSerializer {
             marshaller = jaxbContext.createMarshaller();
         } catch (JAXBException e) {
             throw new RuntimeException(e);
+        }
+
+        try {
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        } catch (PropertyException e) {
+            LOG.warn("Invalid property", e);
         }
 
         Result xmlResultCapturer = new StreamResult(outputStream);
