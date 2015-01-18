@@ -2,6 +2,7 @@ package com.swayam.demo.rmi.client;
 
 import java.lang.reflect.Method;
 import java.rmi.Remote;
+import java.rmi.server.RMIClassLoaderSpi;
 
 import net.jini.core.discovery.LookupLocator;
 import net.jini.core.entry.Entry;
@@ -25,8 +26,10 @@ public class DynamicDownloadRmiClient {
     public static void main(String[] args) throws Exception {
 
         System.setProperty("java.security.policy", DynamicDownloadRmiClient.class.getResource("/policy.all").getPath());
-        // System.setProperty(RMIClassLoaderSpi.class.getName(),
-        // MyClassProvider.class.getName());
+
+        // the below line is put only for debugging purposes, its not needed, as
+        // the default class loader is good enough
+        System.setProperty(RMIClassLoaderSpi.class.getName(), MyClassProvider.class.getName());
 
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
