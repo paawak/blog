@@ -20,6 +20,14 @@ import com.swayam.demo.rmi.service.UserService;
 
 public class SimpleNonSecureRmiServerWithDynamicCodeDownload {
 
+    private static final String CODE_BASE_URL = "http://localhost:8080/";
+    private static final String[] JARS_DOWNLOADED_DYNAMICALLY = new String[] { "RmiService-1.0.jar"/*
+                                                                                                    * ,
+                                                                                                    * "reggie-dl.jar"
+                                                                                                    * ,
+                                                                                                    * "jsk-dl.jar"
+                                                                                                    */};
+
     private final DiscoveryManagement discoveryManager;
     private final LeaseRenewalManager leaseRenewalManager;
 
@@ -47,8 +55,22 @@ public class SimpleNonSecureRmiServerWithDynamicCodeDownload {
         // BasicILFactory());
     }
 
+    private static String getRmiServerCodebase() {
+
+        StringBuilder urlBuilder = new StringBuilder(200);
+
+        for (String jar : JARS_DOWNLOADED_DYNAMICALLY) {
+            urlBuilder.append(CODE_BASE_URL).append(jar).append(" ");
+        }
+
+        urlBuilder.setLength(urlBuilder.length() - 1);
+
+        return urlBuilder.toString();
+
+    }
+
     public static void main(String[] args) throws Exception {
-        System.setProperty("java.rmi.server.codebase", "http://localhost:8080/RmiService-1.0.jar");
+        System.setProperty("java.rmi.server.codebase", getRmiServerCodebase());
         SimpleNonSecureRmiServerWithDynamicCodeDownload server = new SimpleNonSecureRmiServerWithDynamicCodeDownload();
         server.exportAndJoinServices();
         System.out.println("Hello server is ready");

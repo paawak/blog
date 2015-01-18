@@ -12,17 +12,6 @@ import net.jini.lookup.entry.Name;
 
 public class DynamicDownloadRmiClient {
 
-    /**
-     * Needs to be run with the following JVM args:<br/>
-     * <ul>
-     * <li>
-     * -Djava.security.policy=/full-path/RmiClient/src/main/resources/policy.all
-     * </li>
-     * <li>-Djava.rmi.server.RMIClassLoaderSpi=net.jini.loader.pref.
-     * PreferredClassProvider</li>
-     * <li>-Djava.rmi.server.codebase=http://localhost:8080/RmiService-1.0.jar</li>
-     * </ul>
-     */
     public static void main(String[] args) throws Exception {
 
         System.setProperty("java.security.policy", DynamicDownloadRmiClient.class.getResource("/policy.all").getPath());

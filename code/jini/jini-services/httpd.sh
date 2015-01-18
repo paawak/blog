@@ -21,4 +21,5 @@
 
 set -x
 
-java -jar lib/classserver.jar -port 8080 -dir lib:lib-dl $*
+#java -jar lib/classserver.jar -port 8080 -dir lib:lib-dl $*
+java -jar lib/classserver.jar -port 8080 -dir service-interface $*
