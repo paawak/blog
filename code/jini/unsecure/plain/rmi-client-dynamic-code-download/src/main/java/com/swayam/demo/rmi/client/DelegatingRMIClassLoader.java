@@ -8,14 +8,13 @@ import net.jini.loader.pref.PreferredClassProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MyClassProvider extends RMIClassLoaderSpi {
+public class DelegatingRMIClassLoader extends RMIClassLoaderSpi {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MyClassProvider.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DelegatingRMIClassLoader.class);
 
     private final PreferredClassProvider preferredClassProvider;
 
-    public MyClassProvider() {
-        // super(true);
+    public DelegatingRMIClassLoader() {
         this.preferredClassProvider = new PreferredClassProvider();
         LOG.debug("init");
     }

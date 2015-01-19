@@ -20,7 +20,7 @@ public class SpringNonSecureRmiClient {
 
         // the below line is put only for debugging purposes, its not needed, as
         // the default class loader is good enough
-        System.setProperty(RMIClassLoaderSpi.class.getName(), MyClassProvider.class.getName());
+        System.setProperty(RMIClassLoaderSpi.class.getName(), DelegatingRMIClassLoader.class.getName());
 
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
