@@ -1,5 +1,7 @@
 package com.swayam.demo.rmi.client;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,18 +9,16 @@ import java.util.Map;
 
 import org.jdesktop.swingx.treetable.AbstractTreeTableModel;
 
-import com.swayam.demo.rmi.dto.BankDetail;
-
 public class BankDetailTreeTableModel extends AbstractTreeTableModel {
 
     private static final String[] COLUMN_NAMES = new String[] { "id", "age", "job", "marital", "education", "default", "balance" };
 
     private static final String ROOT = "_ROOT_";
 
-    private final Map<String, List<BankDetail>> groupedBankDetails;
+    private final Map<String, List<?>> groupedBankDetails;
     private final List<String> groups;
 
-    public BankDetailTreeTableModel(Map<String, List<BankDetail>> groupedBankDetails) {
+    public BankDetailTreeTableModel(Map<String, List<?>> groupedBankDetails) {
         super(ROOT);
         this.groupedBankDetails = groupedBankDetails;
         groups = getGroups(groupedBankDetails);
@@ -44,11 +44,11 @@ public class BankDetailTreeTableModel extends AbstractTreeTableModel {
                 return node;
             }
             return COLUMN_NAMES[column - 1];
-        } else if (node instanceof BankDetail) {
+        } else if (node instanceof Object) {
             if (column == 0) {
                 return null;
             }
-            return displayColumnValue((BankDetail) node, column - 1);
+            return displayColumnValue(node, column - 1);
         }
 
         return null;
@@ -80,30 +80,44 @@ public class BankDetailTreeTableModel extends AbstractTreeTableModel {
         return 0;
     }
 
-    private List<String> getGroups(Map<String, List<BankDetail>> groupedBankDetails) {
+    private List<String> getGroups(Map<String, List<?>> groupedBankDetails) {
         List<String> groups = new ArrayList<>(groupedBankDetails.keySet());
         Collections.sort(groups);
         return groups;
     }
 
-    private String displayColumnValue(BankDetail bankDetail, int columnIndex) {
+    private String displayColumnValue(Object bankDetail, int columnIndex) {
         switch (columnIndex) {
         case 0:
-            return Integer.toString(bankDetail.getId());
+            return invokeMethodOnBankDetail(bankDetail, "getId").toString();
         case 1:
-            return Integer.toString(bankDetail.getAge());
+            return invokeMethodOnBankDetail(bankDetail, "getAge").toString();
         case 2:
-            return bankDetail.getJob();
+            return (String) invokeMethodOnBankDetail(bankDetail, "getJob");
         case 3:
-            return bankDetail.getMarital();
+            return (String) invokeMethodOnBankDetail(bankDetail, "getMarital");
         case 4:
-            return bankDetail.getEducation();
+            return (String) invokeMethodOnBankDetail(bankDetail, "getEducation");
         case 5:
-            return bankDetail.getDefaulted();
+            return (String) invokeMethodOnBankDetail(bankDetail, "getDefaulted");
         case 6:
-            return bankDetail.getBalance().toPlainString();
+            return invokeMethodOnBankDetail(bankDetail, "getBalance").toString();
         default:
             throw new IllegalArgumentException("columnIndex " + columnIndex + " is not handled");
+        }
+    }
+
+    private Object invokeMethodOnBankDetail(Object bankDetail, String methodName) {
+        Method method;
+        try {
+            method = bankDetail.getClass().getDeclaredMethod(methodName);
+        } catch (NoSuchMethodException | SecurityException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            return method.invoke(bankDetail);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            throw new RuntimeException(e);
         }
     }
 

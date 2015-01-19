@@ -12,15 +12,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.swayam.demo.rmi.dto.BankDetail;
-
 public class SpringNonSecureRmiClient {
 
     public static void main(String[] args) throws Exception {
 
         System.setProperty("java.security.policy", System.getProperty("user.home") + "/jini/policy.all");
-
-        System.out.println("SpringNonSecureRmiClient.main() java.security.policy=" + System.getProperty("java.security.policy"));
 
         // the below line is put only for debugging purposes, its not needed, as
         // the default class loader is good enough
@@ -28,18 +24,17 @@ public class SpringNonSecureRmiClient {
 
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
-            System.out.println("DynamicDownloadRmiClient.main() setting custom security manager");
         }
 
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("client-application.xml");
         Remote bankDetailService = (Remote) context.getBean("bankDetailService");
         Method getBankDetailsForJob = bankDetailService.getClass().getDeclaredMethod("getBankDetailsForJob");
-        Map<String, List<BankDetail>> groupedBankDetails = (Map<String, List<BankDetail>>) getBankDetailsForJob.invoke(bankDetailService);
+        Map<String, List<?>> groupedBankDetails = (Map<String, List<?>>) getBankDetailsForJob.invoke(bankDetailService);
         showFrame(groupedBankDetails);
 
     }
 
-    private static void showFrame(Map<String, List<BankDetail>> groupedBankDetails) {
+    private static void showFrame(Map<String, List<?>> groupedBankDetails) {
         for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
             if ("Nimbus".equals(info.getName())) {
                 try {

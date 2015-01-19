@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.Map;
 
-import com.swayam.demo.rmi.dto.BankDetail;
-
 /**
  *
  * @author paawak
@@ -14,12 +12,12 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private final Map<String, List<BankDetail>> groupedBankDetails;
+    private final Map<String, List<?>> groupedBankDetails;
 
     /**
      * Creates new form GroupingDemoFrame
      */
-    public GroupingDemoFrame(Map<String, List<BankDetail>> groupedBankDetails) {
+    public GroupingDemoFrame(Map<String, List<?>> groupedBankDetails) {
         this.groupedBankDetails = groupedBankDetails;
 
         initComponents();

@@ -41,12 +41,6 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>com.swayam.demo.rmi.api</groupId>
-			<artifactId>rmi-service-api</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 		</dependency>
