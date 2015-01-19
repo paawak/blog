@@ -55,4 +55,10 @@ public class BankDetailServiceImplJava8 implements BankDetailService {
 
         return groupedBankDetails;
     }
+
+    @Override
+    public Map<String, List<BankDetail>> getBankDetailsForJob() {
+        return getBankDetails(BankDetailGroups.JOB);
+    }
+
 }

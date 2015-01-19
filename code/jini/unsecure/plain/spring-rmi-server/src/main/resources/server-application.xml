@@ -27,12 +27,11 @@
 
 	<bean id="serviceExporter" class="net.jini.jrmp.JrmpExporter" scope="prototype" />
 
-
 	<bean class="com.swayam.demo.rmi.server.core.ServiceExporter">
 		<property name="discoveryManager" ref="discoveryManager"/>
 		<property name="leaseRenewalManager" ref="leaseRenewalManager"/>
 		<property name="exporter" ref="serviceExporter" />
-		<property name="serviceName" value="BankAccountService" />
+		<property name="serviceName" value="BankDetailService" />
 		<property name="service">
 			<ref bean="bankDetailServiceImplJava8"/>
 		</property>
