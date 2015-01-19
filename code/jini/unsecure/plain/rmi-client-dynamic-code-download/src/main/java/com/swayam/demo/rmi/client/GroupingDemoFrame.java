@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.swayam.demo.rmi.dto.BankDetail;
-import com.swayam.demo.rmi.dto.BankDetailGroups;
-import com.swayam.demo.rmi.service.BankDetailService;
 
 /**
  *
@@ -16,14 +14,13 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private final BankDetailService bankDetailServiceJava8;
+    private final Map<String, List<BankDetail>> groupedBankDetails;
 
     /**
      * Creates new form GroupingDemoFrame
      */
-    public GroupingDemoFrame(BankDetailService bankDetailServiceJava8) {
-
-        this.bankDetailServiceJava8 = bankDetailServiceJava8;
+    public GroupingDemoFrame(Map<String, List<BankDetail>> groupedBankDetails) {
+        this.groupedBankDetails = groupedBankDetails;
 
         initComponents();
         attachListeners();
@@ -32,24 +29,7 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
     private void attachListeners() {
 
         btSubmit.addActionListener((ActionEvent evt) -> {
-            BankDetailGroups selectedGroup;
-            if (rdBtEducation.isSelected()) {
-                selectedGroup = BankDetailGroups.EDUCATION;
-            } else if (rdBtMaritalStatus.isSelected()) {
-                selectedGroup = BankDetailGroups.MARITAL_STATUS;
-            } else {
-                selectedGroup = BankDetailGroups.JOB;
-            }
-
-            Map<String, List<BankDetail>> groupedBankDetails;
-            try {
-                groupedBankDetails = bankDetailServiceJava8.getBankDetails(selectedGroup);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
             treeTblBankDetails.setTreeTableModel(new BankDetailTreeTableModel(groupedBankDetails));
-
         });
 
     }

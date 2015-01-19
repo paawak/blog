@@ -5,12 +5,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringNonSecureRmiServer {
 
     private static final String CODE_BASE_URL = "http://localhost:8080/";
-    private static final String[] JARS_DOWNLOADED_DYNAMICALLY = new String[] { "RmiService-1.0.jar"/*
-                                                                                                    * ,
-                                                                                                    * "reggie-dl.jar"
-                                                                                                    * ,
-                                                                                                    * "jsk-dl.jar"
-                                                                                                    */};
+    private static final String[] JARS_DOWNLOADED_DYNAMICALLY = new String[] { "rmi-service-api-1.0.jar"/*
+                                                                                                         * ,
+                                                                                                         * "reggie-dl.jar"
+                                                                                                         * ,
+                                                                                                         * "jsk-dl.jar"
+                                                                                                         */};
 
     private static String getRmiServerCodebase() {
 

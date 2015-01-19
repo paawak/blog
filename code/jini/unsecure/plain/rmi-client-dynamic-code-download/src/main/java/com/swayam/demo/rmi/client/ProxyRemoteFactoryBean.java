@@ -2,18 +2,17 @@ package com.swayam.demo.rmi.client;
 
 import java.rmi.Remote;
 
-import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.InitializingBean;
-
 import net.jini.core.discovery.LookupLocator;
 import net.jini.core.entry.Entry;
 import net.jini.core.lookup.ServiceTemplate;
 import net.jini.lookup.entry.Name;
 
+import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.InitializingBean;
+
 public class ProxyRemoteFactoryBean implements FactoryBean<Remote>, InitializingBean {
 
     private LookupLocator lookupLocator;
-    private Class<?> serviceInterface;
     private String serviceName;
     private Remote remoteService;
 
@@ -24,7 +23,7 @@ public class ProxyRemoteFactoryBean implements FactoryBean<Remote>, Initializing
 
     @Override
     public Class<?> getObjectType() {
-        return serviceInterface;
+        return Remote.class;
     }
 
     @Override
@@ -34,8 +33,7 @@ public class ProxyRemoteFactoryBean implements FactoryBean<Remote>, Initializing
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        remoteService = (Remote) lookupLocator.getRegistrar().lookup(new ServiceTemplate(null,
-                new Class[]{serviceInterface}, new Entry[]{new Name(serviceName)}));
+        remoteService = (Remote) lookupLocator.getRegistrar().lookup(new ServiceTemplate(null, null, new Entry[] { new Name(serviceName) }));
     }
 
     public LookupLocator getLookupLocator() {
@@ -52,14 +50,6 @@ public class ProxyRemoteFactoryBean implements FactoryBean<Remote>, Initializing
 
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
-    }
-
-    public Class<?> getServiceInterface() {
-        return serviceInterface;
-    }
-
-    public void setServiceInterface(Class<?> serviceInterface) {
-        this.serviceInterface = serviceInterface;
     }
 
 }

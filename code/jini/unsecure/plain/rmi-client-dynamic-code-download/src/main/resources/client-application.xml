@@ -14,7 +14,6 @@
 
 	<bean id="bankDetailService" class="com.swayam.demo.rmi.client.ProxyRemoteFactoryBean">
 		<property name="lookupLocator" ref="lookupLocator" />
-		<property name="serviceInterface" value="com.swayam.demo.rmi.service.BankDetailService" />
 		<property name="serviceName" value="BankDetailService" />
 	</bean>
 
