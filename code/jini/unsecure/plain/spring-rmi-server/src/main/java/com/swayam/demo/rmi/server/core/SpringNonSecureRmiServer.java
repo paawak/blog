@@ -27,7 +27,9 @@ public class SpringNonSecureRmiServer {
     }
 
     public static void main(String[] args) {
-        System.setProperty("java.rmi.server.codebase", getRmiServerCodebase());
+        String codebase = getRmiServerCodebase();
+        System.out.println("SpringNonSecureRmiServer.main(): codebase: " + codebase);
+        System.setProperty("java.rmi.server.codebase", codebase);
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("server-application.xml")) {
             System.out.println("SpringNonSecureRmiServer.main(): " + "The server is ready");
         }
