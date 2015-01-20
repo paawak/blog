@@ -93,7 +93,7 @@
 							<programs>
 								<program>
 									<mainClass>com.swayam.demo.rmi.client.SpringNonSecureRmiClient</mainClass>
-									<name>show_swing_app</name>
+									<name>launch_swing_app</name>
 								</program>
 							</programs>
 						</configuration>
