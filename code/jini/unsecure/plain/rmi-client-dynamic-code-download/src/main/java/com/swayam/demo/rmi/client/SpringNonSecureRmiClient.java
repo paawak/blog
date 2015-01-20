@@ -1,13 +1,11 @@
 package com.swayam.demo.rmi.client;
 
 import java.awt.EventQueue;
-import java.lang.reflect.Method;
 import java.rmi.Remote;
 import java.rmi.server.RMIClassLoaderSpi;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,16 +24,15 @@ public class SpringNonSecureRmiClient {
             System.setSecurityManager(new SecurityManager());
         }
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("client-application.xml");
-        Remote bankDetailService = (Remote) context.getBean("bankDetailService");
-        Method getBankDetailsForJob = bankDetailService.getClass().getDeclaredMethod("getBankDetailsForJob");
-        Map<String, List<?>> groupedBankDetails = (Map<String, List<?>>) getBankDetailsForJob.invoke(bankDetailService);
-        showFrame(groupedBankDetails);
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("client-application.xml")) {
+            Remote bankDetailService = context.getBean("bankDetailService", Remote.class);
+            showFrame(bankDetailService);
+        }
 
     }
 
-    private static void showFrame(Map<String, List<?>> groupedBankDetails) {
-        for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+    private static void showFrame(Remote bankDetailService) {
+        for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
             if ("Nimbus".equals(info.getName())) {
                 try {
                     UIManager.setLookAndFeel(info.getClassName());
@@ -47,7 +44,7 @@ public class SpringNonSecureRmiClient {
         }
 
         EventQueue.invokeLater(() -> {
-            new GroupingDemoFrame(groupedBankDetails).setVisible(true);
+            new GroupingDemoFrame(bankDetailService).setVisible(true);
         });
     }
 

@@ -1,6 +1,12 @@
 package com.swayam.demo.rmi.client;
 
 import java.awt.event.ActionEvent;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.rmi.Remote;
+import java.rmi.server.RMIClassLoader;
 import java.util.List;
 import java.util.Map;
 
@@ -12,13 +18,13 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private final Map<String, List<?>> groupedBankDetails;
+    private final Remote bankDetailService;
 
     /**
      * Creates new form GroupingDemoFrame
      */
-    public GroupingDemoFrame(Map<String, List<?>> groupedBankDetails) {
-        this.groupedBankDetails = groupedBankDetails;
+    public GroupingDemoFrame(Remote bankDetailService) {
+        this.bankDetailService = bankDetailService;
 
         initComponents();
         attachListeners();
@@ -27,8 +33,58 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
     private void attachListeners() {
 
         btSubmit.addActionListener((ActionEvent evt) -> {
+
+            String selectedGroup;
+            if (rdBtEducation.isSelected()) {
+                selectedGroup = "EDUCATION";
+            } else if (rdBtMaritalStatus.isSelected()) {
+                selectedGroup = "MARITAL_STATUS";
+            } else {
+                selectedGroup = "JOB";
+            }
+
+            Map<String, List<?>> groupedBankDetails = queryRemoteService(selectedGroup);
+
             treeTblBankDetails.setTreeTableModel(new BankDetailTreeTableModel(groupedBankDetails));
         });
+
+    }
+
+    private Map<String, List<?>> queryRemoteService(String bankDetailGroupsEnumString) {
+
+        Class<?> bankDetailGroupsEnumClass;
+        try {
+            bankDetailGroupsEnumClass = RMIClassLoader.loadClass("http://localhost:8080/rmi-service-api-1.0.jar", "com.swayam.demo.rmi.dto.BankDetailGroups");
+        } catch (MalformedURLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Field field;
+        try {
+            field = bankDetailGroupsEnumClass.getDeclaredField(bankDetailGroupsEnumString);
+        } catch (NoSuchFieldException | SecurityException e) {
+            throw new RuntimeException(e);
+        }
+        Object bankDetailGroupsEnumValue;
+        try {
+            bankDetailGroupsEnumValue = field.get(bankDetailGroupsEnumClass);
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
+        Method getBankDetails;
+        try {
+            getBankDetails = bankDetailService.getClass().getDeclaredMethod("getBankDetails", bankDetailGroupsEnumClass);
+        } catch (NoSuchMethodException | SecurityException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            @SuppressWarnings("unchecked")
+            Map<String, List<?>> groupedBankDetails = (Map<String, List<?>>) getBankDetails.invoke(bankDetailService, bankDetailGroupsEnumValue);
+            return groupedBankDetails;
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
