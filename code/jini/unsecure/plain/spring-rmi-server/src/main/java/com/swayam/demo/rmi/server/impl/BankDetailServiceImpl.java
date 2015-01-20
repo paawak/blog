@@ -14,13 +14,13 @@ import com.swayam.demo.rmi.dto.BankDetail;
 import com.swayam.demo.rmi.dto.BankDetailGroups;
 import com.swayam.demo.rmi.service.BankDetailService;
 
-@Service("bankDetailServiceImplJava8")
-public class BankDetailServiceImplJava8 implements BankDetailService {
+@Service("bankDetailServiceImpl")
+public class BankDetailServiceImpl implements BankDetailService {
 
     private final BankDetailDao bankDetailDao;
 
     @Autowired
-    public BankDetailServiceImplJava8(BankDetailDao bankDetailDao) {
+    public BankDetailServiceImpl(BankDetailDao bankDetailDao) {
         this.bankDetailDao = bankDetailDao;
     }
 
@@ -54,11 +54,6 @@ public class BankDetailServiceImplJava8 implements BankDetailService {
         groupedBankDetails = unGroupedBankDetails.parallelStream().collect(groupByCollector);
 
         return groupedBankDetails;
-    }
-
-    @Override
-    public Map<String, List<BankDetail>> getBankDetailsForJob() {
-        return getBankDetails(BankDetailGroups.JOB);
     }
 
 }

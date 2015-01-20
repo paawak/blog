@@ -12,6 +12,4 @@ public interface BankDetailService extends Remote {
 
     Map<String, List<BankDetail>> getBankDetails(BankDetailGroups group) throws RemoteException;
 
-    Map<String, List<BankDetail>> getBankDetailsForJob() throws RemoteException;
-
 }

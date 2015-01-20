@@ -33,7 +33,7 @@
 		<property name="exporter" ref="serviceExporter" />
 		<property name="serviceName" value="BankDetailService" />
 		<property name="service">
-			<ref bean="bankDetailServiceImplJava8"/>
+			<ref bean="bankDetailServiceImpl"/>
 		</property>
 	</bean>
 	
