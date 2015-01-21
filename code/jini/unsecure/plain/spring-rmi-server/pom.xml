@@ -7,7 +7,8 @@
 	<packaging>jar</packaging>
 	<name>SpringRmiServer</name>
 	<description>
-	This is a non secured implementation of a Jini server. This has only a small no. of functionalities. It is spring-ified.
+	This is a non secured implementation of a Jini server. This has only a small no. of functionalities. It is spring-ified. 
+	And, it supports dynamic download of the Remote Interfaces as well. 
 	</description>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -105,6 +106,7 @@
 			<id>MavenAssemble</id>
 			<build>
 				<plugins>
+					<!-- creates a distribution with all dependencies to run the Rmi Server -->
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>appassembler-maven-plugin</artifactId>
@@ -128,6 +130,24 @@
 								<phase>package</phase>
 								<goals>
 									<goal>assemble</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- zips the jars and .sh scripts created into single file -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>2.4</version>
+						<configuration>
+							<descriptor>src/assembly/rmi-server-assembly-descriptor.xml</descriptor>
+						</configuration>
+						<executions>
+							<execution>
+								<id>assemble-all</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
 								</goals>
 							</execution>
 						</executions>
