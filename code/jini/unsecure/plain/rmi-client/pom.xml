@@ -41,9 +41,9 @@
 	</dependencyManagement>	
 	<dependencies>
 		<dependency>
-			<groupId>com.swayam.demo.rmi.api</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>rmi-service-api</artifactId>
-			<version>1.0</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

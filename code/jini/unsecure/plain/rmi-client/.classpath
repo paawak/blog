@@ -7,7 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="**/*.java" including="**/*.java" kind="src" path="src/main/resources"/>
-	<classpathentry kind="var" path="M2_REPO/com/swayam/demo/rmi/api/rmi-service-api/1.0/rmi-service-api-1.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/4.0.2.RELEASE/spring-context-4.0.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-context/4.0.2.RELEASE/spring-context-4.0.2.RELEASE-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/home/paawak/.m2/repository/org/springframework/spring-context/4.0.2.RELEASE/spring-context-4.0.2.RELEASE-javadoc.jar!/"/>
