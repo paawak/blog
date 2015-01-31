@@ -54,7 +54,7 @@ public class GroupingDemoFrame extends javax.swing.JFrame {
 
         Class<?> bankDetailGroupsEnumClass;
         try {
-            bankDetailGroupsEnumClass = RMIClassLoader.loadClass("http://localhost:8080/rmi-service-api-1.0.jar", "com.swayam.demo.rmi.dto.BankDetailGroups");
+            bankDetailGroupsEnumClass = RMIClassLoader.loadClass("http://localhost:8080/rmi-service-1.0.jar", "com.swayam.demo.rmi.dto.BankDetailGroups");
         } catch (MalformedURLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
