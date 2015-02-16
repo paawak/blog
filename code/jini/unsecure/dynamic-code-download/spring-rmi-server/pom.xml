@@ -114,7 +114,7 @@
 						<configuration>
 							<repositoryLayout>flat</repositoryLayout>
 							<repositoryName>lib</repositoryName>
-							<showConsoleWindow>false</showConsoleWindow>
+							<showConsoleWindow>true</showConsoleWindow>
 							<platforms>
 								<platform>unix</platform>
 							</platforms>
