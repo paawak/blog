@@ -6,7 +6,6 @@ import net.jini.core.entry.Entry;
 import net.jini.core.lookup.ServiceID;
 import net.jini.discovery.DiscoveryManagement;
 import net.jini.export.Exporter;
-import net.jini.jeri.BasicILFactory;
 import net.jini.jeri.BasicJeriExporter;
 import net.jini.jeri.tcp.TcpServerEndpoint;
 import net.jini.lease.LeaseRenewalManager;
@@ -63,7 +62,7 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getExporter() {
-        return new BasicJeriExporter(TcpServerEndpoint.getInstance(4401), new BasicILFactory());
+        return new BasicJeriExporter(TcpServerEndpoint.getInstance(4401), new BasicILFactoryWithLogging());
     }
 
 }
