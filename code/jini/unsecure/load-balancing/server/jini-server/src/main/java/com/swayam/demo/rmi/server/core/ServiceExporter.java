@@ -2,21 +2,23 @@ package com.swayam.demo.rmi.server.core;
 
 import java.rmi.Remote;
 
-import org.springframework.beans.factory.InitializingBean;
-
 import net.jini.core.entry.Entry;
 import net.jini.core.lookup.ServiceID;
 import net.jini.discovery.DiscoveryManagement;
 import net.jini.export.Exporter;
+import net.jini.jeri.BasicILFactory;
+import net.jini.jeri.BasicJeriExporter;
+import net.jini.jeri.tcp.TcpServerEndpoint;
 import net.jini.lease.LeaseRenewalManager;
 import net.jini.lookup.JoinManager;
 import net.jini.lookup.entry.Name;
+
+import org.springframework.beans.factory.InitializingBean;
 
 public class ServiceExporter implements InitializingBean {
 
     private DiscoveryManagement discoveryManager;
     private LeaseRenewalManager leaseRenewalManager;
-    private Exporter exporter;
     private Remote service;
     private String serviceName;
 
@@ -34,14 +36,6 @@ public class ServiceExporter implements InitializingBean {
 
     public void setLeaseRenewalManager(LeaseRenewalManager leaseRenewalManager) {
         this.leaseRenewalManager = leaseRenewalManager;
-    }
-
-    public Exporter getExporter() {
-        return exporter;
-    }
-
-    public void setExporter(Exporter exporter) {
-        this.exporter = exporter;
     }
 
     public Remote getService() {
@@ -62,9 +56,14 @@ public class ServiceExporter implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        Exporter exporter = getExporter();
         Remote exportedService = exporter.export(service);
-        JoinManager joinManager = new JoinManager(exportedService, new Entry[]{new Name(serviceName)},
+        JoinManager joinManager = new JoinManager(exportedService, new Entry[] { new Name(serviceName) },
                 (ServiceID) null, discoveryManager, leaseRenewalManager);
+    }
+
+    private Exporter getExporter() {
+        return new BasicJeriExporter(TcpServerEndpoint.getInstance(4401), new BasicILFactory());
     }
 
 }
