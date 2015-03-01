@@ -22,6 +22,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/kaaj/blog/code/jini/unsecure/jini-services/reggie-libs/start.jar"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
+	<referencedentry kind="lib" path="/kaaj/blog/code/jini/unsecure/jini-services/reggie-libs/jsk-platform.jar" sourcepath="/kaaj/apache-river/apache-river-2.2.2-src.zip"/>
 </classpath>
