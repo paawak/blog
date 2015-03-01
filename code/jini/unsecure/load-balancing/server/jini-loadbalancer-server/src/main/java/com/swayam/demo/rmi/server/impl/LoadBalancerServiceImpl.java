@@ -29,7 +29,7 @@ public class LoadBalancerServiceImpl implements LoadBalancerService {
     public <T extends Remote> T lookup(String serviceName, Class<T> remoteClass) throws RemoteException {
         try {
             T remoteService = (T) serverLookupLocator.getRegistrar().lookup(
-                    new ServiceTemplate(null, new Class[] {}, new Entry[] { new Name(serviceName) }));
+                    new ServiceTemplate(null, new Class[] { remoteClass }, new Entry[] { new Name(serviceName) }));
 
             return remoteService;
         } catch (ClassNotFoundException | IOException e) {
