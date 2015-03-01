@@ -34,20 +34,22 @@ public class ReggieStarterConfiguration extends AbstractConfiguration {
         return null;
     }
 
-    private void checkConfiguration(String component) {
-        if (!COMPONENT_NAME.equals(component)) {
-            throw new IllegalArgumentException("The configuration from " + component + " is not supported");
-        }
-    }
-
-    private ServiceDescriptor getServiceDescriptor() {
+    private ServiceDescriptor getServiceDescriptor() throws ConfigurationException {
         return new NonActivatableServiceDescriptor(
                 "",// codebase
                 "", // policy
                 "",// classpath
                 "com.sun.jini.reggie.TransientRegistrarImpl",
-                new String[] { "/kaaj/blog/code/jini/unsecure/jini-services/config/jeri-reggie.config" }// config
-        );
+                new ConfigurationFileWithLogging(
+                        new String[] { "/kaaj/blog/code/jini/unsecure/jini-services/config/jeri-reggie.config" }),
+                null,
+                null);
+    }
+
+    private void checkConfiguration(String component) {
+        if (!COMPONENT_NAME.equals(component)) {
+            throw new IllegalArgumentException("The configuration from " + component + " is not supported");
+        }
     }
 
 }
