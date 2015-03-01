@@ -9,6 +9,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.swayam.demo.rmi.service.BankDetailService;
+import com.swayam.demo.rmi.service.LoadBalancerService;
 
 public class SpringNonSecureRmiClient {
 
@@ -21,7 +22,9 @@ public class SpringNonSecureRmiClient {
         }
 
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("client-application.xml")) {
-            BankDetailService bankDetailService = context.getBean("bankDetailService", BankDetailService.class);
+            LoadBalancerService loadBalancerService = context.getBean("loadBalancerService", LoadBalancerService.class);
+            BankDetailService bankDetailService = loadBalancerService.lookup("BankDetailService",
+                    BankDetailService.class);
             showFrame(bankDetailService);
         }
 

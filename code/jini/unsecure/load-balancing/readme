@@ -1,0 +1,9 @@
+The load balancing architecture here is very very simple. There is a single load balancer with its own reggie running at 6670. This is the primary contact point for all clients.
+
+There are multiple reggie involved for load balancing. The following convention is followed:
+
+1. The reggie for load balancer is at 6670
+2. The reggie for the actual jini servers are at 5561, 5562, 5563, etc.
+
+When the load-balancer recieves a request from client, it does the look-up at the appropriate jini-server and returns the remote service.
+

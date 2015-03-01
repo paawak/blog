@@ -17,7 +17,7 @@
 		<constructor-arg>
 			<list>
 				<bean class="net.jini.core.discovery.LookupLocator">
-					<constructor-arg value="jini://localhost:6670" />
+					<constructor-arg value="jini://localhost:5561" />
 				</bean>
 			</list>
 		</constructor-arg>
