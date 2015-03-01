@@ -1,12 +1,6 @@
-/code/jini/unsecure/jini-services/logs/jini0.log.1
-/code/jini/unsecure/jini-services/logs/jini0.log.2
-/code/jini/unsecure/jini-services/logs/jini0.log.3
-/code/jini/unsecure/jini-services/logs/jini0.log.4
-/code/jini/unsecure/jini-services/logs/jini0.log.5
-/code/jini/unsecure/jini-services/logs/jini0.log.6
-/code/jini/unsecure/jini-services/logs/jini0.log.0
-**/.project
-**/.classpath
+*log*
+.project
+.classpath
 *~
 **target
 **bin
