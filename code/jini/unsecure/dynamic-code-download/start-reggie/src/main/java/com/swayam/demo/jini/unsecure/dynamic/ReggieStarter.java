@@ -3,6 +3,7 @@ package com.swayam.demo.jini.unsecure.dynamic;
 import net.jini.config.ConfigurationException;
 
 import com.sun.jini.start.ServiceStarter;
+import com.swayam.demo.jini.unsecure.dynamic.config.ReggieStarterConfiguration;
 
 public class ReggieStarter {
 

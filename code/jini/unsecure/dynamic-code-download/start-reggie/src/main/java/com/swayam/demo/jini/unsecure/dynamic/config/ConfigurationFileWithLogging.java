@@ -1,4 +1,4 @@
-package com.swayam.demo.jini.unsecure.dynamic;
+package com.swayam.demo.jini.unsecure.dynamic.config;
 
 import net.jini.config.Configuration;
 import net.jini.config.ConfigurationException;
