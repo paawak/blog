@@ -40,7 +40,7 @@
 	<classpathentry kind="var" path="M2_REPO/net/jini/jsk-platform/2.2.2/jsk-platform-2.2.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/net/jini/jsk-resources/2.2.2/jsk-resources-2.2.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/net/jini/jsk-lib/2.2.2/jsk-lib-2.2.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/river/reggie/2.2.2/reggie-2.2.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/river/reggie/2.2.2/reggie-2.2.2.jar" sourcepath="/JINI_SRC"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>

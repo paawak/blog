@@ -32,23 +32,25 @@ abstract class SimpleAbstractConfiguration implements Configuration {
     private Object getEntryInternal(String component, String name, Class type, Object defaultValue, Object data)
             throws ConfigurationException {
 
-        LOGGER.info("component:{}, name:{}, type:{}, defaultValue:{}, data:{}", new Object[] { component, name, type,
-                defaultValue, data });
-
         checkConfiguration(component);
 
         Optional<Object> optionalResult = getEntry(name, type);
 
+        Object result = null;
+
         if (optionalResult.isPresent()) {
-            return optionalResult.get();
+            result = optionalResult.get();
         }
 
-        if ((defaultValue != null) && (defaultValue !=
-                Configuration.NO_DEFAULT)) {
-            return defaultValue;
+        if ((defaultValue != null) && (defaultValue != Configuration.NO_DEFAULT)) {
+            result = defaultValue;
         }
 
-        return null;
+        LOGGER.info("component:{}, name:{}, type:{}, defaultValue:{}, data:{}, result:{}", new Object[] { component,
+                name, type,
+                defaultValue, data, result });
+
+        return result;
     }
 
     abstract Optional<Object> getEntry(String name, Class type) throws ConfigurationException;
@@ -57,7 +59,8 @@ abstract class SimpleAbstractConfiguration implements Configuration {
 
     private void checkConfiguration(String component) {
         if (!getTargetedComponentName().equals(component)) {
-            throw new IllegalArgumentException("The configuration from " + component + " is not supported");
+            throw new IllegalArgumentException("The configuration from " +
+                    component + " is not supported");
         }
     }
 
