@@ -15,10 +15,10 @@ public class ReggieConfiguration extends SimpleAbstractConfiguration {
     Optional<Object> getEntry(String name, Class type) {
         if (type == Exporter.class) {
             return Optional.of(getExporter());
+        } else if (name.equals("initialUnicastDiscoveryPort")) {
+            return Optional.of(4160);
         }
-        // else if (name.equals("initialUnicastDiscoveryPort")) {
-        // return Optional.of(4160);
-        // } else if (name.equals("multicastRequestSubjectChecker")) {
+        // else if (name.equals("multicastRequestSubjectChecker")) {
         // return Optional.of(new ClientSubjectChecker() {
         // @Override
         // public void checkClientSubject(Subject subject) {

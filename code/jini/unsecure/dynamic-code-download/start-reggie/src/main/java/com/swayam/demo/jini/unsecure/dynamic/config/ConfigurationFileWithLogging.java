@@ -1,5 +1,7 @@
 package com.swayam.demo.jini.unsecure.dynamic.config;
 
+import java.net.URL;
+
 import net.jini.config.Configuration;
 import net.jini.config.ConfigurationException;
 import net.jini.config.ConfigurationFile;
@@ -13,8 +15,9 @@ public class ConfigurationFileWithLogging implements Configuration {
 
     private final Configuration delegatingConfiguration;
 
-    public ConfigurationFileWithLogging(String[] pathToConfiguration) throws ConfigurationException {
-        delegatingConfiguration = new ConfigurationFile(pathToConfiguration);
+    public ConfigurationFileWithLogging(URL pathToConfiguration) throws ConfigurationException {
+        LOGGER.info("Loading configuration from: {}", pathToConfiguration);
+        delegatingConfiguration = new ConfigurationFile(new String[] { pathToConfiguration.getPath() });
     }
 
     @Override

@@ -30,10 +30,7 @@ public class ReggieStarterConfiguration extends SimpleAbstractConfiguration {
                 "", // policy
                 "",// classpath
                 "com.sun.jini.reggie.TransientRegistrarImpl",
-                new ConfigurationFileWithLogging(
-                        new String[] {
-                                "/kaaj/blog/code/jini/unsecure/jini-services/config/jeri-reggie.config"
-                        }),
+                new ConfigurationFileWithLogging(ReggieStarterConfiguration.class.getResource("/jeri-reggie.config")),
                 // new ReggieConfiguration(),
                 null,
                 null);
