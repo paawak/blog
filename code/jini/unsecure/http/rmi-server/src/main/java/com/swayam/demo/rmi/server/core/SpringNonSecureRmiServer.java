@@ -9,7 +9,7 @@ public class SpringNonSecureRmiServer {
 
     public static void main(String[] args) throws InterruptedException {
 
-        System.setProperty("java.security.policy", System.getProperty("user.home") + "/jini/policy.all");
+        System.setProperty("java.security.policy", SpringNonSecureRmiServer.class.getResource("/policy.all").getFile());
         ServiceStarter.main(new ReggieStarterConfiguration());
 
         Thread.sleep(5_000);
