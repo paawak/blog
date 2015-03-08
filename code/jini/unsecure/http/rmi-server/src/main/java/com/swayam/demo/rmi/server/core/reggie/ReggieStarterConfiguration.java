@@ -1,5 +1,6 @@
 package com.swayam.demo.rmi.server.core.reggie;
 
+import java.net.URL;
 import java.util.Optional;
 
 import net.jini.config.ConfigurationException;
@@ -10,6 +11,12 @@ import com.sun.jini.start.ServiceDescriptor;
 public class ReggieStarterConfiguration extends SimpleAbstractConfiguration {
 
     private static final String COMPONENT_NAME = "com.sun.jini.start";
+
+    private final URL exporterConfigFileUrl;
+
+    public ReggieStarterConfiguration(URL exporterConfigFileUrl) {
+        this.exporterConfigFileUrl = exporterConfigFileUrl;
+    }
 
     @Override
     Optional<Object> getEntry(String name, Class type) throws ConfigurationException {
@@ -30,7 +37,7 @@ public class ReggieStarterConfiguration extends SimpleAbstractConfiguration {
                 "", // policy
                 "",// classpath
                 "com.sun.jini.reggie.TransientRegistrarImpl",
-                new ConfigurationFileWithLogging(ReggieStarterConfiguration.class.getResource("/jeri-reggie.config")),
+                new ConfigurationFileWithLogging(exporterConfigFileUrl),
                 // new ReggieConfiguration(),
                 null,
                 null);
