@@ -7,7 +7,7 @@ import net.jini.core.lookup.ServiceID;
 import net.jini.discovery.DiscoveryManagement;
 import net.jini.export.Exporter;
 import net.jini.jeri.BasicJeriExporter;
-import net.jini.jeri.tcp.TcpServerEndpoint;
+import net.jini.jeri.http.HttpServerEndpoint;
 import net.jini.lease.LeaseRenewalManager;
 import net.jini.lookup.JoinManager;
 import net.jini.lookup.entry.Name;
@@ -58,12 +58,11 @@ public class ServiceExporter implements InitializingBean {
         Exporter exporter = getExporter();
         Remote exportedService = exporter.export(service);
         @SuppressWarnings("unused")
-        JoinManager joinManager = new JoinManager(exportedService, new Entry[] { new Name(serviceName) },
-                (ServiceID) null, discoveryManager, leaseRenewalManager);
+        JoinManager joinManager = new JoinManager(exportedService, new Entry[] { new Name(serviceName) }, (ServiceID) null, discoveryManager, leaseRenewalManager);
     }
 
     private Exporter getExporter() {
-        return new BasicJeriExporter(TcpServerEndpoint.getInstance(4401), new BasicILFactoryWithLogging());
+        return new BasicJeriExporter(HttpServerEndpoint.getInstance(4401), new BasicILFactoryWithLogging());
     }
 
 }

@@ -54,17 +54,22 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.5.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.5.8</version>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.8</version>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -83,27 +88,32 @@
 		<dependency>
 			<groupId>net.jini</groupId>
 			<artifactId>jsk-platform</artifactId>
-			<version>2.2.2</version>
+			<version>${jini.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.jini</groupId>
 			<artifactId>jsk-lib</artifactId>
-			<version>2.2.2</version>
+			<version>${jini.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.river</groupId>
 			<artifactId>reggie</artifactId>
-			<version>2.2.2</version>
+			<version>${jini.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.river</groupId>
 			<artifactId>start</artifactId>
-			<version>2.2.2</version>
-		</dependency>		
+			<version>${jini.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.27</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>9.3.0.M1</version>
 		</dependency>
 	</dependencies>
 	<profiles>
@@ -161,4 +171,9 @@
 			</build>
 		</profile>
 	</profiles>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<slf4j.version>1.7.10</slf4j.version>
+		<jini.version>2.2.2</jini.version>
+	</properties>
 </project>

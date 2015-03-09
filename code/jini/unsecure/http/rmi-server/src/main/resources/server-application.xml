@@ -9,9 +9,9 @@
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-          
-    <context:annotation-config/>
-    <context:component-scan base-package="com.swayam.demo.rmi.server.impl"/>
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.swayam.demo.rmi.server.impl" />
 
 	<bean id="discoveryManager" class="net.jini.discovery.LookupLocatorDiscovery">
 		<constructor-arg>
@@ -26,12 +26,48 @@
 	<bean id="leaseRenewalManager" class="net.jini.lease.LeaseRenewalManager" />
 
 	<bean class="com.swayam.demo.rmi.server.core.ServiceExporter">
-		<property name="discoveryManager" ref="discoveryManager"/>
-		<property name="leaseRenewalManager" ref="leaseRenewalManager"/>
+		<property name="discoveryManager" ref="discoveryManager" />
+		<property name="leaseRenewalManager" ref="leaseRenewalManager" />
 		<property name="serviceName" value="BankDetailService" />
 		<property name="service">
-			<ref bean="bankDetailServiceImpl"/>
+			<ref bean="bankDetailServiceImpl" />
 		</property>
 	</bean>
-	
+
+	<bean id="Server" class="org.eclipse.jetty.server.Server"
+		init-method="start" destroy-method="stop">
+		<constructor-arg value="8100"/>
+		
+		<!-- 
+		<property name="connectors">
+			<list>
+				<bean id="Connector" class="org.eclipse.jetty.server.nio.SelectChannelConnector">
+					<property name="port" value="8100" />
+				</bean>
+			</list>
+		</property>
+		-->
+
+		<property name="handler">
+			<bean id="handlers" class="org.eclipse.jetty.server.handler.HandlerList">
+				<property name="handlers">
+					<list>
+						<bean class="org.eclipse.jetty.server.handler.ResourceHandler">
+							<property name="directoriesListed" value="true" />
+							<!-- 
+							<property name="welcomeFiles">
+								<list>
+									<value>index.html</value>
+								</list>
+							</property>
+							-->
+							<property name="resourceBase" value="/kaaj/blog/code/jini/unsecure/http" />
+						</bean>
+						<bean class="org.eclipse.jetty.server.handler.DefaultHandler" />
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
 </beans>
