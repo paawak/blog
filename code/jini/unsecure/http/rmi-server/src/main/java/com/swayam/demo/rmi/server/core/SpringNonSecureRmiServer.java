@@ -21,30 +21,78 @@ public class SpringNonSecureRmiServer {
 
     public static void main(String[] args) throws InterruptedException {
 
-        CountDownLatch signalToStartServerThread = new CountDownLatch(1);
+        CountDownLatch signalToStartReggie = new CountDownLatch(1);
 
-        Thread reggieStarterThread = new Thread(new ReggieStarter(signalToStartServerThread));
+        Thread jettyStarterThread = new Thread(new JettyServerStarter(signalToStartReggie));
+        jettyStarterThread.setName(JettyServerStarter.class.getSimpleName());
+        jettyStarterThread.start();
+
+        CountDownLatch signalToStartRmiServer = new CountDownLatch(1);
+
+        Thread reggieStarterThread = new Thread(new ReggieStarter(signalToStartReggie, signalToStartRmiServer));
         reggieStarterThread.setName(ReggieStarter.class.getSimpleName());
-        // reggieStarterThread.setDaemon(true);
         reggieStarterThread.start();
 
-        Thread rmiServerStarterThread = new Thread(new RMIServerStarter(signalToStartServerThread));
+        Thread rmiServerStarterThread = new Thread(new RMIServerStarter(signalToStartRmiServer));
         rmiServerStarterThread.setName(RMIServerStarter.class.getSimpleName());
-        rmiServerStarterThread.setDaemon(true);
         rmiServerStarterThread.start();
 
     }
 
-    private static class ReggieStarter implements Runnable {
+    private static class JettyServerStarter implements Runnable {
 
-        private final CountDownLatch signalToStartServerThread;
+        private final CountDownLatch signalToStartReggie;
 
-        public ReggieStarter(CountDownLatch signalToStartServerThread) {
-            this.signalToStartServerThread = signalToStartServerThread;
+        JettyServerStarter(CountDownLatch signalToStart) {
+            this.signalToStartReggie = signalToStart;
         }
 
         @Override
         public void run() {
+
+            Server server = new Server(8100);
+
+            ResourceHandler resourceHandler = new ResourceHandler();
+            resourceHandler.setDirectoriesListed(true);
+            // resourceHandler.setWelcomeFiles(new String[] { "index.html" });
+            resourceHandler.setResourceBase(".");
+
+            // Add the ResourceHandler to the server.
+            HandlerList handlers = new HandlerList();
+            handlers.setHandlers(new Handler[] { resourceHandler, new DefaultHandler() });
+            server.setHandler(handlers);
+
+            try {
+                server.start();
+            } catch (Exception e) {
+                LOG.error("Error starting Jetty Server", e);
+                throw new RuntimeException(e);
+            }
+
+            signalToStartReggie.countDown();
+        }
+    }
+
+    private static class ReggieStarter implements Runnable {
+
+        private final CountDownLatch signalToStartReggie;
+        private final CountDownLatch signalToStartRmiServer;
+
+        ReggieStarter(CountDownLatch signalToStartReggie, CountDownLatch signalToStartRmiServer) {
+            this.signalToStartReggie = signalToStartReggie;
+            this.signalToStartRmiServer = signalToStartRmiServer;
+        }
+
+        @Override
+        public void run() {
+
+            try {
+                signalToStartReggie.await(3, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                LOG.error("Reggie was interrupted while waiting for Jetty to start", e);
+                throw new RuntimeException(e);
+            }
+
             String policyFilePath = SpringNonSecureRmiServer.class.getResource("/policy.all").getFile();
 
             LOG.info("Starting with the policy file {}", policyFilePath);
@@ -62,7 +110,7 @@ public class SpringNonSecureRmiServer {
 
             LOG.info("Started Reggie successfully");
 
-            signalToStartServerThread.countDown();
+            signalToStartRmiServer.countDown();
 
         }
 
@@ -70,38 +118,19 @@ public class SpringNonSecureRmiServer {
 
     private static class RMIServerStarter implements Runnable {
 
-        private final CountDownLatch signalToStartServerThread;
+        private final CountDownLatch signalToStartRmiServer;
 
-        public RMIServerStarter(CountDownLatch signalToStartServerThread) {
-            this.signalToStartServerThread = signalToStartServerThread;
+        RMIServerStarter(CountDownLatch signalToStartRmiServer) {
+            this.signalToStartRmiServer = signalToStartRmiServer;
         }
 
         @Override
         public void run() {
 
             try {
-                signalToStartServerThread.await(3, TimeUnit.SECONDS);
+                signalToStartRmiServer.await(3, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 LOG.error("RMI Server was interrupted while waiting for Reggie to start", e);
-                throw new RuntimeException(e);
-            }
-
-            Server server = new Server(8090);
-
-            ResourceHandler resourceHandler = new ResourceHandler();
-            resourceHandler.setDirectoriesListed(true);
-            // resourceHandler.setWelcomeFiles(new String[] { "index.html" });
-            resourceHandler.setResourceBase(".");
-
-            // Add the ResourceHandler to the server.
-            HandlerList handlers = new HandlerList();
-            handlers.setHandlers(new Handler[] { resourceHandler, new DefaultHandler() });
-            server.setHandler(handlers);
-
-            try {
-                server.start();
-            } catch (Exception e) {
-                LOG.error("Error starting Jetty Server", e);
                 throw new RuntimeException(e);
             }
 
