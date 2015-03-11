@@ -9,6 +9,7 @@ import net.jini.config.ConfigurationFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("rawtypes")
 public class ConfigurationFileWithLogging implements Configuration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationFileWithLogging.class);
@@ -28,21 +29,16 @@ public class ConfigurationFileWithLogging implements Configuration {
     }
 
     @Override
-    public Object getEntry(String component, String name, Class type, Object defaultValue)
-            throws ConfigurationException {
+    public Object getEntry(String component, String name, Class type, Object defaultValue) throws ConfigurationException {
         Object result = delegatingConfiguration.getEntry(component, name, type, defaultValue);
-        LOGGER.info("component:{}, name:{}, type:{}, defaultValue:{}, result:{}", new Object[] { component, name, type,
-                defaultValue, result });
+        LOGGER.info("component:{}, name:{}, type:{}, defaultValue:{}, result:{}", new Object[] { component, name, type, defaultValue, result });
         return result;
     }
 
     @Override
-    public Object getEntry(String component, String name, Class type, Object defaultValue, Object data)
-            throws ConfigurationException {
+    public Object getEntry(String component, String name, Class type, Object defaultValue, Object data) throws ConfigurationException {
         Object result = delegatingConfiguration.getEntry(component, name, type, defaultValue, data);
-        LOGGER.info("component:{}, name:{}, type:{}, defaultValue:{}, data:{}, result:{}", new Object[] { component,
-                name, type,
-                defaultValue, data, result });
+        LOGGER.info("component:{}, name:{}, type:{}, defaultValue:{}, data:{}, result:{}", new Object[] { component, name, type, defaultValue, data, result });
         return result;
     }
 

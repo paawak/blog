@@ -63,6 +63,8 @@ public class ServiceExporter implements InitializingBean {
 
     private Exporter getExporter() {
         return new BasicJeriExporter(HttpServerEndpoint.getInstance(0), new BasicILFactoryWithLogging());
+        // return new BasicJeriExporter(new JettyServerEndpoint(8100), new
+        // BasicILFactoryWithLogging());
     }
 
 }
