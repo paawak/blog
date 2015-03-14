@@ -5,7 +5,6 @@ import java.util.concurrent.CountDownLatch;
 import org.eclipse.jetty.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class JettyServerStarter implements Runnable {
 
@@ -20,12 +19,16 @@ public class JettyServerStarter implements Runnable {
     @Override
     public void run() {
 
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("jetty-spring.xml")) {
-            Server server = context.getBean(Server.class);
+        Server server = new Server(8100);
+
+        server.setHandler(new RmiCallHandler());
+
+        try {
             server.start();
             LOG.info("**************************************The WebSever is ready");
         } catch (Exception e) {
-            LOG.error("error starting web server", e);
+            LOG.error("Error starting Jetty Server", e);
+            throw new RuntimeException(e);
         }
 
         signalToStartReggie.countDown();
