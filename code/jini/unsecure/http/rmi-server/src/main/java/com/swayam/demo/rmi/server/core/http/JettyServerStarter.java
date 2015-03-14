@@ -23,7 +23,7 @@ public class JettyServerStarter implements Runnable {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("jetty-spring.xml")) {
             Server server = context.getBean(Server.class);
             server.start();
-            LOG.info("The WebSever is ready");
+            LOG.info("**************************************The WebSever is ready");
         } catch (Exception e) {
             LOG.error("error starting web server", e);
         }

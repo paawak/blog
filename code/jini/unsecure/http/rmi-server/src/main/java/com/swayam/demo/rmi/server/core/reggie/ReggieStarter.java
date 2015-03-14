@@ -25,7 +25,7 @@ public class ReggieStarter implements Runnable {
     public void run() {
 
         try {
-            signalToStartReggie.await(3, TimeUnit.SECONDS);
+            signalToStartReggie.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             LOG.error("Reggie was interrupted while waiting for Jetty to start", e);
             throw new RuntimeException(e);
@@ -46,7 +46,7 @@ public class ReggieStarter implements Runnable {
             throw new RuntimeException(e);
         }
 
-        LOG.info("Started Reggie successfully");
+        LOG.info("**************************************Started Reggie successfully");
 
         signalToStartRmiServer.countDown();
 

@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.server.core;
+package com.swayam.demo.rmi.server.core.rmi;
 
 import java.io.IOException;
 

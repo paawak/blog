@@ -25,7 +25,7 @@
 
 	<bean id="leaseRenewalManager" class="net.jini.lease.LeaseRenewalManager" />
 
-	<bean class="com.swayam.demo.rmi.server.core.ServiceExporter">
+	<bean class="com.swayam.demo.rmi.server.core.rmi.ServiceExporter">
 		<property name="discoveryManager" ref="discoveryManager" />
 		<property name="leaseRenewalManager" ref="leaseRenewalManager" />
 		<property name="serviceName" value="BankDetailService" />
