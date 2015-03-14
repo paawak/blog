@@ -2,13 +2,10 @@ package com.swayam.demo.rmi.server.core.http;
 
 import java.util.concurrent.CountDownLatch;
 
-import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class JettyServerStarter implements Runnable {
 
@@ -23,23 +20,12 @@ public class JettyServerStarter implements Runnable {
     @Override
     public void run() {
 
-        Server server = new Server(8100);
-
-        ResourceHandler resourceHandler = new ResourceHandler();
-        resourceHandler.setDirectoriesListed(true);
-        // resourceHandler.setWelcomeFiles(new String[] { "index.html" });
-        resourceHandler.setResourceBase(".");
-
-        // Add the ResourceHandler to the server.
-        HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[] { resourceHandler, new DefaultHandler() });
-        server.setHandler(handlers);
-
-        try {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("jetty-spring.xml")) {
+            Server server = context.getBean(Server.class);
             server.start();
+            LOG.info("The WebSever is ready");
         } catch (Exception e) {
-            LOG.error("Error starting Jetty Server", e);
-            throw new RuntimeException(e);
+            LOG.error("error starting web server", e);
         }
 
         signalToStartReggie.countDown();
