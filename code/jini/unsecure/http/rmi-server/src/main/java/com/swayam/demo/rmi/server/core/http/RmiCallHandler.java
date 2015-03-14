@@ -16,7 +16,7 @@ public class RmiCallHandler extends AbstractHandler {
 
     @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        LOG.info("handing request from {}", target);
+        LOG.info("######################handing request from {}", target);
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);

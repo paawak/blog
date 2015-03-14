@@ -2,6 +2,9 @@ package com.swayam.demo.rmi.server.core.rmi;
 
 import java.rmi.Remote;
 
+import javax.net.ServerSocketFactory;
+import javax.net.SocketFactory;
+
 import net.jini.core.entry.Entry;
 import net.jini.core.lookup.ServiceID;
 import net.jini.discovery.DiscoveryManagement;
@@ -13,6 +16,8 @@ import net.jini.lookup.JoinManager;
 import net.jini.lookup.entry.Name;
 
 import org.springframework.beans.factory.InitializingBean;
+
+import com.swayam.demo.rmi.api.shared.HttpSocketFactory;
 
 public class ServiceExporter implements InitializingBean {
 
@@ -62,7 +67,9 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getExporter() {
-        return new BasicJeriExporter(HttpServerEndpoint.getInstance(0), new BasicILFactoryWithLogging());
+        SocketFactory socketFactory = new HttpSocketFactory();
+        ServerSocketFactory serverSocketFactory = ServerSocketFactory.getDefault();
+        return new BasicJeriExporter(HttpServerEndpoint.getInstance("localhost", 0, socketFactory, serverSocketFactory), new BasicILFactoryWithLogging());
         // return new BasicJeriExporter(new JettyServerEndpoint(8100), new
         // BasicILFactoryWithLogging());
     }

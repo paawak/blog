@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.swayam.demo.rmi.dto.BankDetail;
+import com.swayam.demo.rmi.api.dto.BankDetail;
 
 @Repository
 public class BankDetailDao {

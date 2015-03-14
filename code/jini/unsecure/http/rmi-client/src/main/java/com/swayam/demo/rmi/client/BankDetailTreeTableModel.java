@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.jdesktop.swingx.treetable.AbstractTreeTableModel;
 
-import com.swayam.demo.rmi.dto.BankDetail;
+import com.swayam.demo.rmi.api.dto.BankDetail;
 
 public class BankDetailTreeTableModel extends AbstractTreeTableModel {
 
