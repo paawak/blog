@@ -8,9 +8,14 @@ import java.net.UnknownHostException;
 
 import javax.net.SocketFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class HttpSocketFactory extends SocketFactory implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpSocketFactory.class);
 
     // private final SocketFactory delegatingSocketFactory;
 
@@ -20,31 +25,32 @@ public class HttpSocketFactory extends SocketFactory implements Serializable {
 
     @Override
     public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
-        System.out.println("1111111111111111111111111111111111111111111");
+        LOGGER.debug("1111111111111111111111111111111111111111111");
         return SocketFactory.getDefault().createSocket(host, port);
     }
 
     @Override
     public Socket createSocket(InetAddress host, int port) throws IOException {
-        System.out.println("2222222222222222222222222222222222222222222222222");
+        LOGGER.debug("2222222222222222222222222222222222222222222222222");
         return SocketFactory.getDefault().createSocket(host, port);
     }
 
     @Override
     public Socket createSocket(String host, int port, InetAddress localHost, int localPort) throws IOException, UnknownHostException {
-        System.out.println("3333333333333333333333333333333333333333333333333333");
+        LOGGER.debug("3333333333333333333333333333333333333333333333333333");
         return SocketFactory.getDefault().createSocket(host, port, localHost, localPort);
     }
 
     @Override
     public Socket createSocket(InetAddress address, int port, InetAddress localAddress, int localPort) throws IOException {
-        System.out.println("44444444444444444444444444444444444444444444444444444");
+        LOGGER.debug("44444444444444444444444444444444444444444444444444444");
         return SocketFactory.getDefault().createSocket(address, port, localAddress, localPort);
     }
 
     @Override
-    public Socket createSocket() {
-        System.out.println("555555555555555555555555555555");
+    public Socket createSocket() throws UnknownHostException, IOException {
+        LOGGER.debug("555555555555555555555555555555");
+        // return new Socket("localhost", 8100);
         return new Socket();
     }
 

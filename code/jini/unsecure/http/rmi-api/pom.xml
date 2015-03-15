@@ -14,10 +14,24 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.10</version>
+			<scope>provided</scope>
+		</dependency>
+			<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>reggie</artifactId>
+			<version>2.2.2</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 </project>
