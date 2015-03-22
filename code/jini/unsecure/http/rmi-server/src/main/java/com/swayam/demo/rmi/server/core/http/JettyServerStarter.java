@@ -1,5 +1,6 @@
 package com.swayam.demo.rmi.server.core.http;
 
+import java.nio.file.Paths;
 import java.util.concurrent.CountDownLatch;
 
 import org.eclipse.jetty.server.Server;
@@ -24,7 +25,7 @@ public class JettyServerStarter implements Runnable {
 
         WebAppContext webapp = new WebAppContext();
         webapp.setContextPath("/");
-        String pathToWarFile = JettyServerStarter.class.getResource("/web-server.war").getFile();
+        String pathToWarFile = Paths.get("../web-server/target/web-server.war").toAbsolutePath().toUri().getPath();
         LOG.info("################# serving the war file: {}", pathToWarFile);
         webapp.setWar(pathToWarFile);
         server.setHandler(webapp);
