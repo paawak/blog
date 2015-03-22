@@ -67,11 +67,21 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getExporter() {
+        if (true) {
+            return getDefultExporter();
+        } else {
+            return getCustomExporter();
+        }
+    }
+
+    private Exporter getDefultExporter() {
         SocketFactory socketFactory = new HttpSocketFactory();
         ServerSocketFactory serverSocketFactory = ServerSocketFactory.getDefault();
         return new BasicJeriExporter(HttpServerEndpoint.getInstance("localhost", 0, socketFactory, serverSocketFactory), new BasicILFactoryWithLogging());
-        // return new BasicJeriExporter(new JettyServerEndpoint(8100), new
-        // BasicILFactoryWithLogging());
+    }
+
+    private Exporter getCustomExporter() {
+        return new BasicJeriExporter(new JettyServerEndpoint(8100), new BasicILFactoryWithLogging());
     }
 
 }
