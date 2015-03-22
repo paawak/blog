@@ -3,6 +3,7 @@ package com.swayam.demo.rmi.server.core.http;
 import java.util.concurrent.CountDownLatch;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,12 @@ public class JettyServerStarter implements Runnable {
 
         Server server = new Server(8100);
 
-        server.setHandler(new RmiCallHandler());
+        WebAppContext webapp = new WebAppContext();
+        webapp.setContextPath("/");
+        String pathToWarFile = JettyServerStarter.class.getResource("/web-server.war").getFile();
+        LOG.info("################# serving the war file: {}", pathToWarFile);
+        webapp.setWar(pathToWarFile);
+        server.setHandler(webapp);
 
         try {
             server.start();

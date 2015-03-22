@@ -113,7 +113,12 @@
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
-			<version>9.3.0.M1</version>
+			<version>${jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<version>${jetty.version}</version>
 		</dependency>
 	</dependencies>
 	<profiles>
@@ -175,5 +180,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j.version>1.7.10</slf4j.version>
 		<jini.version>2.2.2</jini.version>
+		<jetty.version>9.2.10.v20150310</jetty.version>
 	</properties>
 </project>
