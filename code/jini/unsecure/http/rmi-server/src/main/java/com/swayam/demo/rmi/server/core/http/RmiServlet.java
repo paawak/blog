@@ -1,14 +1,16 @@
 package com.swayam.demo.rmi.server.core.http;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.jini.io.MarshalOutputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,10 +47,12 @@ public class RmiServlet extends HttpServlet {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("server-application.xml")) {
             BankDetailService bankDetailService = context.getBean("bankDetailServiceImpl", BankDetailService.class);
             Map<String, List<BankDetail>> result = bankDetailService.getBankDetails(BankDetailGroups.JOB);
-            ObjectOutputStream oos = new ObjectOutputStream(response.getOutputStream());
-            oos.writeObject(result);
-            oos.flush();
-            oos.close();
+
+            MarshalOutputStream os = new MarshalOutputStream(response.getOutputStream(), Collections.emptyList());
+
+            os.writeObject(result);
+            os.flush();
+            os.close();
         }
     }
 }
