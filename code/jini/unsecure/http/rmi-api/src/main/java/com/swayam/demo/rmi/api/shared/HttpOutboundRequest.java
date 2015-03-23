@@ -18,10 +18,12 @@ public class HttpOutboundRequest implements OutboundRequest {
 
     private static final Logger LOG = LoggerFactory.getLogger(HttpOutboundRequest.class);
 
+    private final InvocationConstraints constraints;
     private final String host;
     private final int port;
 
-    public HttpOutboundRequest(String host, int port) {
+    public HttpOutboundRequest(InvocationConstraints constraints, String host, int port) {
+        this.constraints = constraints;
         this.host = host;
         this.port = port;
     }
@@ -34,13 +36,41 @@ public class HttpOutboundRequest implements OutboundRequest {
     @Override
     public InvocationConstraints getUnfulfilledConstraints() {
         LOG.debug("22222222222222222222222222222");
-        return null;
+        return constraints;
     }
 
     @Override
     public OutputStream getRequestOutputStream() {
         LOG.debug("333333333333333333333333333333333");
+        try {
+            return getUrlConnection().getOutputStream();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    @Override
+    public InputStream getResponseInputStream() {
+        LOG.debug("44444444444444444444444444444444444444");
+        try {
+            return getUrlConnection().getInputStream();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean getDeliveryStatus() {
+        LOG.debug("55555555555555555555555555555555555555555555555555");
+        return false;
+    }
+
+    @Override
+    public void abort() {
+        LOG.debug("666666666666666666666666666666");
+    }
+
+    private URLConnection getUrlConnection() {
         String url = "http://" + host + ":" + port + "/";
 
         LOG.info("trying to connect to {}", url);
@@ -59,29 +89,15 @@ public class HttpOutboundRequest implements OutboundRequest {
         }
 
         urlConnection.setDoOutput(true);
+        urlConnection.setDoInput(true);
 
         try {
-            return urlConnection.getOutputStream();
+            urlConnection.connect();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
 
-    @Override
-    public InputStream getResponseInputStream() {
-        LOG.debug("44444444444444444444444444444444444444");
-        return null;
-    }
-
-    @Override
-    public boolean getDeliveryStatus() {
-        LOG.debug("55555555555555555555555555555555555555555555555555");
-        return false;
-    }
-
-    @Override
-    public void abort() {
-        LOG.debug("666666666666666666666666666666");
+        return urlConnection;
     }
 
 }

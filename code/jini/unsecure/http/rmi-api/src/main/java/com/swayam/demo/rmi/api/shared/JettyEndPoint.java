@@ -21,7 +21,7 @@ public class JettyEndPoint implements Endpoint, Serializable {
     }
 
     @Override
-    public OutboundRequestIterator newRequest(InvocationConstraints constraints) {
+    public OutboundRequestIterator newRequest(final InvocationConstraints constraints) {
         return new OutboundRequestIterator() {
 
             private boolean dispatched = false;
@@ -34,7 +34,7 @@ public class JettyEndPoint implements Endpoint, Serializable {
             @Override
             public OutboundRequest next() throws IOException {
                 dispatched = true;
-                return new HttpOutboundRequest(host, port);
+                return new HttpOutboundRequest(constraints, host, port);
             }
         };
     }
