@@ -22,6 +22,8 @@ public class HttpOutboundRequest implements OutboundRequest {
     private final String host;
     private final int port;
 
+    private int counter = 0;
+
     public HttpOutboundRequest(InvocationConstraints constraints, String host, int port) {
         this.constraints = constraints;
         this.host = host;
@@ -41,7 +43,7 @@ public class HttpOutboundRequest implements OutboundRequest {
 
     @Override
     public OutputStream getRequestOutputStream() {
-        LOG.debug("333333333333333333333333333333333");
+        LOG.debug("333333333333333333333333333333333 " + hashCode());
         try {
             return getUrlConnection().getOutputStream();
         } catch (IOException e) {
@@ -51,7 +53,8 @@ public class HttpOutboundRequest implements OutboundRequest {
 
     @Override
     public InputStream getResponseInputStream() {
-        LOG.debug("44444444444444444444444444444444444444");
+        LOG.debug("44444444444444444444444444444444444444 " + hashCode());
+        counter++;
         try {
             return getUrlConnection().getInputStream();
         } catch (IOException e) {
@@ -71,7 +74,7 @@ public class HttpOutboundRequest implements OutboundRequest {
     }
 
     private URLConnection getUrlConnection() {
-        String url = "http://" + host + ":" + port + "/";
+        String url = "http://" + host + ":" + port + "/?count=" + counter;
 
         LOG.info("trying to connect to {}", url);
 
