@@ -18,14 +18,13 @@ public class HttpOutboundRequest implements OutboundRequest {
 
     private static final Logger LOG = LoggerFactory.getLogger(HttpOutboundRequest.class);
 
-    private final InvocationConstraints constraints;
     private final String host;
     private final int port;
 
-    private int counter = 0;
+    private int outputCounter = 0;
+    private int inputCounter = 0;
 
-    public HttpOutboundRequest(InvocationConstraints constraints, String host, int port) {
-        this.constraints = constraints;
+    public HttpOutboundRequest(String host, int port) {
         this.host = host;
         this.port = port;
     }
@@ -38,14 +37,15 @@ public class HttpOutboundRequest implements OutboundRequest {
     @Override
     public InvocationConstraints getUnfulfilledConstraints() {
         LOG.debug("22222222222222222222222222222");
-        return constraints;
+        return InvocationConstraints.EMPTY;
     }
 
     @Override
     public OutputStream getRequestOutputStream() {
-        LOG.debug("333333333333333333333333333333333 " + hashCode());
+        outputCounter++;
+        LOG.debug("333333333333333333333333333333333 " + outputCounter);
         try {
-            return getUrlConnection().getOutputStream();
+            return getUrlConnection(outputCounter).getOutputStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,10 +53,10 @@ public class HttpOutboundRequest implements OutboundRequest {
 
     @Override
     public InputStream getResponseInputStream() {
-        LOG.debug("44444444444444444444444444444444444444 " + hashCode());
-        counter++;
+        inputCounter++;
+        LOG.debug("44444444444444444444444444444444444444 " + inputCounter);
         try {
-            return getUrlConnection().getInputStream();
+            return getUrlConnection(inputCounter).getInputStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -73,7 +73,8 @@ public class HttpOutboundRequest implements OutboundRequest {
         LOG.debug("666666666666666666666666666666");
     }
 
-    private URLConnection getUrlConnection() {
+    private URLConnection getUrlConnection(int counter) {
+
         String url = "http://" + host + ":" + port + "/?count=" + counter;
 
         LOG.info("trying to connect to {}", url);

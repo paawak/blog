@@ -34,7 +34,7 @@ public class JettyEndPoint implements Endpoint, Serializable {
             @Override
             public OutboundRequest next() throws IOException {
                 dispatched = true;
-                return new HttpOutboundRequest(constraints, host, port);
+                return new HttpOutboundRequest(host, port);
             }
         };
     }

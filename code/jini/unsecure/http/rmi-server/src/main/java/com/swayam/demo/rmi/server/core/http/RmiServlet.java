@@ -42,17 +42,33 @@ public class RmiServlet extends HttpServlet {
             os.flush();
             os.close();
             return;
-        }
+        } else if (count == 3) {
 
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("server-application.xml")) {
-            BankDetailService bankDetailService = context.getBean("bankDetailServiceImpl", BankDetailService.class);
-            Map<String, List<BankDetail>> result = bankDetailService.getBankDetails(BankDetailGroups.JOB);
+            // MarshalInputStream is = new
+            // MarshalInputStream(request.getInputStream(),
+            // getClass().getClassLoader(), false, null,
+            // Collections.emptyList());
+            // try {
+            // Object obj = is.readObject();
+            // System.out.println("obj=" + obj);
+            // } catch (ClassNotFoundException e) {
+            // LOG.error("could not read object", e);
+            // }
 
-            MarshalOutputStream os = new MarshalOutputStream(response.getOutputStream(), Collections.emptyList());
+            // is.close();
 
-            os.writeObject(result);
-            os.flush();
-            os.close();
+            try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("server-application.xml")) {
+                BankDetailService bankDetailService = context.getBean("bankDetailServiceImpl", BankDetailService.class);
+                Map<String, List<BankDetail>> result = bankDetailService.getBankDetails(BankDetailGroups.JOB);
+
+                MarshalOutputStream os = new MarshalOutputStream(response.getOutputStream(), Collections.emptyList());
+
+                os.writeObject(result);
+                os.flush();
+                os.close();
+            }
+        } else {
+            throw new UnsupportedOperationException();
         }
     }
 }
