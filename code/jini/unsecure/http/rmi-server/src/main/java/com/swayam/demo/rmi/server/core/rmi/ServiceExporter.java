@@ -67,7 +67,7 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getExporter() {
-        if (true) {
+        if (false) {
             return getDefultExporter();
         } else {
             return getCustomExporter();
@@ -75,13 +75,15 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getDefultExporter() {
+        // System.setProperty("http.proxyHost", "localhost");
+        // System.setProperty("http.proxyPort", "8100");
         SocketFactory socketFactory = new HttpSocketFactory();
         ServerSocketFactory serverSocketFactory = ServerSocketFactory.getDefault();
         return new BasicJeriExporter(HttpServerEndpoint.getInstance("localhost", 0, socketFactory, serverSocketFactory), new BasicILFactoryWithLogging());
     }
 
     private Exporter getCustomExporter() {
-        return new BasicJeriExporter(new JettyServerEndpoint(8100), new BasicILFactoryWithLogging());
+        return new BasicJeriExporter(new JettyServerEndpoint("localhost", 8100), new BasicILFactoryWithLogging());
     }
 
 }

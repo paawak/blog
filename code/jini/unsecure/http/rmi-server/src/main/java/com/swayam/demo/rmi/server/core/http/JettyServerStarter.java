@@ -1,10 +1,9 @@
 package com.swayam.demo.rmi.server.core.http;
 
-import java.nio.file.Paths;
 import java.util.concurrent.CountDownLatch;
 
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.servlet.ServletHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,12 +22,9 @@ public class JettyServerStarter implements Runnable {
 
         Server server = new Server(8100);
 
-        WebAppContext webapp = new WebAppContext();
-        webapp.setContextPath("/");
-        String pathToWarFile = Paths.get("../web-server/target/web-server.war").toAbsolutePath().toUri().getPath();
-        LOG.info("################# serving the war file: {}", pathToWarFile);
-        webapp.setWar(pathToWarFile);
-        server.setHandler(webapp);
+        ServletHandler handler = new ServletHandler();
+        server.setHandler(handler);
+        handler.addServletWithMapping(RmiServlet.class, "/*");
 
         try {
             server.start();

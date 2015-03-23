@@ -6,16 +6,19 @@ import net.jini.core.constraint.InvocationConstraints;
 import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.Endpoint;
 import net.jini.jeri.ServerEndpoint;
-import net.jini.jeri.http.HttpEndpoint;
 import net.jini.jeri.http.HttpServerEndpoint;
+
+import com.swayam.demo.rmi.api.shared.JettyEndPoint;
 
 public class JettyServerEndpoint implements ServerEndpoint {
 
     private final HttpServerEndpoint httpServerEndpoint;
+    private final String host;
     private final int port;
 
-    public JettyServerEndpoint(int port) {
+    public JettyServerEndpoint(String host, int port) {
         httpServerEndpoint = HttpServerEndpoint.getInstance(port);
+        this.host = host;
         this.port = port;
     }
 
@@ -26,7 +29,7 @@ public class JettyServerEndpoint implements ServerEndpoint {
 
     @Override
     public Endpoint enumerateListenEndpoints(ListenContext listenContext) throws IOException {
-        return HttpEndpoint.getInstance("localhost", port);
+        return new JettyEndPoint(host, port);
     }
 
 }

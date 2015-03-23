@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.webserver;
+package com.swayam.demo.rmi.server.core.http;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +13,7 @@ public class RmiServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest requset, HttpServletResponse response) throws IOException {
+        System.out.println("####################RmiServlet.doGet()");
         // Set response content type
         response.setContentType("text/html");
 
