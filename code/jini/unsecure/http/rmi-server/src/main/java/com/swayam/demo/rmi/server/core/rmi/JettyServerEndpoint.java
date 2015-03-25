@@ -5,9 +5,11 @@ import java.io.IOException;
 import net.jini.core.constraint.InvocationConstraints;
 import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.Endpoint;
+import net.jini.jeri.RequestDispatcher;
 import net.jini.jeri.ServerEndpoint;
 import net.jini.jeri.http.HttpServerEndpoint;
 
+import com.swayam.demo.rmi.api.shared.HttpInboundRequest;
 import com.swayam.demo.rmi.api.shared.JettyEndPoint;
 
 public class JettyServerEndpoint implements ServerEndpoint {
@@ -29,7 +31,35 @@ public class JettyServerEndpoint implements ServerEndpoint {
 
     @Override
     public Endpoint enumerateListenEndpoints(ListenContext listenContext) throws IOException {
+
+        listenContext.addListenEndpoint(new ListenEndpoint() {
+
+            @Override
+            public ListenHandle listen(RequestDispatcher requestDispatcher) throws IOException {
+
+                requestDispatcher.dispatch(new HttpInboundRequest("http://localhost:8100"));
+
+                return new ListenHandle() {
+
+                    @Override
+                    public ListenCookie getCookie() {
+                        return new ListenCookie() {
+                        };
+                    }
+
+                    @Override
+                    public void close() {
+
+                    }
+                };
+            }
+
+            @Override
+            public void checkPermissions() {
+
+            }
+        });
+
         return new JettyEndPoint(host, port);
     }
-
 }
