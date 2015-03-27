@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.security.AccessControlContext;
 import java.security.AccessController;
@@ -33,7 +32,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.net.ServerSocketFactory;
@@ -50,11 +48,9 @@ import net.jini.security.Security;
 import net.jini.security.SecurityContext;
 
 import com.sun.jini.jeri.internal.http.ConnectionTimer;
-import com.sun.jini.jeri.internal.http.HttpServerConnection;
 import com.sun.jini.jeri.internal.http.HttpServerManager;
+import com.sun.jini.jeri.internal.http.TimedConnection;
 import com.sun.jini.jeri.internal.runtime.Util;
-import com.sun.jini.logging.Levels;
-import com.sun.jini.logging.LogUtil;
 import com.sun.jini.thread.Executor;
 import com.sun.jini.thread.GetThreadPoolAction;
 import com.swayam.demo.rmi.api.shared.JettyEndPoint;
@@ -631,19 +627,21 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                 throw new NullPointerException();
             }
 
-            ServerSocket serverSocket;
-            if (ssf != null) {
-                serverSocket = ssf.createServerSocket(port);
-            } else {
-                serverSocket = new ServerSocket(port);
-            }
+            // ServerSocket serverSocket;
+            // if (ssf != null) {
+            // serverSocket = ssf.createServerSocket(port);
+            // } else {
+            // serverSocket = new ServerSocket(port);
+            // }
 
-            if (logger.isLoggable(Level.FINE)) {
-                logger.log(Level.FINE, (ssf == null ? "created server socket {0}" : "created server socket {0} using factory {1}"), new Object[] { serverSocket, ssf });
-            }
+            // if (logger.isLoggable(Level.FINE)) {
+            // logger.log(Level.FINE, (ssf == null ? "created server socket {0}"
+            // : "created server socket {0} using factory {1}"), new Object[] {
+            // serverSocket, ssf });
+            // }
 
-            Cookie cookie = new Cookie(serverSocket.getLocalPort());
-            final LH listenHandle = new LH(requestDispatcher, serverSocket, Security.getContext(), cookie);
+            Cookie cookie = new Cookie(port);
+            final LH listenHandle = new LH(requestDispatcher, Security.getContext(), cookie);
             listenHandle.startAccepting();
             return listenHandle;
         }
@@ -707,7 +705,6 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
     private static class LH implements ListenHandle {
 
         private final RequestDispatcher requestDispatcher;
-        private final ServerSocket serverSocket;
         private final SecurityContext context;
         private final ListenCookie cookie;
 
@@ -718,9 +715,8 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
         private boolean closed = false;
         private final Set conns = new HashSet();
 
-        LH(RequestDispatcher requestDispatcher, ServerSocket serverSocket, SecurityContext context, ListenCookie cookie) {
+        LH(RequestDispatcher requestDispatcher, SecurityContext context, ListenCookie cookie) {
             this.requestDispatcher = requestDispatcher;
-            this.serverSocket = serverSocket;
             this.context = context;
             this.cookie = cookie;
         }
@@ -739,10 +735,10 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                          * more socket accepts will occur, ensure that the
                          * server socket is no longer listening.
                          */
-                        try {
-                            serverSocket.close();
-                        } catch (IOException e) {
-                        }
+                        // try {
+                        // serverSocket.close();
+                        // } catch (IOException e) {
+                        // }
                     }
                 }
             }, toString() + " accept loop");
@@ -766,16 +762,18 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
          **/
         private void executeAcceptLoop0() {
             while (true) {
-                Socket socket = null;
+                // Socket socket = null;
                 try {
-                    socket = serverSocket.accept();
-                    if (logger.isLoggable(Level.FINE)) {
-                        logger.log(Level.FINE, "accepted socket {0} from server socket {1}", new Object[] { socket, serverSocket });
-                    }
+                    // socket = serverSocket.accept();
+                    // if (logger.isLoggable(Level.FINE)) {
+                    // logger.log(Level.FINE,
+                    // "accepted socket {0} from server socket {1}", new
+                    // Object[] { socket, serverSocket });
+                    // }
 
-                    setSocketOptions(socket);
+                    // setSocketOptions(socket);
 
-                    new Connection(socket);
+                    new Connection();
 
                 } catch (Throwable t) {
                     try {
@@ -790,25 +788,27 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                             }
                         }
 
-                        try {
-                            if (logger.isLoggable(Level.WARNING)) {
-                                LogUtil.logThrow(logger, Level.WARNING, JettyServerEndpoint2.class, "executeAcceptLoop", "accept loop for {0} throws",
-                                        new Object[] { serverSocket }, t);
-                            }
-                        } catch (Throwable tt) {
-                        }
+                        // try {
+                        // if (logger.isLoggable(Level.WARNING)) {
+                        // LogUtil.logThrow(logger, Level.WARNING,
+                        // JettyServerEndpoint2.class, "executeAcceptLoop",
+                        // "accept loop for {0} throws",
+                        // new Object[] { serverSocket }, t);
+                        // }
+                        // } catch (Throwable tt) {
+                        // }
                     } finally {
                         /*
                          * Always close the accepted socket (if any) if an
                          * exception occurs, but only after logging an
                          * unexpected exception.
                          */
-                        if (socket != null) {
-                            try {
-                                socket.close();
-                            } catch (IOException e) {
-                            }
-                        }
+                        // if (socket != null) {
+                        // try {
+                        // socket.close();
+                        // } catch (IOException e) {
+                        // }
+                        // }
                     }
 
                     if (!(t instanceof SecurityException)) {
@@ -857,13 +857,13 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                 closed = true;
             }
 
-            try {
-                serverSocket.close();
-            } catch (IOException e) {
-            }
-            if (logger.isLoggable(Level.FINE)) {
-                logger.log(Level.FINE, "closed server socket {0}", serverSocket);
-            }
+            // try {
+            // serverSocket.close();
+            // } catch (IOException e) {
+            // }
+            // if (logger.isLoggable(Level.FINE)) {
+            // logger.log(Level.FINE, "closed server socket {0}", serverSocket);
+            // }
 
             /*
              * Iterating over conns without synchronization is safe at this
@@ -883,7 +883,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
         }
 
         public String toString() {
-            return "JettyServerEndpoint2.LH[" + serverSocket + "]";
+            return "JettyServerEndpoint2.LH[]";
         }
 
         /**
@@ -923,15 +923,12 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
         /**
          * HttpServerConnection subclass.
          **/
-        private class Connection extends HttpServerConnection {
+        private class Connection implements TimedConnection {
 
-            private final Socket socket;
             private final Object connLock = new Object();
             private boolean connClosed;
 
-            Connection(Socket socket) throws IOException {
-                super(socket, requestDispatcher, serverManager);
-                this.socket = socket;
+            Connection() {
 
                 boolean needShutdown = false;
                 synchronized (lock) {
@@ -944,39 +941,41 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                 if (needShutdown) {
                     shutdown(true);
                 } else {
-                    start();
+                    // start();
                 }
             }
 
             public boolean shutdown(boolean force) {
-                synchronized (connLock) {
-                    if (connClosed) {
-                        return true;
-                    }
-                    connClosed = super.shutdown(force);
-                    if (!connClosed) {
-                        return false;
-                    }
-                }
-
-                connTimer.cancelTimeout(this);
-                synchronized (lock) {
-                    if (!closed) { // must not mutate set after closed
-                        conns.remove(this);
-                    }
-                }
-
-                if (logger.isLoggable(Level.FINE)) {
-                    logger.log(Level.FINE, "shut down connection on socket {0}", socket);
-                }
+                // synchronized (connLock) {
+                // if (connClosed) {
+                // return true;
+                // }
+                // connClosed = super.shutdown(force);
+                // if (!connClosed) {
+                // return false;
+                // }
+                // }
+                //
+                // connTimer.cancelTimeout(this);
+                // synchronized (lock) {
+                // if (!closed) { // must not mutate set after closed
+                // conns.remove(this);
+                // }
+                // }
+                //
+                // if (logger.isLoggable(Level.FINE)) {
+                // logger.log(Level.FINE, "shut down connection on socket {0}",
+                // socket);
+                // }
                 return true;
             }
 
             protected void checkPermissions() {
-                SecurityManager sm = System.getSecurityManager();
-                if (sm != null) {
-                    sm.checkAccept(socket.getInetAddress().getHostAddress(), socket.getPort());
-                }
+                // SecurityManager sm = System.getSecurityManager();
+                // if (sm != null) {
+                // sm.checkAccept(socket.getInetAddress().getHostAddress(),
+                // socket.getPort());
+                // }
             }
 
             protected InvocationConstraints checkConstraints(InvocationConstraints constraints) throws UnsupportedConstraintException {
@@ -996,7 +995,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
              * the connection.
              **/
             protected void populateContext(Collection context) {
-                Util.populateContext(context, socket.getInetAddress());
+                // Util.populateContext(context, socket.getInetAddress());
             }
 
             protected void idle() {
@@ -1009,24 +1008,28 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
         }
     }
 
-    /**
-     * Attempts to set desired socket options for a connected socket
-     * (TCP_NODELAY and SO_KEEPALIVE); ignores SocketException.
-     **/
-    private static void setSocketOptions(Socket socket) {
-        try {
-            socket.setTcpNoDelay(true);
-        } catch (SocketException e) {
-            if (logger.isLoggable(Levels.HANDLED)) {
-                LogUtil.logThrow(logger, Levels.HANDLED, JettyServerEndpoint2.class, "setSocketOptions", "exception setting TCP_NODELAY on socket {0}", new Object[] { socket }, e);
-            }
-        }
-        try {
-            socket.setKeepAlive(true);
-        } catch (SocketException e) {
-            if (logger.isLoggable(Levels.HANDLED)) {
-                LogUtil.logThrow(logger, Levels.HANDLED, JettyServerEndpoint2.class, "setSocketOptions", "exception setting SO_KEEPALIVE on socket {0}", new Object[] { socket }, e);
-            }
-        }
-    }
+    // /**
+    // * Attempts to set desired socket options for a connected socket
+    // * (TCP_NODELAY and SO_KEEPALIVE); ignores SocketException.
+    // **/
+    // private static void setSocketOptions(Socket socket) {
+    // try {
+    // socket.setTcpNoDelay(true);
+    // } catch (SocketException e) {
+    // if (logger.isLoggable(Levels.HANDLED)) {
+    // LogUtil.logThrow(logger, Levels.HANDLED, JettyServerEndpoint2.class,
+    // "setSocketOptions", "exception setting TCP_NODELAY on socket {0}", new
+    // Object[] { socket }, e);
+    // }
+    // }
+    // try {
+    // socket.setKeepAlive(true);
+    // } catch (SocketException e) {
+    // if (logger.isLoggable(Levels.HANDLED)) {
+    // LogUtil.logThrow(logger, Levels.HANDLED, JettyServerEndpoint2.class,
+    // "setSocketOptions", "exception setting SO_KEEPALIVE on socket {0}", new
+    // Object[] { socket }, e);
+    // }
+    // }
+    // }
 }
