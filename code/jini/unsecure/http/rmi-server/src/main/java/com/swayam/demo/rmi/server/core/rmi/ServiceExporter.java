@@ -18,6 +18,7 @@ import net.jini.lookup.entry.Name;
 import org.springframework.beans.factory.InitializingBean;
 
 import com.swayam.demo.rmi.api.shared.HttpSocketFactory;
+import com.swayam.demo.rmi.server.core.http.JettyServerEndpoint2;
 
 public class ServiceExporter implements InitializingBean {
 
@@ -83,7 +84,7 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getCustomExporter() {
-        return new BasicJeriExporter(new JettyServerEndpoint("localhost", 8100), new BasicILFactoryWithLogging());
+        return new BasicJeriExporter(JettyServerEndpoint2.getInstance("localhost", 8100), new BasicILFactoryWithLogging());
     }
 
 }
