@@ -57,7 +57,6 @@ import net.jini.jeri.http.HttpServerEndpoint;
 import net.jini.security.proxytrust.TrustEquivalence;
 
 import com.sun.jini.jeri.internal.http.ConnectionTimer;
-import com.sun.jini.jeri.internal.http.HttpClientConnection;
 import com.sun.jini.jeri.internal.http.HttpClientManager;
 import com.sun.jini.jeri.internal.http.HttpClientSocketFactory;
 import com.sun.jini.jeri.internal.http.HttpSettings;
@@ -518,8 +517,8 @@ public final class JettyEndpoint2 implements Endpoint, TrustEquivalence, Seriali
                         conn.checkConnectPermission();
                     } catch (SecurityException e) {
                         if (logger.isLoggable(Levels.HANDLED)) {
-                            LogUtil.logThrow(logger, Levels.HANDLED, JettyEndpoint2.class, "nextRequest", "access to reuse connection {0} denied", new Object[] { conn.getSocket() },
-                                    e);
+                            LogUtil.logThrow(logger, Levels.HANDLED, JettyEndpoint2.class, "nextRequest", "access to reuse connection {0} denied",
+                                    new Object[] { conn.getSocket() }, e);
                         }
                         continue;
                     }
@@ -618,6 +617,7 @@ public final class JettyEndpoint2 implements Endpoint, TrustEquivalence, Seriali
         Object obj = connectionAction(distilled, phost, pport, ppersist, new ConnectionAction() {
             public Object run(Connection conn) throws IOException {
                 return conn.newRequest();
+                // return new HttpOutboundRequest("localhost", 8100);
             }
         });
         return (OutboundRequest) obj;
@@ -918,7 +918,7 @@ public final class JettyEndpoint2 implements Endpoint, TrustEquivalence, Seriali
     /**
      * HTTP connection for sending requests.
      **/
-    private final class Connection extends HttpClientConnection {
+    private final class Connection extends JettyClientConnection {
 
         private final String proxyHost;
         private final int proxyPort;
