@@ -144,7 +144,7 @@ public class Constraints {
      * open connection or request) we would need to check for possible
      * conflicts.]
      **/
-    static InvocationConstraints check(InvocationConstraints constraints, boolean relativeOK) throws UnsupportedConstraintException {
+    public static InvocationConstraints check(InvocationConstraints constraints, boolean relativeOK) throws UnsupportedConstraintException {
         return distill(constraints, relativeOK).getUnfulfilledConstraints();
     }
 
@@ -153,7 +153,7 @@ public class Constraints {
      * provider. Throws an UnsupportedConstraintException if we do not support
      * at least the transport layer aspects of the requirements.
      **/
-    static Distilled distill(InvocationConstraints constraints, boolean relativeOK) throws UnsupportedConstraintException {
+    public static Distilled distill(InvocationConstraints constraints, boolean relativeOK) throws UnsupportedConstraintException {
         return new Distilled(constraints, relativeOK);
     }
 
@@ -165,7 +165,7 @@ public class Constraints {
      * A distillation of constraints to a form more directly usable by this
      * provider.
      **/
-    static class Distilled {
+    public static class Distilled {
 
         /**
          * true if relative time constraints are allowed (in other words, not
@@ -193,7 +193,7 @@ public class Constraints {
          * Returns the requirements and supported preferences that must be at
          * least partially implemented by higher layers.
          **/
-        InvocationConstraints getUnfulfilledConstraints() {
+        public InvocationConstraints getUnfulfilledConstraints() {
             if (unfulfilledRequirements == null && unfulfilledPreferences == null) {
                 return InvocationConstraints.EMPTY;
             } else {
@@ -204,14 +204,14 @@ public class Constraints {
         /**
          * Returns true if a there is a socket connect deadline.
          **/
-        boolean hasConnectDeadline() {
+        public boolean hasConnectDeadline() {
             return hasConnectDeadline;
         }
 
         /**
          * Returns the absolute time of the socket connect deadline.
          **/
-        long getConnectDeadline() {
+        public long getConnectDeadline() {
             assert hasConnectDeadline;
             return connectDeadline;
         }

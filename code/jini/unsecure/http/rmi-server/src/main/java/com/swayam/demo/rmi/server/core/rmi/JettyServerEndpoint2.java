@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.security.AccessControlContext;
 import java.security.AccessController;
@@ -32,6 +33,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.net.ServerSocketFactory;
@@ -43,17 +45,20 @@ import net.jini.jeri.Endpoint;
 import net.jini.jeri.InboundRequest;
 import net.jini.jeri.RequestDispatcher;
 import net.jini.jeri.ServerEndpoint;
-import net.jini.jeri.http.HttpEndpoint;
 import net.jini.security.Security;
 import net.jini.security.SecurityContext;
 
 import com.sun.jini.jeri.internal.http.ConnectionTimer;
+import com.sun.jini.jeri.internal.http.HttpServerConnection;
 import com.sun.jini.jeri.internal.http.HttpServerManager;
-import com.sun.jini.jeri.internal.http.TimedConnection;
+import com.sun.jini.jeri.internal.http.HttpSettings;
 import com.sun.jini.jeri.internal.runtime.Util;
+import com.sun.jini.logging.Levels;
+import com.sun.jini.logging.LogUtil;
 import com.sun.jini.thread.Executor;
 import com.sun.jini.thread.GetThreadPoolAction;
-import com.swayam.demo.rmi.api.shared.JettyEndPoint;
+import com.swayam.demo.rmi.api.shared.Constraints;
+import com.swayam.demo.rmi.api.shared.JettyEndpoint2;
 
 /**
  * An implementation of the {@link ServerEndpoint} abstraction that uses HTTP
@@ -61,27 +66,27 @@ import com.swayam.demo.rmi.api.shared.JettyEndPoint;
  * underlying communication mechanism.
  *
  * <p>
- * <code>JettyServerEndpoint2</code> instances contain a host name and a TCP
- * port number, as well as an optional {@link ServerSocketFactory} for
- * customizing the type of <code>ServerSocket</code> to use and an optional
+ * <code>HttpServerEndpoint</code> instances contain a host name and a TCP port
+ * number, as well as an optional {@link ServerSocketFactory} for customizing
+ * the type of <code>ServerSocket</code> to use and an optional
  * {@link SocketFactory} for customizing the type of {@link Socket} that client
  * endpoints will use. The port number is the local TCP port to bind to when
  * listening for incoming socket connections. If the port number is zero, then
  * each listen operation will bind to a free (non-zero) port, which will be the
- * port number contained in the resulting {@link HttpEndpoint}. The host name
- * contained in an <code>JettyServerEndpoint2</code> controls the host name that
+ * port number contained in the resulting {@link JettyEndpoint2}. The host name
+ * contained in an <code>HttpServerEndpoint</code> controls the host name that
  * will be contained in the <code>HttpEndpoint</code> instances produced when
  * {@link #enumerateListenEndpoints enumerateListenEndpoints} is invoked to
- * listen on the <code>JettyServerEndpoint2</code> (this host name does not
- * affect the behavior of listen operations themselves). If the host name in an
- * <code>JettyServerEndpoint2</code> is <code>null</code>, then the host name in
+ * listen on the <code>HttpServerEndpoint</code> (this host name does not affect
+ * the behavior of listen operations themselves). If the host name in an
+ * <code>HttpServerEndpoint</code> is <code>null</code>, then the host name in
  * the <code>HttpEndpoint</code> instances that it produces will be the IP
  * address string obtained from {@link InetAddress#getLocalHost
  * InetAddress.getLocalHost} when {@link #enumerateListenEndpoints
  * enumerateListenEndpoints} is invoked.
  *
  * <p>
- * <code>JettyServerEndpoint2</code> instances map incoming HTTP messages to
+ * <code>HttpServerEndpoint</code> instances map incoming HTTP messages to
  * requests; when possible, underlying TCP connections are persisted to
  * accommodate multiple non-overlapping incoming requests. Inbound request data
  * is received as the <code>entity-body</code> of an HTTP POST request; outbound
@@ -93,17 +98,17 @@ import com.swayam.demo.rmi.api.shared.JettyEndPoint;
  *
  * <p>
  * A <code>ServerSocketFactory</code> used with an
- * <code>JettyServerEndpoint2</code> must implement {@link Object#equals
+ * <code>HttpServerEndpoint</code> must implement {@link Object#equals
  * Object.equals} to obey the guidelines that are specified for
  * <code>equals</code> methods of
  * {@link net.jini.jeri.ServerEndpoint.ListenEndpoint ListenEndpoint} instances.
- * A <code>SocketFactory</code> used with a <code>JettyServerEndpoint2</code>
+ * A <code>SocketFactory</code> used with a <code>HttpServerEndpoint</code>
  * should be serializable and must implement <code>Object.equals</code> to obey
  * the guidelines that are specified for <code>equals</code> methods of
  * {@link Endpoint} instances.
  *
  * @author Sun Microsystems, Inc.
- * @see HttpEndpoint
+ * @see JettyEndpoint2
  * @since 2.0
  **/
 public final class JettyServerEndpoint2 implements ServerEndpoint {
@@ -120,8 +125,9 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
     private static final ConnectionTimer connTimer;
 
     static {
-        serverManager = new HttpServerManager(15000);
-        connTimer = new ConnectionTimer(15000);
+        HttpSettings hs = JettyEndpoint2.getHttpSettings();
+        serverManager = new HttpServerManager(hs.getResponseAckTimeout());
+        connTimer = new ConnectionTimer(hs.getServerConnectionTimeout());
     }
 
     /** server transport logger */
@@ -137,28 +143,28 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
     private final ServerSocketFactory ssf;
 
     /**
-     * Returns an <code>JettyServerEndpoint2</code> instance for the given TCP
+     * Returns an <code>HttpServerEndpoint</code> instance for the given TCP
      * port number.
      *
      * <p>
-     * The host name contained in the returned <code>JettyServerEndpoint2</code>
+     * The host name contained in the returned <code>HttpServerEndpoint</code>
      * will be <code>null</code>, so that when its
      * {@link #enumerateListenEndpoints enumerateListenEndpoints} method
-     * produces an {@link HttpEndpoint}, the <code>HttpEndpoint</code>'s host
+     * produces an {@link JettyEndpoint2}, the <code>HttpEndpoint</code>'s host
      * name will be the IP address string obtained from
      * {@link InetAddress#getLocalHost InetAddress.getLocalHost}.
      *
      * <p>
      * The <code>ServerSocketFactory</code> contained in the returned
-     * <code>JettyServerEndpoint2</code> will be <code>null</code>, indicating
+     * <code>HttpServerEndpoint</code> will be <code>null</code>, indicating
      * that this endpoint will create <code>ServerSocket</code> objects
      * directly. The <code>SocketFactory</code> contained in the returned
-     * <code>JettyServerEndpoint2</code> will also be <code>null</code>.
+     * <code>HttpServerEndpoint</code> will also be <code>null</code>.
      *
      * @param port
      *            the TCP port on the local host to listen on
      *
-     * @return an <code>JettyServerEndpoint2</code> instance
+     * @return an <code>HttpServerEndpoint</code> instance
      *
      * @throws IllegalArgumentException
      *             if the port number is out of the range <code>0</code> to
@@ -169,32 +175,32 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
     }
 
     /**
-     * Returns an <code>JettyServerEndpoint2</code> instance for the given host
+     * Returns an <code>HttpServerEndpoint</code> instance for the given host
      * name and TCP port number.
      *
      * <p>
      * If <code>host</code> is <code>null</code>, then when the returned
-     * <code>JettyServerEndpoint2</code>'s {@link #enumerateListenEndpoints
-     * enumerateListenEndpoints} method produces an {@link HttpEndpoint}, the
+     * <code>HttpServerEndpoint</code>'s {@link #enumerateListenEndpoints
+     * enumerateListenEndpoints} method produces an {@link JettyEndpoint2}, the
      * <code>HttpEndpoint</code>'s host name will be the IP address string
      * obtained from {@link InetAddress#getLocalHost InetAddress.getLocalHost}.
      *
      * <p>
      * The <code>ServerSocketFactory</code> contained in the returned
-     * <code>JettyServerEndpoint2</code> will be <code>null</code>, indicating
+     * <code>HttpServerEndpoint</code> will be <code>null</code>, indicating
      * that this endpoint will create <code>ServerSocket</code> objects
      * directly. The <code>SocketFactory</code> contained in the returned
-     * <code>JettyServerEndpoint2</code> will also be <code>null</code>.
+     * <code>HttpServerEndpoint</code> will also be <code>null</code>.
      *
      * @param host
      *            the host name to be used in <code>HttpEndpoint</code>
      *            instances produced by listening on the returned
-     *            <code>JettyServerEndpoint2</code>, or <code>null</code>
+     *            <code>HttpServerEndpoint</code>, or <code>null</code>
      *
      * @param port
      *            the TCP port on the local host to listen on
      *
-     * @return an <code>JettyServerEndpoint2</code> instance
+     * @return an <code>HttpServerEndpoint</code> instance
      *
      * @throws IllegalArgumentException
      *             if the port number is out of the range <code>0</code> to
@@ -205,14 +211,14 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
     }
 
     /**
-     * Returns an <code>JettyServerEndpoint2</code> instance for the given host
+     * Returns an <code>HttpServerEndpoint</code> instance for the given host
      * name and TCP port number that contains the given
      * <code>SocketFactory</code> and <code>ServerSocketFactory</code>.
      *
      * <p>
      * If <code>host</code> is <code>null</code>, then when the returned
-     * <code>JettyServerEndpoint2</code>'s {@link #enumerateListenEndpoints
-     * enumerateListenEndpoints} method produces an {@link HttpEndpoint}, the
+     * <code>HttpServerEndpoint</code>'s {@link #enumerateListenEndpoints
+     * enumerateListenEndpoints} method produces an {@link JettyEndpoint2}, the
      * <code>HttpEndpoint</code>'s host name will be the IP address string
      * obtained from {@link InetAddress#getLocalHost InetAddress.getLocalHost}.
      *
@@ -223,20 +229,20 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      * @param host
      *            the host name to be used in <code>HttpEndpoint</code>
      *            instances produced by listening on the returned
-     *            <code>JettyServerEndpoint2</code>, or <code>null</code>
+     *            <code>HttpServerEndpoint</code>, or <code>null</code>
      *
      * @param port
      *            the TCP port on the local host to listen on
      *
      * @param sf
      *            the <code>SocketFactory</code> to use for this
-     *            <code>JettyServerEndpoint2</code>, or <code>null</code>
+     *            <code>HttpServerEndpoint</code>, or <code>null</code>
      *
      * @param ssf
      *            the <code>ServerSocketFactory</code> to use for this
-     *            <code>JettyServerEndpoint2</code>, or <code>null</code>
+     *            <code>HttpServerEndpoint</code>, or <code>null</code>
      *
-     * @return an <code>JettyServerEndpoint2</code> instance
+     * @return an <code>HttpServerEndpoint</code> instance
      *
      * @throws IllegalArgumentException
      *             if the port number is out of the range <code>0</code> to
@@ -261,8 +267,8 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
 
     /**
      * Returns the host name that will be used in <code>HttpEndpoint</code>
-     * instances produced by listening on this <code>JettyServerEndpoint2</code>
-     * , or <code>null</code> if the IP address string obtained from
+     * instances produced by listening on this <code>HttpServerEndpoint</code>,
+     * or <code>null</code> if the IP address string obtained from
      * {@link InetAddress#getLocalHost InetAddress.getLocalHost} will be used.
      *
      * @return the host name to use in <code>HttpEndpoint</code> instances
@@ -273,7 +279,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
     }
 
     /**
-     * Returns the TCP port that this <code>JettyServerEndpoint2</code> listens
+     * Returns the TCP port that this <code>HttpServerEndpoint</code> listens
      * on.
      *
      * @return the TCP port that this endpoint listens on
@@ -284,7 +290,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
 
     /**
      * Returns the <code>SocketFactory</code> that <code>HttpEndpoint</code>
-     * objects produced by listening on this <code>JettyServerEndpoint2</code>
+     * objects produced by listening on this <code>HttpServerEndpoint</code>
      * will use to create <code>Socket</code> objects.
      *
      * @return the socket factory that client-side endpoints corresponding to
@@ -313,21 +319,21 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      *             {@inheritDoc}
      **/
     public InvocationConstraints checkConstraints(InvocationConstraints constraints) throws UnsupportedConstraintException {
-        return InvocationConstraints.EMPTY;
+        return Constraints.check(constraints, true);
     }
 
     /**
      * Passes the {@link net.jini.jeri.ServerEndpoint.ListenEndpoint
-     * ListenEndpoint} for this <code>JettyServerEndpoint2</code> to
+     * ListenEndpoint} for this <code>HttpServerEndpoint</code> to
      * <code>listenContext</code>, which will ensure an active listen operation
      * on the endpoint, and returns an <code>HttpEndpoint</code> instance
      * corresponding to the listen operation chosen by
      * <code>listenContext</code>.
      *
      * <p>
-     * If this <code>JettyServerEndpoint2</code>'s host name is not
+     * If this <code>HttpServerEndpoint</code>'s host name is not
      * <code>null</code>, then the returned <code>HttpEndpoint</code> will
-     * contain that host name. If this <code>JettyServerEndpoint2</code>'s host
+     * contain that host name. If this <code>HttpServerEndpoint</code>'s host
      * name is <code>null</code>, then this method invokes
      * {@link InetAddress#getLocalHost InetAddress.getLocalHost} to obtain an
      * <code>InetAddress</code> for the local host. If
@@ -352,12 +358,12 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      * the TCP port number bound by the listen operation represented by the
      * {@link net.jini.jeri.ServerEndpoint.ListenHandle ListenHandle} returned
      * by <code>addListenEndpoint</code>, and the same
-     * <code>SocketFactory</code> as this <code>JettyServerEndpoint2</code>.
+     * <code>SocketFactory</code> as this <code>HttpServerEndpoint</code>.
      *
      * <p>
      * The <code>ListenEndpoint</code> passed to <code>addListenEndpoint</code>
      * represents the TCP port number and <code>ServerSocketFactory</code> of
-     * this <code>JettyServerEndpoint2</code>. Its methods behave as follows:
+     * this <code>HttpServerEndpoint</code>. Its methods behave as follows:
      *
      * <p>
      * {@link net.jini.jeri.ServerEndpoint.ListenEndpoint#listen ListenHandle
@@ -451,7 +457,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      * <ul>
      *
      * <li>the specified object is also a <code>ListenEndpoint</code> produced
-     * by an <code>JettyServerEndpoint2</code>,
+     * by an <code>HttpServerEndpoint</code>,
      *
      * <li>the port in the specified object is equal to the port in this object,
      * and
@@ -467,15 +473,14 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      *
      * @param listenContext
      *            the <code>ListenContext</code> to pass this
-     *            <code>JettyServerEndpoint2</code>'s
-     *            <code>ListenEndpoint</code> to
+     *            <code>HttpServerEndpoint</code>'s <code>ListenEndpoint</code>
+     *            to
      *
      * @return the <code>HttpEndpoint</code> instance for sending requests to
-     *         this <code>JettyServerEndpoint2</code>'s endpoint being listened
-     *         on
+     *         this <code>HttpServerEndpoint</code>'s endpoint being listened on
      *
      * @throws UnknownHostException
-     *             if this <code>JettyServerEndpoint2</code>'s host name is
+     *             if this <code>HttpServerEndpoint</code>'s host name is
      *             <code>null</code> and <code>InetAddress.getLocalHost</code>
      *             throws an <code>UnknownHostException</code>
      *
@@ -486,7 +491,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      * @throws SecurityException
      *             if there is a security manager and either the invocation of
      *             its <code>checkListen</code> method fails or this
-     *             <code>JettyServerEndpoint2</code>'s host name is
+     *             <code>HttpServerEndpoint</code>'s host name is
      *             <code>null</code> and the invocation of the security
      *             manager's <code>checkConnect</code> method fails
      *
@@ -542,21 +547,20 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
             throw new IllegalArgumentException();
         }
 
-        return new JettyEndPoint("localhost", 8100);// HttpEndpoint.getInstance(localHost,
-                                                    // cookie.getPort(), sf);
+        return JettyEndpoint2.getInstance(localHost, cookie.getPort(), sf);
     }
 
     /**
-     * Returns the hash code value for this <code>JettyServerEndpoint2</code>.
+     * Returns the hash code value for this <code>HttpServerEndpoint</code>.
      *
-     * @return the hash code value for this <code>JettyServerEndpoint2</code>
+     * @return the hash code value for this <code>HttpServerEndpoint</code>
      **/
     public int hashCode() {
         return port ^ (host != null ? host.hashCode() : 0) ^ (sf != null ? sf.hashCode() : 0) ^ (ssf != null ? ssf.hashCode() : 0);
     }
 
     /**
-     * Compares the specified object with this <code>JettyServerEndpoint2</code>
+     * Compares the specified object with this <code>HttpServerEndpoint</code>
      * for equality.
      *
      * <p>
@@ -564,7 +568,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      *
      * <ul>
      *
-     * <li>the specified object is also an <code>JettyServerEndpoint2</code>,
+     * <li>the specified object is also an <code>HttpServerEndpoint</code>,
      *
      * <li>the host and port in the specified object are equal to the host and
      * port in this object,
@@ -598,13 +602,12 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
     }
 
     /**
-     * Returns a string representation of this <code>JettyServerEndpoint2</code>
-     * .
+     * Returns a string representation of this <code>HttpServerEndpoint</code>.
      *
-     * @return a string representation of this <code>JettyServerEndpoint2</code>
+     * @return a string representation of this <code>HttpServerEndpoint</code>
      **/
     public String toString() {
-        return "JettyServerEndpoint2[" + (host != null ? host + ":" : "") + port + (ssf != null ? "," + ssf : "") + (sf != null ? "," + sf : "") + "]";
+        return "HttpServerEndpoint[" + (host != null ? host + ":" : "") + port + (ssf != null ? "," + ssf : "") + (sf != null ? "," + sf : "") + "]";
     }
 
     /**
@@ -627,21 +630,19 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                 throw new NullPointerException();
             }
 
-            // ServerSocket serverSocket;
-            // if (ssf != null) {
-            // serverSocket = ssf.createServerSocket(port);
-            // } else {
-            // serverSocket = new ServerSocket(port);
-            // }
+            ServerSocket serverSocket;
+            if (ssf != null) {
+                serverSocket = ssf.createServerSocket(port);
+            } else {
+                serverSocket = new ServerSocket(port);
+            }
 
-            // if (logger.isLoggable(Level.FINE)) {
-            // logger.log(Level.FINE, (ssf == null ? "created server socket {0}"
-            // : "created server socket {0} using factory {1}"), new Object[] {
-            // serverSocket, ssf });
-            // }
+            if (logger.isLoggable(Level.FINE)) {
+                logger.log(Level.FINE, (ssf == null ? "created server socket {0}" : "created server socket {0} using factory {1}"), new Object[] { serverSocket, ssf });
+            }
 
-            Cookie cookie = new Cookie(port);
-            final LH listenHandle = new LH(requestDispatcher, Security.getContext(), cookie);
+            Cookie cookie = new Cookie(serverSocket.getLocalPort());
+            final LH listenHandle = new LH(requestDispatcher, serverSocket, Security.getContext(), cookie);
             listenHandle.startAccepting();
             return listenHandle;
         }
@@ -670,7 +671,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
         }
 
         public String toString() {
-            return "JettyServerEndpoint2.LE[" + port + (ssf != null ? "," + ssf : "") + "]";
+            return "HttpServerEndpoint.LE[" + port + (ssf != null ? "," + ssf : "") + "]";
         }
 
         /**
@@ -694,7 +695,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
             }
 
             public String toString() {
-                return "JettyServerEndpoint2.LE.Cookie[" + port + "]";
+                return "HttpServerEndpoint.LE.Cookie[" + port + "]";
             }
         }
     }
@@ -705,6 +706,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
     private static class LH implements ListenHandle {
 
         private final RequestDispatcher requestDispatcher;
+        private final ServerSocket serverSocket;
         private final SecurityContext context;
         private final ListenCookie cookie;
 
@@ -715,8 +717,9 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
         private boolean closed = false;
         private final Set conns = new HashSet();
 
-        LH(RequestDispatcher requestDispatcher, SecurityContext context, ListenCookie cookie) {
+        LH(RequestDispatcher requestDispatcher, ServerSocket serverSocket, SecurityContext context, ListenCookie cookie) {
             this.requestDispatcher = requestDispatcher;
+            this.serverSocket = serverSocket;
             this.context = context;
             this.cookie = cookie;
         }
@@ -735,10 +738,10 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                          * more socket accepts will occur, ensure that the
                          * server socket is no longer listening.
                          */
-                        // try {
-                        // serverSocket.close();
-                        // } catch (IOException e) {
-                        // }
+                        try {
+                            serverSocket.close();
+                        } catch (IOException e) {
+                        }
                     }
                 }
             }, toString() + " accept loop");
@@ -762,18 +765,16 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
          **/
         private void executeAcceptLoop0() {
             while (true) {
-                // Socket socket = null;
+                Socket socket = null;
                 try {
-                    // socket = serverSocket.accept();
-                    // if (logger.isLoggable(Level.FINE)) {
-                    // logger.log(Level.FINE,
-                    // "accepted socket {0} from server socket {1}", new
-                    // Object[] { socket, serverSocket });
-                    // }
+                    socket = serverSocket.accept();
+                    if (logger.isLoggable(Level.FINE)) {
+                        logger.log(Level.FINE, "accepted socket {0} from server socket {1}", new Object[] { socket, serverSocket });
+                    }
 
-                    // setSocketOptions(socket);
+                    setSocketOptions(socket);
 
-                    new Connection();
+                    new Connection(socket);
 
                 } catch (Throwable t) {
                     try {
@@ -788,27 +789,25 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                             }
                         }
 
-                        // try {
-                        // if (logger.isLoggable(Level.WARNING)) {
-                        // LogUtil.logThrow(logger, Level.WARNING,
-                        // JettyServerEndpoint2.class, "executeAcceptLoop",
-                        // "accept loop for {0} throws",
-                        // new Object[] { serverSocket }, t);
-                        // }
-                        // } catch (Throwable tt) {
-                        // }
+                        try {
+                            if (logger.isLoggable(Level.WARNING)) {
+                                LogUtil.logThrow(logger, Level.WARNING, JettyServerEndpoint2.class, "executeAcceptLoop", "accept loop for {0} throws",
+                                        new Object[] { serverSocket }, t);
+                            }
+                        } catch (Throwable tt) {
+                        }
                     } finally {
                         /*
                          * Always close the accepted socket (if any) if an
                          * exception occurs, but only after logging an
                          * unexpected exception.
                          */
-                        // if (socket != null) {
-                        // try {
-                        // socket.close();
-                        // } catch (IOException e) {
-                        // }
-                        // }
+                        if (socket != null) {
+                            try {
+                                socket.close();
+                            } catch (IOException e) {
+                            }
+                        }
                     }
 
                     if (!(t instanceof SecurityException)) {
@@ -857,13 +856,13 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                 closed = true;
             }
 
-            // try {
-            // serverSocket.close();
-            // } catch (IOException e) {
-            // }
-            // if (logger.isLoggable(Level.FINE)) {
-            // logger.log(Level.FINE, "closed server socket {0}", serverSocket);
-            // }
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+            }
+            if (logger.isLoggable(Level.FINE)) {
+                logger.log(Level.FINE, "closed server socket {0}", serverSocket);
+            }
 
             /*
              * Iterating over conns without synchronization is safe at this
@@ -883,7 +882,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
         }
 
         public String toString() {
-            return "JettyServerEndpoint2.LH[]";
+            return "HttpServerEndpoint.LH[" + serverSocket + "]";
         }
 
         /**
@@ -923,12 +922,15 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
         /**
          * HttpServerConnection subclass.
          **/
-        private class Connection implements TimedConnection {
+        private class Connection extends HttpServerConnection {
 
+            private final Socket socket;
             private final Object connLock = new Object();
             private boolean connClosed;
 
-            Connection() {
+            Connection(Socket socket) throws IOException {
+                super(socket, requestDispatcher, serverManager);
+                this.socket = socket;
 
                 boolean needShutdown = false;
                 synchronized (lock) {
@@ -941,41 +943,39 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                 if (needShutdown) {
                     shutdown(true);
                 } else {
-                    // start();
+                    start();
                 }
             }
 
             public boolean shutdown(boolean force) {
-                // synchronized (connLock) {
-                // if (connClosed) {
-                // return true;
-                // }
-                // connClosed = super.shutdown(force);
-                // if (!connClosed) {
-                // return false;
-                // }
-                // }
-                //
-                // connTimer.cancelTimeout(this);
-                // synchronized (lock) {
-                // if (!closed) { // must not mutate set after closed
-                // conns.remove(this);
-                // }
-                // }
-                //
-                // if (logger.isLoggable(Level.FINE)) {
-                // logger.log(Level.FINE, "shut down connection on socket {0}",
-                // socket);
-                // }
+                synchronized (connLock) {
+                    if (connClosed) {
+                        return true;
+                    }
+                    connClosed = super.shutdown(force);
+                    if (!connClosed) {
+                        return false;
+                    }
+                }
+
+                connTimer.cancelTimeout(this);
+                synchronized (lock) {
+                    if (!closed) { // must not mutate set after closed
+                        conns.remove(this);
+                    }
+                }
+
+                if (logger.isLoggable(Level.FINE)) {
+                    logger.log(Level.FINE, "shut down connection on socket {0}", socket);
+                }
                 return true;
             }
 
             protected void checkPermissions() {
-                // SecurityManager sm = System.getSecurityManager();
-                // if (sm != null) {
-                // sm.checkAccept(socket.getInetAddress().getHostAddress(),
-                // socket.getPort());
-                // }
+                SecurityManager sm = System.getSecurityManager();
+                if (sm != null) {
+                    sm.checkAccept(socket.getInetAddress().getHostAddress(), socket.getPort());
+                }
             }
 
             protected InvocationConstraints checkConstraints(InvocationConstraints constraints) throws UnsupportedConstraintException {
@@ -987,7 +987,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
                  * (Otherwise, this operation would need to be parameterized by
                  * this connection or the request.)
                  */
-                return InvocationConstraints.EMPTY;
+                return Constraints.check(constraints, true);
             }
 
             /**
@@ -995,7 +995,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
              * the connection.
              **/
             protected void populateContext(Collection context) {
-                // Util.populateContext(context, socket.getInetAddress());
+                Util.populateContext(context, socket.getInetAddress());
             }
 
             protected void idle() {
@@ -1008,28 +1008,24 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
         }
     }
 
-    // /**
-    // * Attempts to set desired socket options for a connected socket
-    // * (TCP_NODELAY and SO_KEEPALIVE); ignores SocketException.
-    // **/
-    // private static void setSocketOptions(Socket socket) {
-    // try {
-    // socket.setTcpNoDelay(true);
-    // } catch (SocketException e) {
-    // if (logger.isLoggable(Levels.HANDLED)) {
-    // LogUtil.logThrow(logger, Levels.HANDLED, JettyServerEndpoint2.class,
-    // "setSocketOptions", "exception setting TCP_NODELAY on socket {0}", new
-    // Object[] { socket }, e);
-    // }
-    // }
-    // try {
-    // socket.setKeepAlive(true);
-    // } catch (SocketException e) {
-    // if (logger.isLoggable(Levels.HANDLED)) {
-    // LogUtil.logThrow(logger, Levels.HANDLED, JettyServerEndpoint2.class,
-    // "setSocketOptions", "exception setting SO_KEEPALIVE on socket {0}", new
-    // Object[] { socket }, e);
-    // }
-    // }
-    // }
+    /**
+     * Attempts to set desired socket options for a connected socket
+     * (TCP_NODELAY and SO_KEEPALIVE); ignores SocketException.
+     **/
+    private static void setSocketOptions(Socket socket) {
+        try {
+            socket.setTcpNoDelay(true);
+        } catch (SocketException e) {
+            if (logger.isLoggable(Levels.HANDLED)) {
+                LogUtil.logThrow(logger, Levels.HANDLED, JettyServerEndpoint2.class, "setSocketOptions", "exception setting TCP_NODELAY on socket {0}", new Object[] { socket }, e);
+            }
+        }
+        try {
+            socket.setKeepAlive(true);
+        } catch (SocketException e) {
+            if (logger.isLoggable(Levels.HANDLED)) {
+                LogUtil.logThrow(logger, Levels.HANDLED, JettyServerEndpoint2.class, "setSocketOptions", "exception setting SO_KEEPALIVE on socket {0}", new Object[] { socket }, e);
+            }
+        }
+    }
 }
