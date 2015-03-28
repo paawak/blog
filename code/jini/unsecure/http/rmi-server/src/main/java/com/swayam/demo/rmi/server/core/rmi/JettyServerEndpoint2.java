@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.swayam.demo.rmi.server.core.http;
+package com.swayam.demo.rmi.server.core.rmi;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -542,8 +542,8 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
             throw new IllegalArgumentException();
         }
 
-        return new JettyEndPoint(host, port);// HttpEndpoint.getInstance(localHost,
-                                             // cookie.getPort(), sf);
+        return new JettyEndPoint("localhost", 8100);// HttpEndpoint.getInstance(localHost,
+                                                    // cookie.getPort(), sf);
     }
 
     /**

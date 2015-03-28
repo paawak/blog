@@ -67,7 +67,7 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getExporter() {
-        if (true) {
+        if (false) {
             return getDefultExporter();
         } else {
             return getCustomExporter();
@@ -83,7 +83,9 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getCustomExporter() {
-        return new BasicJeriExporter(new JettyServerEndpoint("localhost", 8100), new BasicILFactoryWithLogging());
+        return new BasicJeriExporter(JettyServerEndpoint2.getInstance("localhost", 8100), new BasicILFactoryWithLogging());
+        // return new BasicJeriExporter(new JettyServerEndpoint("localhost",
+        // 8100), new BasicILFactoryWithLogging());
     }
 
 }

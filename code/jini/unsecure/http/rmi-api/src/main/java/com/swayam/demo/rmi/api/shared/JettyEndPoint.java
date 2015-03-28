@@ -1,7 +1,11 @@
 package com.swayam.demo.rmi.api.shared;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.NoSuchElementException;
 
 import net.jini.core.constraint.InvocationConstraints;
 import net.jini.jeri.Endpoint;
@@ -22,21 +26,64 @@ public class JettyEndPoint implements Endpoint, Serializable {
 
     @Override
     public OutboundRequestIterator newRequest(InvocationConstraints constraints) {
+        if (constraints == null) {
+            throw new NullPointerException();
+        }
         return new OutboundRequestIterator() {
+            private boolean nextCalled = false;
+            private OutboundRequest currentRequest;
 
-            private boolean dispatched = false;
-
-            @Override
-            public boolean hasNext() {
-                return !dispatched;
+            public OutboundRequest next() throws IOException {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                nextCalled = true;
+                currentRequest = nextRequest(constraints);
+                return currentRequest;
             }
 
-            @Override
-            public OutboundRequest next() throws IOException {
-                dispatched = true;
-                return new HttpOutboundRequest(host, port);
+            public boolean hasNext() {
+                // NYI: determine if HTTP failure suggests retry
+                return !nextCalled;
             }
         };
+    }
+
+    private OutboundRequest nextRequest(InvocationConstraints constraints) throws IOException {
+        final Constraints.Distilled distilled = Constraints.distill(constraints, false);
+
+        final OutboundRequest request = nextRequest(distilled);
+
+        // must wrap to provide getUnfulfilledConstraints implementation
+        return new OutboundRequest() {
+            public void populateContext(Collection context) {
+                request.populateContext(context);
+            }
+
+            public InvocationConstraints getUnfulfilledConstraints() {
+                return distilled.getUnfulfilledConstraints();
+            }
+
+            public OutputStream getRequestOutputStream() {
+                return request.getRequestOutputStream();
+            }
+
+            public InputStream getResponseInputStream() {
+                return request.getResponseInputStream();
+            }
+
+            public boolean getDeliveryStatus() {
+                return request.getDeliveryStatus();
+            }
+
+            public void abort() {
+                request.abort();
+            }
+        };
+    }
+
+    private OutboundRequest nextRequest(final Constraints.Distilled distilled) throws IOException {
+        return new HttpOutboundRequest(host, port);
     }
 
 }
