@@ -28,7 +28,6 @@ public class BasicInvocationDispatcherWithLogging implements InvocationDispatche
     public void dispatch(Remote impl, InboundRequest request, Collection context) {
         LOGGER.info("************** service: {}, request: {}, context: {}", new Object[] { impl.getClass(), request, context });
         delegatingInvocationDispatcher.dispatch(impl, request, context);
-        throw new RuntimeException();
     }
 
 }

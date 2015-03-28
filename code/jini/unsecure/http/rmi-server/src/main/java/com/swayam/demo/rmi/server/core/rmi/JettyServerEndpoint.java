@@ -9,6 +9,7 @@ import net.jini.jeri.RequestDispatcher;
 import net.jini.jeri.ServerEndpoint;
 import net.jini.jeri.http.HttpServerEndpoint;
 
+import com.swayam.demo.rmi.api.shared.HttpInboundRequest;
 import com.swayam.demo.rmi.api.shared.JettyEndPoint;
 
 public class JettyServerEndpoint implements ServerEndpoint {
@@ -31,16 +32,19 @@ public class JettyServerEndpoint implements ServerEndpoint {
     @Override
     public Endpoint enumerateListenEndpoints(ListenContext listenContext) throws IOException {
 
-        ListenCookie listenCookie = listenContext.addListenEndpoint(new ListenEndpoint() {
+        listenContext.addListenEndpoint(new ListenEndpoint() {
 
             @Override
             public ListenHandle listen(RequestDispatcher requestDispatcher) throws IOException {
 
-                ListenHandle listenHandle = new ListenHandle() {
+                requestDispatcher.dispatch(new HttpInboundRequest("http://localhost:8100"));
+
+                return new ListenHandle() {
 
                     @Override
                     public ListenCookie getCookie() {
-                        return new HttpCookie("http://localhost:8100");
+                        return new ListenCookie() {
+                        };
                     }
 
                     @Override
@@ -48,11 +52,6 @@ public class JettyServerEndpoint implements ServerEndpoint {
 
                     }
                 };
-
-                // requestDispatcher.dispatch(new
-                // HttpInboundRequest("http://localhost:8100"));
-
-                return listenHandle;
             }
 
             @Override
@@ -63,38 +62,4 @@ public class JettyServerEndpoint implements ServerEndpoint {
 
         return new JettyEndPoint(host, port);
     }
-
-    private static class HttpCookie implements ListenCookie {
-        private final String httpServer;
-
-        public HttpCookie(String httpServer) {
-            this.httpServer = httpServer;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((httpServer == null) ? 0 : httpServer.hashCode());
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            HttpCookie other = (HttpCookie) obj;
-            if (httpServer == null) {
-                if (other.httpServer != null)
-                    return false;
-            } else if (!httpServer.equals(other.httpServer))
-                return false;
-            return true;
-        }
-    }
-
 }
