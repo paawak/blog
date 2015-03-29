@@ -57,7 +57,6 @@ import net.jini.jeri.http.HttpServerEndpoint;
 import net.jini.security.proxytrust.TrustEquivalence;
 
 import com.sun.jini.jeri.internal.http.ConnectionTimer;
-import com.sun.jini.jeri.internal.http.HttpClientManager;
 import com.sun.jini.jeri.internal.http.HttpClientSocketFactory;
 import com.sun.jini.jeri.internal.http.HttpSettings;
 import com.sun.jini.jeri.internal.runtime.Util;

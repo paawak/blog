@@ -36,7 +36,9 @@ public class RmiServlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response, int count) throws IOException {
         LOG.info("processing request count: {}", count);
 
-        if (count < 3) {
+        if (count == -1) {
+
+        } else if (count < 3) {
             OutputStream os = response.getOutputStream();
             os.write(0x01);
             os.flush();
