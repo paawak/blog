@@ -1,13 +1,7 @@
 package com.swayam.demo.rmi.api.shared;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Collection;
 
-import net.jini.core.constraint.InvocationConstraints;
 import net.jini.jeri.OutboundRequest;
 
 import com.sun.jini.jeri.internal.http.HttpClientConnection;
@@ -50,39 +44,7 @@ public class JettyClientConnection extends HttpClientConnection {
             manager.clearServerInfo();
 
             try {
-                // req = new HttpOutboundRequest("localhost", 8100);
-                req = new OutboundRequest() {
-
-                    @Override
-                    public void populateContext(Collection context) {
-                        throw new UnsupportedOperationException();
-                    }
-
-                    @Override
-                    public InvocationConstraints getUnfulfilledConstraints() {
-                        throw new UnsupportedOperationException();
-                    }
-
-                    @Override
-                    public InputStream getResponseInputStream() {
-                        return new ByteArrayInputStream(new byte[1000]);
-                    }
-
-                    @Override
-                    public OutputStream getRequestOutputStream() {
-                        return new ByteArrayOutputStream();
-                    }
-
-                    @Override
-                    public boolean getDeliveryStatus() {
-                        throw new UnsupportedOperationException();
-                    }
-
-                    @Override
-                    public void abort() {
-                        // throw new UnsupportedOperationException();
-                    }
-                };
+                req = new HttpOutboundRequest("localhost", 8100);
                 return req;
             } finally {
                 if (req == null) {
