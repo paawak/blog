@@ -1,7 +1,13 @@
 package com.swayam.demo.rmi.api.shared;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Collection;
 
+import net.jini.core.constraint.InvocationConstraints;
 import net.jini.jeri.OutboundRequest;
 
 import com.sun.jini.jeri.internal.http.HttpClientConnection;
@@ -18,13 +24,17 @@ public class JettyClientConnection extends HttpClientConnection {
     private final Object stateLock = new Object();
     private int state = IDLE;
 
+    private final HttpClientManager manager;
+
     public JettyClientConnection(String host, int port, HttpClientSocketFactory factory, HttpClientManager manager) throws IOException {
         super(host, port, factory, manager);
+        this.manager = manager;
     }
 
     public JettyClientConnection(String targetHost, int targetPort, String proxyHost, int proxyPort, boolean tunnel, boolean persist, HttpClientSocketFactory factory,
             HttpClientManager manager) throws IOException {
         super(targetHost, targetPort, proxyHost, proxyPort, tunnel, persist, factory, manager);
+        this.manager = manager;
     }
 
     /**
@@ -33,18 +43,56 @@ public class JettyClientConnection extends HttpClientConnection {
      */
     @Override
     public OutboundRequest newRequest() throws IOException {
-        // OutboundRequest req = null;
-        // markBusy();
-        // // fetchServerInfo();
-        // try {
-        // req = new HttpOutboundRequest("localhost", 8100);
-        // return req;
-        // } finally {
-        // if (req == null) {
-        // markIdle();
-        // }
-        // }
-        return super.newRequest();
+        if (false) {
+            OutboundRequest req = null;
+            markBusy();
+
+            manager.clearServerInfo();
+
+            try {
+                // req = new HttpOutboundRequest("localhost", 8100);
+                req = new OutboundRequest() {
+
+                    @Override
+                    public void populateContext(Collection context) {
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    public InvocationConstraints getUnfulfilledConstraints() {
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    public InputStream getResponseInputStream() {
+                        return new ByteArrayInputStream(new byte[1000]);
+                    }
+
+                    @Override
+                    public OutputStream getRequestOutputStream() {
+                        return new ByteArrayOutputStream();
+                    }
+
+                    @Override
+                    public boolean getDeliveryStatus() {
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    public void abort() {
+                        // throw new UnsupportedOperationException();
+                    }
+                };
+                return req;
+            } finally {
+                if (req == null) {
+                    markIdle();
+                }
+            }
+        } else {
+            return super.newRequest();
+        }
+
     }
 
     /**

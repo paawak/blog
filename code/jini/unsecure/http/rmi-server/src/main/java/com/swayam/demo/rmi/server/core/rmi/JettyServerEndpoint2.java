@@ -27,8 +27,6 @@ import java.net.UnknownHostException;
 import java.security.AccessControlContext;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -502,53 +500,12 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      *             {@inheritDoc}
      **/
     public Endpoint enumerateListenEndpoints(ListenContext listenContext) throws IOException {
-        if (listenContext == null) {
-            throw new NullPointerException();
-        }
-
-        String localHost = host;
-        if (localHost == null) {
-            InetAddress localAddr;
-            try {
-                localAddr = (InetAddress) Security.doPrivileged(new PrivilegedExceptionAction() {
-                    public Object run() throws UnknownHostException {
-                        return InetAddress.getLocalHost();
-                    }
-                });
-            } catch (PrivilegedActionException e) {
-                /*
-                 * Only expose UnknownHostException thrown directly by
-                 * InetAddress.getLocalHost if it would also be thrown in the
-                 * caller's security context; otherwise, throw a new
-                 * UnknownHostException without the host name.
-                 */
-                InetAddress.getLocalHost();
-                throw new UnknownHostException("access to resolve local host denied");
-            }
-            SecurityManager sm = System.getSecurityManager();
-            if (sm != null) {
-                try {
-                    sm.checkConnect(localAddr.getHostName(), -1);
-                } catch (SecurityException e) {
-                    throw new SecurityException("access to resolve local host denied");
-                }
-            }
-            localHost = localAddr.getHostAddress();
-        }
 
         LE listenEndpoint = new LE(); // REMIND: needn't be new?
         ListenCookie listenCookie = listenContext.addListenEndpoint(listenEndpoint);
 
-        if (!(listenCookie instanceof LE.Cookie)) {
-            throw new IllegalArgumentException();
-        }
-        LE.Cookie cookie = (LE.Cookie) listenCookie;
-        if (!listenEndpoint.equals(cookie.getLE())) {
-            throw new IllegalArgumentException();
-        }
-
         // return new JettyEndPoint("localhost", 8100);
-        return JettyEndpoint2.getInstance(localHost, cookie.getPort(), sf);
+        return JettyEndpoint2.getInstance(host, port, sf);
     }
 
     /**
