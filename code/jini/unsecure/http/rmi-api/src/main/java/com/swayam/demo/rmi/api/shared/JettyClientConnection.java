@@ -23,4 +23,9 @@ public class JettyClientConnection extends HttpClientConnectionWithHook {
         return super.getOutboundRequestInstance();
     }
 
+    @Override
+    public OutboundRequest newRequest() throws IOException {
+        return super.newRequest();
+    }
+
 }

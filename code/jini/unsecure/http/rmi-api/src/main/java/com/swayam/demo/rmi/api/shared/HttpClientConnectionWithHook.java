@@ -185,7 +185,7 @@ public class HttpClientConnectionWithHook implements TimedConnection {
     /**
      * Fetches latest server/proxy HTTP information from cache.
      */
-    private void fetchServerInfo() {
+    protected void fetchServerInfo() {
         ServerInfo sinfo = manager.getServerInfo(targetInfo.host, targetInfo.port);
         if (sinfo.timestamp > targetInfo.timestamp) {
             targetInfo = sinfo;
@@ -211,7 +211,7 @@ public class HttpClientConnectionWithHook implements TimedConnection {
     /**
      * Marks connection busy. Throws IOException if connection closed.
      */
-    private void markBusy() throws IOException {
+    protected void markBusy() throws IOException {
         synchronized (stateLock) {
             if (state == BUSY) {
                 throw new IOException("connection busy");
@@ -225,7 +225,7 @@ public class HttpClientConnectionWithHook implements TimedConnection {
     /**
      * Marks connection idle. Does nothing if connection closed.
      */
-    private void markIdle() {
+    protected void markIdle() {
         synchronized (stateLock) {
             if (state == CLOSED) {
                 return;
