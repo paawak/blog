@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ConnectException;
-import java.net.HttpURLConnection;
 import java.net.Socket;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -54,16 +53,8 @@ public class JettyClientConnection {
         }
     });
 
-    /* modes */
-    private static final int DIRECT = 0;
-    private static final int PROXIED = 1;
-    private static final int TUNNELED = 2;
-
-    private final int mode;
-
     private final HttpClientManager manager;
     private ServerInfo targetInfo;
-    private ServerInfo proxyInfo;
     private final boolean persist;
     private String[] acks;
 
@@ -82,7 +73,6 @@ public class JettyClientConnection {
      */
     public JettyClientConnection(String host, int port, HttpClientSocketFactory factory, HttpClientManager manager) throws IOException {
         this.manager = manager;
-        mode = DIRECT;
         targetInfo = manager.getServerInfo(host, port);
         persist = true;
         this.factory = factory;
@@ -101,9 +91,6 @@ public class JettyClientConnection {
      */
     private void flushServerInfo() {
         manager.cacheServerInfo(targetInfo);
-        if (mode != DIRECT) {
-            manager.cacheServerInfo(proxyInfo);
-        }
     }
 
     /**
@@ -146,14 +133,12 @@ public class JettyClientConnection {
         disconnect();
         for (int i = 0; i < 2; i++) {
             if (sock == null) {
-                ServerInfo sinfo = (mode == DIRECT) ? targetInfo : proxyInfo;
+                ServerInfo sinfo = targetInfo;
                 sock = factory.createSocket(sinfo.host, sinfo.port);
                 out = new BufferedOutputStream(sock.getOutputStream());
                 in = new BufferedInputStream(sock.getInputStream());
             }
-            if (mode != TUNNELED) {
-                return;
-            }
+            return;
         }
         throw new ConnectException("failed to establish proxy tunnel");
     }
@@ -209,7 +194,7 @@ public class JettyClientConnection {
      * Creates start line for outbound HTTP POST message.
      */
     private StartLine createPostLine() {
-        String uri = (mode == PROXIED) ? "http://" + targetInfo.host + ":" + targetInfo.port + "/" : "/";
+        String uri = "/";
         return new StartLine(HTTP_MAJOR, HTTP_MINOR, "POST", uri);
     }
 
@@ -238,12 +223,6 @@ public class JettyClientConnection {
         String auth = targetInfo.getAuthString("http", sline.method, sline.uri);
         if (auth != null) {
             header.setField("Authorization", auth);
-        }
-        if (mode == PROXIED) {
-            auth = proxyInfo.getAuthString("http", sline.method, sline.uri);
-            if (auth != null) {
-                header.setField("Proxy-Authorization", auth);
-            }
         }
 
         acks = manager.getUnsentAcks(targetInfo.host, targetInfo.port);
@@ -279,39 +258,9 @@ public class JettyClientConnection {
             targetInfo.timestamp = now;
         }
 
-        if (mode != DIRECT) {
-            if ((str = inHeader.getField("Proxy-Authenticate")) != null) {
-                try {
-                    proxyInfo.setAuthInfo(str);
-                } catch (HttpParseException ex) {
-                }
-                proxyInfo.timestamp = now;
-            } else if ((str = inHeader.getField("Proxy-Authentication-Info")) != null) {
-                try {
-                    proxyInfo.updateAuthInfo(str);
-                } catch (HttpParseException ex) {
-                }
-                proxyInfo.timestamp = now;
-            }
-        }
-
-        if (mode != PROXIED) {
-            targetInfo.major = inLine.major;
-            targetInfo.minor = inLine.minor;
-            targetInfo.timestamp = now;
-        } else {
-            /*
-             * Return message was sent by proxy; however, since some proxies
-             * incorrectly relay the target server's version numbers instead of
-             * their own, we can only rely on version numbers which could not
-             * have been sent from target server.
-             */
-            if (inLine.status == HttpURLConnection.HTTP_PROXY_AUTH) {
-                proxyInfo.major = inLine.major;
-                proxyInfo.minor = inLine.minor;
-            }
-            proxyInfo.timestamp = now;
-        }
+        targetInfo.major = inLine.major;
+        targetInfo.minor = inLine.minor;
+        targetInfo.timestamp = now;
 
         if ((inLine.status / 100) == 2) {
             manager.clearUnsentAcks(targetInfo.host, targetInfo.port, acks);
@@ -325,7 +274,7 @@ public class JettyClientConnection {
      * Returns true if requests sent over this connection should chunk output.
      */
     private boolean supportsChunking() {
-        ServerInfo si = (mode == PROXIED) ? proxyInfo : targetInfo;
+        ServerInfo si = targetInfo;
         return StartLine.compareVersions(si.major, si.minor, 1, 1) >= 0;
     }
 
