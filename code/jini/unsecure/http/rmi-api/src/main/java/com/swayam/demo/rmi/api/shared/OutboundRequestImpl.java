@@ -53,10 +53,8 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
         }
     });
 
-    private final HttpClientManager manager;
     private ServerInfo targetInfo;
     private final boolean persist;
-    private String[] acks;
 
     private Socket sock;
     private OutputStream out;
@@ -75,7 +73,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
      * message exchanges.
      */
     public OutboundRequestImpl(String host, int port, HttpClientSocketFactory factory, HttpClientManager manager) throws IOException {
-        this.manager = manager;
         targetInfo = manager.getServerInfo(host, port);
         persist = true;
 
@@ -88,13 +85,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
         writer.writeStartLine(outLine);
         writer.writeHeader(outHeader);
         writer.flush();
-    }
-
-    /**
-     * Flushes current copy of server/proxy HTTP information to cache.
-     */
-    private void flushServerInfo() {
-        manager.cacheServerInfo(targetInfo);
     }
 
     /**
@@ -225,14 +215,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
             header.setField("Authorization", auth);
         }
 
-        acks = manager.getUnsentAcks(targetInfo.host, targetInfo.port);
-        if (acks.length > 0) {
-            String ackList = acks[0];
-            for (int i = 1; i < acks.length; i++) {
-                ackList += ", " + acks[i];
-            }
-            header.setField("RMI-Response-Ack", ackList);
-        }
         return header;
     }
 
@@ -263,11 +245,9 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
         targetInfo.timestamp = now;
 
         if ((inLine.status / 100) == 2) {
-            manager.clearUnsentAcks(targetInfo.host, targetInfo.port, acks);
             targetInfo.timestamp = now;
         }
 
-        flushServerInfo();
     }
 
     /**

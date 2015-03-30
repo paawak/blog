@@ -18,12 +18,7 @@
 
 package com.swayam.demo.rmi.api.shared;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.sun.jini.collection.SoftCache;
-import com.sun.jini.thread.Executor;
-import com.sun.jini.thread.GetThreadPoolAction;
 
 /**
  * Class for managing client-side functions shared among multiple connections
@@ -35,77 +30,13 @@ import com.sun.jini.thread.GetThreadPoolAction;
  */
 public class HttpClientManager {
 
-    private static final Executor systemThreadPool = (Executor) java.security.AccessController.doPrivileged(new GetThreadPoolAction(false));
-
     private final SoftCache rolodex = new SoftCache();
-    private final TimedMap unsentAcks;
 
     /**
      * Creates new HttpClientManager which expires unsent acknowledgments after
      * the specified timeout.
      */
     public HttpClientManager(long ackTimeout) {
-        unsentAcks = new TimedMap(systemThreadPool, ackTimeout);
-    }
-
-    /**
-     * Forgets all cached information about contacted HTTP servers.
-     */
-    public void clearServerInfo() {
-        rolodex.clear();
-    }
-
-    /**
-     * Adds to list of unsent acknowledgments for server at given host/port.
-     */
-    void addUnsentAcks(String host, int port, String[] cookies) {
-        if (cookies == null) {
-            throw new NullPointerException();
-        }
-        synchronized (unsentAcks) {
-            ServerKey key = new ServerKey(host, port);
-            Set set = (Set) unsentAcks.get(key);
-            if (set == null) {
-                set = new HashSet();
-                unsentAcks.put(key, set);
-            }
-            for (int i = 0; i < cookies.length; i++) {
-                set.add(cookies[i]);
-            }
-        }
-    }
-
-    /**
-     * Removes cookies from list of unsent acknowledgments for server at given
-     * host/port.
-     */
-    void clearUnsentAcks(String host, int port, String[] cookies) {
-        if (cookies == null) {
-            throw new NullPointerException();
-        }
-        synchronized (unsentAcks) {
-            ServerKey key = new ServerKey(host, port);
-            Set set = (Set) unsentAcks.get(key);
-            if (set == null) {
-                return;
-            }
-            for (int i = 0; i < cookies.length; i++) {
-                set.remove(cookies[i]);
-            }
-            if (set.isEmpty()) {
-                unsentAcks.remove(key);
-            }
-        }
-    }
-
-    /**
-     * Returns list of unsent acknowledgments for server at given host/port.
-     */
-    String[] getUnsentAcks(String host, int port) {
-        synchronized (unsentAcks) {
-            Set set = (Set) unsentAcks.get(new ServerKey(host, port));
-            return (set != null) ? (String[]) set.toArray(new String[set.size()]) : new String[0];
-        }
     }
 
     /**
@@ -117,23 +48,6 @@ public class HttpClientManager {
         synchronized (rolodex) {
             ServerInfo info = (ServerInfo) rolodex.get(key);
             return (info != null) ? (ServerInfo) info.clone() : new ServerInfo(host, port);
-        }
-    }
-
-    /**
-     * Caches HTTP server information, overwriting any previously registered
-     * information for server if timestamp is more recent.
-     */
-    void cacheServerInfo(ServerInfo info) {
-        if (info.timestamp == ServerInfo.NO_TIMESTAMP) {
-            return;
-        }
-        ServerKey key = new ServerKey(info.host, info.port);
-        synchronized (rolodex) {
-            ServerInfo oldInfo = (ServerInfo) rolodex.get(key);
-            if (oldInfo == null || info.timestamp > oldInfo.timestamp) {
-                rolodex.put(key, info.clone());
-            }
         }
     }
 
