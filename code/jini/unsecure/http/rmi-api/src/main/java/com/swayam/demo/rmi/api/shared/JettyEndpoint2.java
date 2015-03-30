@@ -89,13 +89,6 @@ public final class JettyEndpoint2 implements Endpoint, TrustEquivalence, Seriali
     /** set of canonical instances */
     private static final Map internTable = new WeakHashMap();
 
-    /** HTTP client manager */
-    private static final HttpClientManager clientManager;
-
-    static {
-        clientManager = new HttpClientManager(15000);
-    }
-
     /** client transport logger */
     private static final Logger logger = Logger.getLogger("net.jini.jeri.http.client");
 
@@ -273,7 +266,7 @@ public final class JettyEndpoint2 implements Endpoint, TrustEquivalence, Seriali
     }
 
     private OutboundRequest nextRequest() throws IOException {
-        return new OutboundRequestImpl(host, port, new SocketFactoryAdapter(sf), clientManager);
+        return new OutboundRequestImpl(host, port, new SocketFactoryAdapter(sf));
     }
 
     /**

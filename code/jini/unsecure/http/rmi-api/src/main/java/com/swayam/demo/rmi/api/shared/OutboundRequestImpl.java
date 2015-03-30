@@ -23,7 +23,6 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.ConnectException;
 import java.net.Socket;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -52,7 +51,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
         }
     });
 
-    private ServerInfo targetInfo;
     private final boolean persist;
 
     private Socket sock;
@@ -75,8 +73,7 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
      * once in cases where connection establishment involves multiple HTTP
      * message exchanges.
      */
-    public OutboundRequestImpl(String host, int port, HttpClientSocketFactory factory, HttpClientManager manager) throws IOException {
-        targetInfo = manager.getServerInfo(host, port);
+    public OutboundRequestImpl(String host, int port, HttpClientSocketFactory factory) throws IOException {
         persist = true;
 
         this.host = host;
@@ -87,7 +84,7 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
         Header outHeader = createPostHeader(outLine);
         outHeader.setField("RMI-Request-Type", "standard");
 
-        writer = new MessageWriter(out, supportsChunking());
+        writer = new MessageWriter(out, false);
         writer.writeStartLine(outLine);
         writer.writeHeader(outHeader);
         writer.flush();
@@ -100,29 +97,16 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
     private void setupConnection(HttpClientSocketFactory factory) throws IOException {
         boolean ok = false;
         try {
-            /*
-             * 4 cycles required in worst-case (proxied) scenario: i = 0: send
-             * OPTIONS request to proxy i = 1: send ping, fails with 407 (proxy
-             * auth required) i = 2: send ping, fails with 401 (unauthorized) i
-             * = 3: return
-             */
-            for (int i = 0; i < 4; i++) {
-                if (sock == null) {
-                    connect(factory);
-                }
-                if (targetInfo.timestamp == ServerInfo.NO_TIMESTAMP) {
-                    ping(true);
-                } else {
-                    ok = true;
-                    return;
-                }
+            if (sock == null) {
+                connect(factory);
             }
+            ok = true;
+            return;
         } finally {
             if (!ok) {
                 disconnect();
             }
         }
-        throw new ConnectException("failed to establish HTTP connection");
     }
 
     /**
@@ -151,38 +135,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
             out = null;
             in = null;
         }
-    }
-
-    /**
-     * Pings target. Returns true if succeeded, false if failed "cleanly".
-     */
-    private boolean ping(boolean setup) throws IOException {
-        StartLine outLine = createPostLine();
-        Header outHeader = createPostHeader(outLine);
-        outHeader.setField("RMI-Request-Type", "ping");
-        MessageWriter writer = new MessageWriter(out, false);
-
-        writer.writeStartLine(outLine);
-        writer.writeHeader(outHeader);
-        writer.writeTrailer(null);
-
-        MessageReader reader;
-        StartLine inLine;
-        Header inHeader;
-        do {
-            reader = new MessageReader(in, false);
-            inLine = reader.readStartLine();
-            inHeader = reader.readHeader();
-            inHeader.merge(reader.readTrailer());
-        } while (inLine.status / 100 == 1);
-
-        analyzePostResponse(inLine, inHeader);
-        if (!supportsPersist(inLine, inHeader)) {
-            if (setup) {
-                disconnect();
-            }
-        }
-        return (inLine.status / 100) == 2;
     }
 
     /**
@@ -215,50 +167,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
         header.setField("TE", "trailers");
 
         return header;
-    }
-
-    /**
-     * Analyzes POST response message start line and header, updating cached
-     * target/proxy server information if necessary.
-     */
-    private void analyzePostResponse(StartLine inLine, Header inHeader) {
-        String str;
-        long now = System.currentTimeMillis();
-
-        targetInfo.major = inLine.major;
-        targetInfo.minor = inLine.minor;
-        targetInfo.timestamp = now;
-
-        if ((inLine.status / 100) == 2) {
-            targetInfo.timestamp = now;
-        }
-
-    }
-
-    /**
-     * Returns true if requests sent over this connection should chunk output.
-     */
-    private boolean supportsChunking() {
-        ServerInfo si = targetInfo;
-        return StartLine.compareVersions(si.major, si.minor, 1, 1) >= 0;
-    }
-
-    /**
-     * Returns true if the given response line and header indicate that the
-     * connection can be persisted, and use of persistent connections has not
-     * been disabled.
-     */
-    private boolean supportsPersist(StartLine sline, Header header) {
-        if (header.containsValue("Connection", "close", true)) {
-            return false;
-        } else if (!persist) {
-            return false;
-        } else if (header.containsValue("Connection", "Keep-Alive", true)) {
-            return true;
-        } else {
-            int c = StartLine.compareVersions(sline.major, sline.minor, 1, 1);
-            return c >= 0;
-        }
     }
 
     public void populateContext(Collection context) {
@@ -313,7 +221,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
 
     void endInput() throws IOException {
         inHeader.merge(reader.readTrailer());
-        analyzePostResponse(inLine, inHeader);
     }
 
     void addAckListener(AcknowledgmentSource.Listener listener) {
