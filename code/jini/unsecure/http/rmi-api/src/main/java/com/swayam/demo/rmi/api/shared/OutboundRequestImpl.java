@@ -34,7 +34,6 @@ import net.jini.io.context.AcknowledgmentSource;
 import net.jini.jeri.OutboundRequest;
 
 import com.sun.jini.jeri.internal.http.HttpClientSocketFactory;
-import com.sun.jini.jeri.internal.http.HttpParseException;
 
 /**
  * Class representing a client-side HTTP connection used to send HTTP requests.
@@ -65,6 +64,10 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
     private StartLine inLine;
     private Header inHeader;
 
+    private final String host;
+
+    private final int port;
+
     /**
      * Creates HttpClientConnection which sends requests directly to given
      * host/port through a socket obtained from the given socket factory. The
@@ -75,6 +78,9 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
     public OutboundRequestImpl(String host, int port, HttpClientSocketFactory factory, HttpClientManager manager) throws IOException {
         targetInfo = manager.getServerInfo(host, port);
         persist = true;
+
+        this.host = host;
+        this.port = port;
 
         setupConnection(factory);
         StartLine outLine = createPostLine();
@@ -126,8 +132,7 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
     private void connect(HttpClientSocketFactory factory) throws IOException {
         disconnect();
         if (sock == null) {
-            ServerInfo sinfo = targetInfo;
-            sock = factory.createSocket(sinfo.host, sinfo.port);
+            sock = factory.createSocket(host, port);
             out = new BufferedOutputStream(sock.getOutputStream());
             in = new BufferedInputStream(sock.getInputStream());
         }
@@ -205,15 +210,9 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
      */
     private Header createPostHeader(StartLine sline) {
         Header header = createBaseHeader();
-        header.setField("Host", targetInfo.host + ":" + targetInfo.port);
+        header.setField("Host", host + ":" + port);
         header.setField("Connection", persist ? "TE" : "close, TE");
         header.setField("TE", "trailers");
-
-        // REMIND: eliminate hardcoded protocol string
-        String auth = targetInfo.getAuthString("http", sline.method, sline.uri);
-        if (auth != null) {
-            header.setField("Authorization", auth);
-        }
 
         return header;
     }
@@ -225,20 +224,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
     private void analyzePostResponse(StartLine inLine, Header inHeader) {
         String str;
         long now = System.currentTimeMillis();
-
-        if ((str = inHeader.getField("WWW-Authenticate")) != null) {
-            try {
-                targetInfo.setAuthInfo(str);
-            } catch (HttpParseException ex) {
-            }
-            targetInfo.timestamp = now;
-        } else if ((str = inHeader.getField("Authentication-Info")) != null) {
-            try {
-                targetInfo.updateAuthInfo(str);
-            } catch (HttpParseException ex) {
-            }
-            targetInfo.timestamp = now;
-        }
 
         targetInfo.major = inLine.major;
         targetInfo.minor = inLine.minor;
