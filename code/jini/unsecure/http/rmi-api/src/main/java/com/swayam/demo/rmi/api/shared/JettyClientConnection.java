@@ -36,7 +36,6 @@ import net.jini.jeri.OutboundRequest;
 
 import com.sun.jini.jeri.internal.http.HttpClientSocketFactory;
 import com.sun.jini.jeri.internal.http.HttpParseException;
-import com.sun.jini.jeri.internal.http.TimedConnection;
 
 /**
  * Class representing a client-side HTTP connection used to send HTTP requests.
@@ -44,7 +43,7 @@ import com.sun.jini.jeri.internal.http.TimedConnection;
  * @author Sun Microsystems, Inc.
  * 
  */
-public class JettyClientConnection implements TimedConnection {
+public class JettyClientConnection {
 
     private static final int HTTP_MAJOR = 1;
     private static final int HTTP_MINOR = 1;
@@ -60,14 +59,7 @@ public class JettyClientConnection implements TimedConnection {
     private static final int PROXIED = 1;
     private static final int TUNNELED = 2;
 
-    /* states */
-    private static final int IDLE = 0;
-    private static final int BUSY = 1;
-    private static final int CLOSED = 2;
-
     private final int mode;
-    private final Object stateLock = new Object();
-    private int state = IDLE;
 
     private final HttpClientManager manager;
     private ServerInfo targetInfo;
@@ -102,26 +94,6 @@ public class JettyClientConnection implements TimedConnection {
      */
     public OutboundRequest newRequest() throws IOException {
         return new OutboundRequestImpl();
-    }
-
-    /**
-     * Attempts to shut down connection, returning true if connection is closed.
-     * If force is true, connection is always shut down; if force is false,
-     * connection is only shut down if idle.
-     */
-    @Override
-    public boolean shutdown(boolean force) {
-        synchronized (stateLock) {
-            if (state == CLOSED) {
-                return true;
-            }
-            if (!force && state == BUSY) {
-                return false;
-            }
-            state = CLOSED;
-        }
-        disconnect();
-        return true;
     }
 
     /**
@@ -228,8 +200,6 @@ public class JettyClientConnection implements TimedConnection {
         if (!supportsPersist(inLine, inHeader)) {
             if (setup) {
                 disconnect();
-            } else {
-                shutdown(true);
             }
         }
         return (inLine.status / 100) == 2;
@@ -385,7 +355,6 @@ public class JettyClientConnection implements TimedConnection {
         private MessageReader reader;
         private StartLine inLine;
         private Header inHeader;
-        private boolean persist = false;
 
         OutboundRequestImpl() throws IOException {
             setupConnection(factory);
@@ -452,7 +421,6 @@ public class JettyClientConnection implements TimedConnection {
         void endInput() throws IOException {
             inHeader.merge(reader.readTrailer());
             analyzePostResponse(inLine, inHeader);
-            persist = supportsPersist(inLine, inHeader);
         }
 
         void addAckListener(AcknowledgmentSource.Listener listener) {
@@ -460,9 +428,7 @@ public class JettyClientConnection implements TimedConnection {
         }
 
         void done(boolean corrupt) {
-            if (corrupt || !persist) {
-                shutdown(true);
-            }
+
         }
     }
 }
