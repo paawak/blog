@@ -42,14 +42,14 @@ import com.sun.jini.jeri.internal.http.HttpParseException;
  * @author Sun Microsystems, Inc.
  * 
  */
-public class JettyClientConnection {
+public class OutboundRequestImpl extends Request implements OutboundRequest {
 
     private static final int HTTP_MAJOR = 1;
     private static final int HTTP_MINOR = 1;
 
     private static final String clientString = (String) AccessController.doPrivileged(new PrivilegedAction() {
         public Object run() {
-            return "Java/" + System.getProperty("java.version", "???") + " " + JettyClientConnection.class.getName();
+            return "Java/" + System.getProperty("java.version", "???") + " " + OutboundRequestImpl.class.getName();
         }
     });
 
@@ -62,7 +62,10 @@ public class JettyClientConnection {
     private OutputStream out;
     private InputStream in;
 
-    private final HttpClientSocketFactory factory;
+    private final MessageWriter writer;
+    private MessageReader reader;
+    private StartLine inLine;
+    private Header inHeader;
 
     /**
      * Creates HttpClientConnection which sends requests directly to given
@@ -71,19 +74,20 @@ public class JettyClientConnection {
      * once in cases where connection establishment involves multiple HTTP
      * message exchanges.
      */
-    public JettyClientConnection(String host, int port, HttpClientSocketFactory factory, HttpClientManager manager) throws IOException {
+    public OutboundRequestImpl(String host, int port, HttpClientSocketFactory factory, HttpClientManager manager) throws IOException {
         this.manager = manager;
         targetInfo = manager.getServerInfo(host, port);
         persist = true;
-        this.factory = factory;
-    }
 
-    /**
-     * Initiates new request to connection target. Throws an IOException if the
-     * connection is currently busy.
-     */
-    public OutboundRequest newRequest() throws IOException {
-        return new OutboundRequestImpl();
+        setupConnection(factory);
+        StartLine outLine = createPostLine();
+        Header outHeader = createPostHeader(outLine);
+        outHeader.setField("RMI-Request-Type", "standard");
+
+        writer = new MessageWriter(out, supportsChunking());
+        writer.writeStartLine(outLine);
+        writer.writeHeader(outHeader);
+        writer.flush();
     }
 
     /**
@@ -131,16 +135,12 @@ public class JettyClientConnection {
      */
     private void connect(HttpClientSocketFactory factory) throws IOException {
         disconnect();
-        for (int i = 0; i < 2; i++) {
-            if (sock == null) {
-                ServerInfo sinfo = targetInfo;
-                sock = factory.createSocket(sinfo.host, sinfo.port);
-                out = new BufferedOutputStream(sock.getOutputStream());
-                in = new BufferedInputStream(sock.getInputStream());
-            }
-            return;
+        if (sock == null) {
+            ServerInfo sinfo = targetInfo;
+            sock = factory.createSocket(sinfo.host, sinfo.port);
+            out = new BufferedOutputStream(sock.getOutputStream());
+            in = new BufferedInputStream(sock.getInputStream());
         }
-        throw new ConnectException("failed to establish proxy tunnel");
     }
 
     /**
@@ -296,88 +296,67 @@ public class JettyClientConnection {
         }
     }
 
-    /**
-     * HTTP-based implementation of OutboundRequest abstraction.
-     */
-    private class OutboundRequestImpl extends Request implements OutboundRequest {
-        private final MessageWriter writer;
-        private MessageReader reader;
-        private StartLine inLine;
-        private Header inHeader;
-
-        OutboundRequestImpl() throws IOException {
-            setupConnection(factory);
-            StartLine outLine = createPostLine();
-            Header outHeader = createPostHeader(outLine);
-            outHeader.setField("RMI-Request-Type", "standard");
-
-            writer = new MessageWriter(out, supportsChunking());
-            writer.writeStartLine(outLine);
-            writer.writeHeader(outHeader);
-            writer.flush();
-        }
-
-        public void populateContext(Collection context) {
-            if (context == null) {
-                throw new NullPointerException();
-            }
-        }
-
-        public InvocationConstraints getUnfulfilledConstraints() {
-            return InvocationConstraints.EMPTY;
-        }
-
-        public OutputStream getRequestOutputStream() {
-            return getOutputStream();
-        }
-
-        public InputStream getResponseInputStream() {
-            return getInputStream();
-        }
-
-        void startOutput() throws IOException {
-            // start line, header already written
-        }
-
-        void write(byte[] b, int off, int len) throws IOException {
-            writer.writeContent(b, off, len);
-        }
-
-        void endOutput() throws IOException {
-            writer.writeTrailer(null);
-        }
-
-        boolean startInput() throws IOException {
-            for (;;) {
-                reader = new MessageReader(in, false);
-                inLine = reader.readStartLine();
-                inHeader = reader.readHeader();
-                if (inLine.status / 100 != 1) {
-                    return inLine.status / 100 == 2;
-                }
-                reader.readTrailer();
-            }
-        }
-
-        int read(byte[] b, int off, int len) throws IOException {
-            return reader.readContent(b, off, len);
-        }
-
-        int available() throws IOException {
-            return reader.availableContent();
-        }
-
-        void endInput() throws IOException {
-            inHeader.merge(reader.readTrailer());
-            analyzePostResponse(inLine, inHeader);
-        }
-
-        void addAckListener(AcknowledgmentSource.Listener listener) {
-            throw new UnsupportedOperationException();
-        }
-
-        void done(boolean corrupt) {
-
+    public void populateContext(Collection context) {
+        if (context == null) {
+            throw new NullPointerException();
         }
     }
+
+    public InvocationConstraints getUnfulfilledConstraints() {
+        return InvocationConstraints.EMPTY;
+    }
+
+    public OutputStream getRequestOutputStream() {
+        return getOutputStream();
+    }
+
+    public InputStream getResponseInputStream() {
+        return getInputStream();
+    }
+
+    void startOutput() throws IOException {
+        // start line, header already written
+    }
+
+    void write(byte[] b, int off, int len) throws IOException {
+        writer.writeContent(b, off, len);
+    }
+
+    void endOutput() throws IOException {
+        writer.writeTrailer(null);
+    }
+
+    boolean startInput() throws IOException {
+        for (;;) {
+            reader = new MessageReader(in, false);
+            inLine = reader.readStartLine();
+            inHeader = reader.readHeader();
+            if (inLine.status / 100 != 1) {
+                return inLine.status / 100 == 2;
+            }
+            reader.readTrailer();
+        }
+    }
+
+    int read(byte[] b, int off, int len) throws IOException {
+        return reader.readContent(b, off, len);
+    }
+
+    int available() throws IOException {
+        return reader.availableContent();
+    }
+
+    void endInput() throws IOException {
+        inHeader.merge(reader.readTrailer());
+        analyzePostResponse(inLine, inHeader);
+    }
+
+    void addAckListener(AcknowledgmentSource.Listener listener) {
+        throw new UnsupportedOperationException();
+    }
+
+    void done(boolean corrupt) {
+
+    }
+
 }
