@@ -12,19 +12,9 @@ public class JettyClientConnection extends HttpClientConnectionWithHook {
         super(host, port, factory, manager);
     }
 
-    public JettyClientConnection(String targetHost, int targetPort, String proxyHost, int proxyPort, boolean tunnel, boolean persist, HttpClientSocketFactory factory,
-            HttpClientManager manager) throws IOException {
-        super(targetHost, targetPort, proxyHost, proxyPort, tunnel, persist, factory, manager);
-    }
-
-    @Override
-    protected OutboundRequest getOutboundRequestInstance() throws IOException {
-        // return new HttpOutboundRequest("localhost", 8100);
-        return super.getOutboundRequestInstance();
-    }
-
     @Override
     public OutboundRequest newRequest() throws IOException {
+        // return new HttpOutboundRequest("localhost", 8100);
         return super.newRequest();
     }
 

@@ -49,7 +49,6 @@ import net.jini.security.SecurityContext;
 import com.sun.jini.jeri.internal.http.ConnectionTimer;
 import com.sun.jini.jeri.internal.http.HttpServerConnection;
 import com.sun.jini.jeri.internal.http.HttpServerManager;
-import com.sun.jini.jeri.internal.http.HttpSettings;
 import com.sun.jini.jeri.internal.runtime.Util;
 import com.sun.jini.logging.Levels;
 import com.sun.jini.logging.LogUtil;
@@ -123,9 +122,8 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
     private static final ConnectionTimer connTimer;
 
     static {
-        HttpSettings hs = JettyEndpoint2.getHttpSettings();
-        serverManager = new HttpServerManager(hs.getResponseAckTimeout());
-        connTimer = new ConnectionTimer(hs.getServerConnectionTimeout());
+        serverManager = new HttpServerManager(15000);
+        connTimer = new ConnectionTimer(15000);
     }
 
     /** server transport logger */

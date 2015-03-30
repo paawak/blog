@@ -95,72 +95,11 @@ public class HttpClientConnectionWithHook implements TimedConnection {
     }
 
     /**
-     * Creates HttpClientConnection which sends requests to given target
-     * host/port through the indicated HTTP proxy over a socket provided by the
-     * specified socket factory. If tunnel is true, requests are tunneled
-     * through the proxy over an additional layered socket (also provided by the
-     * socket factory). If persist and tunnel are both false, the connection can
-     * only be used for a single request. If persist is true and tunnel is
-     * false, a persistent connection is maintained if possible. The
-     * createSocket and createTunnelSocket methods of the given socket factory
-     * may be called more than once in cases where connection establishment
-     * involves multiple HTTP message exchanges.
-     */
-    public HttpClientConnectionWithHook(String targetHost, int targetPort, String proxyHost, int proxyPort, boolean tunnel, boolean persist, HttpClientSocketFactory factory,
-            HttpClientManager manager) throws IOException {
-        this.manager = manager;
-        mode = tunnel ? TUNNELED : PROXIED;
-        targetInfo = manager.getServerInfo(targetHost, targetPort);
-        proxyInfo = manager.getServerInfo(proxyHost, proxyPort);
-        this.persist = persist || tunnel;
-        setupConnection(factory);
-    }
-
-    /**
-     * Pings target. Returns true if ping succeeded, false if it fails "cleanly"
-     * (i.e., if a valid HTTP response indicating request failure is received).
-     */
-    public boolean ping() throws IOException {
-        markBusy();
-        fetchServerInfo();
-        try {
-            return ping(false);
-        } finally {
-            markIdle();
-        }
-    }
-
-    /**
      * Initiates new request to connection target. Throws an IOException if the
      * connection is currently busy.
      */
     public OutboundRequest newRequest() throws IOException {
-        OutboundRequest req = null;
-        markBusy();
-        fetchServerInfo();
-        try {
-            req = getOutboundRequestInstance();
-            return req;
-        } finally {
-            if (req == null) {
-                markIdle();
-            }
-        }
-    }
-
-    /**
-     * Upcall indicating that connection has become idle. Subclasses may
-     * override this method to perform an appropriate action, such as scheduling
-     * an idle timeout.
-     */
-    protected void idle() {
-    }
-
-    /**
-     * Returns socket over which requests are sent.
-     */
-    public Socket getSocket() {
-        return sock;
+        return new OutboundRequestImpl();
     }
 
     /**
@@ -168,6 +107,7 @@ public class HttpClientConnectionWithHook implements TimedConnection {
      * If force is true, connection is always shut down; if force is false,
      * connection is only shut down if idle.
      */
+    @Override
     public boolean shutdown(boolean force) {
         synchronized (stateLock) {
             if (state == CLOSED) {
@@ -183,22 +123,6 @@ public class HttpClientConnectionWithHook implements TimedConnection {
     }
 
     /**
-     * Fetches latest server/proxy HTTP information from cache.
-     */
-    protected void fetchServerInfo() {
-        ServerInfo sinfo = manager.getServerInfo(targetInfo.host, targetInfo.port);
-        if (sinfo.timestamp > targetInfo.timestamp) {
-            targetInfo = sinfo;
-        }
-        if (mode != DIRECT) {
-            sinfo = manager.getServerInfo(proxyInfo.host, proxyInfo.port);
-            if (sinfo.timestamp > proxyInfo.timestamp) {
-                proxyInfo = sinfo;
-            }
-        }
-    }
-
-    /**
      * Flushes current copy of server/proxy HTTP information to cache.
      */
     private void flushServerInfo() {
@@ -206,33 +130,6 @@ public class HttpClientConnectionWithHook implements TimedConnection {
         if (mode != DIRECT) {
             manager.cacheServerInfo(proxyInfo);
         }
-    }
-
-    /**
-     * Marks connection busy. Throws IOException if connection closed.
-     */
-    protected void markBusy() throws IOException {
-        synchronized (stateLock) {
-            if (state == BUSY) {
-                throw new IOException("connection busy");
-            } else if (state == CLOSED) {
-                throw new IOException("connection closed");
-            }
-            state = BUSY;
-        }
-    }
-
-    /**
-     * Marks connection idle. Does nothing if connection closed.
-     */
-    protected void markIdle() {
-        synchronized (stateLock) {
-            if (state == CLOSED) {
-                return;
-            }
-            state = IDLE;
-        }
-        idle();
     }
 
     /**
@@ -283,12 +180,6 @@ public class HttpClientConnectionWithHook implements TimedConnection {
                 in = new BufferedInputStream(sock.getInputStream());
             }
             if (mode != TUNNELED) {
-                return;
-            }
-            if (requestProxyConnect()) {
-                sock = factory.createTunnelSocket(sock);
-                out = new BufferedOutputStream(sock.getOutputStream());
-                in = new BufferedInputStream(sock.getInputStream());
                 return;
             }
         }
@@ -372,45 +263,6 @@ public class HttpClientConnectionWithHook implements TimedConnection {
     }
 
     /**
-     * Sends CONNECT request to proxy. Returns true if CONNECT succeeded, false
-     * otherwise.
-     */
-    private boolean requestProxyConnect() throws IOException {
-        StartLine outLine = new StartLine(HTTP_MAJOR, HTTP_MINOR, "CONNECT", targetInfo.host + ":" + targetInfo.port);
-
-        // REMIND: eliminate hardcoded protocol string
-        Header outHeader = createConnectHeader();
-        String auth = proxyInfo.getAuthString("http", outLine.method, outLine.uri);
-        if (auth != null) {
-            outHeader.setField("Proxy-Authorization", auth);
-        }
-
-        MessageWriter writer = new MessageWriter(out, false);
-        writer.writeStartLine(outLine);
-        writer.writeHeader(outHeader);
-        writer.writeTrailer(null);
-
-        MessageReader reader;
-        StartLine inLine;
-        Header inHeader;
-        do {
-            reader = new MessageReader(in, true);
-            inLine = reader.readStartLine();
-            inHeader = reader.readHeader();
-            inHeader.merge(reader.readTrailer());
-        } while (inLine.status / 100 == 1);
-
-        analyzeProxyResponse(inLine, inHeader);
-        if ((inLine.status / 100) == 2) {
-            return true;
-        }
-        if (!supportsPersist(inLine, inHeader)) {
-            disconnect();
-        }
-        return false;
-    }
-
-    /**
      * Creates start line for outbound HTTP POST message.
      */
     private StartLine createPostLine() {
@@ -427,15 +279,6 @@ public class HttpClientConnectionWithHook implements TimedConnection {
         long now = System.currentTimeMillis();
         header.setField("Date", Header.getDateString(now));
         header.setField("User-Agent", clientString);
-        return header;
-    }
-
-    /**
-     * Creates header for use in CONNECT messages sent to proxies.
-     */
-    private Header createConnectHeader() {
-        Header header = createBaseHeader();
-        header.setField("Host", targetInfo.host + ":" + targetInfo.port);
         return header;
     }
 
@@ -598,10 +441,6 @@ public class HttpClientConnectionWithHook implements TimedConnection {
         }
     }
 
-    protected OutboundRequest getOutboundRequestInstance() throws IOException {
-        return new OutboundRequestImpl();
-    }
-
     /**
      * HTTP-based implementation of OutboundRequest abstraction.
      */
@@ -630,11 +469,7 @@ public class HttpClientConnectionWithHook implements TimedConnection {
         }
 
         public InvocationConstraints getUnfulfilledConstraints() {
-            /*
-             * NYI: With no request-specific hook, we depend on OutboundRequest
-             * wrapping for this method.
-             */
-            throw new AssertionError();
+            return InvocationConstraints.EMPTY;
         }
 
         public OutputStream getRequestOutputStream() {
@@ -690,8 +525,6 @@ public class HttpClientConnectionWithHook implements TimedConnection {
         void done(boolean corrupt) {
             if (corrupt || !persist) {
                 shutdown(true);
-            } else {
-                markIdle();
             }
         }
     }
