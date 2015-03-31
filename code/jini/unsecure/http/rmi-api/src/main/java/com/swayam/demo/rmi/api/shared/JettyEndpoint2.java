@@ -266,7 +266,7 @@ public final class JettyEndpoint2 implements Endpoint, TrustEquivalence, Seriali
     }
 
     private OutboundRequest nextRequest() throws IOException {
-        return new OutboundRequestImpl(host, port, new SocketFactoryAdapter(sf));
+        return new OutboundRequestImpl(host, port, new SocketIOStreamProvider(sf, host, port));
     }
 
     /**

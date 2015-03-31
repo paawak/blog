@@ -18,12 +18,9 @@
 
 package com.swayam.demo.rmi.api.shared;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.Socket;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Collection;
@@ -31,8 +28,6 @@ import java.util.Collection;
 import net.jini.core.constraint.InvocationConstraints;
 import net.jini.io.context.AcknowledgmentSource;
 import net.jini.jeri.OutboundRequest;
-
-import com.sun.jini.jeri.internal.http.HttpClientSocketFactory;
 
 /**
  * Class representing a client-side HTTP connection used to send HTTP requests.
@@ -54,10 +49,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
 
     private final boolean persist;
 
-    private final Socket sock;
-
-    private final IOStream ioStream;
-
     private final MessageWriter writer;
 
     private final String host;
@@ -75,32 +66,21 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
      * once in cases where connection establishment involves multiple HTTP
      * message exchanges.
      */
-    public OutboundRequestImpl(String host, int port, HttpClientSocketFactory factory) throws IOException {
+    public OutboundRequestImpl(String host, int port, IOStreamProvider ioStreamProvider) throws IOException {
         persist = true;
         this.host = host;
         this.port = port;
 
-        sock = factory.createSocket(host, port);
-        ioStream = connect(sock);
-
-        reader = new MessageReader(ioStream.inputStream, false);
+        reader = new MessageReader(ioStreamProvider.getInputStream(), false);
 
         StartLine outLine = createPostLine();
         Header outHeader = createPostHeader(outLine);
         outHeader.setField("RMI-Request-Type", "standard");
 
-        writer = new MessageWriter(ioStream.outputStream, false);
+        writer = new MessageWriter(ioStreamProvider.getOutputStream(), false);
         writer.writeStartLine(outLine);
         writer.writeHeader(outHeader);
         writer.flush();
-    }
-
-    /**
-     * Opens underlying connection. If tunneling through an HTTP proxy, attempts
-     * CONNECT request.
-     */
-    private static IOStream connect(Socket sock) throws IOException {
-        return new IOStream(new BufferedInputStream(sock.getInputStream()), new BufferedOutputStream(sock.getOutputStream()));
     }
 
     /**
@@ -205,18 +185,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
 
     @Override
     void done(boolean corrupt) {
-
-    }
-
-    private static class IOStream {
-
-        final InputStream inputStream;
-        final OutputStream outputStream;
-
-        IOStream(InputStream inputStream, OutputStream outputStream) {
-            this.inputStream = inputStream;
-            this.outputStream = outputStream;
-        }
 
     }
 

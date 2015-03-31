@@ -1,6 +1,10 @@
 package com.swayam.demo.rmi.api.shared;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -13,25 +17,36 @@ import java.util.logging.Logger;
 
 import javax.net.SocketFactory;
 
-import com.sun.jini.jeri.internal.http.HttpClientSocketFactory;
 import com.sun.jini.logging.Levels;
 import com.sun.jini.logging.LogUtil;
 
-/**
- * SocketFactory -> HttpClientSocketFactory adapter.
- **/
-final class SocketFactoryAdapter implements HttpClientSocketFactory {
+final class SocketIOStreamProvider implements IOStreamProvider {
 
     private static final Logger logger = Logger.getLogger("net.jini.jeri.http.client");
 
     private final SocketFactory sf;
 
-    SocketFactoryAdapter(SocketFactory sf) {
+    private final InputStream inputStream;
+    private final OutputStream outputStream;
+
+    SocketIOStreamProvider(SocketFactory sf, String host, int port) throws IOException {
         this.sf = sf;
+        Socket sock = createSocket(host, port);
+        inputStream = new BufferedInputStream(sock.getInputStream());
+        outputStream = new BufferedOutputStream(sock.getOutputStream());
     }
 
     @Override
-    public Socket createSocket(String host, int port) throws IOException {
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    @Override
+    public OutputStream getOutputStream() {
+        return outputStream;
+    }
+
+    private Socket createSocket(String host, int port) throws IOException {
         Socket socket = connectToHost(host, port);
 
         if (logger.isLoggable(Level.FINE)) {
@@ -41,12 +56,6 @@ final class SocketFactoryAdapter implements HttpClientSocketFactory {
         setSocketOptions(socket);
 
         return socket;
-    }
-
-    @Override
-    public Socket createTunnelSocket(Socket s) throws IOException {
-        // proxy tunneling never used
-        throw new UnsupportedOperationException();
     }
 
     /**
@@ -69,20 +78,20 @@ final class SocketFactoryAdapter implements HttpClientSocketFactory {
                 return connectToSocketAddress(new InetSocketAddress(host, port));
             } catch (IOException e) {
                 if (logger.isLoggable(Levels.FAILED)) {
-                    LogUtil.logThrow(logger, Levels.FAILED, SocketFactoryAdapter.class, "connectToHost", "exception connecting to unresolved host {0}", new Object[] { host + ":"
+                    LogUtil.logThrow(logger, Levels.FAILED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to unresolved host {0}", new Object[] { host + ":"
                             + port }, e);
                 }
                 throw e;
             } catch (SecurityException e) {
                 if (logger.isLoggable(Levels.FAILED)) {
-                    LogUtil.logThrow(logger, Levels.FAILED, SocketFactoryAdapter.class, "connectToHost", "exception connecting to unresolved host {0}", new Object[] { host + ":"
+                    LogUtil.logThrow(logger, Levels.FAILED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to unresolved host {0}", new Object[] { host + ":"
                             + port }, e);
                 }
                 throw e;
             }
         } catch (SecurityException e) {
             if (logger.isLoggable(Levels.FAILED)) {
-                LogUtil.logThrow(logger, Levels.FAILED, SocketFactoryAdapter.class, "connectToHost", "exception resolving host {0}", new Object[] { host }, e);
+                LogUtil.logThrow(logger, Levels.FAILED, SocketIOStreamProvider.class, "connectToHost", "exception resolving host {0}", new Object[] { host }, e);
             }
             throw e;
         }
@@ -94,7 +103,7 @@ final class SocketFactoryAdapter implements HttpClientSocketFactory {
                 return connectToSocketAddress(socketAddress);
             } catch (IOException e) {
                 if (logger.isLoggable(Levels.HANDLED)) {
-                    LogUtil.logThrow(logger, Levels.HANDLED, SocketFactoryAdapter.class, "connectToHost", "exception connecting to {0}", new Object[] { socketAddress }, e);
+                    LogUtil.logThrow(logger, Levels.HANDLED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { socketAddress }, e);
                 }
                 lastIOException = e;
                 if (e instanceof SocketTimeoutException) {
@@ -102,21 +111,21 @@ final class SocketFactoryAdapter implements HttpClientSocketFactory {
                 }
             } catch (SecurityException e) {
                 if (logger.isLoggable(Levels.HANDLED)) {
-                    LogUtil.logThrow(logger, Levels.HANDLED, SocketFactoryAdapter.class, "connectToHost", "exception connecting to {0}", new Object[] { socketAddress }, e);
+                    LogUtil.logThrow(logger, Levels.HANDLED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { socketAddress }, e);
                 }
                 lastSecurityException = e;
             }
         }
         if (lastIOException != null) {
             if (logger.isLoggable(Levels.FAILED)) {
-                LogUtil.logThrow(logger, Levels.FAILED, SocketFactoryAdapter.class, "connectToHost", "exception connecting to {0}", new Object[] { host + ":" + port },
+                LogUtil.logThrow(logger, Levels.FAILED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { host + ":" + port },
                         lastIOException);
             }
             throw lastIOException;
         }
         assert lastSecurityException != null;
         if (logger.isLoggable(Levels.FAILED)) {
-            LogUtil.logThrow(logger, Levels.FAILED, SocketFactoryAdapter.class, "connectToHost", "exception connecting to {0}", new Object[] { host + ":" + port },
+            LogUtil.logThrow(logger, Levels.FAILED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { host + ":" + port },
                     lastSecurityException);
         }
         throw lastSecurityException;
