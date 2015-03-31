@@ -45,26 +45,28 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
     private static final int HTTP_MAJOR = 1;
     private static final int HTTP_MINOR = 1;
 
-    private static final String clientString = (String) AccessController.doPrivileged(new PrivilegedAction() {
-        public Object run() {
+    private static final String clientString = AccessController.doPrivileged(new PrivilegedAction<String>() {
+        @Override
+        public String run() {
             return "Java/" + System.getProperty("java.version", "???") + " " + OutboundRequestImpl.class.getName();
         }
     });
 
     private final boolean persist;
 
-    private Socket sock;
-    private OutputStream out;
-    private InputStream in;
+    private final Socket sock;
+
+    private final IOStream ioStream;
 
     private final MessageWriter writer;
-    private MessageReader reader;
-    private StartLine inLine;
-    private Header inHeader;
 
     private final String host;
 
     private final int port;
+
+    private final MessageReader reader;
+
+    private Header inHeader;
 
     /**
      * Creates HttpClientConnection which sends requests directly to given
@@ -75,66 +77,30 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
      */
     public OutboundRequestImpl(String host, int port, HttpClientSocketFactory factory) throws IOException {
         persist = true;
-
         this.host = host;
         this.port = port;
 
-        setupConnection(factory);
+        sock = factory.createSocket(host, port);
+        ioStream = connect(sock);
+
+        reader = new MessageReader(ioStream.inputStream, false);
+
         StartLine outLine = createPostLine();
         Header outHeader = createPostHeader(outLine);
         outHeader.setField("RMI-Request-Type", "standard");
 
-        writer = new MessageWriter(out, false);
+        writer = new MessageWriter(ioStream.outputStream, false);
         writer.writeStartLine(outLine);
         writer.writeHeader(outHeader);
         writer.flush();
     }
 
     /**
-     * Establishes connection using sockets from the given socket factory.
-     * Throws IOException if connection setup fails.
-     */
-    private void setupConnection(HttpClientSocketFactory factory) throws IOException {
-        boolean ok = false;
-        try {
-            if (sock == null) {
-                connect(factory);
-            }
-            ok = true;
-            return;
-        } finally {
-            if (!ok) {
-                disconnect();
-            }
-        }
-    }
-
-    /**
      * Opens underlying connection. If tunneling through an HTTP proxy, attempts
      * CONNECT request.
      */
-    private void connect(HttpClientSocketFactory factory) throws IOException {
-        disconnect();
-        if (sock == null) {
-            sock = factory.createSocket(host, port);
-            out = new BufferedOutputStream(sock.getOutputStream());
-            in = new BufferedInputStream(sock.getInputStream());
-        }
-    }
-
-    /**
-     * Closes and releases reference to underlying socket.
-     */
-    private void disconnect() {
-        if (sock != null) {
-            try {
-                sock.close();
-            } catch (IOException ex) {
-            }
-            sock = null;
-            out = null;
-            in = null;
-        }
+    private static IOStream connect(Socket sock) throws IOException {
+        return new IOStream(new BufferedInputStream(sock.getInputStream()), new BufferedOutputStream(sock.getOutputStream()));
     }
 
     /**
@@ -169,20 +135,24 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
         return header;
     }
 
-    public void populateContext(Collection context) {
+    @Override
+    public void populateContext(@SuppressWarnings("rawtypes") Collection context) {
         if (context == null) {
             throw new NullPointerException();
         }
     }
 
+    @Override
     public InvocationConstraints getUnfulfilledConstraints() {
         return InvocationConstraints.EMPTY;
     }
 
+    @Override
     public OutputStream getRequestOutputStream() {
         return getOutputStream();
     }
 
+    @Override
     public InputStream getResponseInputStream() {
         return getInputStream();
     }
@@ -191,18 +161,20 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
         // start line, header already written
     }
 
+    @Override
     void write(byte[] b, int off, int len) throws IOException {
         writer.writeContent(b, off, len);
     }
 
+    @Override
     void endOutput() throws IOException {
         writer.writeTrailer(null);
     }
 
+    @Override
     boolean startInput() throws IOException {
         for (;;) {
-            reader = new MessageReader(in, false);
-            inLine = reader.readStartLine();
+            StartLine inLine = reader.readStartLine();
             inHeader = reader.readHeader();
             if (inLine.status / 100 != 1) {
                 return inLine.status / 100 == 2;
@@ -211,23 +183,40 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
         }
     }
 
+    @Override
     int read(byte[] b, int off, int len) throws IOException {
         return reader.readContent(b, off, len);
     }
 
+    @Override
     int available() throws IOException {
         return reader.availableContent();
     }
 
+    @Override
     void endInput() throws IOException {
         inHeader.merge(reader.readTrailer());
     }
 
+    @Override
     void addAckListener(AcknowledgmentSource.Listener listener) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     void done(boolean corrupt) {
+
+    }
+
+    private static class IOStream {
+
+        final InputStream inputStream;
+        final OutputStream outputStream;
+
+        IOStream(InputStream inputStream, OutputStream outputStream) {
+            this.inputStream = inputStream;
+            this.outputStream = outputStream;
+        }
 
     }
 

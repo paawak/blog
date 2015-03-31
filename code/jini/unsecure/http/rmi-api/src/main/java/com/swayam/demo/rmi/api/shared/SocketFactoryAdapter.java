@@ -168,7 +168,7 @@ final class SocketFactoryAdapter implements HttpClientSocketFactory {
      * Attempts to set desired socket options for a connected socket
      * (TCP_NODELAY and SO_KEEPALIVE); ignores SocketException.
      **/
-    static void setSocketOptions(Socket socket) {
+    private static void setSocketOptions(Socket socket) {
         try {
             socket.setTcpNoDelay(true);
         } catch (SocketException e) {
