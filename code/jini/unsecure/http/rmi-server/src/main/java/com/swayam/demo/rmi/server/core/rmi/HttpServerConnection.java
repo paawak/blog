@@ -203,10 +203,8 @@ public class HttpServerConnection implements TimedConnection {
             writer.writeHeader(createResponseHeader(persist));
 
             InboundRequestImpl req = new InboundRequestImpl(reader, writer);
-            try {
-                dispatcher.dispatch(req);
-            } catch (Throwable th) {
-            }
+            dispatcher.dispatch(req);
+
             req.finish();
 
             if (!persist || req.streamCorrupt()) {
