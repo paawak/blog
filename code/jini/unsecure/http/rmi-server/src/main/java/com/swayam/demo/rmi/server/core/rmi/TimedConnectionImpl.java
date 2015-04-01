@@ -8,8 +8,6 @@ import net.jini.core.constraint.InvocationConstraints;
 import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.RequestDispatcher;
 
-import com.sun.jini.jeri.internal.http.HttpServerConnection;
-
 /**
  * HttpServerConnection subclass.
  **/

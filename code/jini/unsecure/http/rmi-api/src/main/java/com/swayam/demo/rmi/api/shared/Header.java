@@ -37,7 +37,7 @@ import com.sun.jini.jeri.internal.http.HttpParseException;
  * @author Sun Microsystems, Inc.
  * 
  */
-class Header {
+public class Header {
 
     private static final SimpleDateFormat dateFormat;
     static {
@@ -50,7 +50,7 @@ class Header {
     /**
      * Creates new header with no field entries.
      */
-    Header() {
+    public Header() {
     }
 
     /**
@@ -87,7 +87,7 @@ class Header {
      * Returns value associated with named field, or null if field not present
      * in this header.
      */
-    String getField(String name) {
+    public String getField(String name) {
         return (String) fields.get(new FieldKey(name));
     }
 
@@ -95,7 +95,7 @@ class Header {
      * If given value is non-null, enters it as value of named field; otherwise,
      * removes field (if present) from this header.
      */
-    void setField(String name, String value) {
+    public void setField(String name, String value) {
         FieldKey key = new FieldKey(name);
         if (value != null) {
             fields.put(key, value);
@@ -108,7 +108,7 @@ class Header {
      * Returns true if named field's associated value either contains (as an
      * element of a comma-separated list) or is equal to the given value.
      */
-    boolean containsValue(String name, String value, boolean ignoreCase) {
+    public boolean containsValue(String name, String value, boolean ignoreCase) {
         String vlist = getField(name);
         if (vlist != null) {
             value = value.trim();
@@ -135,7 +135,7 @@ class Header {
      * overlapping field values are appended to the values in this header with a
      * comma in between.
      */
-    void merge(Header header) {
+    public void merge(Header header) {
         if (header != null) {
             Iterator ents = header.fields.entrySet().iterator();
             while (ents.hasNext()) {
@@ -160,7 +160,7 @@ class Header {
     /**
      * Returns formatted date string for given time.
      */
-    static String getDateString(long time) {
+    public static String getDateString(long time) {
         return dateFormat.format(new Date(time));
     }
 

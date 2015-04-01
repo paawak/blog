@@ -31,16 +31,16 @@ import com.sun.jini.jeri.internal.http.HttpParseException;
  * @author Sun Microsystems, Inc.
  * 
  */
-class StartLine {
+public class StartLine {
 
     /** major version number */
-    final int major;
+    public final int major;
     /** minor version number */
-    final int minor;
+    public final int minor;
     /** request or response line? */
     final boolean isRequest;
     /** request method */
-    final String method;
+    public final String method;
     /** request URI */
     final String uri;
     /** response status code */
@@ -64,7 +64,7 @@ class StartLine {
     /**
      * Creates start line for HTTP response message.
      */
-    StartLine(int major, int minor, int status, String reason) {
+    public StartLine(int major, int minor, int status, String reason) {
         this.major = major;
         this.minor = minor;
         this.status = status;
@@ -136,7 +136,7 @@ class StartLine {
      * major1/minor1 is less than major2/minor2, 1 if major1/minor1 is more than
      * major2/minor2, and 0 if the two pairs are equal.
      */
-    static int compareVersions(int major1, int minor1, int major2, int minor2) {
+    public static int compareVersions(int major1, int minor1, int major2, int minor2) {
         if (major1 != major2) {
             return (major1 > major2) ? 1 : -1;
         } else if (minor1 != minor2) {

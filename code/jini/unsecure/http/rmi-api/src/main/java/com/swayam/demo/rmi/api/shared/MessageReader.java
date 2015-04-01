@@ -32,7 +32,7 @@ import com.sun.jini.jeri.internal.http.HttpParseException;
  * @author Sun Microsystems, Inc.
  * 
  */
-class MessageReader {
+public class MessageReader {
 
     /* state values */
     private static final int START = 0;
@@ -52,7 +52,7 @@ class MessageReader {
      * Creates new reader on top of given input stream. If noContent is true,
      * incoming message is assumed to be bodiless (e.g., a HEAD response).
      */
-    MessageReader(InputStream in, boolean noContent) {
+    public MessageReader(InputStream in, boolean noContent) {
         this.in = in;
         this.noContent = noContent;
     }
@@ -60,7 +60,7 @@ class MessageReader {
     /**
      * Reads in HTTP message start line.
      */
-    StartLine readStartLine() throws IOException {
+    public StartLine readStartLine() throws IOException {
         updateState(START, HEADER);
         sline = new StartLine(in);
         return sline;
@@ -69,7 +69,7 @@ class MessageReader {
     /**
      * Reads in HTTP message header.
      */
-    Header readHeader() throws IOException {
+    public Header readHeader() throws IOException {
         updateState(HEADER, CONTENT);
         Header header = new Header(in);
 
@@ -103,7 +103,7 @@ class MessageReader {
     /**
      * Reads message content.
      */
-    int readContent(byte[] b, int off, int len) throws IOException {
+    public int readContent(byte[] b, int off, int len) throws IOException {
         updateState(CONTENT, CONTENT);
         return cin.read(b, off, len);
     }
@@ -111,7 +111,7 @@ class MessageReader {
     /**
      * Returns count of available message content.
      */
-    int availableContent() throws IOException {
+    public int availableContent() throws IOException {
         updateState(CONTENT, CONTENT);
         return cin.available();
     }
@@ -120,7 +120,7 @@ class MessageReader {
      * Reads in message trailer after consuming any unread content data. Returns
      * null if message doesn't have a trailer.
      */
-    Header readTrailer() throws IOException {
+    public Header readTrailer() throws IOException {
         updateState(CONTENT, CONTENT);
         while (cin.read(sink) != -1) {
         }

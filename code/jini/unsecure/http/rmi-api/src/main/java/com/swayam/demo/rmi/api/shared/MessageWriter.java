@@ -28,7 +28,7 @@ import java.io.OutputStream;
  * @author Sun Microsystems, Inc.
  * 
  */
-class MessageWriter {
+public class MessageWriter {
 
     private static final int CHUNK_SIZE = 512;
 
@@ -46,7 +46,7 @@ class MessageWriter {
     /**
      * Creates new writer on top of given output stream.
      */
-    MessageWriter(OutputStream out, boolean chunked) {
+    public MessageWriter(OutputStream out, boolean chunked) {
         this.out = out;
         cout = chunked ? (OutputStream) new ChunkedOutputStream() : (OutputStream) new ByteArrayOutputStream();
     }
@@ -54,7 +54,7 @@ class MessageWriter {
     /**
      * Writes HTTP message start line.
      */
-    void writeStartLine(StartLine line) throws IOException {
+    public void writeStartLine(StartLine line) throws IOException {
         updateState(START, HEADER);
         line.write(out);
     }
@@ -64,7 +64,7 @@ class MessageWriter {
      * until after the message content length is known). The caller should avoid
      * using the passed header after invoking this method.
      */
-    void writeHeader(Header header) throws IOException {
+    public void writeHeader(Header header) throws IOException {
         updateState(HEADER, CONTENT);
         if (cout instanceof ChunkedOutputStream) {
             header.setField("Transfer-Encoding", "chunked");
@@ -78,7 +78,7 @@ class MessageWriter {
     /**
      * Writes message content.
      */
-    void writeContent(byte[] b, int off, int len) throws IOException {
+    public void writeContent(byte[] b, int off, int len) throws IOException {
         updateState(CONTENT, CONTENT);
         cout.write(b, off, len);
     }
@@ -88,7 +88,7 @@ class MessageWriter {
      * header before writing), completing message output. Flushes underlying
      * output stream once trailer has been written.
      */
-    void writeTrailer(Header trailer) throws IOException {
+    public void writeTrailer(Header trailer) throws IOException {
         updateState(CONTENT, DONE);
         cout.close();
         if (cout instanceof ChunkedOutputStream) {

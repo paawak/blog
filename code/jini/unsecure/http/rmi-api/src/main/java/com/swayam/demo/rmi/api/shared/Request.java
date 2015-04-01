@@ -33,7 +33,7 @@ import com.sun.jini.thread.GetThreadPoolAction;
  * @author Sun Microsystems, Inc.
  * 
  */
-abstract class Request {
+public abstract class Request {
 
     private static final Executor systemThreadPool = (Executor) java.security.AccessController.doPrivileged(new GetThreadPoolAction(false));
 
@@ -59,7 +59,7 @@ abstract class Request {
     /**
      * Creates new Request, initializes content input/output streams.
      */
-    Request() {
+    public Request() {
         out = new ContentOutputStream();
         in = new ContentInputStream();
     }
@@ -95,7 +95,7 @@ abstract class Request {
      * Finishes request, if not finished or aborted already. Returns once
      * request is finished.
      */
-    void finish() {
+    public void finish() {
         try {
             out.close(false);
         } catch (Throwable th) {
@@ -109,69 +109,69 @@ abstract class Request {
     /**
      * Returns OutputStream used for writing outbound request/response data.
      */
-    OutputStream getOutputStream() {
+    protected OutputStream getOutputStream() {
         return out;
     }
 
     /**
      * Returns InputStream used for reading inbound request/response data.
      */
-    InputStream getInputStream() {
+    protected InputStream getInputStream() {
         return in;
     }
 
     /**
      * Method called internally before any outbound data is written.
      */
-    abstract void startOutput() throws IOException;
+    protected abstract void startOutput() throws IOException;
 
     /**
      * Method called internally to write outbound request/response data.
      */
-    abstract void write(byte[] b, int off, int len) throws IOException;
+    protected abstract void write(byte[] b, int off, int len) throws IOException;
 
     /**
      * Method called internally to signal the end of outbound data.
      */
-    abstract void endOutput() throws IOException;
+    protected abstract void endOutput() throws IOException;
 
     /**
      * Method called internally before any inbound data is read. Returns true if
      * inbound data is valid, false otherwise (e.g., error message content).
      */
-    abstract boolean startInput() throws IOException;
+    protected abstract boolean startInput() throws IOException;
 
     /**
      * Method called internally to read inbound request/response data.
      */
-    abstract int read(byte[] b, int off, int len) throws IOException;
+    protected abstract int read(byte[] b, int off, int len) throws IOException;
 
     /**
      * Method called internally to gauge available inbound data.
      */
-    abstract int available() throws IOException;
+    protected abstract int available() throws IOException;
 
     /**
-     * Method called internally when finished reading inbound data.
+     * Method called internally when finished reading inbound data. protected
      */
-    abstract void endInput() throws IOException;
+    protected abstract void endInput() throws IOException;
 
     /**
      * Method called internally to register acknowledgment listener.
      */
-    abstract void addAckListener(AcknowledgmentSource.Listener listener);
+    protected abstract void addAckListener(AcknowledgmentSource.Listener listener);
 
     /**
      * Method called internally when request is finished. If corrupt is true,
      * the underlying transport channel has been left in an unknown state.
      */
-    abstract void done(boolean corrupt);
+    protected abstract void done(boolean corrupt);
 
     /**
      * Method called internally to implement AcknowledgmentSource; checks state
      * and delegates to addAckListener method.
      */
-    final boolean addAcknowledgmentListener(AcknowledgmentSource.Listener l) {
+    public final boolean addAcknowledgmentListener(AcknowledgmentSource.Listener l) {
         synchronized (outLock) {
             synchronized (stateLock) {
                 if (aborted || outState >= CLOSED) {

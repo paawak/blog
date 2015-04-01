@@ -137,22 +137,22 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
         return getInputStream();
     }
 
-    void startOutput() throws IOException {
+    protected void startOutput() throws IOException {
         // start line, header already written
     }
 
     @Override
-    void write(byte[] b, int off, int len) throws IOException {
+    protected void write(byte[] b, int off, int len) throws IOException {
         writer.writeContent(b, off, len);
     }
 
     @Override
-    void endOutput() throws IOException {
+    protected void endOutput() throws IOException {
         writer.writeTrailer(null);
     }
 
     @Override
-    boolean startInput() throws IOException {
+    protected boolean startInput() throws IOException {
         for (;;) {
             StartLine inLine = reader.readStartLine();
             inHeader = reader.readHeader();
@@ -164,27 +164,27 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
     }
 
     @Override
-    int read(byte[] b, int off, int len) throws IOException {
+    protected int read(byte[] b, int off, int len) throws IOException {
         return reader.readContent(b, off, len);
     }
 
     @Override
-    int available() throws IOException {
+    protected int available() throws IOException {
         return reader.availableContent();
     }
 
     @Override
-    void endInput() throws IOException {
+    protected void endInput() throws IOException {
         inHeader.merge(reader.readTrailer());
     }
 
     @Override
-    void addAckListener(AcknowledgmentSource.Listener listener) {
+    protected void addAckListener(AcknowledgmentSource.Listener listener) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    void done(boolean corrupt) {
+    protected void done(boolean corrupt) {
 
     }
 
