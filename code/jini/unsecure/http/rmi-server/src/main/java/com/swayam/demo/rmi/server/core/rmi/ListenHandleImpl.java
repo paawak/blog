@@ -96,7 +96,7 @@ class ListenHandleImpl implements ListenHandle {
                 ioStreamProvider = new SocketIOStreamProvider(socket);
             } else {
                 // FIXME: hardcoded port: does not work
-                ioStreamProvider = new HttpIOStreamProvider("localhost", 8100);
+                ioStreamProvider = new HttpIOStreamProvider("localhost", 8100, 32);
             }
 
             try {

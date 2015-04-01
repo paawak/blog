@@ -16,8 +16,11 @@ public class HttpIOStreamProvider implements IOStreamProvider {
 
     private final URLConnection urlConnection;
 
-    public HttpIOStreamProvider(String host, int port) {
+    private final int key;
+
+    public HttpIOStreamProvider(String host, int port, int key) {
         urlConnection = getUrlConnection(host, port);
+        this.key = key;
     }
 
     @Override
@@ -32,7 +35,7 @@ public class HttpIOStreamProvider implements IOStreamProvider {
 
     private URLConnection getUrlConnection(String host, int port) {
 
-        String url = "http://" + host + ":" + port + "/?count=-71";
+        String url = "http://" + host + ":" + port + "/?count=" + key;
 
         LOG.info("trying to connect to {}", url);
 
