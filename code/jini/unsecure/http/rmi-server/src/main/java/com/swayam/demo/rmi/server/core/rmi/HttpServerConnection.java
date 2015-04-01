@@ -28,11 +28,8 @@ import java.net.Socket;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
-import net.jini.core.constraint.InvocationConstraints;
-import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.RequestDispatcher;
 
-import com.sun.jini.jeri.internal.http.TimedConnection;
 import com.sun.jini.thread.Executor;
 import com.sun.jini.thread.GetThreadPoolAction;
 import com.swayam.demo.rmi.api.shared.Header;
@@ -47,7 +44,7 @@ import com.swayam.demo.rmi.api.shared.StartLine;
  * @author Sun Microsystems, Inc.
  * 
  */
-public class HttpServerConnection implements TimedConnection {
+public class HttpServerConnection {
 
     private static final int HTTP_MAJOR = 1;
     private static final int HTTP_MINOR = 1;
@@ -82,18 +79,6 @@ public class HttpServerConnection implements TimedConnection {
         in = new BufferedInputStream(sock.getInputStream());
         out = new BufferedOutputStream(sock.getOutputStream());
         start();
-    }
-
-    public boolean shutdown(boolean force) {
-        return true;
-    }
-
-    protected void checkPermissions() {
-
-    }
-
-    protected InvocationConstraints checkConstraints(InvocationConstraints constraints) throws UnsupportedConstraintException {
-        return InvocationConstraints.EMPTY;
     }
 
     /**
@@ -152,8 +137,6 @@ public class HttpServerConnection implements TimedConnection {
                     }
                 }
             } catch (IOException ex) {
-            } finally {
-                shutdown(true);
             }
         }
 
@@ -169,9 +152,6 @@ public class HttpServerConnection implements TimedConnection {
             writer.writeHeader(createResponseHeader(persist));
             writer.writeTrailer(null);
 
-            if (!persist) {
-                shutdown(true);
-            }
         }
 
         /**
@@ -186,9 +166,6 @@ public class HttpServerConnection implements TimedConnection {
             writer.writeHeader(createResponseHeader(persist));
             writer.writeTrailer(null);
 
-            if (!persist) {
-                shutdown(true);
-            }
         }
 
         /**
@@ -207,9 +184,6 @@ public class HttpServerConnection implements TimedConnection {
 
             req.finish();
 
-            if (!persist || req.streamCorrupt()) {
-                shutdown(true);
-            }
         }
     }
 
