@@ -26,7 +26,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.security.AccessControlContext;
 import java.security.PrivilegedAction;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.net.ServerSocketFactory;
@@ -36,13 +35,10 @@ import net.jini.core.constraint.InvocationConstraints;
 import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.Endpoint;
 import net.jini.jeri.InboundRequest;
-import net.jini.jeri.RequestDispatcher;
 import net.jini.jeri.ServerEndpoint;
 import net.jini.security.Security;
 import net.jini.security.SecurityContext;
 
-import com.sun.jini.jeri.internal.http.ConnectionTimer;
-import com.sun.jini.jeri.internal.http.HttpServerManager;
 import com.sun.jini.jeri.internal.runtime.Util;
 import com.sun.jini.logging.Levels;
 import com.sun.jini.logging.LogUtil;
@@ -110,18 +106,8 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      **/
     static final Executor systemThreadPool = (Executor) Security.doPrivileged(new GetThreadPoolAction(false));
 
-    /** HTTP server manager */
-    static final HttpServerManager serverManager;
-    /** idle connection timer */
-    static final ConnectionTimer connTimer;
-
-    static {
-        serverManager = new HttpServerManager(15000);
-        connTimer = new ConnectionTimer(15000);
-    }
-
     /** server transport logger */
-    private static final Logger logger = Logger.getLogger("net.jini.jeri.http.server");
+    static final Logger logger = Logger.getLogger("net.jini.jeri.http.server");
 
     /** local host name to fill in to corresponding HttpEndpoints */
     private final String host;
@@ -493,8 +479,12 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      **/
     public Endpoint enumerateListenEndpoints(ListenContext listenContext) throws IOException {
 
-        LE listenEndpoint = new LE(); // REMIND: needn't be new?
-        ListenCookie listenCookie = listenContext.addListenEndpoint(listenEndpoint);
+        ListenEndpointImpl listenEndpoint = new ListenEndpointImpl(port, ssf); // REMIND:
+                                                                               // needn't
+                                                                               // be
+                                                                               // new?
+        // ListenCookie listenCookie =
+        listenContext.addListenEndpoint(listenEndpoint);
 
         // return new JettyEndPoint("localhost", 8100);
         return JettyEndpoint2.getInstance(host, port, sf);
@@ -558,96 +548,6 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
      **/
     public String toString() {
         return "HttpServerEndpoint[" + (host != null ? host + ":" : "") + port + (ssf != null ? "," + ssf : "") + (sf != null ? "," + sf : "") + "]";
-    }
-
-    /**
-     * ListenEndpoint implementation.
-     **/
-    private class LE implements ListenEndpoint {
-
-        LE() {
-        }
-
-        public void checkPermissions() {
-            SecurityManager sm = System.getSecurityManager();
-            if (sm != null) {
-                sm.checkListen(port);
-            }
-        }
-
-        public ListenHandle listen(RequestDispatcher requestDispatcher) throws IOException {
-            if (requestDispatcher == null) {
-                throw new NullPointerException();
-            }
-
-            ServerSocket serverSocket;
-            if (ssf != null) {
-                serverSocket = ssf.createServerSocket(port);
-            } else {
-                serverSocket = new ServerSocket(port);
-            }
-
-            if (logger.isLoggable(Level.FINE)) {
-                logger.log(Level.FINE, (ssf == null ? "created server socket {0}" : "created server socket {0} using factory {1}"), new Object[] { serverSocket, ssf });
-            }
-
-            Cookie cookie = new Cookie(serverSocket.getLocalPort());
-            final ListenHandleImpl listenHandle = new ListenHandleImpl(requestDispatcher, serverSocket, Security.getContext(), cookie);
-            listenHandle.startAccepting();
-            return listenHandle;
-        }
-
-        // following are required to implement equals:
-        private int getPort() {
-            return port;
-        }
-
-        private ServerSocketFactory getSSF() {
-            return ssf;
-        }
-
-        public int hashCode() {
-            return port ^ (ssf != null ? ssf.hashCode() : 0);
-        }
-
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            } else if (!(obj instanceof LE)) {
-                return false;
-            }
-            LE other = (LE) obj;
-            return port == other.getPort() && Util.sameClassAndEquals(ssf, other.getSSF());
-        }
-
-        public String toString() {
-            return "HttpServerEndpoint.LE[" + port + (ssf != null ? "," + ssf : "") + "]";
-        }
-
-        /**
-         * ListenCookie implementation: identifies a listen operation by
-         * containing the local port that the server socket is bound to.
-         **/
-        private class Cookie implements ListenCookie {
-
-            private final int port;
-
-            Cookie(int port) {
-                this.port = port;
-            }
-
-            LE getLE() {
-                return LE.this;
-            }
-
-            int getPort() {
-                return port;
-            }
-
-            public String toString() {
-                return "HttpServerEndpoint.LE.Cookie[" + port + "]";
-            }
-        }
     }
 
     /**

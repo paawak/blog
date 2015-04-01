@@ -94,7 +94,7 @@ class ListenHandleImpl implements ListenHandle {
 
                 JettyServerEndpoint2.setSocketOptions(socket);
 
-                new TimedConnectionImpl(requestDispatcher, socket);
+                new HttpServerConnection(socket, requestDispatcher);
 
             } catch (Throwable t) {
                 try {
@@ -136,7 +136,7 @@ class ListenHandleImpl implements ListenHandle {
                         }
                         if (snapshot != null) {
                             for (int i = 0; i < snapshot.length; i++) {
-                                ((TimedConnectionImpl) snapshot[i]).shutdown(false);
+                                ((HttpServerConnection) snapshot[i]).shutdown(false);
                             }
                         }
                     } catch (OutOfMemoryError e) {
@@ -187,7 +187,7 @@ class ListenHandleImpl implements ListenHandle {
          * is false in a synchronized block first.
          */
         for (Iterator i = conns.iterator(); i.hasNext();) {
-            ((TimedConnectionImpl) i.next()).shutdown(true);
+            ((HttpServerConnection) i.next()).shutdown(true);
         }
     }
 
