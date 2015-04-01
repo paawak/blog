@@ -94,7 +94,7 @@ class ListenHandleImpl implements ListenHandle {
 
                 JettyServerEndpoint2.setSocketOptions(socket);
 
-                new TimedConnectionImpl(lock, requestDispatcher, closed, conns, socket);
+                new TimedConnectionImpl(requestDispatcher, socket);
 
             } catch (Throwable t) {
                 try {
