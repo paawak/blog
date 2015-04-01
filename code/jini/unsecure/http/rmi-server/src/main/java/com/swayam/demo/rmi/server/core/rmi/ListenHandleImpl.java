@@ -5,24 +5,18 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.jini.core.constraint.InvocationConstraints;
-import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.RequestDispatcher;
 import net.jini.jeri.ServerEndpoint.ListenCookie;
 import net.jini.jeri.ServerEndpoint.ListenHandle;
 import net.jini.security.SecurityContext;
 
-import com.sun.jini.jeri.internal.http.HttpServerConnection;
-import com.sun.jini.jeri.internal.runtime.Util;
 import com.sun.jini.logging.LogUtil;
-import com.swayam.demo.rmi.api.shared.Constraints;
 
 /**
  * ListenHandle implementation: represents a listen operation.
@@ -100,7 +94,7 @@ class ListenHandleImpl implements ListenHandle {
 
                 JettyServerEndpoint2.setSocketOptions(socket);
 
-                new Connection(socket);
+                new TimedConnectionImpl(lock, requestDispatcher, closed, conns, socket);
 
             } catch (Throwable t) {
                 try {
@@ -142,7 +136,7 @@ class ListenHandleImpl implements ListenHandle {
                         }
                         if (snapshot != null) {
                             for (int i = 0; i < snapshot.length; i++) {
-                                ((Connection) snapshot[i]).shutdown(false);
+                                ((TimedConnectionImpl) snapshot[i]).shutdown(false);
                             }
                         }
                     } catch (OutOfMemoryError e) {
@@ -193,7 +187,7 @@ class ListenHandleImpl implements ListenHandle {
          * is false in a synchronized block first.
          */
         for (Iterator i = conns.iterator(); i.hasNext();) {
-            ((Connection) i.next()).shutdown(true);
+            ((TimedConnectionImpl) i.next()).shutdown(true);
         }
     }
 
@@ -240,93 +234,5 @@ class ListenHandleImpl implements ListenHandle {
             }
         }
         return true;
-    }
-
-    /**
-     * HttpServerConnection subclass.
-     **/
-    private class Connection extends HttpServerConnection {
-
-        private final Socket socket;
-        private final Object connLock = new Object();
-        private boolean connClosed;
-
-        Connection(Socket socket) throws IOException {
-            super(socket, requestDispatcher, JettyServerEndpoint2.serverManager);
-            this.socket = socket;
-
-            boolean needShutdown = false;
-            synchronized (lock) {
-                if (closed) {
-                    needShutdown = true; // shutdown after releasing lock
-                } else {
-                    conns.add(this);
-                }
-            }
-            if (needShutdown) {
-                shutdown(true);
-            } else {
-                start();
-            }
-        }
-
-        public boolean shutdown(boolean force) {
-            synchronized (connLock) {
-                if (connClosed) {
-                    return true;
-                }
-                connClosed = super.shutdown(force);
-                if (!connClosed) {
-                    return false;
-                }
-            }
-
-            JettyServerEndpoint2.connTimer.cancelTimeout(this);
-            synchronized (lock) {
-                if (!closed) { // must not mutate set after closed
-                    conns.remove(this);
-                }
-            }
-
-            if (logger.isLoggable(Level.FINE)) {
-                logger.log(Level.FINE, "shut down connection on socket {0}", socket);
-            }
-            return true;
-        }
-
-        protected void checkPermissions() {
-            SecurityManager sm = System.getSecurityManager();
-            if (sm != null) {
-                sm.checkAccept(socket.getInetAddress().getHostAddress(), socket.getPort());
-            }
-        }
-
-        protected InvocationConstraints checkConstraints(InvocationConstraints constraints) throws UnsupportedConstraintException {
-            /*
-             * The transport layer aspects of all constraints supported by this
-             * transport provider are always satisfied by all requests on the
-             * server side, so this method can have the same static behavior as
-             * ServerCapabilities.checkConstraints does. (Otherwise, this
-             * operation would need to be parameterized by this connection or
-             * the request.)
-             */
-            return Constraints.check(constraints, true);
-        }
-
-        /**
-         * Populates the context collection with information representing the
-         * connection.
-         **/
-        protected void populateContext(Collection context) {
-            Util.populateContext(context, socket.getInetAddress());
-        }
-
-        protected void idle() {
-            JettyServerEndpoint2.connTimer.scheduleTimeout(this, false);
-        }
-
-        protected void busy() {
-            JettyServerEndpoint2.connTimer.cancelTimeout(this);
-        }
     }
 }
