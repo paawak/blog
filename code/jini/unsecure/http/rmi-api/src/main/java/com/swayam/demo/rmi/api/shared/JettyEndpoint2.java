@@ -268,7 +268,7 @@ public final class JettyEndpoint2 implements Endpoint, TrustEquivalence, Seriali
     private OutboundRequest nextRequest() throws IOException {
         IOStreamProvider ioStreamProvider;
         if (true) {
-            ioStreamProvider = new SocketIOStreamProvider(sf, host, port);
+            ioStreamProvider = new SocketFactoryIOStreamProvider(sf, host, port);
         } else {
             // FIXME: hardcoded port: does not work
             ioStreamProvider = new HttpIOStreamProvider(host, 8100);

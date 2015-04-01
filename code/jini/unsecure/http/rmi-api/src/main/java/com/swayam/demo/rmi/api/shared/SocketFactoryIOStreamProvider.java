@@ -20,16 +20,15 @@ import javax.net.SocketFactory;
 import com.sun.jini.logging.Levels;
 import com.sun.jini.logging.LogUtil;
 
-final class SocketIOStreamProvider implements IOStreamProvider {
+public final class SocketFactoryIOStreamProvider implements IOStreamProvider {
 
     private static final Logger logger = Logger.getLogger("net.jini.jeri.http.client");
 
     private final SocketFactory sf;
-
     private final InputStream inputStream;
     private final OutputStream outputStream;
 
-    SocketIOStreamProvider(SocketFactory sf, String host, int port) throws IOException {
+    SocketFactoryIOStreamProvider(SocketFactory sf, String host, int port) throws IOException {
         this.sf = sf;
         Socket sock = createSocket(host, port);
         inputStream = new BufferedInputStream(sock.getInputStream());
@@ -78,20 +77,20 @@ final class SocketIOStreamProvider implements IOStreamProvider {
                 return connectToSocketAddress(new InetSocketAddress(host, port));
             } catch (IOException e) {
                 if (logger.isLoggable(Levels.FAILED)) {
-                    LogUtil.logThrow(logger, Levels.FAILED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to unresolved host {0}", new Object[] { host + ":"
-                            + port }, e);
+                    LogUtil.logThrow(logger, Levels.FAILED, SocketFactoryIOStreamProvider.class, "connectToHost", "exception connecting to unresolved host {0}",
+                            new Object[] { host + ":" + port }, e);
                 }
                 throw e;
             } catch (SecurityException e) {
                 if (logger.isLoggable(Levels.FAILED)) {
-                    LogUtil.logThrow(logger, Levels.FAILED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to unresolved host {0}", new Object[] { host + ":"
-                            + port }, e);
+                    LogUtil.logThrow(logger, Levels.FAILED, SocketFactoryIOStreamProvider.class, "connectToHost", "exception connecting to unresolved host {0}",
+                            new Object[] { host + ":" + port }, e);
                 }
                 throw e;
             }
         } catch (SecurityException e) {
             if (logger.isLoggable(Levels.FAILED)) {
-                LogUtil.logThrow(logger, Levels.FAILED, SocketIOStreamProvider.class, "connectToHost", "exception resolving host {0}", new Object[] { host }, e);
+                LogUtil.logThrow(logger, Levels.FAILED, SocketFactoryIOStreamProvider.class, "connectToHost", "exception resolving host {0}", new Object[] { host }, e);
             }
             throw e;
         }
@@ -103,7 +102,7 @@ final class SocketIOStreamProvider implements IOStreamProvider {
                 return connectToSocketAddress(socketAddress);
             } catch (IOException e) {
                 if (logger.isLoggable(Levels.HANDLED)) {
-                    LogUtil.logThrow(logger, Levels.HANDLED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { socketAddress }, e);
+                    LogUtil.logThrow(logger, Levels.HANDLED, SocketFactoryIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { socketAddress }, e);
                 }
                 lastIOException = e;
                 if (e instanceof SocketTimeoutException) {
@@ -111,21 +110,21 @@ final class SocketIOStreamProvider implements IOStreamProvider {
                 }
             } catch (SecurityException e) {
                 if (logger.isLoggable(Levels.HANDLED)) {
-                    LogUtil.logThrow(logger, Levels.HANDLED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { socketAddress }, e);
+                    LogUtil.logThrow(logger, Levels.HANDLED, SocketFactoryIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { socketAddress }, e);
                 }
                 lastSecurityException = e;
             }
         }
         if (lastIOException != null) {
             if (logger.isLoggable(Levels.FAILED)) {
-                LogUtil.logThrow(logger, Levels.FAILED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { host + ":" + port },
+                LogUtil.logThrow(logger, Levels.FAILED, SocketFactoryIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { host + ":" + port },
                         lastIOException);
             }
             throw lastIOException;
         }
         assert lastSecurityException != null;
         if (logger.isLoggable(Levels.FAILED)) {
-            LogUtil.logThrow(logger, Levels.FAILED, SocketIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { host + ":" + port },
+            LogUtil.logThrow(logger, Levels.FAILED, SocketFactoryIOStreamProvider.class, "connectToHost", "exception connecting to {0}", new Object[] { host + ":" + port },
                     lastSecurityException);
         }
         throw lastSecurityException;

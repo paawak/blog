@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.Socket;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
@@ -33,6 +32,7 @@ import net.jini.jeri.RequestDispatcher;
 import com.sun.jini.thread.Executor;
 import com.sun.jini.thread.GetThreadPoolAction;
 import com.swayam.demo.rmi.api.shared.Header;
+import com.swayam.demo.rmi.api.shared.IOStreamProvider;
 import com.swayam.demo.rmi.api.shared.MessageReader;
 import com.swayam.demo.rmi.api.shared.MessageWriter;
 import com.swayam.demo.rmi.api.shared.StartLine;
@@ -71,13 +71,13 @@ public class HttpServerConnection {
     /**
      * Creates new HttpServerConnection on top of given socket.
      */
-    public HttpServerConnection(Socket sock, RequestDispatcher dispatcher) throws IOException {
+    public HttpServerConnection(IOStreamProvider ioStreamProvider, RequestDispatcher dispatcher) throws IOException {
         if (dispatcher == null) {
             throw new NullPointerException();
         }
         this.dispatcher = dispatcher;
-        in = new BufferedInputStream(sock.getInputStream());
-        out = new BufferedOutputStream(sock.getOutputStream());
+        in = new BufferedInputStream(ioStreamProvider.getInputStream());
+        out = new BufferedOutputStream(ioStreamProvider.getOutputStream());
     }
 
     /**

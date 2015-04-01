@@ -13,6 +13,9 @@ import net.jini.jeri.ServerEndpoint.ListenCookie;
 import net.jini.jeri.ServerEndpoint.ListenHandle;
 import net.jini.security.SecurityContext;
 
+import com.swayam.demo.rmi.api.shared.HttpIOStreamProvider;
+import com.swayam.demo.rmi.api.shared.IOStreamProvider;
+
 /**
  * ListenHandle implementation: represents a listen operation.
  **/
@@ -88,8 +91,16 @@ class ListenHandleImpl implements ListenHandle {
 
             JettyServerEndpoint2.setSocketOptions(socket);
 
+            IOStreamProvider ioStreamProvider;
+            if (true) {
+                ioStreamProvider = new SocketIOStreamProvider(socket);
+            } else {
+                // FIXME: hardcoded port: does not work
+                ioStreamProvider = new HttpIOStreamProvider("localhost", 8100);
+            }
+
             try {
-                new HttpServerConnection(socket, requestDispatcher).start();
+                new HttpServerConnection(ioStreamProvider, requestDispatcher).start();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
