@@ -78,14 +78,13 @@ public class HttpServerConnection {
         this.dispatcher = dispatcher;
         in = new BufferedInputStream(sock.getInputStream());
         out = new BufferedOutputStream(sock.getOutputStream());
-        start();
     }
 
     /**
      * Starts request dispatch thread. Throws IllegalStateException if
      * connection has already been started, or is closed.
      */
-    protected void start() {
+    public void start() {
         synchronized (stateLock) {
             if (state != UNSTARTED) {
                 throw new IllegalStateException();

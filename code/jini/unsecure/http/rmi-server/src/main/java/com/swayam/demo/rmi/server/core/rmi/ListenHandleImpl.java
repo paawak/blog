@@ -89,7 +89,7 @@ class ListenHandleImpl implements ListenHandle {
             JettyServerEndpoint2.setSocketOptions(socket);
 
             try {
-                new HttpServerConnection(socket, requestDispatcher);
+                new HttpServerConnection(socket, requestDispatcher).start();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
