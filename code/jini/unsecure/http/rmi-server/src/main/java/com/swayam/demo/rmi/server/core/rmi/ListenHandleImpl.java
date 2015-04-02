@@ -118,7 +118,7 @@ class ListenHandleImpl implements ListenHandle {
     }
 
     public String toString() {
-        return "ListenHandleImpl[" + serverSocket + "]";
+        return "HttpServerEndpoint.LH[" + serverSocket + "]";
     }
 
 }

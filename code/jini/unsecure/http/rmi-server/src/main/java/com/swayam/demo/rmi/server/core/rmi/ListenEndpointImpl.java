@@ -28,11 +28,14 @@ class ListenEndpointImpl implements ListenEndpoint {
     }
 
     public ListenHandle listen(RequestDispatcher requestDispatcher) throws IOException {
+        if (requestDispatcher == null) {
+            throw new NullPointerException();
+        }
 
         ServerSocket serverSocket = new ServerSocket(port);
 
         Cookie cookie = new Cookie(serverSocket.getLocalPort());
-        ListenHandleImpl listenHandle = new ListenHandleImpl(requestDispatcher, serverSocket, Security.getContext(), cookie);
+        final ListenHandleImpl listenHandle = new ListenHandleImpl(requestDispatcher, serverSocket, Security.getContext(), cookie);
         listenHandle.startAccepting();
         return listenHandle;
     }
@@ -50,7 +53,7 @@ class ListenEndpointImpl implements ListenEndpoint {
         }
 
         public String toString() {
-            return "ListenEndpointImpl.Cookie[" + port + "]";
+            return "HttpServerEndpoint.LE.Cookie[" + port + "]";
         }
     }
 }

@@ -53,6 +53,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
         }
         this.host = host;
         this.port = port;
+
     }
 
     public InvocationConstraints checkConstraints(InvocationConstraints constraints) throws UnsupportedConstraintException {
