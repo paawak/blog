@@ -28,9 +28,6 @@ class ListenHandleImpl implements ListenHandle {
     private final SecurityContext context;
     private final ListenCookie cookie;
 
-    private final Object lock = new Object();
-    private boolean closed = false;
-
     ListenHandleImpl(RequestDispatcher requestDispatcher, ServerSocket serverSocket, SecurityContext context, ListenCookie cookie) {
         this.requestDispatcher = requestDispatcher;
         this.serverSocket = serverSocket;
@@ -89,8 +86,6 @@ class ListenHandleImpl implements ListenHandle {
                 logger.log(Level.FINE, "accepted socket {0} from server socket {1}", new Object[] { socket, serverSocket });
             }
 
-            JettyServerEndpoint2.setSocketOptions(socket);
-
             IOStreamProvider ioStreamProvider;
             if (true) {
                 ioStreamProvider = new SocketIOStreamProvider(socket);
@@ -112,17 +107,6 @@ class ListenHandleImpl implements ListenHandle {
      * Stops this listen operation.
      **/
     public void close() {
-        synchronized (lock) {
-            if (closed) {
-                return;
-            }
-            closed = true;
-        }
-
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-        }
 
     }
 
