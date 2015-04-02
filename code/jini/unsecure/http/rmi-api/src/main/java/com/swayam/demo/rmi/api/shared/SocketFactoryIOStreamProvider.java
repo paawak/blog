@@ -15,8 +15,6 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.net.SocketFactory;
-
 import com.sun.jini.logging.Levels;
 import com.sun.jini.logging.LogUtil;
 
@@ -24,12 +22,10 @@ public final class SocketFactoryIOStreamProvider implements IOStreamProvider {
 
     private static final Logger logger = Logger.getLogger("net.jini.jeri.http.client");
 
-    private final SocketFactory sf;
     private final InputStream inputStream;
     private final OutputStream outputStream;
 
-    SocketFactoryIOStreamProvider(SocketFactory sf, String host, int port) throws IOException {
-        this.sf = sf;
+    SocketFactoryIOStreamProvider(String host, int port) throws IOException {
         Socket sock = createSocket(host, port);
         inputStream = new BufferedInputStream(sock.getInputStream());
         outputStream = new BufferedOutputStream(sock.getOutputStream());
@@ -158,16 +154,7 @@ public final class SocketFactoryIOStreamProvider implements IOStreamProvider {
      * non-null.
      **/
     private Socket newSocket() throws IOException {
-        Socket socket;
-        if (sf != null) {
-            socket = sf.createSocket();
-        } else {
-            socket = new Socket();
-        }
-
-        if (logger.isLoggable(Level.FINE)) {
-            logger.log(Level.FINE, (sf == null ? "created socket {0}" : "created socket {0} using factory {1}"), new Object[] { socket, sf });
-        }
+        Socket socket = new Socket();
 
         return socket;
     }
