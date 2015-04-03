@@ -3,8 +3,6 @@ package com.swayam.demo.rmi.server.core.rmi;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -65,22 +63,9 @@ class ListenHandleImpl implements ListenHandle {
     }
 
     /**
-     * Runs the accept loop in the access control context preserved by
-     * LE.listen.
-     **/
-    private void executeAcceptLoop() {
-        AccessController.doPrivileged(context.wrap(new PrivilegedAction() {
-            public Object run() {
-                executeAcceptLoop0();
-                return null;
-            }
-        }), context.getAccessControlContext());
-    }
-
-    /**
      * Executes the accept loop.
      **/
-    private void executeAcceptLoop0() {
+    private void executeAcceptLoop() {
         while (true) {
             Socket socket = null;
             try {
