@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,18 +30,22 @@ class ListenHandleImpl implements ListenHandle {
     private final SecurityContext context;
     private final ListenCookie cookie;
 
+    private final Executor threadPool;
+
     ListenHandleImpl(RequestDispatcher requestDispatcher, ServerSocket serverSocket, SecurityContext context, ListenCookie cookie) {
         this.requestDispatcher = requestDispatcher;
         this.serverSocket = serverSocket;
         this.context = context;
         this.cookie = cookie;
+
+        threadPool = Executors.newFixedThreadPool(1);
     }
 
     /**
      * Starts the accept loop.
      **/
     void startAccepting() {
-        JettyServerEndpoint2.systemThreadPool.execute(new Runnable() {
+        threadPool.execute(new Runnable() {
             public void run() {
                 try {
                     executeAcceptLoop();
@@ -55,7 +61,7 @@ class ListenHandleImpl implements ListenHandle {
                     }
                 }
             }
-        }, toString() + " accept loop");
+        });
     }
 
     /**

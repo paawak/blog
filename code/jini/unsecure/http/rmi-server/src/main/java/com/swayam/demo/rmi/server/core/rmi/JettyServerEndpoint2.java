@@ -25,15 +25,10 @@ import net.jini.core.constraint.InvocationConstraints;
 import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.Endpoint;
 import net.jini.jeri.ServerEndpoint;
-import net.jini.security.Security;
 
-import com.sun.jini.thread.Executor;
-import com.sun.jini.thread.GetThreadPoolAction;
 import com.swayam.demo.rmi.api.shared.JettyEndpoint2;
 
 public final class JettyServerEndpoint2 implements ServerEndpoint {
-
-    static final Executor systemThreadPool = (Executor) Security.doPrivileged(new GetThreadPoolAction(false));
 
     /** server transport logger */
     static final Logger logger = Logger.getLogger("net.jini.jeri.http.server");

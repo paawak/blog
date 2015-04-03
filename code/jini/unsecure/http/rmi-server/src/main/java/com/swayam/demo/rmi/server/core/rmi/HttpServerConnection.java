@@ -26,11 +26,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import net.jini.jeri.RequestDispatcher;
 
-import com.sun.jini.thread.Executor;
-import com.sun.jini.thread.GetThreadPoolAction;
 import com.swayam.demo.rmi.api.shared.Header;
 import com.swayam.demo.rmi.api.shared.IOStreamProvider;
 import com.swayam.demo.rmi.api.shared.MessageReader;
@@ -60,7 +60,11 @@ public class HttpServerConnection {
         }
     });
 
-    private static final Executor userThreadPool = (Executor) java.security.AccessController.doPrivileged(new GetThreadPoolAction(true));
+    // private static final Executor userThreadPool = (Executor)
+    // java.security.AccessController.doPrivileged(new
+    // GetThreadPoolAction(true));
+
+    private final Executor threadPool;
 
     private final InputStream in;
     private final OutputStream out;
@@ -78,6 +82,8 @@ public class HttpServerConnection {
         this.dispatcher = dispatcher;
         in = new BufferedInputStream(ioStreamProvider.getInputStream());
         out = new BufferedOutputStream(ioStreamProvider.getOutputStream());
+
+        threadPool = Executors.newFixedThreadPool(1);
     }
 
     /**
@@ -90,7 +96,7 @@ public class HttpServerConnection {
                 throw new IllegalStateException();
             }
             state = IDLE;
-            userThreadPool.execute(new Dispatcher(), "HTTP dispatcher");
+            threadPool.execute(new Dispatcher());
         }
     }
 
