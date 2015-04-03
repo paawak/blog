@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import net.jini.jeri.RequestDispatcher;
 import net.jini.jeri.ServerEndpoint.ListenCookie;
 import net.jini.jeri.ServerEndpoint.ListenHandle;
-import net.jini.security.SecurityContext;
 
 import com.swayam.demo.rmi.api.shared.HttpIOStreamProvider;
 import com.swayam.demo.rmi.api.shared.IOStreamProvider;
@@ -25,15 +24,13 @@ class ListenHandleImpl implements ListenHandle {
 
     private final RequestDispatcher requestDispatcher;
     private final ServerSocket serverSocket;
-    private final SecurityContext context;
     private final ListenCookie cookie;
 
     private final Executor threadPool;
 
-    ListenHandleImpl(RequestDispatcher requestDispatcher, ServerSocket serverSocket, SecurityContext context, ListenCookie cookie) {
+    ListenHandleImpl(RequestDispatcher requestDispatcher, ServerSocket serverSocket, ListenCookie cookie) {
         this.requestDispatcher = requestDispatcher;
         this.serverSocket = serverSocket;
-        this.context = context;
         this.cookie = cookie;
 
         threadPool = Executors.newFixedThreadPool(1);

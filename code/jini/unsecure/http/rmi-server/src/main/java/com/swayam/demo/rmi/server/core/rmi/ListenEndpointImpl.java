@@ -7,7 +7,6 @@ import net.jini.jeri.RequestDispatcher;
 import net.jini.jeri.ServerEndpoint.ListenCookie;
 import net.jini.jeri.ServerEndpoint.ListenEndpoint;
 import net.jini.jeri.ServerEndpoint.ListenHandle;
-import net.jini.security.Security;
 
 /**
  * ListenEndpoint implementation.
@@ -35,7 +34,7 @@ class ListenEndpointImpl implements ListenEndpoint {
         ServerSocket serverSocket = new ServerSocket(port);
 
         Cookie cookie = new Cookie(serverSocket.getLocalPort());
-        final ListenHandleImpl listenHandle = new ListenHandleImpl(requestDispatcher, serverSocket, Security.getContext(), cookie);
+        final ListenHandleImpl listenHandle = new ListenHandleImpl(requestDispatcher, serverSocket, cookie);
         listenHandle.startAccepting();
         return listenHandle;
     }

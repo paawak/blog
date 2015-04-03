@@ -117,7 +117,7 @@ public final class JettyEndpoint2 implements Endpoint, Serializable {
             // FIXME: hardcoded port: does not work
             ioStreamProvider = new HttpIOStreamProvider(host, 8100, 23);
         }
-        return new OutboundRequestImpl(host, port, ioStreamProvider);
+        return new OutboundRequestImpl(ioStreamProvider);
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {

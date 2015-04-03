@@ -51,10 +51,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
 
     private final MessageWriter writer;
 
-    private final String host;
-
-    private final int port;
-
     private final MessageReader reader;
 
     private Header inHeader;
@@ -66,10 +62,8 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
      * once in cases where connection establishment involves multiple HTTP
      * message exchanges.
      */
-    public OutboundRequestImpl(String host, int port, IOStreamProvider ioStreamProvider) throws IOException {
+    public OutboundRequestImpl(IOStreamProvider ioStreamProvider) throws IOException {
         persist = true;
-        this.host = host;
-        this.port = port;
 
         reader = new MessageReader(ioStreamProvider.getInputStream(), false);
 
@@ -108,7 +102,6 @@ public class OutboundRequestImpl extends Request implements OutboundRequest {
      */
     private Header createPostHeader(StartLine sline) {
         Header header = createBaseHeader();
-        header.setField("Host", host + ":" + port);
         header.setField("Connection", persist ? "TE" : "close, TE");
         header.setField("TE", "trailers");
 
