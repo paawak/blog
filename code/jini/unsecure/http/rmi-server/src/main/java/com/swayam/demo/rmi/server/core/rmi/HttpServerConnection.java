@@ -49,28 +49,17 @@ public class HttpServerConnection {
     private static final int HTTP_MAJOR = 1;
     private static final int HTTP_MINOR = 1;
 
-    private static final int UNSTARTED = 0;
-    private static final int IDLE = 1;
-    private static final int BUSY = 2;
-    private static final int CLOSED = 3;
-
     private static final String serverString = AccessController.doPrivileged(new PrivilegedAction<String>() {
         public String run() {
             return "Java/" + System.getProperty("java.version", "???") + " " + HttpServerConnection.class.getName();
         }
     });
 
-    // private static final Executor userThreadPool = (Executor)
-    // java.security.AccessController.doPrivileged(new
-    // GetThreadPoolAction(true));
-
     private final Executor threadPool;
 
     private final InputStream in;
     private final OutputStream out;
     private final RequestDispatcher dispatcher;
-    private final Object stateLock = new Object();
-    private int state = UNSTARTED;
 
     /**
      * Creates new HttpServerConnection on top of given socket.
@@ -91,13 +80,7 @@ public class HttpServerConnection {
      * connection has already been started, or is closed.
      */
     public void start() {
-        synchronized (stateLock) {
-            if (state != UNSTARTED) {
-                throw new IllegalStateException();
-            }
-            state = IDLE;
-            threadPool.execute(new Dispatcher());
-        }
+        threadPool.execute(new Dispatcher());
     }
 
     /**
@@ -115,13 +98,6 @@ public class HttpServerConnection {
                     MessageReader reader = new MessageReader(in, false);
                     StartLine sline = reader.readStartLine();
 
-                    synchronized (stateLock) {
-                        if (state == CLOSED) {
-                            return;
-                        }
-                        state = BUSY;
-                    }
-
                     Header header = reader.readHeader();
                     String reqType = header.getField("RMI-Request-Type");
                     if (!"POST".equals(sline.method)) {
@@ -134,12 +110,6 @@ public class HttpServerConnection {
                         handleBadRequest(sline, header, reader);
                     }
 
-                    synchronized (stateLock) {
-                        if (state == CLOSED) {
-                            return;
-                        }
-                        state = IDLE;
-                    }
                 }
             } catch (IOException ex) {
             }
