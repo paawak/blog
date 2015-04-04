@@ -19,8 +19,6 @@
 package com.swayam.demo.rmi.api.shared;
 
 import java.io.IOException;
-import java.io.InvalidObjectException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
@@ -74,16 +72,6 @@ public final class JettyEndpoint2 implements Endpoint, Serializable {
         this.port = port;
     }
 
-    /*
-     * [This is not a doc comment to prevent its appearance in HttpEndpoint's
-     * serialized form specification.]
-     * 
-     * Resolves deserialized instance to equivalent canonical instance.
-     */
-    private Object readResolve() {
-        return intern(this);
-    }
-
     @Override
     public OutboundRequestIterator newRequest(final InvocationConstraints constraints) {
         if (constraints == null) {
@@ -118,16 +106,6 @@ public final class JettyEndpoint2 implements Endpoint, Serializable {
             ioStreamProvider = new HttpIOStreamProvider(host, 8100, 23);
         }
         return new OutboundRequestImpl(ioStreamProvider);
-    }
-
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        if (host == null) {
-            throw new InvalidObjectException("null host");
-        }
-        if (port < 1 || port > 0xFFFF) {
-            throw new InvalidObjectException("port number out of range: " + port);
-        }
     }
 
 }
