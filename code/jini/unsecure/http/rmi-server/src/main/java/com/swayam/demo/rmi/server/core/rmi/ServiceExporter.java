@@ -67,7 +67,7 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getExporter() {
-        if (false) {
+        if (true) {
             return getDefultExporter();
         } else {
             return getCustomExporter();
