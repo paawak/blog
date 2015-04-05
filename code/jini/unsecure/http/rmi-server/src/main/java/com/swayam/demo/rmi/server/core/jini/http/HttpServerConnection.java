@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.swayam.demo.rmi.server.core.jini;
+package com.swayam.demo.rmi.server.core.jini.http;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -31,11 +31,11 @@ import java.util.concurrent.Executors;
 
 import net.jini.jeri.RequestDispatcher;
 
-import com.swayam.demo.rmi.shared.jini.Header;
 import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
-import com.swayam.demo.rmi.shared.jini.MessageReader;
-import com.swayam.demo.rmi.shared.jini.MessageWriter;
-import com.swayam.demo.rmi.shared.jini.StartLine;
+import com.swayam.demo.rmi.shared.jini.http.Header;
+import com.swayam.demo.rmi.shared.jini.http.MessageReader;
+import com.swayam.demo.rmi.shared.jini.http.MessageWriter;
+import com.swayam.demo.rmi.shared.jini.http.StartLine;
 
 /**
  * Class representing a server-side HTTP connection used to receive and dispatch

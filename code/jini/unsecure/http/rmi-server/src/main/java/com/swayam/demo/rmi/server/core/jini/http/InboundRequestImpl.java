@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.server.core.jini;
+package com.swayam.demo.rmi.server.core.jini.http;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,10 +10,10 @@ import net.jini.io.UnsupportedConstraintException;
 import net.jini.io.context.AcknowledgmentSource;
 import net.jini.jeri.InboundRequest;
 
-import com.swayam.demo.rmi.shared.jini.Header;
-import com.swayam.demo.rmi.shared.jini.MessageReader;
-import com.swayam.demo.rmi.shared.jini.MessageWriter;
-import com.swayam.demo.rmi.shared.jini.Request;
+import com.swayam.demo.rmi.shared.jini.http.Header;
+import com.swayam.demo.rmi.shared.jini.http.MessageReader;
+import com.swayam.demo.rmi.shared.jini.http.MessageWriter;
+import com.swayam.demo.rmi.shared.jini.http.Request;
 
 /**
  * HTTP-based implementation of InboundRequest abstraction.

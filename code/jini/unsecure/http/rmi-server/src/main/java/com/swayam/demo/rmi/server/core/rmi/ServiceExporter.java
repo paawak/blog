@@ -18,9 +18,9 @@ import net.jini.lookup.entry.Name;
 import org.springframework.beans.factory.InitializingBean;
 
 import com.swayam.demo.rmi.server.core.jini.BasicILFactoryWithLogging;
-import com.swayam.demo.rmi.server.core.jini.HttpServerEndpoint2;
-import com.swayam.demo.rmi.server.core.jini.ServletBasedServerEndpoint;
-import com.swayam.demo.rmi.shared.jini.HttpSocketFactory;
+import com.swayam.demo.rmi.server.core.jini.http.HttpServerEndpoint2;
+import com.swayam.demo.rmi.server.core.jini.servlet.ServletBasedServerEndpoint;
+import com.swayam.demo.rmi.shared.jini.http.HttpSocketFactory;
 
 public class ServiceExporter implements InitializingBean {
 

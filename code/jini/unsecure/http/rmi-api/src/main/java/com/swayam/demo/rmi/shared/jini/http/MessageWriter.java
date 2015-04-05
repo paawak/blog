@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.swayam.demo.rmi.shared.jini;
+package com.swayam.demo.rmi.shared.jini.http;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

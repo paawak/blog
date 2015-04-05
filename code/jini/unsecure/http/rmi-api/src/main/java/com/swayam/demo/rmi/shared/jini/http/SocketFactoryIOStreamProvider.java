@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.shared.jini;
+package com.swayam.demo.rmi.shared.jini.http;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 
 import com.sun.jini.logging.Levels;
 import com.sun.jini.logging.LogUtil;
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
 
 public final class SocketFactoryIOStreamProvider implements IOStreamProvider {
 
@@ -25,7 +26,7 @@ public final class SocketFactoryIOStreamProvider implements IOStreamProvider {
     private final InputStream inputStream;
     private final OutputStream outputStream;
 
-    SocketFactoryIOStreamProvider(String host, int port) throws IOException {
+    public SocketFactoryIOStreamProvider(String host, int port) throws IOException {
         Socket sock = createSocket(host, port);
         inputStream = new BufferedInputStream(sock.getInputStream());
         outputStream = new BufferedOutputStream(sock.getOutputStream());

@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.server.core.jini;
+package com.swayam.demo.rmi.server.core.jini.servlet;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import net.jini.jeri.Endpoint;
 import net.jini.jeri.ServerEndpoint;
 import net.jini.jeri.http.HttpServerEndpoint;
 
-import com.swayam.demo.rmi.shared.jini.ServletBasedEndpoint;
+import com.swayam.demo.rmi.shared.jini.servlet.ServletBasedEndpoint;
 
 public class ServletBasedServerEndpoint implements ServerEndpoint {
 

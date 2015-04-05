@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.shared.jini;
+package com.swayam.demo.rmi.shared.jini.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +9,8 @@ import java.net.URLConnection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
 
 public class ServletIOStreamProvider implements IOStreamProvider {
 

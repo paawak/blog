@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.server.core.jini;
+package com.swayam.demo.rmi.server.core.jini.http;
 
 import java.io.IOException;
 import java.net.ServerSocket;

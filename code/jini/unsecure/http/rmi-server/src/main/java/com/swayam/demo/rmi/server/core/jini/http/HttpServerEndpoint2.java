@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.swayam.demo.rmi.server.core.jini;
+package com.swayam.demo.rmi.server.core.jini.http;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -26,7 +26,7 @@ import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.Endpoint;
 import net.jini.jeri.ServerEndpoint;
 
-import com.swayam.demo.rmi.shared.jini.HttpEndpoint2;
+import com.swayam.demo.rmi.shared.jini.http.HttpEndpoint2;
 
 public final class HttpServerEndpoint2 implements ServerEndpoint {
 

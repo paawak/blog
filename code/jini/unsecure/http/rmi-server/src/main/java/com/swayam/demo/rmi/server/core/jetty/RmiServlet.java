@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.server.core.http;
+package com.swayam.demo.rmi.server.core.jetty;
 
 import java.io.IOException;
 import java.io.OutputStream;

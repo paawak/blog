@@ -2,7 +2,7 @@ package com.swayam.demo.rmi.server.core;
 
 import java.util.concurrent.CountDownLatch;
 
-import com.swayam.demo.rmi.server.core.http.JettyServerStarter;
+import com.swayam.demo.rmi.server.core.jetty.JettyServerStarter;
 import com.swayam.demo.rmi.server.core.reggie.ReggieStarter;
 import com.swayam.demo.rmi.server.core.rmi.RMIServerStarter;
 

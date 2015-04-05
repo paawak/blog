@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.swayam.demo.rmi.shared.jini;
+package com.swayam.demo.rmi.shared.jini.http;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -25,6 +25,9 @@ import java.lang.ref.SoftReference;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.WeakHashMap;
+
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
+import com.swayam.demo.rmi.shared.jini.servlet.ServletIOStreamProvider;
 
 import net.jini.core.constraint.InvocationConstraints;
 import net.jini.jeri.Endpoint;

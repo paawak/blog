@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.server.core.jini;
+package com.swayam.demo.rmi.server.core.jini.http;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,7 +13,7 @@ import net.jini.jeri.ServerEndpoint.ListenCookie;
 import net.jini.jeri.ServerEndpoint.ListenHandle;
 
 import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
-import com.swayam.demo.rmi.shared.jini.ServletIOStreamProvider;
+import com.swayam.demo.rmi.shared.jini.servlet.ServletIOStreamProvider;
 
 /**
  * ListenHandle implementation: represents a listen operation.

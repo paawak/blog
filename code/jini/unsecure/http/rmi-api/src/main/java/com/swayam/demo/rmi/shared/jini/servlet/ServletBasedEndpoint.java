@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.shared.jini;
+package com.swayam.demo.rmi.shared.jini.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,9 +50,8 @@ public class ServletBasedEndpoint implements Endpoint, Serializable {
     }
 
     private OutboundRequest nextRequest(InvocationConstraints constraints) throws IOException {
-        final Constraints.Distilled distilled = Constraints.distill(constraints, false);
 
-        final OutboundRequest request = nextRequest(distilled);
+        final OutboundRequest request = nextRequest();
 
         // must wrap to provide getUnfulfilledConstraints implementation
         return new OutboundRequest() {
@@ -61,7 +60,7 @@ public class ServletBasedEndpoint implements Endpoint, Serializable {
             }
 
             public InvocationConstraints getUnfulfilledConstraints() {
-                return distilled.getUnfulfilledConstraints();
+                return InvocationConstraints.EMPTY;
             }
 
             public OutputStream getRequestOutputStream() {
@@ -82,7 +81,7 @@ public class ServletBasedEndpoint implements Endpoint, Serializable {
         };
     }
 
-    private OutboundRequest nextRequest(final Constraints.Distilled distilled) throws IOException {
+    private OutboundRequest nextRequest() throws IOException {
         return new ServletOutboundRequest(host, port);
     }
 

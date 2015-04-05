@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.swayam.demo.rmi.shared.jini;
+package com.swayam.demo.rmi.shared.jini.http;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +24,8 @@ import java.io.OutputStream;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Collection;
+
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
 
 import net.jini.core.constraint.InvocationConstraints;
 import net.jini.io.context.AcknowledgmentSource;

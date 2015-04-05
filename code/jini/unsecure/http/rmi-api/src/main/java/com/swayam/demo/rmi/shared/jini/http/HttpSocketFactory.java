@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.shared.jini;
+package com.swayam.demo.rmi.shared.jini.http;
 
 import java.io.IOException;
 import java.io.Serializable;
