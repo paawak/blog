@@ -21,7 +21,15 @@ public class BasicILFactoryWithLogging extends BasicILFactory {
 
     @Override
     protected InvocationHandler createInvocationHandler(Class[] interfaces, Remote impl, ObjectEndpoint oe) throws ExportException {
-        return new BasicInvocationHandlerWithLogging(oe, null);
+        return new BasicInvocationHandlerWithLogging(oe, null, impl.getClass().getName());
     }
+
+    // @Override
+    // public Instances createInstances(Remote impl, ObjectEndpoint oe,
+    // ServerCapabilities caps) throws ExportException {
+    // Instances instances = super.createInstances(impl, oe, caps);
+    // return new Instances(new EnrichedProxy(instances.getProxy(),
+    // impl.getClass().getName()), instances.getInvocationDispatcher());
+    // }
 
 }

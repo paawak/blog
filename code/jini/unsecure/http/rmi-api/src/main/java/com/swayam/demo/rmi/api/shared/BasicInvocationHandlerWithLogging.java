@@ -22,12 +22,16 @@ public class BasicInvocationHandlerWithLogging extends BasicInvocationHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BasicInvocationHandlerWithLogging.class);
 
-    public BasicInvocationHandlerWithLogging(ObjectEndpoint oe, MethodConstraints serverConstraints) {
+    private final String implClassName;
+
+    public BasicInvocationHandlerWithLogging(ObjectEndpoint oe, MethodConstraints serverConstraints, String implClassName) {
         super(oe, serverConstraints);
+        this.implClassName = implClassName;
     }
 
     public BasicInvocationHandlerWithLogging(BasicInvocationHandlerWithLogging basicInvocationHandlerWithLogging, MethodConstraints serverConstraints) {
         super(basicInvocationHandlerWithLogging, serverConstraints);
+        implClassName = "";
     }
 
     @Override
@@ -40,7 +44,7 @@ public class BasicInvocationHandlerWithLogging extends BasicInvocationHandler {
     private void writeToServer(Object proxy, Method method, Object[] args) throws IOException {
         URLConnection urlConnection = getUrlConnection();
         try (MarshalOutputStream os = new MarshalOutputStream(urlConnection.getOutputStream(), Collections.emptyList());) {
-            os.writeObject(proxy.getClass().getName());
+            os.writeObject(implClassName);
             os.writeObject(method.getName());
             os.writeObject(args);
             os.flush();
