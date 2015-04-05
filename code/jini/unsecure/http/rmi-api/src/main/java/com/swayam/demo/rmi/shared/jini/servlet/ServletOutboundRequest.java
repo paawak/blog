@@ -30,20 +30,20 @@ public class ServletOutboundRequest implements OutboundRequest {
     }
 
     @Override
-    public void populateContext(Collection context) {
-        LOG.debug("11111111111111111111111111");
+    public void populateContext(@SuppressWarnings("rawtypes") Collection context) {
+        LOG.debug("populating context...");
     }
 
     @Override
     public InvocationConstraints getUnfulfilledConstraints() {
-        LOG.debug("22222222222222222222222222222");
+        LOG.debug("returning UnfulfilledConstraints...");
         return InvocationConstraints.EMPTY;
     }
 
     @Override
     public OutputStream getRequestOutputStream() {
         outputCounter++;
-        LOG.debug("333333333333333333333333333333333 " + outputCounter);
+        LOG.debug("trying to return OutputStream for outputCounter: {}", outputCounter);
         try {
             return getUrlConnection(outputCounter).getOutputStream();
         } catch (IOException e) {
@@ -54,7 +54,7 @@ public class ServletOutboundRequest implements OutboundRequest {
     @Override
     public InputStream getResponseInputStream() {
         inputCounter++;
-        LOG.debug("44444444444444444444444444444444444444 " + inputCounter);
+        LOG.debug("trying to return InputStream for inputCounter: {}", inputCounter);
         try {
             return getUrlConnection(inputCounter).getInputStream();
         } catch (IOException e) {
@@ -64,13 +64,13 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     @Override
     public boolean getDeliveryStatus() {
-        LOG.debug("55555555555555555555555555555555555555555555555555");
+        LOG.debug("getting delivery status...");
         return false;
     }
 
     @Override
     public void abort() {
-        LOG.debug("666666666666666666666666666666");
+        LOG.debug("aborting...");
     }
 
     private URLConnection getUrlConnection(int counter) {
