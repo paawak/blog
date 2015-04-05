@@ -1,6 +1,7 @@
 package com.swayam.demo.rmi.server.core.http;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
@@ -28,17 +29,47 @@ public class RmiServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        LOG.info("handing get");
         int count = Integer.parseInt(request.getParameter("count"));
-        processRequest(request, response, count);
-    }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response, int count) throws IOException {
         LOG.info("processing request count: {}", count);
 
-        if (count == 23 || count == 32) {
-            LOG.info("Let the magic begin...");
-        } else if (count < 3) {
+        if (count == 23) {
+            LOG.info("reading input");
+            try {
+                readInput(request);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            writeOutput(request, response, count);
+        }
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("%%%%%%%%%%%%%%%%%%%");
+        try {
+            readInput(request);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readInput(HttpServletRequest request) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream mis = new ObjectInputStream(request.getInputStream());) {
+            String className = (String) mis.readObject();
+            System.out.println("******* className: " + className);
+            String method = (String) mis.readObject();
+            System.out.println("******* method: " + method);
+            Object[] args = (Object[]) mis.readObject();
+            System.out.println("******* args: " + args);
+        }
+    }
+
+    private void writeOutput(HttpServletRequest request, HttpServletResponse response, int count) throws IOException {
+
+        if (count < 3) {
             OutputStream os = response.getOutputStream();
             os.write(0x01);
             os.flush();
