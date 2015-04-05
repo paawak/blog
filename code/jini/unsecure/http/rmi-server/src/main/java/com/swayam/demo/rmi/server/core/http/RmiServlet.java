@@ -1,7 +1,6 @@
 package com.swayam.demo.rmi.server.core.http;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.jini.io.MarshalInputStream;
 import net.jini.io.MarshalOutputStream;
 
 import org.slf4j.Logger;
@@ -29,35 +29,26 @@ public class RmiServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        LOG.info("processing GET");
         int count = Integer.parseInt(request.getParameter("count"));
 
         LOG.info("processing request count: {}", count);
-
-        if (count == 23) {
-            LOG.info("reading input");
-            try {
-                readInput(request);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        } else {
-            writeOutput(request, response, count);
-        }
-
+        writeOutput(request, response, count);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("%%%%%%%%%%%%%%%%%%%");
+        LOG.info("processing POST");
         try {
             readInput(request);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LOG.error("class not found", e);
         }
     }
 
     private void readInput(HttpServletRequest request) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream mis = new ObjectInputStream(request.getInputStream());) {
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        try (MarshalInputStream mis = new MarshalInputStream(request.getInputStream(), cl, false, cl, Collections.emptyList());) {
             String className = (String) mis.readObject();
             System.out.println("******* className: " + className);
             String method = (String) mis.readObject();

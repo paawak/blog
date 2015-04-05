@@ -2,13 +2,14 @@ package com.swayam.demo.rmi.api.shared;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectOutputStream;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collections;
 
 import net.jini.core.constraint.MethodConstraints;
+import net.jini.io.MarshalOutputStream;
 import net.jini.jeri.BasicInvocationHandler;
 import net.jini.jeri.ObjectEndpoint;
 
@@ -33,21 +34,23 @@ public class BasicInvocationHandlerWithLogging extends BasicInvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         LOGGER.info("************** ");
         writeToServer(proxy, method, args);
-        Thread.sleep(3_000);
         return super.invoke(proxy, method, args);
     }
 
     private void writeToServer(Object proxy, Method method, Object[] args) throws IOException {
         URLConnection urlConnection = getUrlConnection();
-        try (ObjectOutputStream os = new ObjectOutputStream(urlConnection.getOutputStream());) {
-            LOGGER.info("connected to... ");
+        try (MarshalOutputStream os = new MarshalOutputStream(urlConnection.getOutputStream(), Collections.emptyList());) {
             os.writeObject(proxy.getClass().getName());
             os.writeObject(method.getName());
             os.writeObject(args);
             os.flush();
             os.close();
         }
-        InputStream is = urlConnection.getInputStream();
+        // this is vety important, the request will not hit the server if this
+        // is not done
+        try (InputStream is = urlConnection.getInputStream();) {
+            // do nothing
+        }
     }
 
     private URLConnection getUrlConnection() {
