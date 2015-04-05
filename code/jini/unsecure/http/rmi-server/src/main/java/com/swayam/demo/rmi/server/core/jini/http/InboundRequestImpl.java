@@ -42,7 +42,7 @@ class InboundRequestImpl extends Request implements InboundRequest {
     }
 
     public void populateContext(Collection context) {
-
+        // do nothing
     }
 
     public InputStream getRequestInputStream() {
