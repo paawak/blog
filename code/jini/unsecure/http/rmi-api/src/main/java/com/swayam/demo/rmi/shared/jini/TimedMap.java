@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.swayam.demo.rmi.api.shared;
+package com.swayam.demo.rmi.shared.jini;
 
 import java.util.HashMap;
 import java.util.Map;

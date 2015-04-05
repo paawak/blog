@@ -8,7 +8,7 @@ import net.jini.jeri.Endpoint;
 import net.jini.jeri.ServerEndpoint;
 import net.jini.jeri.http.HttpServerEndpoint;
 
-import com.swayam.demo.rmi.api.shared.ServletBasedEndpoint;
+import com.swayam.demo.rmi.shared.jini.ServletBasedEndpoint;
 
 public class ServletBasedServerEndpoint implements ServerEndpoint {
 

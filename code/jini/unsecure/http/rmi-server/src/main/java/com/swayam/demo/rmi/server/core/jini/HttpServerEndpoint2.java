@@ -26,7 +26,7 @@ import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.Endpoint;
 import net.jini.jeri.ServerEndpoint;
 
-import com.swayam.demo.rmi.api.shared.HttpEndpoint2;
+import com.swayam.demo.rmi.shared.jini.HttpEndpoint2;
 
 public final class HttpServerEndpoint2 implements ServerEndpoint {
 

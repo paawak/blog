@@ -12,8 +12,8 @@ import net.jini.jeri.RequestDispatcher;
 import net.jini.jeri.ServerEndpoint.ListenCookie;
 import net.jini.jeri.ServerEndpoint.ListenHandle;
 
-import com.swayam.demo.rmi.api.shared.ServletIOStreamProvider;
-import com.swayam.demo.rmi.api.shared.IOStreamProvider;
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
+import com.swayam.demo.rmi.shared.jini.ServletIOStreamProvider;
 
 /**
  * ListenHandle implementation: represents a listen operation.

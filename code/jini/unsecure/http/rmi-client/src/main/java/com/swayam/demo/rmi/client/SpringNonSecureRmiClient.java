@@ -8,7 +8,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.swayam.demo.rmi.api.service.BankDetailService;
+import com.swayam.demo.rmi.shared.api.service.BankDetailService;
 
 public class SpringNonSecureRmiClient {
 

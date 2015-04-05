@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-import com.swayam.demo.rmi.api.shared.IOStreamProvider;
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
 
 public class SocketIOStreamProvider implements IOStreamProvider {
 

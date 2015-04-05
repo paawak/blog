@@ -17,9 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.swayam.demo.rmi.api.dto.BankDetail;
-import com.swayam.demo.rmi.api.dto.BankDetailGroups;
-import com.swayam.demo.rmi.api.service.BankDetailService;
+import com.swayam.demo.rmi.shared.api.dto.BankDetail;
+import com.swayam.demo.rmi.shared.api.dto.BankDetailGroups;
+import com.swayam.demo.rmi.shared.api.service.BankDetailService;
 
 public class RmiServlet extends HttpServlet {
 

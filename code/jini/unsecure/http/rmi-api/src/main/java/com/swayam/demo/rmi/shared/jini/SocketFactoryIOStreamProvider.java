@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.api.shared;
+package com.swayam.demo.rmi.shared.jini;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

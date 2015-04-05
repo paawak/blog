@@ -10,7 +10,7 @@ import net.jini.jeri.InvocationDispatcher;
 import net.jini.jeri.ObjectEndpoint;
 import net.jini.jeri.ServerCapabilities;
 
-import com.swayam.demo.rmi.api.shared.BasicInvocationHandlerWithLogging;
+import com.swayam.demo.rmi.shared.jini.BasicInvocationHandlerWithLogging;
 
 public class BasicILFactoryWithLogging extends BasicILFactory {
 

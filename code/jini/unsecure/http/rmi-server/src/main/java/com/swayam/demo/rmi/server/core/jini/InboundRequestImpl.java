@@ -10,10 +10,10 @@ import net.jini.io.UnsupportedConstraintException;
 import net.jini.io.context.AcknowledgmentSource;
 import net.jini.jeri.InboundRequest;
 
-import com.swayam.demo.rmi.api.shared.Header;
-import com.swayam.demo.rmi.api.shared.MessageReader;
-import com.swayam.demo.rmi.api.shared.MessageWriter;
-import com.swayam.demo.rmi.api.shared.Request;
+import com.swayam.demo.rmi.shared.jini.Header;
+import com.swayam.demo.rmi.shared.jini.MessageReader;
+import com.swayam.demo.rmi.shared.jini.MessageWriter;
+import com.swayam.demo.rmi.shared.jini.Request;
 
 /**
  * HTTP-based implementation of InboundRequest abstraction.

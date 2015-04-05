@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.api.dto;
+package com.swayam.demo.rmi.shared.api.dto;
 
 public enum BankDetailGroups {
 

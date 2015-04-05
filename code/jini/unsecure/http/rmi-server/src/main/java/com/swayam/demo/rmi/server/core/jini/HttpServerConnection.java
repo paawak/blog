@@ -31,11 +31,11 @@ import java.util.concurrent.Executors;
 
 import net.jini.jeri.RequestDispatcher;
 
-import com.swayam.demo.rmi.api.shared.Header;
-import com.swayam.demo.rmi.api.shared.IOStreamProvider;
-import com.swayam.demo.rmi.api.shared.MessageReader;
-import com.swayam.demo.rmi.api.shared.MessageWriter;
-import com.swayam.demo.rmi.api.shared.StartLine;
+import com.swayam.demo.rmi.shared.jini.Header;
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
+import com.swayam.demo.rmi.shared.jini.MessageReader;
+import com.swayam.demo.rmi.shared.jini.MessageWriter;
+import com.swayam.demo.rmi.shared.jini.StartLine;
 
 /**
  * Class representing a server-side HTTP connection used to receive and dispatch

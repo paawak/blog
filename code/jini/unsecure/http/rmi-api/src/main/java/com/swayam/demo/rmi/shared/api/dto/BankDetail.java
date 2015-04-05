@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.api.dto;
+package com.swayam.demo.rmi.shared.api.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

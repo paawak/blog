@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.swayam.demo.rmi.api.dto.BankDetail;
-import com.swayam.demo.rmi.api.dto.BankDetailGroups;
-import com.swayam.demo.rmi.api.service.BankDetailService;
+import com.swayam.demo.rmi.shared.api.dto.BankDetail;
+import com.swayam.demo.rmi.shared.api.dto.BankDetailGroups;
+import com.swayam.demo.rmi.shared.api.service.BankDetailService;
 
 @Service("bankDetailServiceImpl")
 public class BankDetailServiceImpl implements BankDetailService {
