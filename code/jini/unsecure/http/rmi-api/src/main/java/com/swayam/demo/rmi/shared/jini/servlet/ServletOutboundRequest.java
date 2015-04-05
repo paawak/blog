@@ -3,9 +3,6 @@ package com.swayam.demo.rmi.shared.jini.servlet;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Collection;
 
 import net.jini.core.constraint.InvocationConstraints;
@@ -14,19 +11,16 @@ import net.jini.jeri.OutboundRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
+
 public class ServletOutboundRequest implements OutboundRequest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServletOutboundRequest.class);
 
-    private final String host;
-    private final int port;
-
-    private int outputCounter = 0;
-    private int inputCounter = 0;
+    private final IOStreamProvider ioStreamProvider;
 
     public ServletOutboundRequest(String host, int port) {
-        this.host = host;
-        this.port = port;
+        ioStreamProvider = new ServletIOStreamProvider("http://" + host + ":" + port + "/write");
     }
 
     @Override
@@ -42,10 +36,9 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     @Override
     public OutputStream getRequestOutputStream() {
-        outputCounter++;
-        LOG.debug("trying to return OutputStream for outputCounter: {}", outputCounter);
+        LOG.debug("trying to return OutputStream...");
         try {
-            return getUrlConnection(outputCounter).getOutputStream();
+            return ioStreamProvider.getOutputStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,10 +46,9 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     @Override
     public InputStream getResponseInputStream() {
-        inputCounter++;
-        LOG.debug("trying to return InputStream for inputCounter: {}", inputCounter);
+        LOG.debug("trying to return InputStream...");
         try {
-            return getUrlConnection(inputCounter).getInputStream();
+            return ioStreamProvider.getInputStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -71,37 +63,6 @@ public class ServletOutboundRequest implements OutboundRequest {
     @Override
     public void abort() {
         LOG.debug("aborting...");
-    }
-
-    private URLConnection getUrlConnection(int counter) {
-
-        String url = "http://" + host + ":" + port + "/?count=" + counter;
-
-        LOG.info("trying to connect to {}", url);
-
-        URL httpUrl;
-        try {
-            httpUrl = new URL(url);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-        URLConnection urlConnection;
-        try {
-            urlConnection = httpUrl.openConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        urlConnection.setDoOutput(true);
-        urlConnection.setDoInput(true);
-
-        try {
-            urlConnection.connect();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return urlConnection;
     }
 
 }

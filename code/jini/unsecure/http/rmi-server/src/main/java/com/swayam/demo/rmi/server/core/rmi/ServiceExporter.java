@@ -17,8 +17,9 @@ import net.jini.lookup.entry.Name;
 
 import org.springframework.beans.factory.InitializingBean;
 
-import com.swayam.demo.rmi.server.core.jini.BasicILFactoryWithLogging;
+import com.swayam.demo.rmi.server.core.jini.http.HttpBasedILFactory;
 import com.swayam.demo.rmi.server.core.jini.http.HttpServerEndpoint2;
+import com.swayam.demo.rmi.server.core.jini.servlet.ServletBasedILFactory;
 import com.swayam.demo.rmi.server.core.jini.servlet.ServletBasedServerEndpoint;
 import com.swayam.demo.rmi.shared.jini.http.HttpSocketFactory;
 
@@ -78,18 +79,16 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getDefultExporter() {
-        // System.setProperty("http.proxyHost", "localhost");
-        // System.setProperty("http.proxyPort", "8100");
         SocketFactory socketFactory = new HttpSocketFactory();
         ServerSocketFactory serverSocketFactory = ServerSocketFactory.getDefault();
-        return new BasicJeriExporter(HttpServerEndpoint.getInstance("localhost", 0, socketFactory, serverSocketFactory), new BasicILFactoryWithLogging());
+        return new BasicJeriExporter(HttpServerEndpoint.getInstance("localhost", 0, socketFactory, serverSocketFactory), new ServletBasedILFactory());
     }
 
     private Exporter getCustomExporter() {
-        if (false) {
-            return new BasicJeriExporter(HttpServerEndpoint2.getInstance("localhost", 8899), new BasicILFactoryWithLogging());
+        if (true) {
+            return new BasicJeriExporter(HttpServerEndpoint2.getInstance("localhost", 8899), new HttpBasedILFactory());
         }
-        return new BasicJeriExporter(new ServletBasedServerEndpoint("localhost", 8100), new BasicILFactoryWithLogging());
+        return new BasicJeriExporter(new ServletBasedServerEndpoint("localhost", 8100), new ServletBasedILFactory());
     }
 
 }

@@ -18,11 +18,8 @@ public class ServletIOStreamProvider implements IOStreamProvider {
 
     private final URLConnection urlConnection;
 
-    private final int key;
-
-    public ServletIOStreamProvider(String host, int port, int key) {
-        urlConnection = getUrlConnection(host, port);
-        this.key = key;
+    public ServletIOStreamProvider(String httpUrl) {
+        urlConnection = getUrlConnection(httpUrl);
     }
 
     @Override
@@ -35,10 +32,7 @@ public class ServletIOStreamProvider implements IOStreamProvider {
         return urlConnection.getOutputStream();
     }
 
-    private URLConnection getUrlConnection(String host, int port) {
-
-        String url = "http://" + host + ":" + port + "/?count=" + key;
-
+    private URLConnection getUrlConnection(String url) {
         LOG.info("trying to connect to {}", url);
 
         URL httpUrl;

@@ -79,7 +79,7 @@ class ListenHandleImpl implements ListenHandle {
                 ioStreamProvider = new SocketIOStreamProvider(socket);
             } else {
                 // FIXME: hardcoded port: does not work
-                ioStreamProvider = new ServletIOStreamProvider("localhost", 8100, 32);
+                ioStreamProvider = new ServletIOStreamProvider("http://localhost:8100/doesNotWork");
             }
 
             try {

@@ -26,13 +26,13 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.WeakHashMap;
 
-import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
-import com.swayam.demo.rmi.shared.jini.servlet.ServletIOStreamProvider;
-
 import net.jini.core.constraint.InvocationConstraints;
 import net.jini.jeri.Endpoint;
 import net.jini.jeri.OutboundRequest;
 import net.jini.jeri.OutboundRequestIterator;
+
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
+import com.swayam.demo.rmi.shared.jini.servlet.ServletIOStreamProvider;
 
 public final class HttpEndpoint2 implements Endpoint, Serializable {
 
@@ -106,7 +106,7 @@ public final class HttpEndpoint2 implements Endpoint, Serializable {
             ioStreamProvider = new SocketFactoryIOStreamProvider(host, port);
         } else {
             // FIXME: hardcoded port: does not work
-            ioStreamProvider = new ServletIOStreamProvider(host, 8100, 23);
+            ioStreamProvider = new ServletIOStreamProvider("http://localhost:8100/doesNotWork");
         }
         return new OutboundRequestImpl(ioStreamProvider);
     }

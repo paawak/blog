@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.shared.jini;
+package com.swayam.demo.rmi.shared.jini.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,15 +16,15 @@ import net.jini.jeri.ObjectEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BasicInvocationHandlerWithLogging extends BasicInvocationHandler {
+public class ServletBasedInvocationHandler extends BasicInvocationHandler {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BasicInvocationHandlerWithLogging.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServletBasedInvocationHandler.class);
 
     private final String implClassName;
 
-    public BasicInvocationHandlerWithLogging(ObjectEndpoint oe, MethodConstraints serverConstraints, String implClassName) {
+    public ServletBasedInvocationHandler(ObjectEndpoint oe, MethodConstraints serverConstraints, String implClassName) {
         super(oe, serverConstraints);
         this.implClassName = implClassName;
     }

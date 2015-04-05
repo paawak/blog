@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.server.core.jini;
+package com.swayam.demo.rmi.server.core.jini.http;
 
 import java.lang.reflect.InvocationHandler;
 import java.rmi.Remote;
@@ -10,9 +10,10 @@ import net.jini.jeri.InvocationDispatcher;
 import net.jini.jeri.ObjectEndpoint;
 import net.jini.jeri.ServerCapabilities;
 
-import com.swayam.demo.rmi.shared.jini.BasicInvocationHandlerWithLogging;
+import com.swayam.demo.rmi.server.core.jini.BasicInvocationDispatcherWithLogging;
+import com.swayam.demo.rmi.shared.jini.http.HttpBasedInvocationHandler;
 
-public class BasicILFactoryWithLogging extends BasicILFactory {
+public class HttpBasedILFactory extends BasicILFactory {
 
     @Override
     protected InvocationDispatcher createInvocationDispatcher(Collection methods, Remote impl, ServerCapabilities caps) throws ExportException {
@@ -21,15 +22,12 @@ public class BasicILFactoryWithLogging extends BasicILFactory {
 
     @Override
     protected InvocationHandler createInvocationHandler(Class[] interfaces, Remote impl, ObjectEndpoint oe) throws ExportException {
-        return new BasicInvocationHandlerWithLogging(oe, null, impl.getClass().getName());
+        return new HttpBasedInvocationHandler(oe, null);
     }
 
-    // @Override
-    // public Instances createInstances(Remote impl, ObjectEndpoint oe,
-    // ServerCapabilities caps) throws ExportException {
-    // Instances instances = super.createInstances(impl, oe, caps);
-    // return new Instances(new EnrichedProxy(instances.getProxy(),
-    // impl.getClass().getName()), instances.getInvocationDispatcher());
-    // }
+    @Override
+    public Instances createInstances(Remote impl, ObjectEndpoint oe, ServerCapabilities caps) throws ExportException {
+        return super.createInstances(impl, oe, caps);
+    }
 
 }
