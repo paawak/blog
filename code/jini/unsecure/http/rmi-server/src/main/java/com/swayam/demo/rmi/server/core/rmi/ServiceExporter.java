@@ -9,6 +9,7 @@ import net.jini.core.entry.Entry;
 import net.jini.core.lookup.ServiceID;
 import net.jini.discovery.DiscoveryManagement;
 import net.jini.export.Exporter;
+import net.jini.jeri.BasicILFactory;
 import net.jini.jeri.BasicJeriExporter;
 import net.jini.jeri.http.HttpServerEndpoint;
 import net.jini.lease.LeaseRenewalManager;
@@ -71,7 +72,7 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getExporter() {
-        if (false) {
+        if (true) {
             return getDefultExporter();
         } else {
             return getCustomExporter();
@@ -81,11 +82,11 @@ public class ServiceExporter implements InitializingBean {
     private Exporter getDefultExporter() {
         SocketFactory socketFactory = new HttpSocketFactory();
         ServerSocketFactory serverSocketFactory = ServerSocketFactory.getDefault();
-        return new BasicJeriExporter(HttpServerEndpoint.getInstance("localhost", 0, socketFactory, serverSocketFactory), new ServletBasedILFactory());
+        return new BasicJeriExporter(HttpServerEndpoint.getInstance("localhost", 0, socketFactory, serverSocketFactory), new BasicILFactory());
     }
 
     private Exporter getCustomExporter() {
-        if (true) {
+        if (false) {
             return new BasicJeriExporter(HttpServerEndpoint2.getInstance("localhost", 8899), new HttpBasedILFactory());
         }
         return new BasicJeriExporter(new ServletBasedServerEndpoint("localhost", 8100), new ServletBasedILFactory());
