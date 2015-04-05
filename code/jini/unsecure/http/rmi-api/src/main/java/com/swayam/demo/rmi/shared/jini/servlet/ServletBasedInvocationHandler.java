@@ -3,9 +3,6 @@ package com.swayam.demo.rmi.shared.jini.servlet;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Collections;
 
 import net.jini.core.constraint.MethodConstraints;
@@ -16,17 +13,22 @@ import net.jini.jeri.ObjectEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
+
 public class ServletBasedInvocationHandler extends BasicInvocationHandler {
 
     private static final long serialVersionUID = 1L;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServletBasedInvocationHandler.class);
 
+    private final String httpUrl;
+
     private final String implClassName;
 
-    public ServletBasedInvocationHandler(ObjectEndpoint oe, MethodConstraints serverConstraints, String implClassName) {
+    public ServletBasedInvocationHandler(String httpUrl, ObjectEndpoint oe, MethodConstraints serverConstraints, String implClassName) {
         super(oe, serverConstraints);
         this.implClassName = implClassName;
+        this.httpUrl = httpUrl;
     }
 
     @Override
@@ -37,48 +39,19 @@ public class ServletBasedInvocationHandler extends BasicInvocationHandler {
     }
 
     private void writeToServer(Object proxy, Method method, Object[] args) throws IOException {
-        URLConnection urlConnection = getUrlConnection();
-        try (MarshalOutputStream os = new MarshalOutputStream(urlConnection.getOutputStream(), Collections.emptyList());) {
+        IOStreamProvider ioStreamProvider = new ServletIOStreamProvider(httpUrl);
+        try (MarshalOutputStream os = new MarshalOutputStream(ioStreamProvider.getOutputStream(), Collections.emptyList());) {
             os.writeObject(implClassName);
             os.writeObject(method.getName());
             os.writeObject(args);
             os.flush();
             os.close();
         }
-        // this is vety important, the request will not hit the server if this
+        // this is very important, the request will not hit the server if this
         // is not done
-        try (InputStream is = urlConnection.getInputStream();) {
+        try (InputStream is = ioStreamProvider.getInputStream();) {
             // do nothing
         }
-    }
-
-    private URLConnection getUrlConnection() {
-
-        String url = "http://localhost:8100/?count=23";
-
-        URL httpUrl;
-        try {
-            httpUrl = new URL(url);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-        URLConnection urlConnection;
-        try {
-            urlConnection = httpUrl.openConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        urlConnection.setDoOutput(true);
-        urlConnection.setDoInput(true);
-
-        try {
-            urlConnection.connect();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return urlConnection;
     }
 
 }

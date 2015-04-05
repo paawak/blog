@@ -72,7 +72,7 @@ public class ServiceExporter implements InitializingBean {
     }
 
     private Exporter getExporter() {
-        if (true) {
+        if (false) {
             return getDefultExporter();
         } else {
             return getCustomExporter();
@@ -89,7 +89,7 @@ public class ServiceExporter implements InitializingBean {
         if (false) {
             return new BasicJeriExporter(HttpServerEndpoint2.getInstance("localhost", 8899), new HttpBasedILFactory());
         }
-        return new BasicJeriExporter(new ServletBasedServerEndpoint("localhost", 8100), new ServletBasedILFactory());
+        return new BasicJeriExporter(new ServletBasedServerEndpoint("localhost", 8100), new ServletBasedILFactory("http://localhost:8100/read"));
     }
 
 }

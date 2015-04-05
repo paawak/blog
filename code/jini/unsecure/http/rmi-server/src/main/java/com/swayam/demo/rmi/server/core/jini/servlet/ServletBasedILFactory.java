@@ -15,6 +15,12 @@ import com.swayam.demo.rmi.shared.jini.servlet.ServletBasedInvocationHandler;
 
 public class ServletBasedILFactory extends BasicILFactory {
 
+    private final String httpUrl;
+
+    public ServletBasedILFactory(String httpUrl) {
+        this.httpUrl = httpUrl;
+    }
+
     @Override
     protected InvocationDispatcher createInvocationDispatcher(Collection methods, Remote impl, ServerCapabilities caps) throws ExportException {
         return new BasicInvocationDispatcherWithLogging(methods, caps, null, null, getClassLoader());
@@ -22,7 +28,7 @@ public class ServletBasedILFactory extends BasicILFactory {
 
     @Override
     protected InvocationHandler createInvocationHandler(Class[] interfaces, Remote impl, ObjectEndpoint oe) throws ExportException {
-        return new ServletBasedInvocationHandler(oe, null, impl.getClass().getName());
+        return new ServletBasedInvocationHandler(httpUrl, oe, null, impl.getClass().getName());
     }
 
     @Override

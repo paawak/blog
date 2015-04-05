@@ -30,20 +30,33 @@ public class RmiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOG.info("processing GET");
-        int count = Integer.parseInt(request.getParameter("count"));
-
-        LOG.info("processing request count: {}", count);
-        writeOutput(request, response, count);
+        processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOG.info("processing POST");
-        try {
-            readInput(request);
-        } catch (ClassNotFoundException e) {
-            LOG.error("class not found", e);
+        processRequest(request, response);
+    }
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String contextPath = request.getRequestURI();
+
+        LOG.info("processing request for contextPath: `{}`", contextPath);
+
+        if (contextPath.contains("read")) {
+            try {
+                readInput(request);
+            } catch (ClassNotFoundException e) {
+                LOG.error("class not found", e);
+            }
+        } else if (contextPath.contains("write")) {
+            writeOutput(request, response, 0);
+        } else {
+            throw new UnsupportedOperationException("The contextPath: " + contextPath + " is not supported");
         }
+
     }
 
     private void readInput(HttpServletRequest request) throws IOException, ClassNotFoundException {
