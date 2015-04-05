@@ -29,11 +29,6 @@ public class BasicInvocationHandlerWithLogging extends BasicInvocationHandler {
         this.implClassName = implClassName;
     }
 
-    public BasicInvocationHandlerWithLogging(BasicInvocationHandlerWithLogging basicInvocationHandlerWithLogging, MethodConstraints serverConstraints) {
-        super(basicInvocationHandlerWithLogging, serverConstraints);
-        implClassName = "";
-    }
-
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         LOGGER.info("************** ");

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.swayam.demo.rmi.server.core.rmi;
+package com.swayam.demo.rmi.server.core.jini;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -26,9 +26,9 @@ import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.Endpoint;
 import net.jini.jeri.ServerEndpoint;
 
-import com.swayam.demo.rmi.api.shared.JettyEndpoint2;
+import com.swayam.demo.rmi.api.shared.HttpEndpoint2;
 
-public final class JettyServerEndpoint2 implements ServerEndpoint {
+public final class HttpServerEndpoint2 implements ServerEndpoint {
 
     /** server transport logger */
     static final Logger logger = Logger.getLogger("net.jini.jeri.http.server");
@@ -38,11 +38,11 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
     /** port to listen on */
     private final int port;
 
-    public static JettyServerEndpoint2 getInstance(String host, int port) {
-        return new JettyServerEndpoint2(host, port);
+    public static HttpServerEndpoint2 getInstance(String host, int port) {
+        return new HttpServerEndpoint2(host, port);
     }
 
-    private JettyServerEndpoint2(String host, int port) {
+    private HttpServerEndpoint2(String host, int port) {
         if (port < 0 || port > 0xFFFF) {
             throw new IllegalArgumentException("port number out of range: " + port);
         }
@@ -61,7 +61,7 @@ public final class JettyServerEndpoint2 implements ServerEndpoint {
 
         listenContext.addListenEndpoint(listenEndpoint);
 
-        return JettyEndpoint2.getInstance(host, port);
+        return HttpEndpoint2.getInstance(host, port);
     }
 
 }

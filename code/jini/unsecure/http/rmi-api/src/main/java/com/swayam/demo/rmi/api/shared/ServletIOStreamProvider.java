@@ -10,15 +10,15 @@ import java.net.URLConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HttpIOStreamProvider implements IOStreamProvider {
+public class ServletIOStreamProvider implements IOStreamProvider {
 
-    private static final Logger LOG = LoggerFactory.getLogger(HttpIOStreamProvider.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServletIOStreamProvider.class);
 
     private final URLConnection urlConnection;
 
     private final int key;
 
-    public HttpIOStreamProvider(String host, int port, int key) {
+    public ServletIOStreamProvider(String host, int port, int key) {
         urlConnection = getUrlConnection(host, port);
         this.key = key;
     }

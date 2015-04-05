@@ -12,14 +12,14 @@ import net.jini.jeri.Endpoint;
 import net.jini.jeri.OutboundRequest;
 import net.jini.jeri.OutboundRequestIterator;
 
-public class JettyEndPoint implements Endpoint, Serializable {
+public class ServletBasedEndpoint implements Endpoint, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final String host;
     private final int port;
 
-    public JettyEndPoint(String host, int port) {
+    public ServletBasedEndpoint(String host, int port) {
         this.host = host;
         this.port = port;
     }
@@ -83,7 +83,7 @@ public class JettyEndPoint implements Endpoint, Serializable {
     }
 
     private OutboundRequest nextRequest(final Constraints.Distilled distilled) throws IOException {
-        return new HttpOutboundRequest(host, port);
+        return new ServletOutboundRequest(host, port);
     }
 
 }

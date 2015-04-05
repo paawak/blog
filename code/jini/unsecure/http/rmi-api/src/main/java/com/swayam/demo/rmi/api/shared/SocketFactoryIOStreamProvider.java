@@ -168,14 +168,14 @@ public final class SocketFactoryIOStreamProvider implements IOStreamProvider {
             socket.setTcpNoDelay(true);
         } catch (SocketException e) {
             if (logger.isLoggable(Levels.HANDLED)) {
-                LogUtil.logThrow(logger, Levels.HANDLED, JettyEndpoint2.class, "setSocketOptions", "exception setting TCP_NODELAY on socket {0}", new Object[] { socket }, e);
+                LogUtil.logThrow(logger, Levels.HANDLED, HttpEndpoint2.class, "setSocketOptions", "exception setting TCP_NODELAY on socket {0}", new Object[] { socket }, e);
             }
         }
         try {
             socket.setKeepAlive(true);
         } catch (SocketException e) {
             if (logger.isLoggable(Levels.HANDLED)) {
-                LogUtil.logThrow(logger, Levels.HANDLED, JettyEndpoint2.class, "setSocketOptions", "exception setting SO_KEEPALIVE on socket {0}", new Object[] { socket }, e);
+                LogUtil.logThrow(logger, Levels.HANDLED, HttpEndpoint2.class, "setSocketOptions", "exception setting SO_KEEPALIVE on socket {0}", new Object[] { socket }, e);
             }
         }
     }

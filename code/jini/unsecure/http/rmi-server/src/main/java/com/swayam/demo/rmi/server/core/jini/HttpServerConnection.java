@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.swayam.demo.rmi.server.core.rmi;
+package com.swayam.demo.rmi.server.core.jini;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

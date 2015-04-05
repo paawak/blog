@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.server.core.rmi;
+package com.swayam.demo.rmi.server.core.jini;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -12,7 +12,7 @@ import net.jini.jeri.RequestDispatcher;
 import net.jini.jeri.ServerEndpoint.ListenCookie;
 import net.jini.jeri.ServerEndpoint.ListenHandle;
 
-import com.swayam.demo.rmi.api.shared.HttpIOStreamProvider;
+import com.swayam.demo.rmi.api.shared.ServletIOStreamProvider;
 import com.swayam.demo.rmi.api.shared.IOStreamProvider;
 
 /**
@@ -79,7 +79,7 @@ class ListenHandleImpl implements ListenHandle {
                 ioStreamProvider = new SocketIOStreamProvider(socket);
             } else {
                 // FIXME: hardcoded port: does not work
-                ioStreamProvider = new HttpIOStreamProvider("localhost", 8100, 32);
+                ioStreamProvider = new ServletIOStreamProvider("localhost", 8100, 32);
             }
 
             try {

@@ -15,13 +15,13 @@ import net.jini.jeri.InboundRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HttpInboundRequest implements InboundRequest {
+public class ServletInboundRequest implements InboundRequest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(HttpInboundRequest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServletInboundRequest.class);
 
     private final String httpServerUrl;
 
-    public HttpInboundRequest(String httpServerUrl) {
+    public ServletInboundRequest(String httpServerUrl) {
         this.httpServerUrl = httpServerUrl;
     }
 

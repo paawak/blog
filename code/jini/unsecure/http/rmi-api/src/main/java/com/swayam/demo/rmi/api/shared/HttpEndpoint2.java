@@ -31,36 +31,36 @@ import net.jini.jeri.Endpoint;
 import net.jini.jeri.OutboundRequest;
 import net.jini.jeri.OutboundRequestIterator;
 
-public final class JettyEndpoint2 implements Endpoint, Serializable {
+public final class HttpEndpoint2 implements Endpoint, Serializable {
 
     private static final long serialVersionUID = -7094180943307123931L;
 
     /** set of canonical instances */
-    private static final Map<JettyEndpoint2, Reference<JettyEndpoint2>> internTable = new WeakHashMap<>();
+    private static final Map<HttpEndpoint2, Reference<HttpEndpoint2>> internTable = new WeakHashMap<>();
 
     private final String host;
 
     private final int port;
 
-    public static JettyEndpoint2 getInstance(String host, int port) {
-        return intern(new JettyEndpoint2(host, port));
+    public static HttpEndpoint2 getInstance(String host, int port) {
+        return intern(new HttpEndpoint2(host, port));
     }
 
-    private static JettyEndpoint2 intern(JettyEndpoint2 endpoint) {
+    private static HttpEndpoint2 intern(HttpEndpoint2 endpoint) {
         synchronized (internTable) {
-            Reference<JettyEndpoint2> ref = internTable.get(endpoint);
+            Reference<HttpEndpoint2> ref = internTable.get(endpoint);
             if (ref != null) {
-                JettyEndpoint2 canonical = (JettyEndpoint2) ref.get();
+                HttpEndpoint2 canonical = (HttpEndpoint2) ref.get();
                 if (canonical != null) {
                     return canonical;
                 }
             }
-            internTable.put(endpoint, new SoftReference<JettyEndpoint2>(endpoint));
+            internTable.put(endpoint, new SoftReference<HttpEndpoint2>(endpoint));
             return endpoint;
         }
     }
 
-    private JettyEndpoint2(String host, int port) {
+    private HttpEndpoint2(String host, int port) {
         if (host == null) {
             throw new NullPointerException();
         }
@@ -103,7 +103,7 @@ public final class JettyEndpoint2 implements Endpoint, Serializable {
             ioStreamProvider = new SocketFactoryIOStreamProvider(host, port);
         } else {
             // FIXME: hardcoded port: does not work
-            ioStreamProvider = new HttpIOStreamProvider(host, 8100, 23);
+            ioStreamProvider = new ServletIOStreamProvider(host, 8100, 23);
         }
         return new OutboundRequestImpl(ioStreamProvider);
     }

@@ -14,9 +14,9 @@ import net.jini.jeri.OutboundRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HttpOutboundRequest implements OutboundRequest {
+public class ServletOutboundRequest implements OutboundRequest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(HttpOutboundRequest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServletOutboundRequest.class);
 
     private final String host;
     private final int port;
@@ -24,7 +24,7 @@ public class HttpOutboundRequest implements OutboundRequest {
     private int outputCounter = 0;
     private int inputCounter = 0;
 
-    public HttpOutboundRequest(String host, int port) {
+    public ServletOutboundRequest(String host, int port) {
         this.host = host;
         this.port = port;
     }

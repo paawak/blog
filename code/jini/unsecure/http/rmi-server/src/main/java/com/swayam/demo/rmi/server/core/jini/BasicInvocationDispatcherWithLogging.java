@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.server.core.rmi;
+package com.swayam.demo.rmi.server.core.jini;
 
 import java.rmi.Remote;
 import java.rmi.server.ExportException;
