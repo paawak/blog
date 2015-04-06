@@ -19,7 +19,7 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServletOutboundRequest.class);
 
-    public static final String OUTBOUND_CALL_URI = "/write/";
+    public static final String OUTBOUND_CALL_URI = "/OUTBOUND_CALL/";
 
     private final String baseUrl;
 

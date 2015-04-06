@@ -23,6 +23,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.swayam.demo.rmi.shared.api.dto.BankDetail;
 import com.swayam.demo.rmi.shared.api.dto.BankDetailGroups;
 import com.swayam.demo.rmi.shared.api.service.BankDetailService;
+import com.swayam.demo.rmi.shared.jini.servlet.ServletInboundRequest;
 import com.swayam.demo.rmi.shared.jini.servlet.ServletOutboundRequest;
 
 public class RmiServlet extends HttpServlet {
@@ -30,8 +31,6 @@ public class RmiServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static final Logger LOG = LoggerFactory.getLogger(RmiServlet.class);
-
-    private static final String REQUEST_URI_FOR_READ = "/read";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -51,9 +50,9 @@ public class RmiServlet extends HttpServlet {
 
         LOG.info("processing request for requestUri: `{}`", requestUri);
 
-        if (requestUri.equals(REQUEST_URI_FOR_READ)) {
+        if (requestUri.equals(ServletInboundRequest.INBOUND_CALL_URI)) {
             try {
-                handleReadRequest(request);
+                handleInboundRequest(request);
             } catch (ClassNotFoundException e) {
                 LOG.error("class not found", e);
             }
@@ -66,16 +65,18 @@ public class RmiServlet extends HttpServlet {
 
     }
 
-    private void handleReadRequest(HttpServletRequest request) throws IOException, ClassNotFoundException {
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        try (MarshalInputStream mis = new MarshalInputStream(request.getInputStream(), cl, false, cl, Collections.emptyList());) {
-            String className = (String) mis.readObject();
-            System.out.println("******* className: " + className);
-            String method = (String) mis.readObject();
-            System.out.println("******* method: " + method);
-            Object[] args = (Object[]) mis.readObject();
-            System.out.println("******* args: " + args);
-        }
+    private void handleInboundRequest(HttpServletRequest request) throws IOException, ClassNotFoundException {
+        // ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        // try (MarshalInputStream mis = new
+        // MarshalInputStream(request.getInputStream(), cl, false, cl,
+        // Collections.emptyList());) {
+        // String className = (String) mis.readObject();
+        // System.out.println("******* className: " + className);
+        // String method = (String) mis.readObject();
+        // System.out.println("******* method: " + method);
+        // Object[] args = (Object[]) mis.readObject();
+        // System.out.println("******* args: " + args);
+        // }
     }
 
     private void handleOutboundRequest(HttpServletRequest request, HttpServletResponse response, int sequence) throws IOException {

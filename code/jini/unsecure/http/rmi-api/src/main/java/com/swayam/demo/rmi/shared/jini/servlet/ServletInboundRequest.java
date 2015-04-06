@@ -3,9 +3,6 @@ package com.swayam.demo.rmi.shared.jini.servlet;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Collection;
 
 import net.jini.core.constraint.InvocationConstraints;
@@ -15,37 +12,43 @@ import net.jini.jeri.InboundRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
+
 public class ServletInboundRequest implements InboundRequest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServletInboundRequest.class);
 
-    private final String httpServerUrl;
+    public static final String INBOUND_CALL_URI = "/INBOUND_CALL/";
 
-    public ServletInboundRequest(String httpServerUrl) {
-        this.httpServerUrl = httpServerUrl;
+    private final String baseUrl;
+    private final IOStreamProvider ioStreamProvider;
+
+    public ServletInboundRequest(String host, int port) {
+        baseUrl = "http://" + host + ":" + port + INBOUND_CALL_URI;
+        ioStreamProvider = new ServletIOStreamProvider(baseUrl);
     }
 
     @Override
     public void checkPermissions() {
-        LOG.debug("AAAAAAAAAAAAAAAAAAAAAA");
+        LOG.debug("checking permissions");
     }
 
     @Override
     public InvocationConstraints checkConstraints(InvocationConstraints constraints) throws UnsupportedConstraintException {
-        LOG.debug("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-        return null;
+        LOG.debug("checking constraints");
+        return InvocationConstraints.EMPTY;
     }
 
     @Override
-    public void populateContext(Collection context) {
-        LOG.debug("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+    public void populateContext(@SuppressWarnings("rawtypes") Collection context) {
+        LOG.debug("populate context");
     }
 
     @Override
     public InputStream getRequestInputStream() {
-        LOG.debug("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+        LOG.debug("trying to return InputStream");
         try {
-            return getUrlConnection().getInputStream();
+            return ioStreamProvider.getInputStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,9 +56,9 @@ public class ServletInboundRequest implements InboundRequest {
 
     @Override
     public OutputStream getResponseOutputStream() {
-        LOG.debug("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        LOG.debug("trying to return OutputStream");
         try {
-            return getUrlConnection().getOutputStream();
+            return ioStreamProvider.getOutputStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -63,36 +66,7 @@ public class ServletInboundRequest implements InboundRequest {
 
     @Override
     public void abort() {
-        LOG.debug("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-    }
-
-    private URLConnection getUrlConnection() {
-
-        LOG.info("trying to connect to {}", httpServerUrl);
-
-        URL httpUrl;
-        try {
-            httpUrl = new URL(httpServerUrl + "?count=-1");
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-        URLConnection urlConnection;
-        try {
-            urlConnection = httpUrl.openConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        urlConnection.setDoOutput(true);
-        urlConnection.setDoInput(true);
-
-        try {
-            urlConnection.connect();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return urlConnection;
+        LOG.debug("abort");
     }
 
 }

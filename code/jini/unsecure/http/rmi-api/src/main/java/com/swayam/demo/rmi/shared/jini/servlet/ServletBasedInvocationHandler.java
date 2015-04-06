@@ -34,7 +34,7 @@ public class ServletBasedInvocationHandler extends BasicInvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         LOGGER.info("************** ");
-        writeToServer(proxy, method, args);
+        // writeToServer(proxy, method, args);
         return super.invoke(proxy, method, args);
     }
 
