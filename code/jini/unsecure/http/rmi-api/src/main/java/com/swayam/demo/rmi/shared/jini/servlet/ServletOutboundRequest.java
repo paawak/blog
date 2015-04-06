@@ -19,6 +19,8 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServletOutboundRequest.class);
 
+    public static final String OUTBOUND_CALL_URI = "/write/";
+
     private final String baseUrl;
 
     private final Map<Integer, IOStreamProvider> providerMap;
@@ -27,7 +29,7 @@ public class ServletOutboundRequest implements OutboundRequest {
     private int inputCounter = 0;
 
     public ServletOutboundRequest(String host, int port) {
-        baseUrl = "http://" + host + ":" + port + "/write/";
+        baseUrl = "http://" + host + ":" + port + OUTBOUND_CALL_URI;
         providerMap = new HashMap<>(3);
     }
 

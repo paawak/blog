@@ -20,6 +20,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.swayam.demo.rmi.shared.api.dto.BankDetail;
 import com.swayam.demo.rmi.shared.api.dto.BankDetailGroups;
 import com.swayam.demo.rmi.shared.api.service.BankDetailService;
+import com.swayam.demo.rmi.shared.jini.servlet.ServletOutboundRequest;
 
 public class RmiServlet extends HttpServlet {
 
@@ -28,7 +29,6 @@ public class RmiServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(RmiServlet.class);
 
     private static final String REQUEST_URI_FOR_READ = "/read";
-    private static final String REQUEST_URI_FOR_WRITE = "/write/";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -50,20 +50,20 @@ public class RmiServlet extends HttpServlet {
 
         if (requestUri.equals(REQUEST_URI_FOR_READ)) {
             try {
-                readInput(request);
+                handleReadRequest(request);
             } catch (ClassNotFoundException e) {
                 LOG.error("class not found", e);
             }
-        } else if (requestUri.startsWith(REQUEST_URI_FOR_WRITE)) {
-            int sequence = Integer.parseInt(requestUri.substring(REQUEST_URI_FOR_WRITE.length()));
-            writeOutput(request, response, sequence);
+        } else if (requestUri.startsWith(ServletOutboundRequest.OUTBOUND_CALL_URI)) {
+            int sequence = Integer.parseInt(requestUri.substring(ServletOutboundRequest.OUTBOUND_CALL_URI.length()));
+            handleWriteRequest(request, response, sequence);
         } else {
             throw new UnsupportedOperationException("The requestUri: " + requestUri + " is not supported");
         }
 
     }
 
-    private void readInput(HttpServletRequest request) throws IOException, ClassNotFoundException {
+    private void handleReadRequest(HttpServletRequest request) throws IOException, ClassNotFoundException {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         try (MarshalInputStream mis = new MarshalInputStream(request.getInputStream(), cl, false, cl, Collections.emptyList());) {
             String className = (String) mis.readObject();
@@ -75,7 +75,7 @@ public class RmiServlet extends HttpServlet {
         }
     }
 
-    private void writeOutput(HttpServletRequest request, HttpServletResponse response, int sequence) throws IOException {
+    private void handleWriteRequest(HttpServletRequest request, HttpServletResponse response, int sequence) throws IOException {
 
         LOG.info("writing output for the sequence: `{}`", sequence);
 
