@@ -1,6 +1,7 @@
 package com.swayam.demo.rmi.server.core.jetty;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.jini.id.Uuid;
+import net.jini.id.UuidFactory;
 import net.jini.io.MarshalInputStream;
 import net.jini.io.MarshalOutputStream;
 
@@ -56,7 +59,7 @@ public class RmiServlet extends HttpServlet {
             }
         } else if (requestUri.startsWith(ServletOutboundRequest.OUTBOUND_CALL_URI)) {
             int sequence = Integer.parseInt(requestUri.substring(ServletOutboundRequest.OUTBOUND_CALL_URI.length()));
-            handleWriteRequest(request, response, sequence);
+            handleOutboundRequest(request, response, sequence);
         } else {
             throw new UnsupportedOperationException("The requestUri: " + requestUri + " is not supported");
         }
@@ -75,8 +78,12 @@ public class RmiServlet extends HttpServlet {
         }
     }
 
-    private void handleWriteRequest(HttpServletRequest request, HttpServletResponse response, int sequence) throws IOException {
+    private void handleOutboundRequest(HttpServletRequest request, HttpServletResponse response, int sequence) throws IOException {
+        writeToOutboundRequest(response, sequence);
+        readFromOutboundRequest(request, sequence);
+    }
 
+    private void writeToOutboundRequest(HttpServletResponse response, int sequence) throws IOException {
         LOG.info("writing output for the sequence: `{}`", sequence);
 
         if ((sequence == 1) || (sequence == 2)) {
@@ -104,6 +111,43 @@ public class RmiServlet extends HttpServlet {
         } else {
             throw new UnsupportedOperationException("the sequence " + sequence + " is not supported");
         }
-
     }
+
+    private void readFromOutboundRequest(HttpServletRequest request, int sequence) throws IOException {
+        LOG.info("reading input for the sequence: `{}`", sequence);
+
+        if (sequence == 1) {
+
+            // read uuid
+            InputStream is = request.getInputStream();
+            Uuid uuid = UuidFactory.read(is);
+            LOG.info("read uuid: {}", uuid);
+            is.close();
+
+        } else if (sequence == 2) {
+            InputStream is = request.getInputStream();
+
+            // read marshalling protocol version
+            int marshallingProtocolVersion = is.read();
+            LOG.info("read marshallingProtocolVersion: {}", marshallingProtocolVersion);
+
+            // read integrity: 0 or 1
+            int integrity = is.read();
+            LOG.info("read integrity: {}", integrity);
+
+            is.close();
+        } else if (sequence == 3) {
+
+            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            try (MarshalInputStream mis = new MarshalInputStream(request.getInputStream(), cl, false, cl, Collections.emptyList());) {
+                // read method hash
+                long methodHash = mis.readLong();
+                LOG.info("read methodHash: {}", methodHash);
+            }
+
+        } else {
+            throw new UnsupportedOperationException("the sequence " + sequence + " is not supported");
+        }
+    }
+
 }

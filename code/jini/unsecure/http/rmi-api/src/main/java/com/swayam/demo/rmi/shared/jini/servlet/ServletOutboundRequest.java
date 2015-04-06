@@ -25,8 +25,8 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     private final Map<Integer, IOStreamProvider> providerMap;
 
-    private int outputCounter = 0;
-    private int inputCounter = 0;
+    private int outputSequence = 0;
+    private int inputSequence = 0;
 
     public ServletOutboundRequest(String host, int port) {
         baseUrl = "http://" + host + ":" + port + OUTBOUND_CALL_URI;
@@ -46,11 +46,11 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     @Override
     public OutputStream getRequestOutputStream() {
-        outputCounter++;
-        String url = baseUrl + outputCounter;
+        outputSequence++;
+        String url = baseUrl + outputSequence;
         LOG.debug("trying to return OutputStream for the url: {}", url);
         IOStreamProvider ioStreamProvider = new ServletIOStreamProvider(url);
-        providerMap.put(outputCounter, ioStreamProvider);
+        providerMap.put(outputSequence, ioStreamProvider);
         try {
             return ioStreamProvider.getOutputStream();
         } catch (IOException e) {
@@ -60,10 +60,10 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     @Override
     public InputStream getResponseInputStream() {
-        inputCounter++;
-        String url = baseUrl + inputCounter;
+        inputSequence++;
+        String url = baseUrl + inputSequence;
         LOG.debug("trying to return InputStream for the url: {}", url);
-        IOStreamProvider ioStreamProvider = providerMap.get(inputCounter);
+        IOStreamProvider ioStreamProvider = providerMap.get(inputSequence);
         try {
             return ioStreamProvider.getInputStream();
         } catch (IOException e) {
