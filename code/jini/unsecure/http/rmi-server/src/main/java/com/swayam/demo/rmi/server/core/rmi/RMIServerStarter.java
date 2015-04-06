@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class RMIServerStarter implements Runnable {
@@ -12,6 +13,9 @@ public class RMIServerStarter implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(RMIServerStarter.class);
 
     private final CountDownLatch signalToStartRmiServer;
+
+    // FIXME:: bad hack
+    private static ApplicationContext applicationContext;
 
     public RMIServerStarter(CountDownLatch signalToStartRmiServer) {
         this.signalToStartRmiServer = signalToStartRmiServer;
@@ -27,9 +31,13 @@ public class RMIServerStarter implements Runnable {
             throw new RuntimeException(e);
         }
 
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("server-application.xml")) {
-            LOG.info("**************************************The RMIServer is ready");
-        }
+        applicationContext = new ClassPathXmlApplicationContext("server-application.xml");
+
+    }
+
+    // FIXME:: bad hack
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
     }
 
 }

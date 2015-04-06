@@ -9,6 +9,8 @@ import net.jini.core.entry.Entry;
 import net.jini.core.lookup.ServiceID;
 import net.jini.discovery.DiscoveryManagement;
 import net.jini.export.Exporter;
+import net.jini.id.Uuid;
+import net.jini.id.UuidFactory;
 import net.jini.jeri.BasicILFactory;
 import net.jini.jeri.BasicJeriExporter;
 import net.jini.jeri.http.HttpServerEndpoint;
@@ -16,6 +18,8 @@ import net.jini.lease.LeaseRenewalManager;
 import net.jini.lookup.JoinManager;
 import net.jini.lookup.entry.Name;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 
 import com.swayam.demo.rmi.server.core.jini.http.HttpBasedILFactory;
@@ -25,6 +29,8 @@ import com.swayam.demo.rmi.server.core.jini.servlet.ServletBasedServerEndpoint;
 import com.swayam.demo.rmi.shared.jini.http.HttpSocketFactory;
 
 public class ServiceExporter implements InitializingBean {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ServiceExporter.class);
 
     private DiscoveryManagement discoveryManager;
     private LeaseRenewalManager leaseRenewalManager;
@@ -67,8 +73,11 @@ public class ServiceExporter implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         Exporter exporter = getExporter();
         Remote exportedService = exporter.export(service);
+        Uuid uuid = UuidFactory.generate();
+        ServiceID serviceID = new ServiceID(uuid.getMostSignificantBits(), uuid.getLeastSignificantBits());
         @SuppressWarnings("unused")
-        JoinManager joinManager = new JoinManager(exportedService, new Entry[] { new Name(serviceName) }, (ServiceID) null, discoveryManager, leaseRenewalManager);
+        JoinManager joinManager = new JoinManager(exportedService, new Entry[] { new Name(serviceName) }, serviceID, discoveryManager, leaseRenewalManager);
+        LOG.info("----------------------- Service: {} exported with uuid: {}", serviceName, uuid);
     }
 
     private Exporter getExporter() {
