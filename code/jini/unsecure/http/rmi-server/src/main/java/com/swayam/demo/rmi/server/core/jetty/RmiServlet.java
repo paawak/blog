@@ -27,6 +27,9 @@ public class RmiServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(RmiServlet.class);
 
+    private static final String REQUEST_URI_FOR_READ = "/read";
+    private static final String REQUEST_URI_FOR_WRITE = "/write/";
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOG.info("processing GET");
@@ -41,20 +44,21 @@ public class RmiServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String contextPath = request.getRequestURI();
+        String requestUri = request.getRequestURI();
 
-        LOG.info("processing request for contextPath: `{}`", contextPath);
+        LOG.info("processing request for requestUri: `{}`", requestUri);
 
-        if (contextPath.contains("read")) {
+        if (requestUri.equals(REQUEST_URI_FOR_READ)) {
             try {
                 readInput(request);
             } catch (ClassNotFoundException e) {
                 LOG.error("class not found", e);
             }
-        } else if (contextPath.contains("write")) {
-            writeOutput(request, response, 0);
+        } else if (requestUri.startsWith(REQUEST_URI_FOR_WRITE)) {
+            int sequence = Integer.parseInt(requestUri.substring(REQUEST_URI_FOR_WRITE.length()));
+            writeOutput(request, response, sequence);
         } else {
-            throw new UnsupportedOperationException("The contextPath: " + contextPath + " is not supported");
+            throw new UnsupportedOperationException("The requestUri: " + requestUri + " is not supported");
         }
 
     }
@@ -71,27 +75,35 @@ public class RmiServlet extends HttpServlet {
         }
     }
 
-    private void writeOutput(HttpServletRequest request, HttpServletResponse response, int count) throws IOException {
+    private void writeOutput(HttpServletRequest request, HttpServletResponse response, int sequence) throws IOException {
 
-        if (count < 3) {
+        LOG.info("writing output for the sequence: `{}`", sequence);
+
+        if ((sequence == 1) || (sequence == 2)) {
+
             OutputStream os = response.getOutputStream();
             os.write(0x01);
             os.flush();
             os.close();
-            return;
-        } else if (count == 3) {
+
+        } else if (sequence == 3) {
+
             try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("server-application.xml")) {
+
                 BankDetailService bankDetailService = context.getBean("bankDetailServiceImpl", BankDetailService.class);
                 Map<String, List<BankDetail>> result = bankDetailService.getBankDetails(BankDetailGroups.JOB);
 
-                MarshalOutputStream os = new MarshalOutputStream(response.getOutputStream(), Collections.emptyList());
+                MarshalOutputStream mos = new MarshalOutputStream(response.getOutputStream(), Collections.emptyList());
 
-                os.writeObject(result);
-                os.flush();
-                os.close();
+                mos.writeObject(result);
+                mos.flush();
+                mos.close();
+
             }
+
         } else {
-            throw new UnsupportedOperationException();
+            throw new UnsupportedOperationException("the sequence " + sequence + " is not supported");
         }
+
     }
 }

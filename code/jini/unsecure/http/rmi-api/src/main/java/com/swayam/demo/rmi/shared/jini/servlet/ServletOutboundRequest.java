@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.jini.core.constraint.InvocationConstraints;
 import net.jini.jeri.OutboundRequest;
@@ -17,10 +19,16 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServletOutboundRequest.class);
 
-    private final IOStreamProvider ioStreamProvider;
+    private final String baseUrl;
+
+    private final Map<Integer, IOStreamProvider> providerMap;
+
+    private int outputCounter = 0;
+    private int inputCounter = 0;
 
     public ServletOutboundRequest(String host, int port) {
-        ioStreamProvider = new ServletIOStreamProvider("http://" + host + ":" + port + "/write");
+        baseUrl = "http://" + host + ":" + port + "/write/";
+        providerMap = new HashMap<>(3);
     }
 
     @Override
@@ -36,7 +44,11 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     @Override
     public OutputStream getRequestOutputStream() {
-        LOG.debug("trying to return OutputStream...");
+        outputCounter++;
+        String url = baseUrl + outputCounter;
+        LOG.debug("trying to return OutputStream for the url: {}", url);
+        IOStreamProvider ioStreamProvider = new ServletIOStreamProvider(url);
+        providerMap.put(outputCounter, ioStreamProvider);
         try {
             return ioStreamProvider.getOutputStream();
         } catch (IOException e) {
@@ -46,7 +58,10 @@ public class ServletOutboundRequest implements OutboundRequest {
 
     @Override
     public InputStream getResponseInputStream() {
-        LOG.debug("trying to return InputStream...");
+        inputCounter++;
+        String url = baseUrl + inputCounter;
+        LOG.debug("trying to return InputStream for the url: {}", url);
+        IOStreamProvider ioStreamProvider = providerMap.get(inputCounter);
         try {
             return ioStreamProvider.getInputStream();
         } catch (IOException e) {
