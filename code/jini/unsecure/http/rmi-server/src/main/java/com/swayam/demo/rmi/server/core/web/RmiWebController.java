@@ -17,7 +17,9 @@ import net.jini.io.MarshalOutputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,35 +29,18 @@ import com.swayam.demo.rmi.shared.api.dto.BankDetailGroups;
 import com.swayam.demo.rmi.shared.api.service.BankDetailService;
 
 @Controller
-public class RmiWebController {
+public class RmiWebController implements ApplicationContextAware {
 
     private static final Logger LOG = LoggerFactory.getLogger(RmiWebController.class);
 
     private Uuid uuid;
 
-    // @RequestMapping(value = { "/INBOUND_CALL/*", "/OUTBOUND_CALL/*" })
-    // public void processRequest(HttpServletRequest request,
-    // HttpServletResponse response) throws IOException {
-    //
-    // String requestUri = request.getRequestURI();
-    //
-    // LOG.info("processing request for requestUri: `{}`", requestUri);
-    //
-    // if (requestUri.startsWith(ServletInboundRequest.INBOUND_CALL_URI)) {
-    // int sequence =
-    // Integer.parseInt(requestUri.substring(ServletInboundRequest.INBOUND_CALL_URI.length()));
-    // handleInboundRequest(request, response, sequence);
-    // } else if
-    // (requestUri.startsWith(ServletOutboundRequest.OUTBOUND_CALL_URI)) {
-    // int sequence =
-    // Integer.parseInt(requestUri.substring(ServletOutboundRequest.OUTBOUND_CALL_URI.length()));
-    // handleOutboundRequest(request, response, sequence);
-    // } else {
-    // throw new UnsupportedOperationException("The requestUri: " + requestUri +
-    // " is not supported");
-    // }
-    //
-    // }
+    private ApplicationContext applicationContext;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 
     @RequestMapping(value = "/INBOUND_CALL/{sequence}")
     public void handleInboundRequest(HttpServletRequest request, HttpServletResponse response, @PathVariable int sequence) throws IOException {
@@ -91,9 +76,7 @@ public class RmiWebController {
 
         } else if (sequence == 3) {
 
-            ApplicationContext context = RmiServletContextAttributeListener.getApplicationContext();
-
-            BankDetailService bankDetailService = context.getBean("bankDetailServiceImpl", BankDetailService.class);
+            BankDetailService bankDetailService = applicationContext.getBean("bankDetailServiceImpl", BankDetailService.class);
             Map<String, List<BankDetail>> result = bankDetailService.getBankDetails(BankDetailGroups.JOB);
 
             MarshalOutputStream mos = new MarshalOutputStream(response.getOutputStream(), Collections.emptyList());
