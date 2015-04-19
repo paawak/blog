@@ -77,7 +77,7 @@ public class ServiceExporter implements InitializingBean {
         ServiceID serviceID = new ServiceID(uuid.getMostSignificantBits(), uuid.getLeastSignificantBits());
         @SuppressWarnings("unused")
         JoinManager joinManager = new JoinManager(exportedService, new Entry[] { new Name(serviceName) }, serviceID, discoveryManager, leaseRenewalManager);
-        LOG.info("----------------------- Service: {} exported with uuid: {}", serviceName, uuid);
+        LOG.info("----------------------- Service: {} exported with serviceID: {}", serviceName, serviceID);
     }
 
     private Exporter getExporter() {

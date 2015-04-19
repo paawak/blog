@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.swayam.demo.rmi.shared.api.dto.BankDetail;
 import com.swayam.demo.rmi.shared.api.dto.BankDetailGroups;
 import com.swayam.demo.rmi.shared.api.service.BankDetailService;
+import com.swayam.demo.rmi.shared.jini.servlet.ServletInboundRequest;
+import com.swayam.demo.rmi.shared.jini.servlet.ServletOutboundRequest;
 
 @Controller
 public class RmiWebController implements ApplicationContextAware {
@@ -42,7 +44,7 @@ public class RmiWebController implements ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-    @RequestMapping(value = "/INBOUND_CALL/{sequence}")
+    @RequestMapping(value = ServletInboundRequest.INBOUND_CALL_URI + "{sequence}")
     public void handleInboundRequest(HttpServletRequest request, HttpServletResponse response, @PathVariable int sequence) throws IOException {
         // ClassLoader cl = Thread.currentThread().getContextClassLoader();
         // try (MarshalInputStream mis = new
@@ -58,7 +60,7 @@ public class RmiWebController implements ApplicationContextAware {
         writeToInboundRequest(response, sequence);
     }
 
-    @RequestMapping(value = "/OUTBOUND_CALL/{sequence}")
+    @RequestMapping(value = ServletOutboundRequest.OUTBOUND_CALL_URI + "{sequence}")
     public void handleOutboundRequest(HttpServletRequest request, HttpServletResponse response, @PathVariable int sequence) throws IOException {
         readFromOutboundRequest(request, sequence);
         writeToOutboundRequest(response, sequence);
