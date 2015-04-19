@@ -17,10 +17,11 @@ public class BankDetailDao {
 
     public List<BankDetail> getAllBankDetails() throws SQLException {
 
+        // Tomcat 8 needs this for some weird reason
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException("error loading mysql driver", e);
         }
 
         String mysqlConnectionString = "jdbc:mysql://localhost/datasets?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true";
