@@ -32,7 +32,6 @@ import net.jini.jeri.OutboundRequest;
 import net.jini.jeri.OutboundRequestIterator;
 
 import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
-import com.swayam.demo.rmi.shared.jini.servlet.ServletIOStreamProvider;
 
 public final class HttpEndpoint2 implements Endpoint, Serializable {
 
@@ -101,13 +100,8 @@ public final class HttpEndpoint2 implements Endpoint, Serializable {
     }
 
     private OutboundRequest nextRequest() throws IOException {
-        IOStreamProvider ioStreamProvider;
-        if (true) {
-            ioStreamProvider = new SocketFactoryIOStreamProvider(host, port);
-        } else {
-            // FIXME: hardcoded port: does not work
-            ioStreamProvider = new ServletIOStreamProvider("http://localhost:8100/doesNotWork");
-        }
+        IOStreamProvider ioStreamProvider = new SocketFactoryIOStreamProvider(host, port);
+
         return new OutboundRequestImpl(ioStreamProvider);
     }
 

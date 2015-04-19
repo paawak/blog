@@ -54,7 +54,7 @@ public class ServletIOStreamProvider implements IOStreamProvider {
         try {
             urlConnection.connect();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("error connecting to url: " + url, e);
         }
 
         return urlConnection;

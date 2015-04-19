@@ -17,6 +17,12 @@ public class BankDetailDao {
 
     public List<BankDetail> getAllBankDetails() throws SQLException {
 
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         String mysqlConnectionString = "jdbc:mysql://localhost/datasets?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true";
         List<BankDetail> bankDetails = new ArrayList<>();
 

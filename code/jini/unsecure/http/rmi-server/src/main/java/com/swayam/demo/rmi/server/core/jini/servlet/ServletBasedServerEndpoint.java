@@ -7,26 +7,20 @@ import net.jini.io.UnsupportedConstraintException;
 import net.jini.jeri.Endpoint;
 import net.jini.jeri.RequestDispatcher;
 import net.jini.jeri.ServerEndpoint;
-import net.jini.jeri.http.HttpServerEndpoint;
 
 import com.swayam.demo.rmi.shared.jini.servlet.ServletBasedEndpoint;
-import com.swayam.demo.rmi.shared.jini.servlet.ServletInboundRequest;
 
 public class ServletBasedServerEndpoint implements ServerEndpoint {
 
-    private final HttpServerEndpoint httpServerEndpoint;
-    private final String host;
-    private final int port;
+    private final String serverUrl;
 
-    public ServletBasedServerEndpoint(String host, int port) {
-        httpServerEndpoint = HttpServerEndpoint.getInstance(port);
-        this.host = host;
-        this.port = port;
+    public ServletBasedServerEndpoint(String serverUrl) {
+        this.serverUrl = serverUrl;
     }
 
     @Override
     public InvocationConstraints checkConstraints(InvocationConstraints constraints) throws UnsupportedConstraintException {
-        return httpServerEndpoint.checkConstraints(constraints);
+        return InvocationConstraints.EMPTY;
     }
 
     @Override
@@ -36,13 +30,14 @@ public class ServletBasedServerEndpoint implements ServerEndpoint {
             @Override
             public ListenHandle listen(RequestDispatcher requestDispatcher) throws IOException {
 
-                requestDispatcher.dispatch(new ServletInboundRequest(host, port));
+                // requestDispatcher.dispatch(new
+                // ServletInboundRequest(serverUrl));
 
                 return new ListenHandle() {
 
                     @Override
                     public ListenCookie getCookie() {
-                        return new ServletCookie(port);
+                        return new ServletCookie(serverUrl);
                     }
 
                     @Override
@@ -57,22 +52,22 @@ public class ServletBasedServerEndpoint implements ServerEndpoint {
                 // do nothing
             }
         });
-        return new ServletBasedEndpoint(host, port);
+        return new ServletBasedEndpoint(serverUrl);
     }
 
     private static class ServletCookie implements ListenCookie {
 
-        private final int port;
+        private final String serverUrl;
 
-        ServletCookie(int port) {
-            this.port = port;
+        ServletCookie(String serverUrl) {
+            this.serverUrl = serverUrl;
         }
 
         @Override
         public int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result + port;
+            result = prime * result + ((serverUrl == null) ? 0 : serverUrl.hashCode());
             return result;
         }
 
@@ -85,7 +80,10 @@ public class ServletBasedServerEndpoint implements ServerEndpoint {
             if (getClass() != obj.getClass())
                 return false;
             ServletCookie other = (ServletCookie) obj;
-            if (port != other.port)
+            if (serverUrl == null) {
+                if (other.serverUrl != null)
+                    return false;
+            } else if (!serverUrl.equals(other.serverUrl))
                 return false;
             return true;
         }

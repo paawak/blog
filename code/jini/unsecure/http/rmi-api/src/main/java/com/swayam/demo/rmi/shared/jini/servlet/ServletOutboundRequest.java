@@ -28,8 +28,8 @@ public class ServletOutboundRequest implements OutboundRequest {
     private int outputSequence = 0;
     private int inputSequence = 0;
 
-    public ServletOutboundRequest(String host, int port) {
-        baseUrl = "http://" + host + ":" + port + OUTBOUND_CALL_URI;
+    public ServletOutboundRequest(String serverUrl) {
+        baseUrl = serverUrl + OUTBOUND_CALL_URI;
         providerMap = new HashMap<>(3);
     }
 

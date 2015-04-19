@@ -16,12 +16,10 @@ public class ServletBasedEndpoint implements Endpoint, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String host;
-    private final int port;
+    private final String serverUrl;
 
-    public ServletBasedEndpoint(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public ServletBasedEndpoint(String serverUrl) {
+        this.serverUrl = serverUrl;
     }
 
     @Override
@@ -82,7 +80,7 @@ public class ServletBasedEndpoint implements Endpoint, Serializable {
     }
 
     private OutboundRequest nextRequest() throws IOException {
-        return new ServletOutboundRequest(host, port);
+        return new ServletOutboundRequest(serverUrl);
     }
 
 }

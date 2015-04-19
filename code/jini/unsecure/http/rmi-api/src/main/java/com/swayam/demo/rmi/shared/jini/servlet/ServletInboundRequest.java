@@ -29,8 +29,8 @@ public class ServletInboundRequest implements InboundRequest {
     private int outputSequence = 0;
     private int inputSequence = 0;
 
-    public ServletInboundRequest(String host, int port) {
-        baseUrl = "http://" + host + ":" + port + INBOUND_CALL_URI;
+    public ServletInboundRequest(String serverUrl) {
+        baseUrl = serverUrl + INBOUND_CALL_URI;
         providerMap = new HashMap<>(3);
     }
 

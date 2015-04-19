@@ -1,4 +1,4 @@
-package com.swayam.demo.rmi.server.core.jetty;
+package com.swayam.demo.rmi.server.core.web;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,53 +18,47 @@ import net.jini.io.MarshalOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.swayam.demo.rmi.server.core.rmi.RMIServerStarter;
 import com.swayam.demo.rmi.shared.api.dto.BankDetail;
 import com.swayam.demo.rmi.shared.api.dto.BankDetailGroups;
 import com.swayam.demo.rmi.shared.api.service.BankDetailService;
-import com.swayam.demo.rmi.shared.jini.servlet.ServletInboundRequest;
-import com.swayam.demo.rmi.shared.jini.servlet.ServletOutboundRequest;
 
-public class RmiServlet extends HttpServlet {
+@Controller
+public class RmiWebController {
 
-    private static final long serialVersionUID = 1L;
-
-    private static final Logger LOG = LoggerFactory.getLogger(RmiServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RmiWebController.class);
 
     private Uuid uuid;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        LOG.info("processing GET");
-        processRequest(request, response);
-    }
+    // @RequestMapping(value = { "/INBOUND_CALL/*", "/OUTBOUND_CALL/*" })
+    // public void processRequest(HttpServletRequest request,
+    // HttpServletResponse response) throws IOException {
+    //
+    // String requestUri = request.getRequestURI();
+    //
+    // LOG.info("processing request for requestUri: `{}`", requestUri);
+    //
+    // if (requestUri.startsWith(ServletInboundRequest.INBOUND_CALL_URI)) {
+    // int sequence =
+    // Integer.parseInt(requestUri.substring(ServletInboundRequest.INBOUND_CALL_URI.length()));
+    // handleInboundRequest(request, response, sequence);
+    // } else if
+    // (requestUri.startsWith(ServletOutboundRequest.OUTBOUND_CALL_URI)) {
+    // int sequence =
+    // Integer.parseInt(requestUri.substring(ServletOutboundRequest.OUTBOUND_CALL_URI.length()));
+    // handleOutboundRequest(request, response, sequence);
+    // } else {
+    // throw new UnsupportedOperationException("The requestUri: " + requestUri +
+    // " is not supported");
+    // }
+    //
+    // }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        LOG.info("processing POST");
-        processRequest(request, response);
-    }
-
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        String requestUri = request.getRequestURI();
-
-        LOG.info("processing request for requestUri: `{}`", requestUri);
-
-        if (requestUri.startsWith(ServletInboundRequest.INBOUND_CALL_URI)) {
-            int sequence = Integer.parseInt(requestUri.substring(ServletInboundRequest.INBOUND_CALL_URI.length()));
-            handleInboundRequest(request, response, sequence);
-        } else if (requestUri.startsWith(ServletOutboundRequest.OUTBOUND_CALL_URI)) {
-            int sequence = Integer.parseInt(requestUri.substring(ServletOutboundRequest.OUTBOUND_CALL_URI.length()));
-            handleOutboundRequest(request, response, sequence);
-        } else {
-            throw new UnsupportedOperationException("The requestUri: " + requestUri + " is not supported");
-        }
-
-    }
-
-    private void handleInboundRequest(HttpServletRequest request, HttpServletResponse response, int sequence) throws IOException {
+    @RequestMapping(value = "/INBOUND_CALL/{sequence}")
+    public void handleInboundRequest(HttpServletRequest request, HttpServletResponse response, @PathVariable int sequence) throws IOException {
         // ClassLoader cl = Thread.currentThread().getContextClassLoader();
         // try (MarshalInputStream mis = new
         // MarshalInputStream(request.getInputStream(), cl, false, cl,
@@ -80,7 +73,8 @@ public class RmiServlet extends HttpServlet {
         writeToInboundRequest(response, sequence);
     }
 
-    private void handleOutboundRequest(HttpServletRequest request, HttpServletResponse response, int sequence) throws IOException {
+    @RequestMapping(value = "/OUTBOUND_CALL/{sequence}")
+    public void handleOutboundRequest(HttpServletRequest request, HttpServletResponse response, @PathVariable int sequence) throws IOException {
         readFromOutboundRequest(request, sequence);
         writeToOutboundRequest(response, sequence);
     }
@@ -97,7 +91,7 @@ public class RmiServlet extends HttpServlet {
 
         } else if (sequence == 3) {
 
-            ApplicationContext context = RMIServerStarter.getApplicationContext();
+            ApplicationContext context = RmiServletContextAttributeListener.getApplicationContext();
 
             BankDetailService bankDetailService = context.getBean("bankDetailServiceImpl", BankDetailService.class);
             Map<String, List<BankDetail>> result = bankDetailService.getBankDetails(BankDetailGroups.JOB);

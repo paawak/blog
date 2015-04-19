@@ -9,10 +9,20 @@
 		</layout>
 	</appender>
 
+	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="append" value="false" />
+		<param name="maxFileSize" value="100KB" />
+		<param name="maxBackupIndex" value="5" />
+		<param name="file" value="./logs/rmi-web.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%p [%t] %c{1}.%M(%L) | %m%n" />
+		</layout>
+	</appender>
+
 	<logger name="org.eclipse.jetty">
 		<level value="info" />
 	</logger>
-	
+
 	<logger name="org.springframework">
 		<level value="info" />
 	</logger>
@@ -20,6 +30,7 @@
 	<root>
 		<level value="debug" />
 		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
 	</root>
 
 </log4j:configuration>

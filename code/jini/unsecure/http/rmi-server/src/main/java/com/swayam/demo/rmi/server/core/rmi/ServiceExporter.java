@@ -98,7 +98,7 @@ public class ServiceExporter implements InitializingBean {
         if (false) {
             return new BasicJeriExporter(HttpServerEndpoint2.getInstance("localhost", 8899), new HttpBasedILFactory());
         }
-        return new BasicJeriExporter(new ServletBasedServerEndpoint("localhost", 8100), new ServletBasedILFactory("http://localhost:8100/read"));
+        return new BasicJeriExporter(new ServletBasedServerEndpoint("http://localhost:8080/RmiServer"), new ServletBasedILFactory("http://localhost:8100/read"));
     }
 
 }

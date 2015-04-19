@@ -13,7 +13,6 @@ import net.jini.jeri.ServerEndpoint.ListenCookie;
 import net.jini.jeri.ServerEndpoint.ListenHandle;
 
 import com.swayam.demo.rmi.shared.jini.IOStreamProvider;
-import com.swayam.demo.rmi.shared.jini.servlet.ServletIOStreamProvider;
 
 /**
  * ListenHandle implementation: represents a listen operation.
@@ -74,13 +73,7 @@ class ListenHandleImpl implements ListenHandle {
                 logger.log(Level.FINE, "accepted socket {0} from server socket {1}", new Object[] { socket, serverSocket });
             }
 
-            IOStreamProvider ioStreamProvider;
-            if (true) {
-                ioStreamProvider = new SocketIOStreamProvider(socket);
-            } else {
-                // FIXME: hardcoded port: does not work
-                ioStreamProvider = new ServletIOStreamProvider("http://localhost:8100/doesNotWork");
-            }
+            IOStreamProvider ioStreamProvider = new SocketIOStreamProvider(socket);
 
             try {
                 new HttpServerConnection(ioStreamProvider, requestDispatcher).start();
