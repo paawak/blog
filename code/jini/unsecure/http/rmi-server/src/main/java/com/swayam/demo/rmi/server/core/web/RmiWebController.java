@@ -2,7 +2,9 @@ package com.swayam.demo.rmi.server.core.web;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sun.jini.jeri.internal.runtime.Util;
+import com.swayam.demo.rmi.server.core.rmi.ServiceExporter;
 import com.swayam.demo.rmi.shared.api.dto.BankDetail;
 import com.swayam.demo.rmi.shared.api.dto.BankDetailGroups;
 import com.swayam.demo.rmi.shared.api.service.BankDetailService;
@@ -35,8 +39,6 @@ public class RmiWebController implements ApplicationContextAware {
 
     private static final Logger LOG = LoggerFactory.getLogger(RmiWebController.class);
 
-    private Uuid uuid;
-
     private ApplicationContext applicationContext;
 
     @Override
@@ -46,17 +48,6 @@ public class RmiWebController implements ApplicationContextAware {
 
     @RequestMapping(value = ServletInboundRequest.INBOUND_CALL_URI + "{sequence}")
     public void handleInboundRequest(HttpServletRequest request, HttpServletResponse response, @PathVariable int sequence) throws IOException {
-        // ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        // try (MarshalInputStream mis = new
-        // MarshalInputStream(request.getInputStream(), cl, false, cl,
-        // Collections.emptyList());) {
-        // String className = (String) mis.readObject();
-        // System.out.println("******* className: " + className);
-        // String method = (String) mis.readObject();
-        // System.out.println("******* method: " + method);
-        // Object[] args = (Object[]) mis.readObject();
-        // System.out.println("******* args: " + args);
-        // }
         writeToInboundRequest(response, sequence);
     }
 
@@ -64,6 +55,27 @@ public class RmiWebController implements ApplicationContextAware {
     public void handleOutboundRequest(HttpServletRequest request, HttpServletResponse response, @PathVariable int sequence) throws IOException {
         readFromOutboundRequest(request, sequence);
         writeToOutboundRequest(response, sequence);
+    }
+
+    @RequestMapping(value = ServiceExporter.REMOTE_METHOD_INVOCATION_URI)
+    public void handleRemoteMethodInvocation(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // read input parameters
+        Object result;
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        try (MarshalInputStream mis = new MarshalInputStream(request.getInputStream(), cl, false, cl, Collections.emptyList());) {
+            String implClassName = (String) mis.readObject();
+            Class<?> implClass = cl.loadClass(implClassName);
+            long methodHash = mis.readLong();
+            Method method = getMethod(implClass, methodHash);
+            Object[] args = unmarshalArguments(method, mis);
+            Object remoteImpl = applicationContext.getBean(implClass);
+            result = method.invoke(remoteImpl, args);
+        }
+
+        try (MarshalOutputStream mos = new MarshalOutputStream(response.getOutputStream(), Collections.emptyList());) {
+            mos.writeObject(result);
+            mos.flush();
+        }
     }
 
     private void writeToOutboundRequest(HttpServletResponse response, int sequence) throws IOException {
@@ -99,7 +111,7 @@ public class RmiWebController implements ApplicationContextAware {
 
             // read uuid
             InputStream is = request.getInputStream();
-            uuid = UuidFactory.read(is);
+            Uuid uuid = UuidFactory.read(is);
             LOG.info("read uuid: {}", uuid);
             is.close();
 
@@ -133,14 +145,6 @@ public class RmiWebController implements ApplicationContextAware {
         LOG.info("writing output for Inbound request for the sequence: `{}`", sequence);
 
         if (sequence == 1) {
-            // write uuid
-            if (uuid != null) {
-                LOG.info("write uuid: {}", uuid);
-                OutputStream os = response.getOutputStream();
-                uuid.write(os);
-                os.flush();
-                os.close();
-            }
 
         } else if (sequence == 2) {
 
@@ -149,6 +153,24 @@ public class RmiWebController implements ApplicationContextAware {
         } else {
             throw new UnsupportedOperationException("the sequence " + sequence + " is not supported");
         }
+    }
+
+    private Method getMethod(Class<?> implClass, long methodHash) {
+        for (Method method : implClass.getMethods()) {
+            if (Util.getMethodHash(method) == methodHash) {
+                return method;
+            }
+        }
+        throw new IllegalArgumentException("No corresponding method found for hash: " + methodHash);
+    }
+
+    private Object[] unmarshalArguments(Method method, ObjectInputStream in) throws IOException, ClassNotFoundException {
+        Class[] types = method.getParameterTypes();
+        Object[] args = new Object[types.length];
+        for (int i = 0; i < types.length; i++) {
+            args[i] = Util.unmarshalValue(types[i], in);
+        }
+        return args;
     }
 
 }

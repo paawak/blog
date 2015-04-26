@@ -32,6 +32,10 @@ public class ServiceExporter implements InitializingBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(ServiceExporter.class);
 
+    private static final String SERVER_URL = "http://localhost:8080/RmiServer";
+
+    public static final String REMOTE_METHOD_INVOCATION_URI = "/INVOKE_REMOTE_METHOD";
+
     private DiscoveryManagement discoveryManager;
     private LeaseRenewalManager leaseRenewalManager;
     private Remote service;
@@ -98,7 +102,7 @@ public class ServiceExporter implements InitializingBean {
         if (false) {
             return new BasicJeriExporter(HttpServerEndpoint2.getInstance("localhost", 8899), new HttpBasedILFactory());
         }
-        return new BasicJeriExporter(new ServletBasedServerEndpoint("http://localhost:8080/RmiServer"), new ServletBasedILFactory("http://localhost:8100/read"));
+        return new BasicJeriExporter(new ServletBasedServerEndpoint(SERVER_URL), new ServletBasedILFactory(SERVER_URL + REMOTE_METHOD_INVOCATION_URI));
     }
 
 }
