@@ -2,6 +2,7 @@ package com.swayam.demo.rmi.shared.jini.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.rmi.Remote;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -24,17 +25,15 @@ public class ServletBasedInvocationHandler extends BasicInvocationHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServletBasedInvocationHandler.class);
 
     private final String httpUrl;
-    private final String implClassName;
 
-    public ServletBasedInvocationHandler(String httpUrl, ObjectEndpoint oe, MethodConstraints serverConstraints, String implClassName) {
+    public ServletBasedInvocationHandler(String httpUrl, ObjectEndpoint oe, MethodConstraints serverConstraints) {
         super(oe, serverConstraints);
         this.httpUrl = httpUrl;
-        this.implClassName = implClassName;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        LOGGER.info("************** invoking proxy {}", proxy.getClass());
+        LOGGER.info("************** invoking proxy");
         return invokeRemoteMethod(proxy, method, args);
         // return super.invoke(proxy, method, args);
     }
@@ -42,10 +41,13 @@ public class ServletBasedInvocationHandler extends BasicInvocationHandler {
     private Object invokeRemoteMethod(Object proxy, Method method, Object[] args) throws IOException, ClassNotFoundException {
         Util.checkProxyRemoteMethod(proxy.getClass(), method);
 
+        Class<?> proxyClass = proxy.getClass();
+        String implClassName = getRemoteImplClassName(proxyClass).getName();
         Collection context = Collections.emptyList();
 
         IOStreamProvider ioStreamProvider = new ServletIOStreamProvider(httpUrl);
 
+        // first write the details of the remote method
         try (MarshalOutputStream out = new MarshalOutputStream(ioStreamProvider.getOutputStream(), context);) {
             out.writeObject(implClassName);
             marshalMethod(proxy, method, out, context);
@@ -53,12 +55,24 @@ public class ServletBasedInvocationHandler extends BasicInvocationHandler {
             marshalArguments(proxy, method, args, out, context);
         }
 
-        // this is very important, the request will not hit the server if this
-        // is not done
+        // then read the results of the remote invocation
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         try (MarshalInputStream mis = new MarshalInputStream(ioStreamProvider.getInputStream(), cl, false, cl, context);) {
             return mis.readObject();
         }
+    }
+
+    private Class<?> getRemoteImplClassName(Class<?> proxyClass) {
+        for (Class<?> parentInterface : proxyClass.getInterfaces()) {
+            LOGGER.info("parentInterface: {}", parentInterface);
+            for (Class<?> grandParentInterface : parentInterface.getInterfaces()) {
+                if (grandParentInterface == Remote.class) {
+                    return parentInterface;
+                }
+            }
+        }
+
+        throw new IllegalArgumentException("No class found with " + Remote.class.getName() + " implementation");
     }
 
 }

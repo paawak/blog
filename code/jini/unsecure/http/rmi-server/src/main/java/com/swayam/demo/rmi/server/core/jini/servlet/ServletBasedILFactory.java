@@ -28,7 +28,7 @@ public class ServletBasedILFactory extends BasicILFactory {
 
     @Override
     protected InvocationHandler createInvocationHandler(Class[] interfaces, Remote impl, ObjectEndpoint oe) throws ExportException {
-        return new ServletBasedInvocationHandler(httpUrl, oe, null, impl.getClass().getName());
+        return new ServletBasedInvocationHandler(httpUrl, oe, null);
     }
 
     @Override
