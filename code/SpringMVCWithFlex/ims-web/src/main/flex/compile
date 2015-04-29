@@ -1,0 +1,1 @@
+mxmlc -services ../webapp/WEB-INF/flex/services-config.xml -strict=true -debug=true -context-root=/ -show-actionscript-warnings=true -output ../webapp/flash/PurchaseOrderScreen.swf PurchaseOrder.mxml

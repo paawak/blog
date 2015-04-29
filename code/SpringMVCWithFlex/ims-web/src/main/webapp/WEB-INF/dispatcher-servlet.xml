@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:flex="http://www.springframework.org/schema/flex"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/flex 
+           http://www.springframework.org/schema/flex/spring-flex-1.0.xsd"
+           default-lazy-init="true">
+
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.dao.DataAccessException">        
+                    dataAccessFailure
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="filenameController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
+
+    <bean id="fileUploadController" class="com.swayam.ims.webapp.controller.FileUploadController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="cancelView" value="redirect:mainMenu.html"/>
+        <property name="formView" value="uploadForm"/>
+        <property name="successView" value="uploadDisplay"/>
+    </bean>
+
+    <bean id="passwordHintController" class="com.swayam.ims.webapp.controller.PasswordHintController">
+        <property name="userManager" ref="userManager"/>
+        <property name="messageSource" ref="messageSource"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+    </bean>
+
+    <bean id="reloadController" class="com.swayam.ims.webapp.controller.ReloadController"/>
+
+    <bean id="signupController" class="com.swayam.ims.webapp.controller.SignupController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="signup"/>
+        <property name="successView" value="redirect:mainMenu.html"/>
+        <property name="userManager" ref="userManager"/>
+        <property name="roleManager" ref="roleManager"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+        <property name="templateName" value="accountCreated.vm"/>
+    </bean>
+
+    <bean id="userController" class="com.swayam.ims.webapp.controller.UserController">
+        <property name="userManager" ref="userManager"/>
+    </bean>
+
+    <bean id="userFormController" class="com.swayam.ims.webapp.controller.UserFormController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="userForm"/>
+        <property name="successView" value="redirect:users.html"/>
+        <property name="cancelView" value="redirect:mainMenu.html"/>
+        <property name="userManager" ref="userManager"/>
+        <property name="roleManager" ref="roleManager"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+        <property name="templateName" value="accountCreated.vm"/>
+    </bean>
+
+    <!-- Add additional controller beans here -->
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="2097152"/>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="ApplicationResources"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+    </bean>
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <value>
+                <!-- map all flex requests from blaze-ds to the flex message broker -->
+                /messagebroker/*=_messageBroker
+                <!-- 
+                /admin/activeUsers.html=filenameController
+                /admin/flushCache.html=filenameController
+                /admin/reload.html=reloadController
+                -->
+                /admin/users.html=userController
+                /mainMenu.html=filenameController
+                /passwordHint.html=passwordHintController
+                /masters/itemgroup.html=itemGroupController
+                /masters/new_item.html=itemController
+                /masters/party.html=partyController
+                /masters/items.html=itemListController
+                /masters/accountgroup.html=accountGroupFormController
+                /transactions/purchaseorder.html=purchaseOrderFormController
+                /transactions/salesorder.html=salesOrderFormController
+            </value>
+        </property>
+        <property name="order" value="0"/>
+    </bean>
+    
+    <bean id="itemGroupController" class="com.swayam.ims.webapp.controller.ItemGroupController">
+    	<constructor-arg ref="itemGroupDao"/>
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="masters/itemGroup"/>
+        <property name="successView" value="/mainMenu.html"/>
+        <property name="cancelView" value="redirect:/mainMenu.html"/>
+    </bean>
+    
+    <bean id="itemController" class="com.swayam.ims.webapp.controller.ItemController">
+        <constructor-arg ref="itemDao"/>
+        <constructor-arg ref="itemGroupDao"/>
+        <constructor-arg ref="currencyDao"/>
+        <constructor-arg ref="unitDao"/>
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="masters/item"/>
+        <property name="successView" value="/masters/items.html"/>
+        <property name="cancelView" value="redirect:/mainMenu.html"/>
+    </bean>
+    
+    <bean id="itemListController" class="com.swayam.ims.webapp.controller.ListItemController">
+        <constructor-arg ref="itemDao"/>
+        <!--<property name="validator" ref="beanValidator"/>
+        <property name="formView" value="masters/listItem"/>
+        <property name="successView" value="/mainMenu.html"/>
+        <property name="cancelView" value="redirect:/mainMenu.html"/>
+    --></bean>
+    
+    <bean id="partyController" class="com.swayam.ims.webapp.controller.PartyController">
+        <constructor-arg ref="accountGroupDao"/>
+        <constructor-arg ref="partyTypeDao"/>
+        <constructor-arg ref="partyDao"/>
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="masters/party"/>
+        <property name="successView" value="/mainMenu.html"/>
+        <property name="cancelView" value="redirect:/mainMenu.html"/>
+    </bean>
+    
+    <bean id="accountGroupManager" class="com.swayam.ims.core.service.impl.AccountGroupManager">
+        <constructor-arg ref="accountGroupDao"/>
+    </bean>    
+    
+    <bean id="accountGroupFormController" class="com.swayam.ims.webapp.controller.AccountGroupFormController">
+        <constructor-arg ref="accountGroupManager"/>
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="masters/accountgroup"/>
+        <property name="successView" value="/mainMenu.html"/>
+        <property name="cancelView" value="redirect:/mainMenu.html"/>
+    </bean>
+    
+    <bean id="modeIndicator" class="com.swayam.ims.webapp.controller.trx.TrxModeIndicator">
+    </bean>
+    
+    <bean id="purchaseOrderHelper" class="com.swayam.ims.webapp.controller.trx.PurchaseOrderHelper">
+        <constructor-arg ref="purchaseOrderService"/>
+    </bean>    
+    
+     <bean id="purchaseOrderFormController" class="com.swayam.ims.webapp.controller.trx.PurchaseOrderFormController">
+        <constructor-arg ref="modeIndicator"/>
+        <property name="formView" value="transactions/purchaseOrder"/>
+    </bean>
+    
+    <bean id="salesOrderFormController" class="com.swayam.ims.webapp.controller.trx.SalesOrderFormController">
+        <constructor-arg ref="modeIndicator"/>
+        <property name="formView" value="transactions/purchaseOrder"/>
+    </bean>          
+    
+    <!-- *******************     START flex       **************************** -->
+    
+    <flex:message-broker>
+        <flex:config-processor ref="imsConfigProcessor" />
+        <flex:exception-translator ref="imsExceptionTranslator"/>
+    </flex:message-broker>
+
+    <bean id="imsConfigProcessor" class="com.swayam.ims.webapp.flex.ImsMessageBrokerConfigProcessor" />
+    <bean id="imsExceptionTranslator" class="com.swayam.ims.webapp.flex.ImsExceptionTranslator" />
+
+    <!-- expose spring bean to blazeds for remoting -->
+    <!--flex:remoting-destination ref="accountGroupManager" destination-id="account" /-->
+    <flex:remoting-destination ref="itemDao"/>
+    <flex:remoting-destination ref="partyDao"/>
+    <flex:remoting-destination ref="purchaseOrderHelper"/>
+    <flex:remoting-destination ref="modeIndicator"/>
+    
+    <bean class="org.springframework.flex.servlet.MessageBrokerHandlerAdapter"/>
+    
+    <!-- if this is not present, it gives a big exception -->
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+    
+    <!-- *******************     END flex       **************************** -->
+
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+        <property name="order" value="1"/>
+    </bean>
+
+    <!-- View Resolver for JSPs -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="requestContextAttribute" value="rc"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+</beans>

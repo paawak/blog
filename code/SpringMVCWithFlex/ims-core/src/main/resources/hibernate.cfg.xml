@@ -1,0 +1,24 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!--<mapping package="com.swayam.ims.model.orm"/>-->
+        <mapping class="com.swayam.ims.model.orm.User"/>
+        <mapping class="com.swayam.ims.model.orm.Role"/>
+        <mapping class="com.swayam.ims.model.orm.ItemGroup"/>
+        <mapping class="com.swayam.ims.model.orm.UnitType"/>
+        <mapping class="com.swayam.ims.model.orm.Unit"/>
+        <mapping class="com.swayam.ims.model.orm.AccountGroup"/>
+        <mapping class="com.swayam.ims.model.orm.Currency"/>
+        <mapping class="com.swayam.ims.model.orm.TransactionCategory"/>
+        <mapping class="com.swayam.ims.model.orm.Item"/>
+        <mapping class="com.swayam.ims.model.orm.Lot"/>
+        <mapping class="com.swayam.ims.model.orm.Transaction"/>
+        <mapping class="com.swayam.ims.model.orm.Party"/>
+        <mapping class="com.swayam.ims.model.orm.PartyType"/>
+        <mapping class="com.swayam.ims.model.orm.Trade"/>
+        <mapping class="com.swayam.ims.model.orm.TradeDetails"/>
+        <mapping class="com.swayam.ims.model.orm.DoubleAccountingDetails"/>
+    </session-factory>
+</hibernate-configuration>

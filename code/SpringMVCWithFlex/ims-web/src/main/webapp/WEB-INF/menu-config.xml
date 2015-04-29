@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MenuConfig>
+    <Displayers>
+        <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
+    </Displayers>
+    <Menus>
+        <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html" roles="ROLE_ADMIN,ROLE_USER">
+            <Item name="ItemGroup" title="menu.masters.itemgroup.title" page="/masters/itemgroup.html">
+                <Item name="NewItemGroup" title="generic.new" page="/masters/itemgroup.html"/>
+            </Item>
+        	<Item name="Item" title="menu.masters.item.title" page="/masters/items.html">
+                <Item name="ListItems" title="generic.list" page="/masters/items.html"/>
+                <Item name="NewItem" title="generic.new" page="/masters/new_item.html"/>
+            </Item>
+        	
+        	<Item name="Party" title="menu.masters.party.title" page="/masters/party.html">
+        	   <Item name="NewParty" title="generic.new" page="/masters/party.html"/>
+        	</Item>
+        	<Item name="AccountGroupParty" title="menu.masters.accountGroup.title" page="/masters/accountgroup.html">
+        	   <Item name="NewAccountGroupParty" title="generic.new" page="/masters/accountgroup.html"/>
+        	</Item>
+        </Menu>
+        
+        <Menu name="TransactionMenu" title="trx.title" roles="ROLE_ADMIN,ROLE_USER">
+            <Item name="PurchaseOrder" title="menu.trx.po.title" page="/transactions/purchaseorder.html"/>
+            <Item name="SalesOrder" title="menu.trx.so.title" page="/transactions/salesorder.html"/>
+        </Menu>
+        
+        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/userform.html" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/admin/users.html">
+            <Item name="ViewUsers" title="menu.admin.users" page="/admin/users.html"/>
+            <!--
+            <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/admin/activeUsers.html"/>
+            <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload.html"/>
+            <Item name="FlushCache" title="menu.flushCache" page="/admin/flushCache.html"/>
+            <Item name="Clickstream" title="menu.clickstream" page="/admin/clickstreams.jsp"/>
+            -->
+        </Menu>
+        
+        <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER"/>
+    </Menus>
+</MenuConfig>

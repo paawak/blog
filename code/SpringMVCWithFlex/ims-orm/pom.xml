@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.swayam.ims</groupId>
+	<artifactId>ims-orm</artifactId>
+	<version>1.1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>Object Relational Mapping for IMS</name>
+	<url>http://www.swayamtechnologies.com/</url>
+	<description>
+    This is the ORM, Object Relational Mapping, for the IMS. This is shared between the 
+    client and the server. So it acts as the DTO or Data Transfer Object between the client and the server.
+    </description>
+
+	<prerequisites>
+		<maven>2.0.6</maven>
+	</prerequisites>
+
+	<licenses>
+		<license>
+			<name></name>
+			<url></url>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection></connection>
+		<developerConnection></developerConnection>
+		<url></url>
+	</scm>
+
+	<issueManagement>
+		<system></system>
+		<url></url>
+	</issueManagement>
+
+	<developers>
+		<developer>
+			<id>PR</id>
+			<name>Palash Ray</name>
+			<email>paawak@gmail.com</email>
+			<timezone>0530</timezone>
+		</developer>
+		<developer>
+			<id>RD</id>
+			<name>Rana Das</name>
+			<email>ranaraj1983@gmail.com</email>
+			<timezone>0530</timezone>
+		</developer>
+	</developers>
+
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<additionalProjectnatures>
+						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+					</additionalProjectnatures>
+					<additionalBuildcommands>
+						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+					</additionalBuildcommands>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<wtpversion>1.5</wtpversion>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-idea-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<dependenciesAsLibraries>true</dependenciesAsLibraries>
+					<useFullNames>false</useFullNames>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!--
+			<resources> <resource> <directory>src/main/resources</directory>
+			<excludes> <exclude>ApplicationResources_de.properties</exclude>
+			<exclude>ApplicationResources_fr.properties</exclude>
+			<exclude>ApplicationResources_ko.properties</exclude>
+			<exclude>ApplicationResources_nl.properties</exclude>
+			<exclude>ApplicationResources_no.properties</exclude>
+			<exclude>ApplicationResources_pt*.properties</exclude>
+			<exclude>ApplicationResources_tr.properties</exclude>
+			<exclude>ApplicationResources_zh*.properties</exclude>
+			<exclude>applicationContext-resources.xml</exclude> </excludes>
+			<filtering>true</filtering> </resource> <resource>
+			<directory>src/main/resources</directory> <includes>
+			<include>applicationContext-resources.xml</include> </includes>
+			<filtering>false</filtering> </resource> </resources> <testResources>
+			<testResource> <directory>src/test/resources</directory>
+			<filtering>true</filtering> </testResource> <testResource>
+			<directory>src/main/webapp</directory> <filtering>true</filtering>
+			<includes> <include>**/*.xml</include> </includes> </testResource>
+			</testResources>
+		-->
+	</build>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons.lang.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>${hibernate.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>ehcache</artifactId>
+					<groupId>net.sf.ehcache</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-collections</artifactId>
+					<groupId>commons-collections</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jta</artifactId>
+					<groupId>javax.transaction</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>${hibernate.annotations.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>${hibernate.annotations.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-web</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-support</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+		<dependency>
+            <groupId>org.acegisecurity</groupId>
+            <artifactId>acegi-security</artifactId>
+            <version>${acegi.security.version}</version>
+            <scope>provided</scope>
+        </dependency>
+	</dependencies>
+
+	<properties>
+		<junit.version>4.4</junit.version>
+		<commons.lang.version>2.3</commons.lang.version>
+		<spring.security.version>2.0.1</spring.security.version>
+		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
+		<hibernate.version>3.2.6.ga</hibernate.version>
+		<jpa.version>1.0</jpa.version>
+		<log4j.version>1.2.13</log4j.version>
+		<acegi.security.version>1.0.6</acegi.security.version>
+	</properties>
+	
+</project>

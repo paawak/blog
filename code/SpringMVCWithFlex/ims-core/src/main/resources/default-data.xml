@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <table name="app_user">
+        <column>id</column>
+        <column>username</column>
+        <column>password</column>
+        <column>first_name</column>
+        <column>last_name</column>
+        <column>address</column>
+        <column>city</column>
+        <column>country</column>
+        <column>email</column>
+        <column>phone_number</column>
+        <column>postal_code</column>
+        <column>province</column>
+        <column>website</column>
+        <column>password_hint</column>
+        <column>version</column>
+        <column>account_enabled</column>
+        <column>account_expired</column>
+        <column>account_locked</column>
+        <column>credentials_expired</column>
+        <row>
+            <value description="id">-1</value>
+            <value description="username">user</value>
+            <value description="password">12dea96fec20593566ab75692c9949596833adc9</value>
+            <value description="first_name">Tomcat</value>
+            <value description="last_name">User</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="country">US</value>
+            <value description="email">matt_raible@yahoo.com</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://tomcat.apache.org</value>
+            <value description="password_hint"><![CDATA[A male kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+        <row>
+            <value description="id">-2</value>
+            <value description="username">admin</value>
+            <value description="password">d033e22ae348aeb5660fc2140aec35850c4da997</value>
+            <value description="first_name">Matt</value>
+            <value description="last_name">Raible</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="country">US</value>
+            <value description="email">matt@raibledesigns.com</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://raibledesigns.com</value>
+            <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+    </table>
+    <table name="role">
+        <column>id</column>
+        <column>name</column>
+        <column>description</column>
+        <row>
+            <value description="id">-1</value>
+            <value description="name">ROLE_ADMIN</value>
+            <value description="description"><![CDATA[Administrator role (can edit Users)]]></value>
+        </row>
+        <row>
+            <value description="id">-2</value>
+            <value description="name">ROLE_USER</value>
+            <value description="description"><![CDATA[Default role for all Users]]></value>
+        </row>
+    </table>
+    <table name="user_role">
+        <column>user_id</column>
+        <column>role_id</column>
+        <row>
+            <value description="user_id">-1</value>
+            <value description="role_id">-2</value>
+        </row>
+        <row>
+            <value description="user_id">-2</value>
+            <value description="role_id">-1</value>
+        </row>
+    </table>
+    
+    <table name="unit_type">
+        <column>id</column>
+        <column>name</column>
+        <column>description</column>
+        <row>
+            <value description="id">1</value>
+            <value description="name">g</value>
+            <value description="description">Weight in Grams</value>
+        </row>
+        <row>
+            <value description="id">2</value>
+            <value description="name">kg</value>
+            <value description="description">Weight in Kilo Grams</value>
+        </row>
+        <row>
+            <value description="id">3</value>
+            <value description="name">l</value>
+            <value description="description">Volume in Litres</value>
+        </row>
+        <row>
+            <value description="id">4</value>
+            <value description="name">ml</value>
+            <value description="description">Volume in Milli Litres</value>
+        </row>
+        <row>
+            <value description="id">5</value>
+            <value description="name">pack</value>
+            <value description="description">Packet</value>
+        </row>
+    </table>   
+    
+    <table name="Unit">
+        <column>id</column>
+        <column>name</column>
+        <column>description</column>
+        <column>unit_type</column>
+        <column>quantity</column>
+        <row>
+            <value description="id">1</value>
+            <value description="name">Grams</value>
+            <value description="description">Loose Grams</value>
+            <value description="unit_type">1</value>
+        </row>
+        <row>
+            <value description="id">2</value>
+            <value description="name">125g Packet</value>
+            <value description="description">Packet of 125 Grams</value>
+            <value description="unit_type">1</value>
+            <value description="quantity">125</value>
+        </row>
+	</table>
+	
+    <table name="account_group">
+        <column>id</column>
+        <column>name</column>
+        <column>parent</column>
+        <row>
+            <value description="id">1</value>
+            <value description="name">Capital Account</value>
+        </row>
+        <row>
+            <value description="id">2</value>
+            <value description="name">Reserves and Surplus</value>
+            <value description="parent">1</value>
+        </row>
+        
+        <row>
+            <value description="id">3</value>
+            <value description="name">Loans</value>
+        </row>
+        <row>
+            <value description="id">4</value>
+            <value description="name">Secured Loan</value>
+            <value description="parent">3</value>
+        </row>
+        <row>
+            <value description="id">5</value>
+            <value description="name">Unsecured Loan</value>
+            <value description="parent">3</value>
+        </row>
+        
+        <row>
+            <value description="id">6</value>
+            <value description="name">Current Liabilities</value>
+        </row>
+        <row>
+            <value description="id">7</value>
+            <value description="name">Duties and Taxes</value>
+            <value description="parent">6</value>
+        </row>
+        <row>
+            <value description="id">8</value>
+            <value description="name">Provisions</value>
+            <value description="parent">6</value>
+        </row>
+        <row>
+            <value description="id">9</value>
+            <value description="name">Accounts Payable</value>
+            <value description="parent">6</value>
+        </row>
+        <row>
+            <value description="id">10</value>
+            <value description="name">Bank OD Accounts</value>
+            <value description="parent">6</value>
+        </row>
+        
+        <row>
+            <value description="id">11</value>
+            <value description="name">Fixed Assets</value>
+        </row>
+        
+        <row>
+            <value description="id">12</value>
+            <value description="name">Investments</value>
+        </row>
+        
+        <row>
+            <value description="id">13</value>
+            <value description="name">Current Assets</value>
+        </row>
+        <row>
+            <value description="id">14</value>
+            <value description="name">Bank Accounts</value>
+            <value description="parent">13</value>
+        </row>
+        <row>
+            <value description="id">15</value>
+            <value description="name">Cash In Hand</value>
+            <value description="parent">13</value>
+        </row>
+        <row>
+            <value description="id">16</value>
+            <value description="name">Stock In Hand</value>
+            <value description="parent">13</value>
+        </row>
+        <row>
+            <value description="id">17</value>
+            <value description="name">Deposits</value>
+            <value description="parent">13</value>
+        </row>
+        <row>
+            <value description="id">18</value>
+            <value description="name">Loans and Advances</value>
+            <value description="parent">13</value>
+        </row>
+        <row>
+            <value description="id">19</value>
+            <value description="name">Accounts Receivable</value>
+            <value description="parent">13</value>
+        </row>
+        
+        <row>
+            <value description="id">20</value>
+            <value description="name">Miscellaneous Expenditure</value>
+        </row>
+        
+        <row>
+            <value description="id">21</value>
+            <value description="name">Suspense Account</value>
+        </row>
+        
+        <row>
+            <value description="id">22</value>
+            <value description="name">P-L Account</value>
+        </row>
+        
+        <row>
+            <value description="id">23</value>
+            <value description="name">Revenue Accounts</value>
+        </row>
+        <row>
+            <value description="id">24</value>
+            <value description="name">Sales</value>
+            <value description="parent">23</value>
+        </row>
+        <row>
+            <value description="id">25</value>
+            <value description="name">Sales Return</value>
+            <value description="parent">23</value>
+        </row>
+        <row>
+            <value description="id">26</value>
+            <value description="name">Purchase</value>
+            <value description="parent">23</value>
+        </row>
+        <row>
+            <value description="id">27</value>
+            <value description="name">Purchase Return</value>
+            <value description="parent">23</value>
+        </row>
+        <row>
+            <value description="id">28</value>
+            <value description="name">Income Indirect</value>
+            <value description="parent">23</value>
+        </row>
+        <row>
+            <value description="id">29</value>
+            <value description="name">Income Direct</value>
+            <value description="parent">23</value>
+        </row>
+        <row>
+            <value description="id">30</value>
+            <value description="name">Expenses Direct</value>
+            <value description="parent">23</value>
+        </row>
+        <row>
+            <value description="id">31</value>
+            <value description="name">Expenses Indirect</value>
+            <value description="parent">23</value>
+        </row>
+        
+	</table> 	 
+	
+	<table name="trx_category">
+        <column>id</column>
+        <column>name</column>
+        <row>
+            <value>1</value>
+            <value>Purchase Invoice Transaction</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>Sales Invoice Transaction</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>Cash Purchase Transaction</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>Cash Sales Transaction</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>Purchase Returns Transaction</value>
+        </row>
+        <row>
+            <value>6</value>
+            <value>Sales Returns Transaction</value>
+        </row>
+        <row>
+            <value>7</value>
+            <value>Receipt Note Transaction</value>
+        </row>
+        <row>
+            <value>8</value>
+            <value>Delivery Note Transaction</value>
+        </row>
+    </table>
+    
+    <table name="Currency">
+        <column>id</column>
+        <column>name</column>
+        <column>symbol</column>
+        <column>description</column>
+        <row>
+            <value description="id">1</value>
+            <value description="name">INR</value>
+            <value description="symbol">Rs.</value>
+            <value description="description">Indian Rupees</value>
+        </row>
+    </table>
+    
+   <table name="party_type">
+        <column>id</column>
+        <column>name</column>
+        <row>
+            <value>1</value>
+            <value>Creditor</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>Debtor</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>Bank</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>General account</value>
+        </row>
+   </table>
+    
+    <table name="double_accounting_details">
+        <column>id</column>
+        <column>trx_category</column>
+        <column>complementary_account_grp</column>
+        <row>
+            <value description="id">1</value>
+            <value description="trx_category">1</value>
+            <value description="complementary_account_grp">26</value>
+        </row>
+    </table>    
+    
+</dataset>

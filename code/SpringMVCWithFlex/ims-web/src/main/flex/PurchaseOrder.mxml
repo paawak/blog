@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+    initialize="initData();">
+
+    <mx:Script>
+        <![CDATA[
+            import mx.managers.PopUpManager;
+            import mx.controls.Alert;
+            import mx.rpc.remoting.RemoteObject;
+            import mx.rpc.events.ResultEvent;
+            import mx.rpc.events.FaultEvent;
+            import mx.collections.ArrayCollection;
+            import mx.events.DataGridEvent;
+            import mx.validators.NumberValidator;
+            import flash.net.URLRequest;
+            
+            import com.swayam.ims.webapp.flex.trx.po.ItemEvent;
+            import com.swayam.ims.webapp.flex.trx.po.PurchaseItemSelectionDialog;
+            import com.swayam.ims.webapp.flex.trx.po.SalesItemSelectionDialog;
+            
+
+            private static var saveSuccessUrl:String = "/transactions/purchaseorder.html";
+            private static var cancelUrl:String = "/mainMenu.html";
+            
+            [Bindable]
+            private var clientArray:Array = new Array();
+            
+            [Bindable]
+            private var itemsArray:ArrayCollection = new ArrayCollection();
+            
+            private var purchaseOrderHelperRO:RemoteObject;
+            
+            private var purchaseOrderMode:Boolean;
+            
+            private function initData():void {
+            
+                var partyRO:RemoteObject = new RemoteObject();
+                partyRO.destination = "partyDao";
+                partyRO.getAll.addEventListener(ResultEvent.RESULT, getPartyListResultHandler);
+                partyRO.addEventListener(FaultEvent.FAULT, faultHandler);
+                partyRO.getAll();
+                
+                purchaseOrderHelperRO = new RemoteObject();
+                purchaseOrderHelperRO.destination = "purchaseOrderHelper";
+                purchaseOrderHelperRO.addEventListener(FaultEvent.FAULT, faultHandler);
+//                purchaseOrderHelperRO.addEventListener(ResultEvent.RESULT, getTradeIdResultHandler);
+//                purchaseOrderHelperRO.addEventListener(FaultEvent.FAULT, faultHandler);
+//                purchaseOrderHelperRO.getNewPurchaseOrderId();
+                
+                var modeIndicatorRO:RemoteObject = new RemoteObject();
+                modeIndicatorRO.destination = "modeIndicator";
+                modeIndicatorRO.addEventListener(FaultEvent.FAULT, faultHandler);
+                modeIndicatorRO.isPurchaseMode.addEventListener(ResultEvent.RESULT, getModeResultHandler);
+                modeIndicatorRO.getOperation("isPurchaseMode").send();
+                
+//                saveSuccessUrl = Application.application.parameters.saveSuccessUrl;
+//                cancelUrl = Application.application.parameters.cancelUrl;
+                
+            }
+            
+            private function getPartyListResultHandler(event:ResultEvent):void {
+
+                var partyTempArray:ArrayCollection = (ArrayCollection)(event.result);
+                var count:int = 0;
+                
+                for each (var party:Object in partyTempArray) {
+                    var content:Object = new Object();
+                    content["label"] = party.name;
+                    content["data"] = party.id;
+                    clientArray[count++] = content;
+                } 
+                
+            }
+            
+            private function faultHandler (event:FaultEvent):void {
+             // Deal with event.fault.faultString, etc.
+                Alert.show(event.fault.faultString, 'Error');
+            }
+            
+            private function showAddItemDialog():void {
+                // Create a modal TitleWindow container.
+                //var itemWindow:IFlexDisplayObject = PopUpManager.createPopUp(this, ItemSelectDialog, true);
+            	
+            	if (purchaseOrderMode) {
+            		
+	            	var purchaseItemSelectionPopup:PurchaseItemSelectionDialog = PurchaseItemSelectionDialog (PopUpManager.createPopUp(this, PurchaseItemSelectionDialog, true));
+	            	PopUpManager.centerPopUp(purchaseItemSelectionPopup);
+	            	purchaseItemSelectionPopup.addEventListener(ItemEvent.EVENT_ITEM_ADDED, itemSelected);
+	            	
+            	} else {
+               		
+	            	var salesItemSelectionPopup:SalesItemSelectionDialog = SalesItemSelectionDialog (PopUpManager.createPopUp(this, SalesItemSelectionDialog, true));
+	            	PopUpManager.centerPopUp(salesItemSelectionPopup);
+	            	salesItemSelectionPopup.addEventListener(ItemEvent.EVENT_ITEM_ADDED, itemSelected);
+            		
+            	}
+            	
+            }
+
+            private function itemSelected(event:ItemEvent):void { 
+            	
+                var itemId:Number = event.itemId;
+	        	var itemExists:Boolean = false;
+	        
+	        	for each (var itemInArray:Object in itemsArray) {
+	        		
+	        		if (itemId == itemInArray.id) {
+	        			itemExists = true;
+	        			break;
+	        		}
+	        		
+	        	}
+	        	
+	        	if (!itemExists) {
+	
+	        		var content:Object = new Object();
+		    		content["id"] = itemId;
+		    		content["rate"] = event.price.toFixed(2);
+		    		content["qty"] = event.qty;
+		    		content["price"] = (content["rate"] * content["qty"]).toFixed(2);
+		        	content["name"] = event.itemName;
+		        	content["batchNo"] = event.batchNo;
+		        	content["manufactureDate"] = event.manufactureDate;
+		        	content["expiryDate"] = event.expiryDate;
+		    		itemsArray.addItem(content);
+		    		
+		    		updateTotalPrice();
+	        		
+	        	}
+
+            }
+             
+            private function editQuantity(event:DataGridEvent):void { 
+            	
+            	// Get the cell editor and cast it to TextInput.
+                var qtyText:TextInput = TextInput(event.currentTarget.itemEditorInstance);
+                
+                // Get the new value from the editor.
+                var newVal:String = qtyText.text;
+                
+                // Get the old value.
+                var oldVal:String = event.currentTarget.editedItemRenderer.data[event.dataField]; 
+            
+            	var intVal:int = int(newVal);
+                
+            	if (intVal <= 0) {
+            		intVal = uint(oldVal);
+            	} 
+            	
+            	qtyText.text = String(intVal);
+            	
+            	//change the price 
+            	itemsArray[event.rowIndex].price = Number (intVal * itemsArray[event.rowIndex].rate).toFixed(2);
+            	
+            	updateTotalPrice();
+            	
+            }
+            
+            private function updateTotalPrice():void {
+            	
+            	var totalPrice:Number = 0;
+            	
+            	for each (var itemInArray:Object in itemsArray) {
+            		
+            		totalPrice += Number (itemInArray.price);
+            		
+            	}
+            	
+            	this.totalPrice.text = totalPrice.toFixed(2);
+            	
+            }
+            
+            private function doSave():void {
+            	
+            	if (client.selectedIndex != -1) {
+            		
+            		if (itemsArray.length == 0) {
+            			
+            			Alert.show("Add Items");
+            			
+            		} else {
+            		
+            			purchaseOrderHelperRO.savePurchaseOrder.addEventListener(ResultEvent.RESULT, getSaveResultHandler);
+            			purchaseOrderHelperRO.getOperation("savePurchaseOrder").send(clientArray[client.selectedIndex].data, 
+            					Number(totalPrice.text), 0, itemsArray);
+            			
+            		}
+            	
+            	} else {
+            	
+            		Alert.show("Select the client");
+            		
+            	}
+            	
+            }
+            
+            private function getSaveResultHandler(event:ResultEvent):void {
+            	
+            	var success:Boolean = Boolean(event.result);
+            
+            	if (success) {
+            		
+            		navigateToURL(new URLRequest(saveSuccessUrl), "_self");
+            		
+            	} else {
+            	
+            		Alert.show("Sorry, could not save data. Please try again.");
+            		
+            	}
+            	
+            }
+            
+            private function getModeResultHandler(event:ResultEvent):void {
+            	
+            	purchaseOrderMode = Boolean(event.result);
+            
+            	if (purchaseOrderMode) {
+            		lbPoId.text = "Purchase Order No.:";
+            	} else {
+            		lbPoId.text = "Sales Order No.:";
+            	}
+            	
+            }
+            
+            private function doCancel():void {
+            	
+            	navigateToURL(new URLRequest(cancelUrl), "_self");
+            	
+            }
+            
+        ]]>
+    </mx:Script>
+    
+
+	<mx:Label id="lbPoId" x="37" y="68"/>
+	<mx:TextInput x="174" y="66" id="poId" editable="false"/>
+	
+	<!--<mx:Label x="454" y="68" text="Date:"/>-->
+	<!--<mx:DateField x="513" y="66" id="poDate"/>-->
+	
+	<mx:Label x="37" y="130" text="Client:"/>
+	<mx:ComboBox x="174" y="128" id="client"  dataProvider="{clientArray}"></mx:ComboBox>
+	
+	<mx:DataGrid x="37" y="188" id="itemDetails" width="511" height="180" dataProvider="{itemsArray}" 
+		editable="true" itemEditEnd="editQuantity(event);">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Name" dataField="name" editable="false"/>
+			<mx:DataGridColumn headerText="Rate" dataField="rate" editable="false"/>
+			<mx:DataGridColumn headerText="Qty." dataField="qty" width="50"/>
+			<mx:DataGridColumn headerText="Price" dataField="price" editable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<mx:Label x="372" y="388" text="Total Price:"/>
+	<mx:TextInput x="459" y="386" width="90" id="totalPrice" editable="false"/>
+	
+	<mx:Button x="576" y="338" label="Add Item" id="addItem" click="showAddItemDialog();"/>
+	<mx:Button x="47" y="465" width="80" label="Cancel" id="cancel" click="doCancel();"/>
+	<mx:Button x="489" y="465" width="80" label="Save" id="save" click="doSave();"/>
+	
+</mx:Application>
