@@ -7,11 +7,10 @@
     <parent>
         <groupId>com.swayam.ims</groupId>
     	<artifactId>ims-pom</artifactId>
-    	<version>1.0.0</version>
+    	<version>1.0-SNAPSHOT</version>
     </parent>
     
     <artifactId>ims-core</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Core Module for IMS</name>
     <description>
@@ -22,6 +21,14 @@
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
+         <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.appfuse.plugins</groupId>
                 <artifactId>appfuse-maven-plugin</artifactId>
@@ -143,6 +150,60 @@
                 <filtering>true</filtering>
             </testResource>
         </testResources>
+        <pluginManagement>
+        	<plugins>
+        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        		<plugin>
+        			<groupId>org.eclipse.m2e</groupId>
+        			<artifactId>lifecycle-mapping</artifactId>
+        			<version>1.0.0</version>
+        			<configuration>
+        				<lifecycleMappingMetadata>
+        					<pluginExecutions>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>
+        									org.codehaus.mojo
+        								</groupId>
+        								<artifactId>
+        									hibernate3-maven-plugin
+        								</artifactId>
+        								<versionRange>
+        									[2.2,)
+        								</versionRange>
+        								<goals>
+        									<goal>hbm2ddl</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<ignore></ignore>
+        							</action>
+        						</pluginExecution>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>
+        									org.codehaus.mojo
+        								</groupId>
+        								<artifactId>
+        									dbunit-maven-plugin
+        								</artifactId>
+        								<versionRange>
+        									[1.0-beta-3,)
+        								</versionRange>
+        								<goals>
+        									<goal>operation</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<ignore></ignore>
+        							</action>
+        						</pluginExecution>
+        					</pluginExecutions>
+        				</lifecycleMappingMetadata>
+        			</configuration>
+        		</plugin>
+        	</plugins>
+        </pluginManagement>
     </build>
 
     <!-- Dependencies calculated by AppFuse when running full-source plugin -->

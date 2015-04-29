@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.swayam.ims</groupId>
     <artifactId>ims-pom</artifactId>
-    <version>1.0.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Common pom file for IMS</name>
     <url>http://www.swayamtechnologies.com/</url>
@@ -13,28 +13,6 @@
 	This contains the common dependencies for all IMS modules.
 	</description>
 	
-    <prerequisites>
-        <maven>2.0.6</maven>
-    </prerequisites>
-
-    <licenses>
-        <license>
-            <name></name>
-            <url></url>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection></connection>
-        <developerConnection></developerConnection>
-        <url></url>
-    </scm>
-
-    <issueManagement>
-        <system></system>
-        <url></url>
-    </issueManagement>
-
     <developers>
 		<developer>
 			<id>PR</id>
@@ -69,8 +47,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
