@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://palashray.com/resources/java/demo/large_combo_box/" href="large_combo_box_demo_3.jnlp">
+    <information>
+        <title>LargeComboBox</title>
+        <vendor>Palash Ray</vendor>
+    </information>
+    <resources>
+        <!-- Application Resources -->
+        <j2se version="1.7"
+            href="http://java.sun.com/products/autodl/j2se" />
+        <jar href="demo-2.0-0.jar" main="true" />
+    </resources>
+    <application-desc 
+         name="LargeComboBoxDemo3"
+         main-class="com.swayam.demo.combo.LargeTextComboFrameWithCustomRenderer1"
+         width="600"
+         height="500">
+     </application-desc>
+     <update check="background"/>
+</jnlp>       

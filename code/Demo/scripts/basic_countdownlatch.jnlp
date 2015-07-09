@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://palashray.com/resources/java/demo/countdownlatch/" href="basic_countdownlatch.jnlp">
+    <information>
+        <title>CountDownLatchDemo</title>
+        <vendor>Palash Ray</vendor>
+    </information>
+    <resources>
+        <!-- Application Resources -->
+        <j2se version="1.7"
+            href="http://java.sun.com/products/autodl/j2se" />
+        <jar href="demo-1.0-0.jar" main="true" />
+    </resources>
+    <applet-desc 
+         name="CountDownLatchDemo"
+         main-class="com.swayam.demo.countdownlatch.CountDownLatchApplet"
+         width="500"
+         height="500">
+     </applet-desc>
+     <update check="background"/>
+</jnlp>       

@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Application-Name: CountDownLatchDemo
+Build-Jdk: 1.7.0_25
+Built-By: pray1
+Permissions: sandbox
+Created-By: Apache Maven 3.1.1
+Archiver-Version: Plexus Archiver
+Codebase: palashray.com
+
+Name: com/swayam/demo/countdownlatch/CountDownLatchApplet.class
+SHA-256-Digest: Hahd/wA8VKSqH0qePcwHd2iTBD5yKLNifXHk8o+2X9g=
+
+Name: com/swayam/demo/countdownlatch/ProgressPanel$1.class
+SHA-256-Digest: fb+ojjjSAFkblfxL0P5vDdenTt5hzkYnFNbNEXDff3I=
+
+Name: com/swayam/demo/countdownlatch/ProgressUpdater.class
+SHA-256-Digest: /Y+liT0nIVZK3ltPVoA9kqmW2LHRuxJL0mfVH8R0E24=
+
+Name: com/swayam/demo/countdownlatch/ProgressPanel.class
+SHA-256-Digest: JG44JIcJionddIJqAM1+stm6dpiKKVDJ4zKfzkOmTZw=
+
+Name: META-INF/maven/com.swayam.demo/demo/pom.xml
+SHA-256-Digest: /WRJH+pRj4p27il3C4YzesExcUk11Y/nmrOi8ZAUBnA=
+
+Name: com/swayam/demo/countdownlatch/ProgressPanel$1$1.class
+SHA-256-Digest: FtVR8AKS8VwLRdp2p6AYYJdiSBfZtRDMpQE+1QQXoro=
+
+Name: META-INF/maven/com.swayam.demo/demo/pom.properties
+SHA-256-Digest: FmHsA8k2qzwWjPSPS1hTwu+YvmLEfOz6St6JFHkXIhg=
+
+Name: com/swayam/demo/countdownlatch/CountDownLatchApplet$1.class
+SHA-256-Digest: aFAfY1cYYqpoPc17i2/wDi6bSX6sUqEtImQNqfdGlr8=
+
