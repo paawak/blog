@@ -1,0 +1,22 @@
+<!DOCTYPE body PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<body>
+	<div id="main_div">
+    <script src="https://www.java.com/js/deployJava.js"></script>
+		<div id="applet_div">
+	    <script  language="javascript"> 
+		    function hideApplet() {
+		    	document.getElementById('applet_div').style.visibility = 'hidden'; 
+		    }    
+	        var attributes = {
+	            code:'com.swayam.demo.countdownlatch.CountDownLatchApplet',  width:500, height:300} ; 
+	        var parameters = {jnlp_href: 'basic_countdownlatch.jnlp'} ; 
+	        deployJava.runApplet(attributes, parameters, '1.7'); 
+	    </script>
+	    </div>
+	    <div id="image_div">
+	    	<img src="http://palashray.com/wp-content/uploads/2014/01/CountDownDemo-300x188.png" alt="CountDownDemo" width="300" height="188" onload="hideApplet()" />
+	    </div>
+    </div>
+</body>
+</html>
