@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import org.springframework.stereotype.Repository;
 
 import com.swayam.demo.stomp.server.dto.BankDetail;
-import com.swayam.demo.stomp.server.dto.BankDetailGroups;
+import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
 import com.swayam.demo.stomp.server.stomp.StompListenerForServer;
 
 @Repository
 public class BankDetailDao {
 
-    public void getBankDetailsAsync(BankDetailGroups bankDetailGroups,
+    public void getBankDetailsAsync(BankDetailSortOrder bankDetailGroups,
 	    StompListenerForServer stompListenerForServer) throws SQLException {
 
 	// Tomcat 8 needs this for some weird reason
@@ -31,9 +31,9 @@ public class BankDetailDao {
 	try (Connection connection = DriverManager.getConnection(
 		mysqlConnectionString, "root", "root123");
 		PreparedStatement pStat = connection
-			.prepareStatement("select * from bank_details");) {
+			.prepareStatement("select * from bank_details order by ?");) {
 
-	    // pStat.setString(1, bankDetailGroups.getColumnName());
+	    pStat.setString(1, bankDetailGroups.getColumnName());
 
 	    try (ResultSet resultSet = pStat.executeQuery();) {
 

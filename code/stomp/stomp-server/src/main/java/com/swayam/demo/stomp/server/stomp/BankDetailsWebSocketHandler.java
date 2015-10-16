@@ -6,7 +6,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.swayam.demo.stomp.server.dto.BankDetailGroups;
+import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
 import com.swayam.demo.stomp.server.service.BankDetailService;
 
 public class BankDetailsWebSocketHandler extends TextWebSocketHandler {
@@ -24,7 +24,7 @@ public class BankDetailsWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session,
 	    TextMessage message) {
 	LOGGER.info("recieved message from client");
-	BankDetailGroups group = BankDetailGroups.valueOf(message.getPayload()
+	BankDetailSortOrder group = BankDetailSortOrder.valueOf(message.getPayload()
 		.toUpperCase());
 	bankDetailService.getBankDetailsAsync(group,
 		new StompListenerForServer(session));

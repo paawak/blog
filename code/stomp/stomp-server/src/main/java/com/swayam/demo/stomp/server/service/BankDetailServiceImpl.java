@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.swayam.demo.stomp.server.dao.BankDetailDao;
-import com.swayam.demo.stomp.server.dto.BankDetailGroups;
+import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
 import com.swayam.demo.stomp.server.stomp.StompListenerForServer;
 
 @Service("bankDetailServiceImpl")
@@ -20,7 +20,7 @@ public class BankDetailServiceImpl implements BankDetailService {
     }
 
     @Override
-    public void getBankDetailsAsync(BankDetailGroups group,
+    public void getBankDetailsAsync(BankDetailSortOrder group,
 	    StompListenerForServer stompListenerForServer) {
 
 	try {
