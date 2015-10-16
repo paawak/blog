@@ -14,6 +14,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.zip.GZIPInputStream;
 
 import javax.websocket.ClientEndpointConfig;
@@ -30,30 +32,56 @@ public class StompConsumer {
 
     private static final String STOMP_URI = "ws://localhost:8080/stomp-server/streaming-bank-details";
 
-    public static void main(String[] args) throws DeploymentException,
-	    IOException, URISyntaxException {
+    private static final int THREAD_COUNT = 10;
 
-	CountDownLatch waitTillConnectionClosed = new CountDownLatch(1);
+    public static void main(String[] args) {
 
-	ClientManager client = ClientManager.createClient();
+	ExecutorService executorService = Executors.newFixedThreadPool(20);
 
-	Path outputFilePath = Paths.get("d:", "temp", "output.json");
-
-	try (SeekableByteChannel outputFileChannel = Files.newByteChannel(
-		outputFilePath, StandardOpenOption.CREATE,
-		StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);) {
-	    client.connectToServer(new StompClientEndpoint(
-		    waitTillConnectionClosed, outputFileChannel),
-		    ClientEndpointConfig.Builder.create().build(), new URI(
-			    STOMP_URI));
-	    waitTillConnectionClosed.await();
-	} catch (InterruptedException e) {
-	    e.printStackTrace();
+	for (int i = 0; i < THREAD_COUNT; i++) {
+	    executorService
+		    .submit(new SingleStompConsumer(Integer.toString(i)));
 	}
 
-	System.out
-		.println("StompClientEndpoint.main() All output written in the file: "
-			+ outputFilePath);
+	executorService.shutdown();
+
+    }
+
+    private static class SingleStompConsumer implements Runnable {
+
+	private final String id;
+
+	public SingleStompConsumer(String id) {
+	    this.id = id;
+	}
+
+	@Override
+	public void run() {
+	    CountDownLatch waitTillConnectionClosed = new CountDownLatch(1);
+
+	    ClientManager client = ClientManager.createClient();
+
+	    Path outputFilePath = Paths.get("d:", "temp", "output_" + id
+		    + ".json");
+
+	    try (SeekableByteChannel outputFileChannel = Files.newByteChannel(
+		    outputFilePath, StandardOpenOption.CREATE,
+		    StandardOpenOption.TRUNCATE_EXISTING,
+		    StandardOpenOption.WRITE);) {
+		client.connectToServer(new StompClientEndpoint(
+			waitTillConnectionClosed, outputFileChannel),
+			ClientEndpointConfig.Builder.create().build(), new URI(
+				STOMP_URI));
+		waitTillConnectionClosed.await();
+	    } catch (InterruptedException | IOException | DeploymentException
+		    | URISyntaxException e) {
+		e.printStackTrace();
+	    }
+
+	    System.out
+		    .println("StompClientEndpoint.main() All output written in the file: "
+			    + outputFilePath);
+	}
 
     }
 
