@@ -42,4 +42,12 @@ public class StompListenerForServer {
 
     }
 
+    public void endOfMessages() {
+	try {
+	    session.close();
+	} catch (IOException e) {
+	    throw new RuntimeException(e);
+	}
+    }
+
 }

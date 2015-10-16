@@ -31,9 +31,9 @@ public class BankDetailDao {
 	try (Connection connection = DriverManager.getConnection(
 		mysqlConnectionString, "root", "root123");
 		PreparedStatement pStat = connection
-			.prepareStatement("select * from bank_details group by ?");) {
+			.prepareStatement("select * from bank_details");) {
 
-	    pStat.setString(1, bankDetailGroups.getColumnName());
+	    // pStat.setString(1, bankDetailGroups.getColumnName());
 
 	    try (ResultSet resultSet = pStat.executeQuery();) {
 
@@ -42,6 +42,8 @@ public class BankDetailDao {
 			    .sendMessageToServer(mapResultSet(resultSet));
 		}
 	    }
+	} finally {
+	    stompListenerForServer.endOfMessages();
 	}
 
     }
