@@ -24,8 +24,8 @@ public class BankDetailsWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session,
 	    TextMessage message) {
 	LOGGER.info("recieved message from client");
-	BankDetailSortOrder group = BankDetailSortOrder.valueOf(message.getPayload()
-		.toUpperCase());
+	BankDetailSortOrder group = BankDetailSortOrder.valueOf(message
+		.getPayload().toUpperCase());
 	bankDetailService.getBankDetailsAsync(group,
 		new StompListenerForServer(session));
     }

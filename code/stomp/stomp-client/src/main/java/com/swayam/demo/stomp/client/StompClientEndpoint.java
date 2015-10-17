@@ -13,8 +13,8 @@ import java.util.zip.GZIPInputStream;
 import javax.websocket.CloseReason;
 import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
-import javax.websocket.Session;
 import javax.websocket.MessageHandler.Whole;
+import javax.websocket.Session;
 
 class StompClientEndpoint extends Endpoint {
 
@@ -22,53 +22,53 @@ class StompClientEndpoint extends Endpoint {
     private final SeekableByteChannel outputFileChannel;
 
     StompClientEndpoint(CountDownLatch waitTillConnectionClosed,
-    	SeekableByteChannel outputFileChannel) {
-        this.waitTillConnectionClosed = waitTillConnectionClosed;
-        this.outputFileChannel = outputFileChannel;
+	    SeekableByteChannel outputFileChannel) {
+	this.waitTillConnectionClosed = waitTillConnectionClosed;
+	this.outputFileChannel = outputFileChannel;
     }
 
     @Override
     public void onOpen(Session session, EndpointConfig config) {
 
-        session.addMessageHandler(new Whole<InputStream>() {
+	session.addMessageHandler(new Whole<InputStream>() {
 
-    	@Override
-    	public void onMessage(InputStream inputStream) {
+	    @Override
+	    public void onMessage(InputStream inputStream) {
 
-    	    System.out.println("Received message...");
+		System.out.println("Received message...");
 
-    	    try (ReadableByteChannel reportByteChannel = Channels
-    		    .newChannel(new GZIPInputStream(inputStream));) {
+		try (ReadableByteChannel reportByteChannel = Channels
+			.newChannel(new GZIPInputStream(inputStream));) {
 
-    		ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
+		    ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
 
-    		while (reportByteChannel.read(byteBuffer) > 0) {
-    		    byteBuffer.flip();
-    		    outputFileChannel.write(byteBuffer);
-    		    byteBuffer.compact();
-    		}
+		    while (reportByteChannel.read(byteBuffer) > 0) {
+			byteBuffer.flip();
+			outputFileChannel.write(byteBuffer);
+			byteBuffer.compact();
+		    }
 
-    		outputFileChannel.write(StandardCharsets.US_ASCII
-    			.encode("\n\n\n"));
+		    outputFileChannel.write(StandardCharsets.US_ASCII
+			    .encode("\n\n\n"));
 
-    	    } catch (IOException e) {
-    		e.printStackTrace();
-    	    }
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
 
-    	}
-        });
+	    }
+	});
 
-        try {
-    	session.getBasicRemote().sendText("MARITAL_STATUS");
-        } catch (IOException e) {
-    	e.printStackTrace();
-        }
+	try {
+	    session.getBasicRemote().sendText("MARITAL_STATUS");
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
 
     }
 
     @Override
     public void onClose(Session session, CloseReason closeReason) {
-        System.out.println("StompConsumer.StompClientEndpoint.onClose()");
-        waitTillConnectionClosed.countDown();
+	System.out.println("Connection closed: " + closeReason);
+	waitTillConnectionClosed.countDown();
     }
 }
