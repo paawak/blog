@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.server.stomp;
+package com.swayam.demo.stomp.server.stomp.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

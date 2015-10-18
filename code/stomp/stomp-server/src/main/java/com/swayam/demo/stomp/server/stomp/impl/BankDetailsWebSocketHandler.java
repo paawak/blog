@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.server.stomp;
+package com.swayam.demo.stomp.server.stomp.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

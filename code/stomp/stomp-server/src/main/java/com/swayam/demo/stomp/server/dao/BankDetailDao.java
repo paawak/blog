@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.swayam.demo.stomp.server.dto.BankDetail;
 import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
-import com.swayam.demo.stomp.server.stomp.StompListenerForServer;
+import com.swayam.demo.stomp.server.stomp.impl.StompListenerForServer;
 
 @Repository
 public class BankDetailDao {

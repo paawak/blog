@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.swayam.demo.stomp.server.dao.BankDetailDao;
 import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
-import com.swayam.demo.stomp.server.stomp.StompListenerForServer;
+import com.swayam.demo.stomp.server.stomp.impl.StompListenerForServer;
 
 @Service("bankDetailServiceImpl")
 public class BankDetailServiceImpl implements BankDetailService {
