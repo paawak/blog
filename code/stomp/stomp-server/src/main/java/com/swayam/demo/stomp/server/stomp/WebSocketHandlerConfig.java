@@ -13,7 +13,7 @@ import com.swayam.demo.stomp.server.service.BankDetailService;
 
 @Configuration
 @EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer {
+public class WebSocketHandlerConfig implements WebSocketConfigurer {
 
     @Autowired
     private BankDetailService bankDetailService;
