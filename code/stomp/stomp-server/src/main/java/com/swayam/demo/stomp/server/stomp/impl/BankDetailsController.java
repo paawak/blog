@@ -16,7 +16,6 @@ public class BankDetailsController {
     }
 
     @MessageMapping("/bank-request")
-    // @SendToUser("/bank-details-updates")
     public void handle(String payload) {
 	System.out.println("BankDetailsController.handle() payload:" + payload);
 	String message = "[" + System.currentTimeMillis() + "]: " + payload;
