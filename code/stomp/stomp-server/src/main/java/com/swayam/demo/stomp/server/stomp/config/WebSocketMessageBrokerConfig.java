@@ -12,18 +12,14 @@ public class WebSocketMessageBrokerConfig extends
 	AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry config) {
-	System.out
-		.println("11111111111111111 WebSocketMessageBrokerConfig.configureMessageBroker()");
-	config.setApplicationDestinationPrefixes("/app");
-	config.enableSimpleBroker("/queue", "/topic");
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+	registry.addEndpoint("/swayam").setAllowedOrigins("*");
     }
 
     @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-	System.out
-		.println("22222222222222222 WebSocketMessageBrokerConfig.registerStompEndpoints()");
-	registry.addEndpoint("/swayam").setAllowedOrigins("*");
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+	config.setApplicationDestinationPrefixes("/app");
+	config.enableSimpleBroker("/queue", "/topic");
     }
 
 }

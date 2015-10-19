@@ -3,8 +3,10 @@ package com.swayam.demo.stomp.client.broker;
 import java.lang.reflect.Type;
 
 import org.springframework.messaging.simp.stomp.StompCommand;
+import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.StompSession.Receiptable;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
 
 public class BankStompSessionHandler implements StompSessionHandler {
@@ -27,8 +29,28 @@ public class BankStompSessionHandler implements StompSessionHandler {
 	    StompHeaders connectedHeaders) {
 	System.out
 		.println("33333333333333333333333333333333 BankStompSessionHandler.afterConnected()");
-	session.send("/app/bankdetails", "rrrrrrrrr");
-	System.out.println("**************");
+	Receiptable receiptable = session
+		.send("/app/bank-request", "rrrrrrrrr");
+
+	System.out
+		.println("BankStompSessionHandler.afterConnected() receiptable: "
+			+ receiptable);
+
+	session.subscribe("/topic/bank-details-updates",
+		new StompFrameHandler() {
+
+		    @Override
+		    public void handleFrame(StompHeaders headers, Object payload) {
+			System.out
+				.println("BankStompSessionHandler.afterConnected(...).new StompFrameHandler() {...}.handleFrame() "
+					+ payload);
+		    }
+
+		    @Override
+		    public Type getPayloadType(StompHeaders headers) {
+			return String.class;
+		    }
+		});
     }
 
     @Override
