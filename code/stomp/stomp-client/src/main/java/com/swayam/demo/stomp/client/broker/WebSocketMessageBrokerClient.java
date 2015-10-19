@@ -26,11 +26,6 @@ public class WebSocketMessageBrokerClient {
 	stompClient.connect(url, handler);
 	stompClient.start();
 
-	// WebSocketContainer container = ContainerProvider
-	// .getWebSocketContainer();
-	// String uri = "ws://localhost:8080/stomp-server/swayam";
-	// container.connectToServer(SimpleClient.class, URI.create(uri));
-
 	try {
 	    Thread.sleep(30 * 1000);
 	} catch (InterruptedException e) {

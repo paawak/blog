@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.client.broker;
+package com.swayam.demo.stomp.client.simple;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 
 @ClientEndpoint
-public class SimpleClient {
+public class SimpleClientEndpoint {
 
     @OnOpen
     public void onOpen(Session session) {
