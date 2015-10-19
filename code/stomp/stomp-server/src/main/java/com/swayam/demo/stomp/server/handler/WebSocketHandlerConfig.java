@@ -9,7 +9,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import org.springframework.web.socket.handler.ExceptionWebSocketHandlerDecorator;
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 
-import com.swayam.demo.stomp.server.handler.service.BankDetailService;
+import com.swayam.demo.stomp.server.service.BankDetailService;
 
 @Configuration
 @EnableWebSocket

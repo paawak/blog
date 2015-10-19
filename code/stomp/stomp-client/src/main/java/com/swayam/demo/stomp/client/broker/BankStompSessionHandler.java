@@ -29,14 +29,13 @@ public class BankStompSessionHandler implements StompSessionHandler {
 	    StompHeaders connectedHeaders) {
 	System.out
 		.println("33333333333333333333333333333333 BankStompSessionHandler.afterConnected()");
-	Receiptable receiptable = session
-		.send("/app/bank-request", "rrrrrrrrr");
+	Receiptable receiptable = session.send("/app/bank-request", "job");
 
 	System.out
 		.println("BankStompSessionHandler.afterConnected() receiptable: "
 			+ receiptable);
 
-	session.subscribe("/topic/bank-details-updates",
+	session.subscribe("/queue/bank-details-updates",
 		new StompFrameHandler() {
 
 		    @Override

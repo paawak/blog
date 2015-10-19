@@ -1,7 +1,6 @@
-package com.swayam.demo.stomp.server.handler.service;
+package com.swayam.demo.stomp.server.service;
 
 import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
-import com.swayam.demo.stomp.server.handler.StompListenerForServer;
 
 public interface BankDetailService {
 

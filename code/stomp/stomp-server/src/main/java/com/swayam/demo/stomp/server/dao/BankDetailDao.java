@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.server.handler.dao;
+package com.swayam.demo.stomp.server.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.swayam.demo.stomp.server.dto.BankDetail;
 import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
-import com.swayam.demo.stomp.server.handler.StompListenerForServer;
+import com.swayam.demo.stomp.server.service.StompListenerForServer;
 
 @Repository
 public class BankDetailDao {

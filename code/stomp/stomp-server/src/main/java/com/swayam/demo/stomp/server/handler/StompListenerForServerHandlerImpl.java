@@ -10,16 +10,19 @@ import org.springframework.web.socket.WebSocketSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swayam.demo.stomp.server.dto.BankDetail;
+import com.swayam.demo.stomp.server.service.StompListenerForServer;
 
-public class StompListenerForServer {
+public class StompListenerForServerHandlerImpl implements
+	StompListenerForServer {
 
     private final ObjectMapper mapper = new ObjectMapper();
     private final WebSocketSession session;
 
-    public StompListenerForServer(WebSocketSession session) {
+    public StompListenerForServerHandlerImpl(WebSocketSession session) {
 	this.session = session;
     }
 
+    @Override
     public void sendMessageToServer(BankDetail bankDetail) {
 	try {
 	    String jsonString = mapper.writeValueAsString(bankDetail);
@@ -42,6 +45,7 @@ public class StompListenerForServer {
 
     }
 
+    @Override
     public void endOfMessages() {
 	try {
 	    session.close();

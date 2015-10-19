@@ -7,7 +7,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
-import com.swayam.demo.stomp.server.handler.service.BankDetailService;
+import com.swayam.demo.stomp.server.service.BankDetailService;
 
 public class BankDetailsWebSocketHandler extends TextWebSocketHandler {
 
@@ -27,7 +27,7 @@ public class BankDetailsWebSocketHandler extends TextWebSocketHandler {
 	BankDetailSortOrder group = BankDetailSortOrder.valueOf(message
 		.getPayload().toUpperCase());
 	bankDetailService.getBankDetailsAsync(group,
-		new StompListenerForServer(session));
+		new StompListenerForServerHandlerImpl(session));
     }
 
 }
