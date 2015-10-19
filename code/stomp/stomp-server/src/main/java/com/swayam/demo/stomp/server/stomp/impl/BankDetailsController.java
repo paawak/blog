@@ -7,8 +7,9 @@ import org.springframework.stereotype.Controller;
 public class BankDetailsController {
 
     @MessageMapping("/bank-details")
-    public String handle(String greeting) {
-	return "[" + System.currentTimeMillis() + "]: " + greeting;
+    public String handle(String payload) {
+	System.out.println("BankDetailsController.handle() payload:" + payload);
+	return "[" + System.currentTimeMillis() + "]: " + payload;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.client;
+package com.swayam.demo.stomp.client.handler;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

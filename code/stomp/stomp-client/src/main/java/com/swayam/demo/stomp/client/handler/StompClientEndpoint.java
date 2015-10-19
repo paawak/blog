@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.client;
+package com.swayam.demo.stomp.client.handler;
 
 import java.io.IOException;
 import java.io.InputStream;
