@@ -9,7 +9,9 @@ public class SimpleServerEndpoint {
 
     @OnMessage
     public String onMessage(String message, Session session) {
-	return message;
+	System.out.println("SimpleServerEndpoint.onMessage() message: "
+		+ message);
+	return "[" + System.currentTimeMillis() + "]" + message;
     }
 
 }
