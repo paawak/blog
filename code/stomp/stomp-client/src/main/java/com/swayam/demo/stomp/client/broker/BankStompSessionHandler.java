@@ -27,7 +27,8 @@ public class BankStompSessionHandler implements StompSessionHandler {
 	    StompHeaders connectedHeaders) {
 	System.out
 		.println("33333333333333333333333333333333 BankStompSessionHandler.afterConnected()");
-	session.send("/queue/bank-details", "payload");
+	session.send("/app/bankdetails", "rrrrrrrrr");
+	System.out.println("**************");
     }
 
     @Override
@@ -35,6 +36,7 @@ public class BankStompSessionHandler implements StompSessionHandler {
 	    StompHeaders headers, byte[] payload, Throwable exception) {
 	System.out
 		.println("4444444444444444444444444444444444 BankStompSessionHandler.handleException()");
+	exception.printStackTrace();
     }
 
     @Override

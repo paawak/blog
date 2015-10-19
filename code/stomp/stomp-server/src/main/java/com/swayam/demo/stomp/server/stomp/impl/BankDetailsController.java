@@ -6,7 +6,8 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BankDetailsController {
 
-    @MessageMapping("/bank-details")
+    @MessageMapping("/bankdetails")
+    // @SendToUser("/queue/position-updates")
     public String handle(String payload) {
 	System.out.println("BankDetailsController.handle() payload:" + payload);
 	return "[" + System.currentTimeMillis() + "]: " + payload;
