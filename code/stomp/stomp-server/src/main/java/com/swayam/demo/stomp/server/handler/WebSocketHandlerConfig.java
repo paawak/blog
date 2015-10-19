@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.server.stomp.config;
+package com.swayam.demo.stomp.server.handler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +9,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import org.springframework.web.socket.handler.ExceptionWebSocketHandlerDecorator;
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 
-import com.swayam.demo.stomp.server.service.BankDetailService;
-import com.swayam.demo.stomp.server.stomp.impl.BankDetailsWebSocketHandler;
+import com.swayam.demo.stomp.server.handler.service.BankDetailService;
 
 @Configuration
 @EnableWebSocket

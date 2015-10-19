@@ -1,13 +1,13 @@
-package com.swayam.demo.stomp.server.service;
+package com.swayam.demo.stomp.server.handler.service;
 
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.swayam.demo.stomp.server.dao.BankDetailDao;
 import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
-import com.swayam.demo.stomp.server.stomp.impl.StompListenerForServer;
+import com.swayam.demo.stomp.server.handler.StompListenerForServer;
+import com.swayam.demo.stomp.server.handler.dao.BankDetailDao;
 
 @Service("bankDetailServiceImpl")
 public class BankDetailServiceImpl implements BankDetailService {

@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.server.stomp.impl;
+package com.swayam.demo.stomp.server.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
-import com.swayam.demo.stomp.server.service.BankDetailService;
+import com.swayam.demo.stomp.server.handler.service.BankDetailService;
 
 public class BankDetailsWebSocketHandler extends TextWebSocketHandler {
 

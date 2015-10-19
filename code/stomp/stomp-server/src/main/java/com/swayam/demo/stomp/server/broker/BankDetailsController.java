@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.server.stomp.impl;
+package com.swayam.demo.stomp.server.broker;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
