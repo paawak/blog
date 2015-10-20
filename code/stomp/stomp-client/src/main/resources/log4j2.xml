@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{ISO8601} %p [%t] %c{1}.%M(%L) | %m%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<root level="INFO">
+			<AppenderRef ref="CONSOLE" />
+		</root>
+
+		<Logger name="org.springframework" level="INFO" />
+
+		<Logger name="org.eclipse.jetty" level="INFO" />
+
+	</Loggers>
+
+</Configuration>
