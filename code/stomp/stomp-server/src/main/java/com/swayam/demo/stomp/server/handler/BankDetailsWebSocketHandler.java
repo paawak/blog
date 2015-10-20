@@ -27,7 +27,7 @@ public class BankDetailsWebSocketHandler extends TextWebSocketHandler {
 	BankDetailSortOrder group = BankDetailSortOrder.valueOf(message
 		.getPayload().toUpperCase());
 	bankDetailService.getBankDetailsAsync(group,
-		new StompListenerForServerHandlerImpl(session));
+		new DataListenerForStompHandlerImpl(session));
     }
 
 }

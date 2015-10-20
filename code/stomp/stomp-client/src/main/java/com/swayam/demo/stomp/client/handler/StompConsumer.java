@@ -12,8 +12,7 @@ public class StompConsumer {
 	ExecutorService executorService = Executors.newFixedThreadPool(20);
 
 	for (int i = 0; i < THREAD_COUNT; i++) {
-	    executorService
-		    .submit(new SingleStompConsumer(Integer.toString(i)));
+	    executorService.submit(new SingleStompConsumer(Integer.toString(i)));
 	}
 
 	executorService.shutdown();

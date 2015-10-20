@@ -16,13 +16,17 @@ import javax.websocket.EndpointConfig;
 import javax.websocket.MessageHandler.Whole;
 import javax.websocket.Session;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 class StompClientEndpoint extends Endpoint {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(StompClientEndpoint.class);
 
     private final CountDownLatch waitTillConnectionClosed;
     private final SeekableByteChannel outputFileChannel;
 
-    StompClientEndpoint(CountDownLatch waitTillConnectionClosed,
-	    SeekableByteChannel outputFileChannel) {
+    StompClientEndpoint(CountDownLatch waitTillConnectionClosed, SeekableByteChannel outputFileChannel) {
 	this.waitTillConnectionClosed = waitTillConnectionClosed;
 	this.outputFileChannel = outputFileChannel;
     }
@@ -35,10 +39,9 @@ class StompClientEndpoint extends Endpoint {
 	    @Override
 	    public void onMessage(InputStream inputStream) {
 
-		System.out.println("Received message...");
+		LOGGER.info("recieved binary message from server");
 
-		try (ReadableByteChannel reportByteChannel = Channels
-			.newChannel(new GZIPInputStream(inputStream));) {
+		try (ReadableByteChannel reportByteChannel = Channels.newChannel(new GZIPInputStream(inputStream));) {
 
 		    ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
 
@@ -48,11 +51,11 @@ class StompClientEndpoint extends Endpoint {
 			byteBuffer.compact();
 		    }
 
-		    outputFileChannel.write(StandardCharsets.US_ASCII
-			    .encode("\n\n\n"));
+		    outputFileChannel.write(StandardCharsets.US_ASCII.encode("\n\n\n"));
 
 		} catch (IOException e) {
-		    e.printStackTrace();
+		    LOGGER.error("error", e);
+
 		}
 
 	    }
@@ -61,14 +64,14 @@ class StompClientEndpoint extends Endpoint {
 	try {
 	    session.getBasicRemote().sendText("MARITAL_STATUS");
 	} catch (IOException e) {
-	    e.printStackTrace();
+	    LOGGER.error("error sending message to client", e);
 	}
 
     }
 
     @Override
     public void onClose(Session session, CloseReason closeReason) {
-	System.out.println("Connection closed: " + closeReason);
+	LOGGER.warn("Connection closed with reason:{} ", closeReason);
 	waitTillConnectionClosed.countDown();
     }
 }

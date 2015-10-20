@@ -4,7 +4,6 @@ import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
 
 public interface BankDetailService {
 
-    void getBankDetailsAsync(BankDetailSortOrder group,
-	    StompListenerForServer stompListenerForServer);
+    void getBankDetailsAsync(BankDetailSortOrder group, DataListener stompListenerForServer);
 
 }

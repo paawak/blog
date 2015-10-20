@@ -19,8 +19,7 @@ public class BankDetailServiceImpl implements BankDetailService {
     }
 
     @Override
-    public void getBankDetailsAsync(BankDetailSortOrder group,
-	    StompListenerForServer stompListenerForServer) {
+    public void getBankDetailsAsync(BankDetailSortOrder group, DataListener stompListenerForServer) {
 
 	try {
 	    bankDetailDao.getBankDetailsAsync(group, stompListenerForServer);

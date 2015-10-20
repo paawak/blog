@@ -10,36 +10,31 @@ import org.springframework.stereotype.Repository;
 
 import com.swayam.demo.stomp.server.dto.BankDetail;
 import com.swayam.demo.stomp.server.dto.BankDetailSortOrder;
-import com.swayam.demo.stomp.server.service.StompListenerForServer;
+import com.swayam.demo.stomp.server.service.DataListener;
 
 @Repository
 public class BankDetailDao {
 
-    public void getBankDetailsAsync(BankDetailSortOrder bankDetailGroups,
-	    StompListenerForServer stompListenerForServer) throws SQLException {
+    public void getBankDetailsAsync(BankDetailSortOrder bankDetailGroups, DataListener stompListenerForServer) throws SQLException {
 
 	// Tomcat 8 needs this for some weird reason
 	try {
 	    Class.forName("com.mysql.jdbc.Driver").newInstance();
-	} catch (InstantiationException | IllegalAccessException
-		| ClassNotFoundException e) {
+	} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 	    throw new RuntimeException("error loading mysql driver", e);
 	}
 
 	String mysqlConnectionString = "jdbc:mysql://localhost/datasets?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true";
 
-	try (Connection connection = DriverManager.getConnection(
-		mysqlConnectionString, "root", "root123");
-		PreparedStatement pStat = connection
-			.prepareStatement("select * from bank_details order by ?");) {
+	try (Connection connection = DriverManager.getConnection(mysqlConnectionString, "root", "root123");
+		PreparedStatement pStat = connection.prepareStatement("select * from bank_details order by ?");) {
 
 	    pStat.setString(1, bankDetailGroups.getColumnName());
 
 	    try (ResultSet resultSet = pStat.executeQuery();) {
 
 		while (resultSet.next()) {
-		    stompListenerForServer
-			    .sendMessageToServer(mapResultSet(resultSet));
+		    stompListenerForServer.sendMessageToClient(mapResultSet(resultSet));
 		}
 	    }
 

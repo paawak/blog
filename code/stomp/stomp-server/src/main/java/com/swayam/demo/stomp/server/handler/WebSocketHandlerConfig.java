@@ -20,11 +20,7 @@ public class WebSocketHandlerConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-
-	registry.addHandler(
-		new ExceptionWebSocketHandlerDecorator(
-			new BankDetailsWebSocketHandler(bankDetailService)),
-		"/streaming-bank-details").setAllowedOrigins("*");
+	registry.addHandler(new ExceptionWebSocketHandlerDecorator(new BankDetailsWebSocketHandler(bankDetailService)), "/streaming-bank-details").setAllowedOrigins("*");
     }
 
     @Bean

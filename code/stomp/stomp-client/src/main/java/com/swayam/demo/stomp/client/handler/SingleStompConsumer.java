@@ -14,8 +14,12 @@ import javax.websocket.ClientEndpointConfig;
 import javax.websocket.DeploymentException;
 
 import org.glassfish.tyrus.client.ClientManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class SingleStompConsumer implements Runnable {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SingleStompConsumer.class);
 
     private static final String STOMP_URI = "ws://localhost:8080/stomp-server/streaming-bank-details";
 
@@ -33,22 +37,15 @@ class SingleStompConsumer implements Runnable {
 
 	Path outputFilePath = Paths.get("d:", "temp", "output_" + id + ".json");
 
-	try (SeekableByteChannel outputFileChannel = Files.newByteChannel(
-		outputFilePath, StandardOpenOption.CREATE,
-		StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);) {
-	    client.connectToServer(new StompClientEndpoint(
-		    waitTillConnectionClosed, outputFileChannel),
-		    ClientEndpointConfig.Builder.create().build(), new URI(
-			    STOMP_URI));
+	try (SeekableByteChannel outputFileChannel = Files.newByteChannel(outputFilePath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);) {
+	    client.connectToServer(new StompClientEndpoint(waitTillConnectionClosed, outputFileChannel), ClientEndpointConfig.Builder.create().build(), new URI(STOMP_URI));
 	    waitTillConnectionClosed.await();
-	} catch (InterruptedException | IOException | DeploymentException
-		| URISyntaxException e) {
-	    e.printStackTrace();
+	} catch (InterruptedException | IOException | DeploymentException | URISyntaxException e) {
+	    LOGGER.error("error", e);
 	}
 
-	System.out
-		.println("StompClientEndpoint.main() All output written in the file: "
-			+ outputFilePath);
+	LOGGER.info("All output written in the file: {}", outputFilePath);
+
     }
 
 }
