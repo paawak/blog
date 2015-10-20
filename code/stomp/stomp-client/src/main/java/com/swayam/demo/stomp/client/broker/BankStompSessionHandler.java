@@ -1,6 +1,7 @@
 package com.swayam.demo.stomp.client.broker;
 
 import java.lang.reflect.Type;
+import java.util.concurrent.CountDownLatch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,12 @@ import org.springframework.messaging.simp.stomp.StompSessionHandler;
 public class BankStompSessionHandler implements StompSessionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankStompSessionHandler.class);
+
+    private final CountDownLatch waitForEndOfMessage;
+
+    public BankStompSessionHandler(CountDownLatch waitForEndOfMessage) {
+	this.waitForEndOfMessage = waitForEndOfMessage;
+    }
 
     @Override
     public Type getPayloadType(StompHeaders headers) {
@@ -34,6 +41,9 @@ public class BankStompSessionHandler implements StompSessionHandler {
 	    @Override
 	    public void handleFrame(StompHeaders headers, Object payload) {
 		LOGGER.info("recieved message: `{}` from server", payload);
+		if (payload.equals("END_OF_MESSAGE")) {
+		    waitForEndOfMessage.countDown();
+		}
 	    }
 
 	    @Override
@@ -46,12 +56,13 @@ public class BankStompSessionHandler implements StompSessionHandler {
     @Override
     public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
 	LOGGER.error("error", exception);
+	waitForEndOfMessage.countDown();
     }
 
     @Override
     public void handleTransportError(StompSession session, Throwable exception) {
 	LOGGER.error("error", exception);
-
+	waitForEndOfMessage.countDown();
     }
 
 }
