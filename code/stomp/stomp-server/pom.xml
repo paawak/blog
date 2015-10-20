@@ -99,12 +99,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.glassfish.tyrus.bundles</groupId>
-			<artifactId>tyrus-standalone-client</artifactId>
-			<version>1.12</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
