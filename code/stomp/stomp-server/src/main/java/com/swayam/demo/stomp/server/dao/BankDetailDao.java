@@ -1,11 +1,14 @@
 package com.swayam.demo.stomp.server.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import com.swayam.demo.stomp.server.dto.BankDetail;
@@ -15,55 +18,51 @@ import com.swayam.demo.stomp.server.service.DataListener;
 @Repository
 public class BankDetailDao {
 
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public BankDetailDao(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
     public void getBankDetailsAsync(BankDetailSortOrder bankDetailGroups, DataListener stompListenerForServer) throws SQLException {
 
-	// Tomcat 8 needs this for some weird reason
-	try {
-	    Class.forName("com.mysql.jdbc.Driver").newInstance();
-	} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-	    throw new RuntimeException("error loading mysql driver", e);
-	}
+        ResultSetExtractor<Void> resultSetExtractor = new ResultSetExtractor<Void>() {
+            @Override
+            public Void extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                while (resultSet.next()) {
+                    stompListenerForServer.sendMessageToClient(mapResultSet(resultSet));
+                }
+                stompListenerForServer.endOfMessages();
+                return null;
+            }
+        };
 
-	String mysqlConnectionString = "jdbc:mysql://localhost/datasets?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true";
-
-	try (Connection connection = DriverManager.getConnection(mysqlConnectionString, "root", "root123");
-		PreparedStatement pStat = connection.prepareStatement("select * from bank_details order by ?");) {
-
-	    pStat.setString(1, bankDetailGroups.getColumnName());
-
-	    try (ResultSet resultSet = pStat.executeQuery();) {
-
-		while (resultSet.next()) {
-		    stompListenerForServer.sendMessageToClient(mapResultSet(resultSet));
-		}
-	    }
-
-	    stompListenerForServer.endOfMessages();
-	}
+        jdbcTemplate.query("select * from bank_details order by ?", new Object[] { bankDetailGroups.getColumnName() }, resultSetExtractor);
 
     }
 
     private BankDetail mapResultSet(ResultSet resultSet) throws SQLException {
-	BankDetail bankDetail = new BankDetail();
-	bankDetail.setId(resultSet.getInt("id"));
-	bankDetail.setAge(resultSet.getInt("age"));
-	bankDetail.setJob(resultSet.getString("job"));
-	bankDetail.setMarital(resultSet.getString("marital"));
-	bankDetail.setEducation(resultSet.getString("education"));
-	bankDetail.setDefaulted(resultSet.getString("defaulted"));
-	bankDetail.setBalance(resultSet.getBigDecimal("balance"));
-	bankDetail.setHousing(resultSet.getString("housing"));
-	bankDetail.setLoan(resultSet.getString("loan"));
-	bankDetail.setContact(resultSet.getString("contact"));
-	bankDetail.setDay(resultSet.getInt("day"));
-	bankDetail.setMonth(resultSet.getString("month"));
-	bankDetail.setDuration(resultSet.getInt("duration"));
-	bankDetail.setCampaign(resultSet.getInt("campaign"));
-	bankDetail.setPdays(resultSet.getInt("pdays"));
-	bankDetail.setPrevious(resultSet.getInt("previous"));
-	bankDetail.setPoutcome(resultSet.getString("poutcome"));
-	bankDetail.setY(resultSet.getString("y"));
-	return bankDetail;
+        BankDetail bankDetail = new BankDetail();
+        bankDetail.setId(resultSet.getInt("id"));
+        bankDetail.setAge(resultSet.getInt("age"));
+        bankDetail.setJob(resultSet.getString("job"));
+        bankDetail.setMarital(resultSet.getString("marital"));
+        bankDetail.setEducation(resultSet.getString("education"));
+        bankDetail.setDefaulted(resultSet.getString("defaulted"));
+        bankDetail.setBalance(resultSet.getBigDecimal("balance"));
+        bankDetail.setHousing(resultSet.getString("housing"));
+        bankDetail.setLoan(resultSet.getString("loan"));
+        bankDetail.setContact(resultSet.getString("contact"));
+        bankDetail.setDay(resultSet.getInt("day"));
+        bankDetail.setMonth(resultSet.getString("month"));
+        bankDetail.setDuration(resultSet.getInt("duration"));
+        bankDetail.setCampaign(resultSet.getInt("campaign"));
+        bankDetail.setPdays(resultSet.getInt("pdays"));
+        bankDetail.setPrevious(resultSet.getInt("previous"));
+        bankDetail.setPoutcome(resultSet.getString("poutcome"));
+        bankDetail.setY(resultSet.getString("y"));
+        return bankDetail;
     }
 
 }
