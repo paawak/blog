@@ -120,8 +120,10 @@
 							<repositoryLayout>flat</repositoryLayout>
 							<repositoryName>lib</repositoryName>
 							<showConsoleWindow>true</showConsoleWindow>
+							<useWildcardClassPath>true</useWildcardClassPath>
 							<platforms>
 								<platform>unix</platform>
+								<platform>windows</platform>
 							</platforms>
 							<programs>
 								<program>

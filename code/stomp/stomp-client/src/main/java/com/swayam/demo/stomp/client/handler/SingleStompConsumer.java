@@ -26,25 +26,26 @@ class SingleStompConsumer implements Runnable {
     private final String id;
 
     public SingleStompConsumer(String id) {
-	this.id = id;
+        this.id = id;
     }
 
     @Override
     public void run() {
-	CountDownLatch waitTillConnectionClosed = new CountDownLatch(1);
+        CountDownLatch waitTillConnectionClosed = new CountDownLatch(1);
 
-	ClientManager client = ClientManager.createClient();
+        ClientManager client = ClientManager.createClient();
 
-	Path outputFilePath = Paths.get("d:", "temp", "output_" + id + ".json");
+        Path outputFilePath = Paths.get("output_" + id + ".json");
 
-	try (SeekableByteChannel outputFileChannel = Files.newByteChannel(outputFilePath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);) {
-	    client.connectToServer(new StompClientEndpoint(waitTillConnectionClosed, outputFileChannel), ClientEndpointConfig.Builder.create().build(), new URI(STOMP_URI));
-	    waitTillConnectionClosed.await();
-	} catch (InterruptedException | IOException | DeploymentException | URISyntaxException e) {
-	    LOGGER.error("error", e);
-	}
+        try (SeekableByteChannel outputFileChannel = Files.newByteChannel(outputFilePath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING,
+                StandardOpenOption.WRITE);) {
+            client.connectToServer(new StompClientEndpoint(waitTillConnectionClosed, outputFileChannel), ClientEndpointConfig.Builder.create().build(), new URI(STOMP_URI));
+            waitTillConnectionClosed.await();
+        } catch (InterruptedException | IOException | DeploymentException | URISyntaxException e) {
+            LOGGER.error("error", e);
+        }
 
-	LOGGER.info("All output written in the file: {}", outputFilePath);
+        LOGGER.info("All output written in the file: {}", outputFilePath);
 
     }
 

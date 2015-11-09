@@ -6,7 +6,7 @@
 		</Console>
 
 		<RollingRandomAccessFile name="FILE"
-			fileName="/logs/stomp-web-server.log" filePattern="/logs/stomp-web-server-%d{yyyy-MM-dd-HH}-%i.log.gz"
+			fileName="./logs/stomp-web-server.log" filePattern="./logs/stomp-web-server-%d{yyyy-MM-dd-HH}-%i.log.gz"
 			immediateFlush="false" append="true">
 			<PatternLayout>
 				<pattern>%d{ISO8601} %p [%t] %c{1}.%M(%L) | %m%n</pattern>

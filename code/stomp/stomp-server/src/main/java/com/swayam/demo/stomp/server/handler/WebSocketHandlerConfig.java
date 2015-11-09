@@ -20,17 +20,17 @@ public class WebSocketHandlerConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-	registry.addHandler(new ExceptionWebSocketHandlerDecorator(new BankDetailsWebSocketHandler(bankDetailService)), "/streaming-bank-details").setAllowedOrigins("*");
+        registry.addHandler(new ExceptionWebSocketHandlerDecorator(new BankDetailsWebSocketHandler(bankDetailService)), "/streaming-bank-details").setAllowedOrigins("*");
     }
 
     @Bean
     public ServletServerContainerFactoryBean createWebSocketContainer() {
-	ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
-	container.setMaxTextMessageBufferSize(100_000);
-	container.setMaxBinaryMessageBufferSize(100_000);
-	container.setAsyncSendTimeout(100_000_000_000_000L);
-	container.setMaxSessionIdleTimeout(100_000_000_000_000L);
-	return container;
+        ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
+        container.setMaxTextMessageBufferSize(100_000);
+        container.setMaxBinaryMessageBufferSize(100_000);
+        // container.setAsyncSendTimeout(100_000_000_000_000L);
+        container.setMaxSessionIdleTimeout(100_000_000_000_000L);
+        return container;
     }
 
 }
