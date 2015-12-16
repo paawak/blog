@@ -1,37 +1,32 @@
 package com.swayam.demo.sort;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class PersonComparatorBadTest {
 
-    // @Rule
-    // public ExpectedException thrown = ExpectedException.none();
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void testCompare_fail() {
-	// thrown.expect(IllegalArgumentException.class);
-	// thrown.expectMessage("Comparison method violates its general
-	// contract!");
-
-	// I want the exception trace to be printed out
+	thrown.expect(IllegalArgumentException.class);
+	thrown.expectMessage("Comparison method violates its general contract!");
 
 	List<Person> persons = getFailingSet();
 
+	// I want the exception trace to be printed out
 	try {
 	    Collections.sort(persons, new PersonComparatorBad());
-	    fail("Expecting a " + IllegalArgumentException.class);
 	} catch (IllegalArgumentException e) {
 	    e.printStackTrace();
-	    assertTrue(true);
+	    throw e;
 	}
-
     }
 
     @Test
