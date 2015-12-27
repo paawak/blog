@@ -14,11 +14,11 @@ public class PersonComparatorNonTransitiveTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testCompare_fail() {
+    public void testCompare_exception() {
 	thrown.expect(IllegalArgumentException.class);
 	thrown.expectMessage("Comparison method violates its general contract!");
 
-	List<Person> persons = getFailingSet();
+	List<Person> persons = getDataSetForException();
 
 	// I want the exception trace to be printed out
 	try {
@@ -30,8 +30,8 @@ public class PersonComparatorNonTransitiveTest {
     }
 
     @Test
-    public void testCompare_pass() {
-	List<Person> persons = getPassingSet();
+    public void testCompare_no_exception() {
+	List<Person> persons = getDataSetForNoException();
 	Collections.sort(persons, new PersonComparatorNonTransitive());
 	printPersons(persons);
     }
@@ -42,11 +42,17 @@ public class PersonComparatorNonTransitiveTest {
 	});
     }
 
-    private List<Person> getPassingSet() {
+    private List<Person> getDataSetForException() {
 	List<Person> persons = new ArrayList<>();
 	persons.add(new Person("TestName", 3));
 	persons.add(new Person("TestName", 290));
 	persons.add(new Person("TestName", 1));
+	persons.add(new Person("TestName", null));
+	persons.add(new Person("TestName", null));
+	persons.add(new Person("TestName", null));
+	persons.add(new Person("TestName", null));
+	persons.add(new Person("TestName", null));
+	persons.add(new Person("TestName", null));
 	persons.add(new Person("TestName", null));
 	persons.add(new Person("TestName", null));
 	persons.add(new Person("TestName", null));
@@ -73,17 +79,11 @@ public class PersonComparatorNonTransitiveTest {
 	return persons;
     }
 
-    private List<Person> getFailingSet() {
+    private List<Person> getDataSetForNoException() {
 	List<Person> persons = new ArrayList<>();
 	persons.add(new Person("TestName", 3));
 	persons.add(new Person("TestName", 290));
 	persons.add(new Person("TestName", 1));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
 	persons.add(new Person("TestName", null));
 	persons.add(new Person("TestName", null));
 	persons.add(new Person("TestName", null));
