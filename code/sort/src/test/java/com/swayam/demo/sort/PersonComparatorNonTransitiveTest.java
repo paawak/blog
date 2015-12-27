@@ -18,7 +18,7 @@ public class PersonComparatorNonTransitiveTest {
 	thrown.expect(IllegalArgumentException.class);
 	thrown.expectMessage("Comparison method violates its general contract!");
 
-	List<Person> persons = getDataSetForException();
+	List<Person> persons = getDataSetForTimSortException();
 
 	// I want the exception trace to be printed out
 	try {
@@ -42,7 +42,7 @@ public class PersonComparatorNonTransitiveTest {
 	});
     }
 
-    private List<Person> getDataSetForException() {
+    private List<Person> getDataSetForTimSortException() {
 	List<Person> persons = new ArrayList<>();
 	persons.add(new Person("TestName", 3));
 	persons.add(new Person("TestName", 290));
