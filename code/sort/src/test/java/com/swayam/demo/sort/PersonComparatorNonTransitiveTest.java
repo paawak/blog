@@ -8,7 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class PersonComparatorBadTest {
+public class PersonComparatorNonTransitiveTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -22,7 +22,7 @@ public class PersonComparatorBadTest {
 
 	// I want the exception trace to be printed out
 	try {
-	    Collections.sort(persons, new PersonComparatorBad());
+	    Collections.sort(persons, new PersonComparatorNonTransitive());
 	} catch (IllegalArgumentException e) {
 	    e.printStackTrace();
 	    throw e;
@@ -32,7 +32,7 @@ public class PersonComparatorBadTest {
     @Test
     public void testCompare_pass() {
 	List<Person> persons = getPassingSet();
-	Collections.sort(persons, new PersonComparatorBad());
+	Collections.sort(persons, new PersonComparatorNonTransitive());
 	printPersons(persons);
     }
 

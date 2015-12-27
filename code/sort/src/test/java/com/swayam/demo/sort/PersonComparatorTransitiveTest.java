@@ -8,13 +8,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PersonComparatorGoodTest {
+public class PersonComparatorTransitiveTest {
 
     private final List<Person> persons = new ArrayList<>();
 
     @Test
     public void testCompare() {
-	Collections.sort(persons, new PersonComparatorGood());
+	Collections.sort(persons, new PersonComparatorTransitive());
 	printPersons();
     }
 
