@@ -41,7 +41,7 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>com.swayam.demo.rmi.api</groupId>
+			<groupId>com.swayam.demo.jini.unsecure.plain</groupId>
 			<artifactId>rmi-service-api</artifactId>
 			<version>1.0</version>
 		</dependency>
