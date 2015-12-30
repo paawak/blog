@@ -97,7 +97,43 @@
 	</dependencies>
 	<profiles>
 		<profile>
-			<id>MavenAssemble</id>
+			<id>uber-jar</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>2.6</version>
+						<executions>
+							<execution>
+								<id>create-uber-jar</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+								<configuration>
+									<descriptorRefs>
+										<descriptorRef>jar-with-dependencies</descriptorRef>
+									</descriptorRefs>
+								</configuration>
+							</execution>
+							<execution>
+								<id>assemble-all</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+								<configuration>
+									<descriptor>src/assembly/uber-jar-assembly-descriptor.xml</descriptor>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>all-in-one</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -124,6 +160,24 @@
 								<phase>package</phase>
 								<goals>
 									<goal>assemble</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- tars all the jars and bat files to create a single file -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>2.4</version>
+						<configuration>
+							<descriptor>src/assembly/all-in-one-assembly-descriptor.xml</descriptor>
+						</configuration>
+						<executions>
+							<execution>
+								<id>assemble-all</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
 								</goals>
 							</execution>
 						</executions>

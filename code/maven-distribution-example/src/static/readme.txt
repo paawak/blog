@@ -1,0 +1,1 @@
+This is a dummy read me to illustrate how it can be packaged in the distribution by maven
