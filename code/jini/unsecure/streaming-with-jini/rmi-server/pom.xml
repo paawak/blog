@@ -80,6 +80,10 @@
 			<artifactId>spring-context</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>		
+		<dependency>
 			<groupId>net.jini</groupId>
 			<artifactId>jsk-platform</artifactId>
 			<version>2.2.2</version>
@@ -99,6 +103,21 @@
 			<artifactId>start</artifactId>
 			<version>2.2.2</version>
 		</dependency>		
+		<dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>xercesImpl</artifactId>
+                    <groupId>xerces</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-collections</artifactId>
+                    <groupId>commons-collections</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

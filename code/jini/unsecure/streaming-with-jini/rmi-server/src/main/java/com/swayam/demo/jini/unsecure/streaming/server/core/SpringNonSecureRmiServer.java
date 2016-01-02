@@ -5,6 +5,7 @@ import java.util.concurrent.CountDownLatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.StopWatch;
 
 import com.sun.jini.start.ServiceStarter;
 import com.swayam.demo.jini.unsecure.streaming.server.core.reggie.ReggieStarterConfiguration;
@@ -37,6 +38,9 @@ public class SpringNonSecureRmiServer {
 
 	@Override
 	public void run() {
+	    StopWatch stopWatch = new StopWatch();
+	    stopWatch.start();
+
 	    String policyFilePath = SpringNonSecureRmiServer.class.getResource("/policy.all").getFile();
 
 	    LOG.info("Starting with the policy file {}", policyFilePath);
@@ -52,7 +56,9 @@ public class SpringNonSecureRmiServer {
 		throw new RuntimeException(e);
 	    }
 
-	    LOG.info("***************** Started Reggie successfully");
+	    stopWatch.stop();
+
+	    LOG.info("***************** Started Reggie successfully, took {} ms to start", stopWatch.getLastTaskTimeMillis());
 
 	    signalToStartServerThread.countDown();
 
@@ -78,9 +84,13 @@ public class SpringNonSecureRmiServer {
 		throw new RuntimeException(e);
 	    }
 
-	    try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("server-application.xml")) {
-		LOG.info("*********************The RMIServer is ready");
-	    }
+	    StopWatch stopWatch = new StopWatch();
+	    stopWatch.start();
+
+	    @SuppressWarnings("unused")
+	    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("server-application.xml");
+	    stopWatch.stop();
+	    LOG.info("*********************The RMIServer is ready, took {} millis to start", stopWatch.getLastTaskTimeMillis());
 	}
 
     }

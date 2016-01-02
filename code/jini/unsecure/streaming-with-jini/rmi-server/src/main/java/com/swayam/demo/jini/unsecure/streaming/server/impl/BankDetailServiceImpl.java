@@ -1,7 +1,5 @@
 package com.swayam.demo.jini.unsecure.streaming.server.impl;
 
-import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -47,11 +45,7 @@ public class BankDetailServiceImpl implements BankDetailService {
 	Map<String, List<BankDetail>> groupedBankDetails;
 	List<BankDetail> unGroupedBankDetails;
 
-	try {
-	    unGroupedBankDetails = bankDetailDao.getAllBankDetails();
-	} catch (SQLException e) {
-	    throw new RuntimeException(e);
-	}
+	unGroupedBankDetails = bankDetailDao.getAllBankDetails();
 
 	groupedBankDetails = unGroupedBankDetails.parallelStream().collect(groupByCollector);
 
@@ -60,11 +54,7 @@ public class BankDetailServiceImpl implements BankDetailService {
 
     @Override
     public void streamAllBankDetails(RemoteDataListener<BankDetail> bankDetailRemoteListener) {
-	try {
-	    bankDetailDao.streamAllBankDetails(bankDetailRemoteListener);
-	} catch (SQLException | RemoteException e) {
-	    throw new RuntimeException(e);
-	}
+	bankDetailDao.streamAllBankDetails(bankDetailRemoteListener);
     }
 
 }
