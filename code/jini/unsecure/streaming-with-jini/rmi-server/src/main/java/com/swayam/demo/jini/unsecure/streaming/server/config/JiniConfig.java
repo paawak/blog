@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 
 import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailService;
@@ -22,6 +24,7 @@ import net.jini.lease.LeaseRenewalManager;
 import net.jini.lookup.JoinManager;
 import net.jini.lookup.entry.Name;
 
+@Configuration
 public class JiniConfig {
 
     @Autowired
@@ -38,15 +41,15 @@ public class JiniConfig {
     }
 
     @Bean
-    public BankDetailService bankDetailService(DiscoveryManagement discoveryManager, LeaseRenewalManager leaseRenewalManager, BankDetailService bankDetailService) throws IOException {
-	Exporter exporter = getExporter();
+    public JoinManager bankDetailServiceJoinManager(Exporter exporter, DiscoveryManagement discoveryManager, LeaseRenewalManager leaseRenewalManager, BankDetailService bankDetailService)
+	    throws IOException {
 	BankDetailService exportedService = (BankDetailService) exporter.export(bankDetailService);
-	@SuppressWarnings("unused")
-	JoinManager joinManager = new JoinManager(exportedService, new Entry[] { new Name(BankDetailService.class.getSimpleName()) }, (ServiceID) null, discoveryManager, leaseRenewalManager);
-	return exportedService;
+	return new JoinManager(exportedService, new Entry[] { new Name(BankDetailService.class.getSimpleName()) }, (ServiceID) null, discoveryManager, leaseRenewalManager);
     }
 
-    private Exporter getExporter() {
+    @Bean
+    @Scope("prototype")
+    public Exporter exporter() {
 	return new BasicJeriExporter(TcpServerEndpoint.getInstance(Integer.valueOf(environment.getProperty("jini.rmiServerPort"))), new BasicILFactoryWithLogging());
     }
 

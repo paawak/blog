@@ -4,10 +4,13 @@ import java.util.concurrent.CountDownLatch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.util.StopWatch;
 
 import com.sun.jini.start.ServiceStarter;
+import com.swayam.demo.jini.unsecure.streaming.server.config.DaoConfig;
+import com.swayam.demo.jini.unsecure.streaming.server.config.JiniConfig;
+import com.swayam.demo.jini.unsecure.streaming.server.config.RmiServerConfig;
 import com.swayam.demo.jini.unsecure.streaming.server.core.reggie.ReggieStarterConfiguration;
 
 public class SpringNonSecureRmiServer {
@@ -88,7 +91,7 @@ public class SpringNonSecureRmiServer {
 	    stopWatch.start();
 
 	    @SuppressWarnings("unused")
-	    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("server-application.xml");
+	    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(RmiServerConfig.class, DaoConfig.class, JiniConfig.class);
 	    stopWatch.stop();
 	    LOG.info("*********************The RMIServer is ready, took {} millis to start", stopWatch.getLastTaskTimeMillis());
 	}
