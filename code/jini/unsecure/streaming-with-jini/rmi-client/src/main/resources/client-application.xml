@@ -12,7 +12,7 @@
 		<constructor-arg value="jini://localhost:6670" />
 	</bean>
 
-	<bean id="bankDetailService" class="com.swayam.demo.rmi.client.ProxyRemoteFactoryBean">
+	<bean id="bankDetailService" class="com.swayam.demo.jini.unsecure.streaming.client.ProxyRemoteFactoryBean">
 		<property name="lookupLocator" ref="lookupLocator" />
 		<property name="serviceName" value="BankDetailService" />
 	</bean>
