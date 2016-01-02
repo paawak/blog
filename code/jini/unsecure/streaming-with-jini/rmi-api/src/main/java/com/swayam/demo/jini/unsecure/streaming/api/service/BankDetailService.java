@@ -12,4 +12,6 @@ public interface BankDetailService extends Remote {
 
     Map<String, List<BankDetail>> getBankDetails(BankDetailGroups group) throws RemoteException;
 
+    void streamAllBankDetails(RemoteDataListener<BankDetail> bankDetailRemoteListener) throws RemoteException;
+
 }
