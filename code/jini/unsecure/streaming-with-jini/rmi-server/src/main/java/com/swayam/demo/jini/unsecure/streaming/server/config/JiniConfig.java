@@ -11,10 +11,9 @@ import org.springframework.core.env.Environment;
 
 import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailService;
 import com.swayam.demo.jini.unsecure.streaming.server.core.BasicILFactoryWithLogging;
+import com.swayam.demo.jini.unsecure.streaming.server.core.JoinManagerFactory;
 
 import net.jini.core.discovery.LookupLocator;
-import net.jini.core.entry.Entry;
-import net.jini.core.lookup.ServiceID;
 import net.jini.discovery.DiscoveryManagement;
 import net.jini.discovery.LookupLocatorDiscovery;
 import net.jini.export.Exporter;
@@ -22,7 +21,6 @@ import net.jini.jeri.BasicJeriExporter;
 import net.jini.jeri.tcp.TcpServerEndpoint;
 import net.jini.lease.LeaseRenewalManager;
 import net.jini.lookup.JoinManager;
-import net.jini.lookup.entry.Name;
 
 @Configuration
 public class JiniConfig {
@@ -41,10 +39,8 @@ public class JiniConfig {
     }
 
     @Bean
-    public JoinManager bankDetailServiceJoinManager(Exporter exporter, DiscoveryManagement discoveryManager, LeaseRenewalManager leaseRenewalManager, BankDetailService bankDetailService)
-	    throws IOException {
-	BankDetailService exportedService = (BankDetailService) exporter.export(bankDetailService);
-	return new JoinManager(exportedService, new Entry[] { new Name(BankDetailService.class.getSimpleName()) }, (ServiceID) null, discoveryManager, leaseRenewalManager);
+    public JoinManager bankDetailService(Exporter exporter, DiscoveryManagement discoveryManager, LeaseRenewalManager leaseRenewalManager, BankDetailService bankDetailService) throws IOException {
+	return new JoinManagerFactory(exporter, discoveryManager, leaseRenewalManager, bankDetailService, BankDetailService.class).getJoinManager();
     }
 
     @Bean
