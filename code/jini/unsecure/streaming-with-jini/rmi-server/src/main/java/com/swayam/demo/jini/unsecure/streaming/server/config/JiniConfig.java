@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 
 import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailService;
+import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailStreamingService;
 import com.swayam.demo.jini.unsecure.streaming.server.core.BasicILFactoryWithLogging;
 import com.swayam.demo.jini.unsecure.streaming.server.core.JoinManagerFactory;
 
@@ -41,6 +42,12 @@ public class JiniConfig {
     @Bean
     public JoinManager bankDetailService(Exporter exporter, DiscoveryManagement discoveryManager, LeaseRenewalManager leaseRenewalManager, BankDetailService bankDetailService) throws IOException {
 	return new JoinManagerFactory(exporter, discoveryManager, leaseRenewalManager, bankDetailService, BankDetailService.class).getJoinManager();
+    }
+
+    @Bean
+    public JoinManager bankDetailStreamingService(Exporter exporter, DiscoveryManagement discoveryManager, LeaseRenewalManager leaseRenewalManager,
+	    BankDetailStreamingService bankDetailStreamingService) throws IOException {
+	return new JoinManagerFactory(exporter, discoveryManager, leaseRenewalManager, bankDetailStreamingService, BankDetailStreamingService.class).getJoinManager();
     }
 
     @Bean

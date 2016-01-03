@@ -6,6 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailService;
+import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailStreamingService;
 import com.swayam.demo.jini.unsecure.streaming.client.config.RmiClientConfig;
 
 public class SpringContextHelper {
@@ -13,6 +14,7 @@ public class SpringContextHelper {
     private static final Logger LOG = LoggerFactory.getLogger(SpringContextHelper.class);
 
     private final BankDetailService bankDetailService;
+    private final BankDetailStreamingService bankDetailStreamingService;
 
     public SpringContextHelper() {
 
@@ -28,12 +30,17 @@ public class SpringContextHelper {
 
 	try (ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(RmiClientConfig.class)) {
 	    bankDetailService = context.getBean("bankDetailService", BankDetailService.class);
+	    bankDetailStreamingService = context.getBean("bankDetailStreamingService", BankDetailStreamingService.class);
 	}
 
     }
 
     public BankDetailService getBankDetailService() {
 	return bankDetailService;
+    }
+
+    public BankDetailStreamingService getBankDetailStreamingService() {
+	return bankDetailStreamingService;
     }
 
 }

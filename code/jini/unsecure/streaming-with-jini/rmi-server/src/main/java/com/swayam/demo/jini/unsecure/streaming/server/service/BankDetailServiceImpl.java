@@ -1,4 +1,4 @@
-package com.swayam.demo.jini.unsecure.streaming.server.impl;
+package com.swayam.demo.jini.unsecure.streaming.server.service;
 
 import java.util.List;
 import java.util.Map;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 import com.swayam.demo.jini.unsecure.streaming.api.dto.BankDetail;
 import com.swayam.demo.jini.unsecure.streaming.api.dto.BankDetailGroups;
 import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailService;
-import com.swayam.demo.jini.unsecure.streaming.api.service.RemoteDataListener;
+import com.swayam.demo.jini.unsecure.streaming.server.dao.BankDetailDao;
 
-@Service("bankDetailServiceImpl")
+@Service
 public class BankDetailServiceImpl implements BankDetailService {
 
     private final BankDetailDao bankDetailDao;
@@ -50,11 +50,6 @@ public class BankDetailServiceImpl implements BankDetailService {
 	groupedBankDetails = unGroupedBankDetails.parallelStream().collect(groupByCollector);
 
 	return groupedBankDetails;
-    }
-
-    @Override
-    public void streamAllBankDetails(RemoteDataListener<BankDetail> bankDetailRemoteListener) {
-	bankDetailDao.streamAllBankDetails(bankDetailRemoteListener);
     }
 
 }

@@ -3,7 +3,7 @@ package com.swayam.demo.jini.unsecure.streaming.client;
 import java.rmi.RemoteException;
 
 import com.swayam.demo.jini.unsecure.streaming.api.dto.BankDetail;
-import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailService;
+import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailStreamingService;
 import com.swayam.demo.jini.unsecure.streaming.api.service.RemoteDataListener;
 
 import net.jini.export.Exporter;
@@ -20,8 +20,8 @@ public class SimpleStreamingClient {
 	Exporter exporter = new BasicJeriExporter(TcpServerEndpoint.getInstance(0), new BasicILFactory());
 	@SuppressWarnings("unchecked")
 	RemoteDataListener<BankDetail> exportedRemoteDataListener = (RemoteDataListener<BankDetail>) exporter.export(remoteDataListener);
-	BankDetailService bankDetailService = springContextHelper.getBankDetailService();
-	bankDetailService.streamAllBankDetails(exportedRemoteDataListener);
+	BankDetailStreamingService bankDetailStreamingService = springContextHelper.getBankDetailStreamingService();
+	bankDetailStreamingService.streamAllBankDetails(exportedRemoteDataListener);
     }
 
 }

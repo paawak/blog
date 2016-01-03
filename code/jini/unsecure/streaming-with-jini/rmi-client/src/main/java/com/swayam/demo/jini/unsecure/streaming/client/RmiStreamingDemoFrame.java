@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import com.swayam.demo.jini.unsecure.streaming.api.dto.BankDetail;
-import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailService;
+import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailStreamingService;
 import com.swayam.demo.jini.unsecure.streaming.api.service.RemoteDataListener;
 
 import net.jini.export.Exporter;
@@ -21,15 +21,15 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private final BankDetailService bankDetailService;
+    private final BankDetailStreamingService bankDetailStreamingService;
 
     private final DefaultListModel<BankDetail> streamedDataModel;
 
     /**
      * Creates new form RmiStreamingDemoFrame
      */
-    public RmiStreamingDemoFrame(BankDetailService bankDetailService) {
-	this.bankDetailService = bankDetailService;
+    public RmiStreamingDemoFrame(BankDetailStreamingService bankDetailStreamingService) {
+	this.bankDetailStreamingService = bankDetailStreamingService;
 	streamedDataModel = new DefaultListModel<>();
 	initComponents();
 	listStreamedData.setModel(streamedDataModel);
@@ -123,7 +123,7 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 		Exporter exporter = new BasicJeriExporter(TcpServerEndpoint.getInstance(0), new BasicILFactory());
 		@SuppressWarnings("unchecked")
 		RemoteDataListener<BankDetail> exportedRemoteDataListener = (RemoteDataListener<BankDetail>) exporter.export(this);
-		bankDetailService.streamAllBankDetails(exportedRemoteDataListener);
+		bankDetailStreamingService.streamAllBankDetails(exportedRemoteDataListener);
 	    } catch (RemoteException e) {
 		throw new RuntimeException(e);
 	    }
@@ -198,7 +198,7 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 	/* Create and display the form */
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	    public void run() {
-		new RmiStreamingDemoFrame(springContextHelper.getBankDetailService()).setVisible(true);
+		new RmiStreamingDemoFrame(springContextHelper.getBankDetailStreamingService()).setVisible(true);
 	    }
 	});
     }

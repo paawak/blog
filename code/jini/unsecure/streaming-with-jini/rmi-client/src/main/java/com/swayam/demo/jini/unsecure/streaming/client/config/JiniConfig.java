@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailService;
+import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailStreamingService;
 import com.swayam.demo.jini.unsecure.streaming.client.ProxyRemoteFactoryBean;
 
 import net.jini.core.discovery.LookupLocator;
@@ -28,6 +29,14 @@ public class JiniConfig {
 	ProxyRemoteFactoryBean proxyRemoteFactoryBean = new ProxyRemoteFactoryBean();
 	proxyRemoteFactoryBean.setLookupLocator(lookupLocator);
 	proxyRemoteFactoryBean.setServiceName(BankDetailService.class.getSimpleName());
+	return proxyRemoteFactoryBean;
+    }
+
+    @Bean(name = "bankDetailStreamingService")
+    public ProxyRemoteFactoryBean bankDetailStreamingService(LookupLocator lookupLocator) {
+	ProxyRemoteFactoryBean proxyRemoteFactoryBean = new ProxyRemoteFactoryBean();
+	proxyRemoteFactoryBean.setLookupLocator(lookupLocator);
+	proxyRemoteFactoryBean.setServiceName(BankDetailStreamingService.class.getSimpleName());
 	return proxyRemoteFactoryBean;
     }
 
