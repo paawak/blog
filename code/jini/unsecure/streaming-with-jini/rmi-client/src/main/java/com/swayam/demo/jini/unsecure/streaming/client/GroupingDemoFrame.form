@@ -4,8 +4,6 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="btGrpBankDetails">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="btGrpFeatureToUse">
-    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
