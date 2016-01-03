@@ -1,10 +1,10 @@
 package com.swayam.demo.jini.unsecure.streaming.client;
 
-import java.awt.EventQueue;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 
 import com.swayam.demo.jini.unsecure.streaming.api.dto.BankDetail;
 import com.swayam.demo.jini.unsecure.streaming.api.service.BankDetailService;
@@ -88,45 +88,82 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 
 	streamedDataModel.removeAllElements();
 
-	RemoteDataListener<BankDetail> remoteDataListener = new RemoteDataListener<BankDetail>() {
+	StreamingTask streamingTask = new StreamingTask(streamedDataModel);
+	streamingTask.execute();
 
-	    @Override
-	    public void newData(BankDetail data) {
-		EventQueue.invokeLater(new Runnable() {
-		    @Override
-		    public void run() {
-			streamedDataModel.addElement(data);
-			// try {
-			// Thread.sleep(100);
-			// } catch (InterruptedException e) {
-			// e.printStackTrace();
-			// }
-		    }
-		});
-	    }
-
-	    @Override
-	    public void endOfData() {
-		EventQueue.invokeLater(new Runnable() {
-		    @Override
-		    public void run() {
-			JOptionPane.showMessageDialog(RmiStreamingDemoFrame.this, "All data streamed successfully", "End of data", JOptionPane.INFORMATION_MESSAGE);
-			btnStartStreaming.setEnabled(true);
-		    }
-		});
-	    }
-	};
-
-	try {
-	    Exporter exporter = new BasicJeriExporter(TcpServerEndpoint.getInstance(0), new BasicILFactory());
-	    @SuppressWarnings("unchecked")
-	    RemoteDataListener<BankDetail> exportedRemoteDataListener = (RemoteDataListener<BankDetail>) exporter.export(remoteDataListener);
-	    bankDetailService.streamAllBankDetails(exportedRemoteDataListener);
-	} catch (RemoteException e) {
-	    throw new RuntimeException(e);
-	}
+	// RemoteDataListener<BankDetail> remoteDataListener = new
+	// RemoteDataListener<BankDetail>() {
+	//
+	// @Override
+	// public void newData(BankDetail data) {
+	// EventQueue.invokeLater(new Runnable() {
+	// @Override
+	// public void run() {
+	// streamedDataModel.addElement(data);
+	// // try {
+	// // Thread.sleep(100);
+	// // } catch (InterruptedException e) {
+	// // e.printStackTrace();
+	// // }
+	// }
+	// });
+	// }
+	//
+	// @Override
+	// public void endOfData() {
+	// EventQueue.invokeLater(new Runnable() {
+	// @Override
+	// public void run() {
+	// JOptionPane.showMessageDialog(RmiStreamingDemoFrame.this, "All data
+	// streamed successfully", "End of data",
+	// JOptionPane.INFORMATION_MESSAGE);
+	// btnStartStreaming.setEnabled(true);
+	// }
+	// });
+	// }
+	// };
 
     }// GEN-LAST:event_btnStartStreamingActionPerformed
+
+    class StreamingTask extends SwingWorker<Void, BankDetail> implements RemoteDataListener<BankDetail> {
+
+	private final DefaultListModel<BankDetail> streamedDataModel;
+
+	public StreamingTask(DefaultListModel<BankDetail> streamedDataModel) {
+	    this.streamedDataModel = streamedDataModel;
+	}
+
+	@Override
+	protected Void doInBackground() {
+	    try {
+		Exporter exporter = new BasicJeriExporter(TcpServerEndpoint.getInstance(0), new BasicILFactory());
+		@SuppressWarnings("unchecked")
+		RemoteDataListener<BankDetail> exportedRemoteDataListener = (RemoteDataListener<BankDetail>) exporter.export(this);
+		bankDetailService.streamAllBankDetails(exportedRemoteDataListener);
+	    } catch (RemoteException e) {
+		throw new RuntimeException(e);
+	    }
+	    return null;
+	}
+
+	@Override
+	protected void process(List<BankDetail> chunks) {
+	    for (BankDetail element : chunks) {
+		streamedDataModel.addElement(element);
+	    }
+	}
+
+	@Override
+	public void newData(BankDetail data) throws RemoteException {
+	    publish(data);
+	}
+
+	@Override
+	public void endOfData() throws RemoteException {
+	    done();
+	}
+
+    }
 
     /**
      * @param args
