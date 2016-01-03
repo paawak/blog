@@ -25,18 +25,30 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="pnlStreamedData" pref="549" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
-              <Component id="btnStartStreaming" min="-2" pref="167" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lbStreamingProgress" min="-2" pref="117" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="prgStreamingData" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnStartStreaming" min="-2" pref="167" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btnStartStreaming" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lbStreamingProgress" min="-2" max="-2" attributes="0"/>
+                  <Component id="prgStreamingData" min="-2" pref="23" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
               <Component id="pnlStreamedData" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -50,6 +62,13 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStartStreamingActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbStreamingProgress">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Streaming Progress :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JProgressBar" name="prgStreamingData">
     </Component>
     <Container class="javax.swing.JPanel" name="pnlStreamedData">
       <Properties>

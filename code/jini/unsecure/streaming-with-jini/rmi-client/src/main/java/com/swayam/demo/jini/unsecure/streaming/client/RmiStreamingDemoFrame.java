@@ -1,5 +1,6 @@
 package com.swayam.demo.jini.unsecure.streaming.client;
 
+import java.awt.Cursor;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -42,10 +43,13 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
 	btnStartStreaming = new javax.swing.JButton();
+	lbStreamingProgress = new javax.swing.JLabel();
+	prgStreamingData = new javax.swing.JProgressBar();
 	pnlStreamedData = new javax.swing.JPanel();
 	scrPnlStreamedData = new javax.swing.JScrollPane();
 	listStreamedData = new javax.swing.JList<>();
@@ -59,6 +63,8 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 	    }
 	});
 
+	lbStreamingProgress.setText("Streaming Progress :");
+
 	pnlStreamedData.setBorder(javax.swing.BorderFactory.createTitledBorder("Streamed Data"));
 	pnlStreamedData.setLayout(new java.awt.BorderLayout());
 
@@ -71,14 +77,18 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 
 	javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 	getContentPane().setLayout(layout);
-	layout.setHorizontalGroup(
-		layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(pnlStreamedData, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
-			.addGroup(layout.createSequentialGroup().addGap(179, 179, 179)
-				.addComponent(btnStartStreaming, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-				.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+	layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(pnlStreamedData, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+		.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(lbStreamingProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+			.addComponent(prgStreamingData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addContainerGap())
+		.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+			.addComponent(btnStartStreaming, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE).addGap(180, 180, 180)));
 	layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-		layout.createSequentialGroup().addContainerGap(25, Short.MAX_VALUE).addComponent(btnStartStreaming).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-			.addComponent(pnlStreamedData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
+		layout.createSequentialGroup().addContainerGap().addComponent(btnStartStreaming).addGap(18, 18, 18)
+			.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(lbStreamingProgress).addComponent(prgStreamingData,
+				javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+		.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+		.addComponent(pnlStreamedData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
 
 	pack();
 	setLocationRelativeTo(null);
@@ -89,6 +99,10 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 	btnStartStreaming.setEnabled(false);
 
 	streamedDataModel.removeAllElements();
+
+	setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+	prgStreamingData.setIndeterminate(true);
 
 	StreamingTask streamingTask = new StreamingTask(streamedDataModel);
 	streamingTask.execute();
@@ -134,12 +148,15 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 
 	@Override
 	public void endOfData() throws RemoteException {
+
 	}
 
 	@Override
 	protected void done() {
 	    JOptionPane.showMessageDialog(RmiStreamingDemoFrame.this, "All data streamed successfully", "End of data", JOptionPane.INFORMATION_MESSAGE);
 	    btnStartStreaming.setEnabled(true);
+	    prgStreamingData.setIndeterminate(false);
+	    setCursor(null);
 	}
 
     }
@@ -188,8 +205,10 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStartStreaming;
+    private javax.swing.JLabel lbStreamingProgress;
     private javax.swing.JList<BankDetail> listStreamedData;
     private javax.swing.JPanel pnlStreamedData;
+    private javax.swing.JProgressBar prgStreamingData;
     private javax.swing.JScrollPane scrPnlStreamedData;
     // End of variables declaration//GEN-END:variables
 }
