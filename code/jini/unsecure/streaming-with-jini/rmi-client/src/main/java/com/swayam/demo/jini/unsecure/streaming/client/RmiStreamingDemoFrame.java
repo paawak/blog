@@ -153,9 +153,9 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 
 	@Override
 	protected void done() {
+	    prgStreamingData.setIndeterminate(false);
 	    JOptionPane.showMessageDialog(RmiStreamingDemoFrame.this, "All data streamed successfully", "End of data", JOptionPane.INFORMATION_MESSAGE);
 	    btnStartStreaming.setEnabled(true);
-	    prgStreamingData.setIndeterminate(false);
 	    setCursor(null);
 	}
 
