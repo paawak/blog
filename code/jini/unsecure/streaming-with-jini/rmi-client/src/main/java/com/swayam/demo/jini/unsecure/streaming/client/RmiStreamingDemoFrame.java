@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import com.swayam.demo.jini.unsecure.streaming.api.dto.BankDetail;
@@ -31,6 +32,7 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 	streamedDataModel = new DefaultListModel<>();
 	initComponents();
 	listStreamedData.setModel(streamedDataModel);
+	listStreamedData.setCellRenderer(new ColoredListCellRenderer());
     }
 
     /**
@@ -91,38 +93,6 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 	StreamingTask streamingTask = new StreamingTask(streamedDataModel);
 	streamingTask.execute();
 
-	// RemoteDataListener<BankDetail> remoteDataListener = new
-	// RemoteDataListener<BankDetail>() {
-	//
-	// @Override
-	// public void newData(BankDetail data) {
-	// EventQueue.invokeLater(new Runnable() {
-	// @Override
-	// public void run() {
-	// streamedDataModel.addElement(data);
-	// // try {
-	// // Thread.sleep(100);
-	// // } catch (InterruptedException e) {
-	// // e.printStackTrace();
-	// // }
-	// }
-	// });
-	// }
-	//
-	// @Override
-	// public void endOfData() {
-	// EventQueue.invokeLater(new Runnable() {
-	// @Override
-	// public void run() {
-	// JOptionPane.showMessageDialog(RmiStreamingDemoFrame.this, "All data
-	// streamed successfully", "End of data",
-	// JOptionPane.INFORMATION_MESSAGE);
-	// btnStartStreaming.setEnabled(true);
-	// }
-	// });
-	// }
-	// };
-
     }// GEN-LAST:event_btnStartStreamingActionPerformed
 
     class StreamingTask extends SwingWorker<Void, BankDetail> implements RemoteDataListener<BankDetail> {
@@ -151,6 +121,10 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 	    for (BankDetail element : chunks) {
 		streamedDataModel.addElement(element);
 	    }
+
+	    // scroll to end
+	    listStreamedData.ensureIndexIsVisible(streamedDataModel.size() - 1);
+
 	}
 
 	@Override
@@ -160,7 +134,12 @@ public class RmiStreamingDemoFrame extends javax.swing.JFrame {
 
 	@Override
 	public void endOfData() throws RemoteException {
-	    done();
+	}
+
+	@Override
+	protected void done() {
+	    JOptionPane.showMessageDialog(RmiStreamingDemoFrame.this, "All data streamed successfully", "End of data", JOptionPane.INFORMATION_MESSAGE);
+	    btnStartStreaming.setEnabled(true);
 	}
 
     }
