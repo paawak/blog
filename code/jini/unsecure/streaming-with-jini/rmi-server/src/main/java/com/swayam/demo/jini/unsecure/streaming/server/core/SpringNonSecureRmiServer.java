@@ -8,8 +8,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.util.StopWatch;
 
 import com.sun.jini.start.ServiceStarter;
-import com.swayam.demo.jini.unsecure.streaming.server.config.DaoConfig;
-import com.swayam.demo.jini.unsecure.streaming.server.config.JiniConfig;
 import com.swayam.demo.jini.unsecure.streaming.server.config.RmiServerConfig;
 import com.swayam.demo.jini.unsecure.streaming.server.core.reggie.ReggieStarterConfiguration;
 
@@ -91,7 +89,7 @@ public class SpringNonSecureRmiServer {
 	    stopWatch.start();
 
 	    @SuppressWarnings("unused")
-	    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(RmiServerConfig.class, DaoConfig.class, JiniConfig.class);
+	    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(RmiServerConfig.class);
 	    stopWatch.stop();
 	    LOG.info("*********************The RMIServer is ready, took {} millis to start", stopWatch.getLastTaskTimeMillis());
 	}
