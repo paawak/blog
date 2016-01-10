@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class SimpleJsonTest {
 
@@ -20,7 +21,9 @@ public class SimpleJsonTest {
 	Person person = new Person(100, "Subodh", "Ghosh", LocalDate.of(1909, 9, 14));
 	ObjectMapper mapper = new ObjectMapper();
 	// register all data type modules
-	mapper.findAndRegisterModules();
+	// this may have performance implications:
+	// mapper.findAndRegisterModules();
+	mapper.registerModule(new JavaTimeModule());
 	String personJson = mapper.writeValueAsString(person);
 	assertEquals(expectedJson, personJson);
     }
@@ -32,7 +35,9 @@ public class SimpleJsonTest {
 
 	ObjectMapper mapper = new ObjectMapper();
 	// register all data type modules
-	mapper.findAndRegisterModules();
+	// this may have performance implications:
+	// mapper.findAndRegisterModules();
+	mapper.registerModule(new JavaTimeModule());
 	Person person = mapper.readValue(personJson, Person.class);
 	assertEquals(expectedPerson, person);
     }
