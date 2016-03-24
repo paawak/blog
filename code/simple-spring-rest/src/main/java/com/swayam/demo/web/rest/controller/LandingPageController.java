@@ -1,16 +1,21 @@
 package com.swayam.demo.web.rest.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 public class LandingPageController {
 
-    @RequestMapping(path = { "/", "/index.html", "index.htm" }, method = { RequestMethod.GET, RequestMethod.POST })
-    public String handleLandingPage() {
-	return "This demoes a simple Rest web app based on Spring. It uses annotation driven Spring configuration. Also, it takes advantage of Servlet 3.x to get rid"
-		+ " of web.xml and have a pure-java web application initialiser";
+    @RequestMapping(path = { "/", "/index.jsp", "/welcome.jsp", "/index.html", "welcome.html" }, method = { RequestMethod.GET, RequestMethod.POST })
+    public ModelAndView handleLandingPage() {
+	Map<String, String> userObjects = new HashMap<>();
+	userObjects.put("user", System.getProperty("user.name"));
+	return new ModelAndView("welcome", userObjects);
     }
 
 }

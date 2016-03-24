@@ -10,7 +10,7 @@
 		This demoes a simple Rest web app based on Spring. It uses annotation driven Spring configuration. Also, it takes advantage of Servlet 3.x to get rid 
 		of web.xml and have a pure-java web application initialiser.
 	</description>
-	<url>http:palashray.com</url>
+	<url>http://palashray.com</url>
 	<build>
 		<finalName>${project.name}</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -27,6 +27,13 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 			<plugin>

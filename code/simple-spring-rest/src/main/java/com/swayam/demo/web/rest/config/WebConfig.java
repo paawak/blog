@@ -11,8 +11,11 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
@@ -26,6 +29,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	converters.add(new MappingJackson2HttpMessageConverter(jackson2ObjectMapperBuilder.build()));
 	Jaxb2RootElementHttpMessageConverter jaxb2RootElementHttpMessageConverter = new Jaxb2RootElementHttpMessageConverter();
 	converters.add(jaxb2RootElementHttpMessageConverter);
+    }
+
+    @Bean
+    public ViewResolver viewResolver() {
+	InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+	viewResolver.setViewClass(JstlView.class);
+	viewResolver.setPrefix("/WEB-INF/jsp/");
+	viewResolver.setSuffix(".jsp");
+	return viewResolver;
     }
 
     @Bean
