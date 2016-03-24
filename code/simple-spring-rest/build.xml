@@ -9,12 +9,23 @@
 
 	<property name="work.dir" value="${basedir}/target"/>
 	<property name="webapp.name" value="simple-spring-rest"/>
+	<property name="jetty.version" value="9.3.8.v20160314"/>
+	<property name="mortbay.version" value="8.0.27"/>
+	<property name="taglibs.version" value="1.2.5"/>
 
 	<target name="run-jetty">
 		<artifact:dependencies pathId="jetty.plugin.classpath">
-			<dependency groupId="org.eclipse.jetty.aggregate" artifactId="jetty-all" version="9.3.8.v20160314" classifier="uber"/>
-			<dependency groupId="org.eclipse.jetty" artifactId="jetty-ant" version="9.3.8.v20160314"/>
+			<dependency groupId="org.eclipse.jetty.aggregate" artifactId="jetty-all" version="${jetty.version}" classifier="uber"/>
+			<dependency groupId="org.eclipse.jetty" artifactId="jetty-ant" version="${jetty.version}"/>
 			<dependency groupId="org.ow2.asm" artifactId="asm" version="5.1"/>
+			<!-- start JSP-->
+			<dependency groupId="org.eclipse.jdt.core.compiler" artifactId="ecj" version="4.4.2"/>
+			<dependency groupId="org.eclipse.jetty" artifactId="apache-jsp" version="${jetty.version}"/>
+			<dependency groupId="org.mortbay.jasper" artifactId="apache-jsp" version="${mortbay.version}"/>
+			<dependency groupId="org.mortbay.jasper" artifactId="apache-el" version="${mortbay.version}"/>
+			<dependency groupId="org.apache.taglibs" artifactId="taglibs-standard-spec" version="${taglibs.version}"/>
+			<dependency groupId="org.apache.taglibs" artifactId="taglibs-standard-impl" version="${taglibs.version}"/>
+			<!-- end JSP-->
 		</artifact:dependencies>
 		<taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
 		<typedef name="connector" classname="org.eclipse.jetty.ant.types.Connector"
