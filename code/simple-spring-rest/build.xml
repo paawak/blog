@@ -2,11 +2,6 @@
 <project name="run-jetty" default="run-jetty" basedir="."  xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 	<description>Deploys and runs an war file within Jetty</description>
 
-	<path id="maven-ant-tasks.classpath" path="ant-lib/maven-ant-tasks-2.1.3.jar" />
-	<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
-		           uri="antlib:org.apache.maven.artifact.ant"
-		           classpathref="maven-ant-tasks.classpath" />
-
 	<property name="work.dir" value="${basedir}/target"/>
 	<property name="webapp.name" value="simple-spring-rest"/>
 	<property name="jetty.version" value="9.3.8.v20160314"/>
@@ -14,18 +9,20 @@
 	<property name="taglibs.version" value="1.2.5"/>
 
 	<target name="run-jetty">
+		<path id="maven-ant-tasks.classpath" path="ant-lib/maven-ant-tasks-2.1.3.jar" />
+		<typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="antlib:org.apache.maven.artifact.ant" classpathref="maven-ant-tasks.classpath" />
 		<artifact:dependencies pathId="jetty.plugin.classpath">
 			<dependency groupId="org.eclipse.jetty.aggregate" artifactId="jetty-all" version="${jetty.version}" classifier="uber"/>
 			<dependency groupId="org.eclipse.jetty" artifactId="jetty-ant" version="${jetty.version}"/>
 			<dependency groupId="org.ow2.asm" artifactId="asm" version="5.1"/>
-			<!-- start JSP-->
+			<!-- start JSP dependencies-->
 			<dependency groupId="org.eclipse.jdt.core.compiler" artifactId="ecj" version="4.4.2"/>
 			<dependency groupId="org.eclipse.jetty" artifactId="apache-jsp" version="${jetty.version}"/>
 			<dependency groupId="org.mortbay.jasper" artifactId="apache-jsp" version="${mortbay.version}"/>
 			<dependency groupId="org.mortbay.jasper" artifactId="apache-el" version="${mortbay.version}"/>
 			<dependency groupId="org.apache.taglibs" artifactId="taglibs-standard-spec" version="${taglibs.version}"/>
 			<dependency groupId="org.apache.taglibs" artifactId="taglibs-standard-impl" version="${taglibs.version}"/>
-			<!-- end JSP-->
+			<!-- end JSP dependencies-->
 		</artifact:dependencies>
 		<taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
 		<typedef name="connector" classname="org.eclipse.jetty.ant.types.Connector"
@@ -39,7 +36,5 @@
 			</connectors>
 		</jetty.run>
 	</target>
-
-
-
+	
 </project>
