@@ -9,7 +9,7 @@
 <body>
 <h1>Hi, welcome ${user}! This is a test page for a bare bones Spring MVC/Rest POC</h1>
 <div>
-	<table>
+	<table border="1">
 		<thead>
 			<tr>
 				<th>Key</th>

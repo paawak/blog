@@ -5,7 +5,6 @@
 	<property name="work.dir" value="${basedir}/target"/>
 	<property name="webapp.name" value="simple-spring-rest"/>
 	<property name="jetty.version" value="9.3.8.v20160314"/>
-	<property name="mortbay.version" value="8.0.27"/>
 	<property name="taglibs.version" value="1.2.5"/>
 
 	<target name="run-jetty">
@@ -18,8 +17,6 @@
 			<!-- start JSP dependencies-->
 			<dependency groupId="org.eclipse.jdt.core.compiler" artifactId="ecj" version="4.4.2"/>
 			<dependency groupId="org.eclipse.jetty" artifactId="apache-jsp" version="${jetty.version}"/>
-			<dependency groupId="org.mortbay.jasper" artifactId="apache-jsp" version="${mortbay.version}"/>
-			<dependency groupId="org.mortbay.jasper" artifactId="apache-el" version="${mortbay.version}"/>
 			<dependency groupId="org.apache.taglibs" artifactId="taglibs-standard-spec" version="${taglibs.version}"/>
 			<dependency groupId="org.apache.taglibs" artifactId="taglibs-standard-impl" version="${taglibs.version}"/>
 			<!-- end JSP dependencies-->
