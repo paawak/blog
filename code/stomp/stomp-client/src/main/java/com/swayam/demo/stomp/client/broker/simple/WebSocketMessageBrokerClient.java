@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.client.broker;
+package com.swayam.demo.stomp.client.broker.simple;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;

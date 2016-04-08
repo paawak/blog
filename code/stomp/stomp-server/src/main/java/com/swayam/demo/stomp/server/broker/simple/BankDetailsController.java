@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.server.broker;
+package com.swayam.demo.stomp.server.broker.simple;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

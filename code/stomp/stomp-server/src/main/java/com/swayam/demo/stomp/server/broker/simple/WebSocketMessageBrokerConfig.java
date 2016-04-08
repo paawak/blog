@@ -1,4 +1,4 @@
-package com.swayam.demo.stomp.server.broker;
+package com.swayam.demo.stomp.server.broker.simple;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
