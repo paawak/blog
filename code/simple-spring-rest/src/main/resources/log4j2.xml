@@ -21,12 +21,12 @@
 	</Appenders>
 
 	<Loggers>
-		<root level="INFO" includeLocation="true">
+		<root level="debug" includeLocation="true">
 			<AppenderRef ref="CONSOLE" />
 			<AppenderRef ref="FILE" />
 		</root>
 
-		<Logger name="org.springframework" level="INFO" />
+		<Logger name="org.springframework" level="info" />
 
 		<Logger name="org.eclipse.jetty" level="INFO" />
 
