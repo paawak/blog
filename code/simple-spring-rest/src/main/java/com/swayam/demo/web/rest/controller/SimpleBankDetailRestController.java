@@ -9,17 +9,17 @@ import com.swayam.demo.web.rest.model.BankDetail;
 import com.swayam.demo.web.rest.service.BankDetailService;
 
 @RestController
-public class SimpleJsonController {
+public class SimpleBankDetailRestController {
 
     private final BankDetailService bankDetailService;
 
     @Autowired
-    public SimpleJsonController(BankDetailService bankDetailService) {
+    public SimpleBankDetailRestController(BankDetailService bankDetailService) {
 	this.bankDetailService = bankDetailService;
     }
 
-    @RequestMapping(path = { "/test" }, method = { RequestMethod.GET, RequestMethod.POST })
-    public BankDetail test() {
+    @RequestMapping(path = { "/bank-detail" }, method = { RequestMethod.GET, RequestMethod.POST })
+    public BankDetail getBankDetail() {
 	return bankDetailService.getBankDetails().get(0);
     }
 
