@@ -11,15 +11,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swayam.demo.activemq.model.BankDetail;
 
 @Service
-public class JmsDataPublisher implements DataPublisher {
+public class JmsQueuePublisher implements QueuePublisher {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JmsDataPublisher.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JmsQueuePublisher.class);
 
     private final ObjectMapper mapper = new ObjectMapper();
     private final JmsTemplate jmsTemplate;
 
     @Autowired
-    public JmsDataPublisher(JmsTemplate jmsTemplate) {
+    public JmsQueuePublisher(JmsTemplate jmsTemplate) {
 	this.jmsTemplate = jmsTemplate;
     }
 
@@ -34,7 +34,7 @@ public class JmsDataPublisher implements DataPublisher {
 
 	LOGGER.info("trying to publish message `{}` to queue...", jsonString);
 
-	jmsTemplate.convertAndSend("/bank-details", jsonString);
+	jmsTemplate.convertAndSend("bank-details", jsonString);
 
     }
 

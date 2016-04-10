@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.swayam.demo.activemq.model.BankDetail;
 import com.swayam.demo.activemq.model.BankDetailSortOrder;
-import com.swayam.demo.activemq.service.DataPublisher;
+import com.swayam.demo.activemq.service.QueuePublisher;
 
 @Repository
 public class BankDetailDaoImpl implements BankDetailDao {
@@ -23,7 +23,7 @@ public class BankDetailDaoImpl implements BankDetailDao {
     }
 
     @Override
-    public void publishRawBankDetailsAsync(BankDetailSortOrder bankDetailGroups, DataPublisher dataPublisher) {
+    public void publishRawBankDetailsAsync(BankDetailSortOrder bankDetailGroups, QueuePublisher dataPublisher) {
 
 	ResultSetExtractor<Void> resultSetExtractor = (ResultSet resultSet) -> {
 	    while (resultSet.next()) {

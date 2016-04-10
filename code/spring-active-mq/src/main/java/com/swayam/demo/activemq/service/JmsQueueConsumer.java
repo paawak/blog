@@ -10,7 +10,7 @@ public class JmsQueueConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JmsQueueConsumer.class);
 
-    @JmsListener(destination = "/bank-details")
+    @JmsListener(destination = "bank-details")
     public void processBankDetails(String data) {
 	LOGGER.info("recieved message: {}", data);
     }

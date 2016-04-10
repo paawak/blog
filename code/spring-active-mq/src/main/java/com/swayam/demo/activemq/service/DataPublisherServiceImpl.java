@@ -9,11 +9,11 @@ import com.swayam.demo.activemq.model.BankDetailSortOrder;
 @Service
 public class DataPublisherServiceImpl implements DataPublisherService {
 
-    private final DataPublisher dataPublisher;
+    private final QueuePublisher dataPublisher;
     private final BankDetailDao bankDetailDao;
 
     @Autowired
-    public DataPublisherServiceImpl(DataPublisher dataPublisher, BankDetailDao bankDetailDao) {
+    public DataPublisherServiceImpl(QueuePublisher dataPublisher, BankDetailDao bankDetailDao) {
 	this.dataPublisher = dataPublisher;
 	this.bankDetailDao = bankDetailDao;
     }
