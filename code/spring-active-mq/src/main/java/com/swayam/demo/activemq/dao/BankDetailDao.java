@@ -1,7 +1,7 @@
 package com.swayam.demo.activemq.dao;
 
 import com.swayam.demo.activemq.model.BankDetailSortOrder;
-import com.swayam.demo.activemq.service.QueuePublisher;
+import com.swayam.demo.activemq.service.pub.QueuePublisher;
 
 public interface BankDetailDao {
 

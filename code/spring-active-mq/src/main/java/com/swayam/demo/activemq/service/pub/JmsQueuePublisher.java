@@ -1,4 +1,4 @@
-package com.swayam.demo.activemq.service;
+package com.swayam.demo.activemq.service.pub;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.swayam.demo.activemq.service;
+package com.swayam.demo.activemq.service.pub;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

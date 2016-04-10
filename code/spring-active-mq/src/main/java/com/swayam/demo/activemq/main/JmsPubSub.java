@@ -4,7 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.swayam.demo.activemq.config.ActiveMQConfig;
 import com.swayam.demo.activemq.model.BankDetailSortOrder;
-import com.swayam.demo.activemq.service.DataPublisherService;
+import com.swayam.demo.activemq.service.pub.DataPublisherService;
 
 public class JmsPubSub {
 

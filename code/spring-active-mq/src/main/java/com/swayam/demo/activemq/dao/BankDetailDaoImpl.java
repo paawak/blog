@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.swayam.demo.activemq.model.BankDetail;
 import com.swayam.demo.activemq.model.BankDetailSortOrder;
-import com.swayam.demo.activemq.service.QueuePublisher;
+import com.swayam.demo.activemq.service.pub.QueuePublisher;
 
 @Repository
 public class BankDetailDaoImpl implements BankDetailDao {

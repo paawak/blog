@@ -1,6 +1,7 @@
 package com.swayam.demo.activemq.config;
 
 import javax.jms.ConnectionFactory;
+import javax.jms.MessageListener;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.pool.PooledConnectionFactory;
@@ -13,8 +14,12 @@ import org.springframework.core.env.Environment;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.listener.DefaultMessageListenerContainer;
+import org.springframework.jms.listener.MessageListenerContainer;
 import org.springframework.jms.support.destination.DestinationResolver;
 import org.springframework.jms.support.destination.DynamicDestinationResolver;
+
+import com.swayam.demo.activemq.service.sub.JmsMessageConsumer;
 
 @Configuration
 @EnableJms
@@ -46,6 +51,20 @@ public class ActiveMQConfig {
     @Bean
     public DestinationResolver destinationResolver() {
 	return new DynamicDestinationResolver();
+    }
+
+    @Bean
+    public MessageListenerContainer defaultMessageListenerContainer(ConnectionFactory connectionFactory, MessageListener messageListener) {
+	DefaultMessageListenerContainer defaultMessageListenerContainer = new DefaultMessageListenerContainer();
+	defaultMessageListenerContainer.setConnectionFactory(connectionFactory);
+	defaultMessageListenerContainer.setDestinationName("bank-details");
+	defaultMessageListenerContainer.setMessageListener(messageListener);
+	return defaultMessageListenerContainer;
+    }
+
+    @Bean
+    public MessageListener messageListener() {
+	return new JmsMessageConsumer();
     }
 
     @Bean

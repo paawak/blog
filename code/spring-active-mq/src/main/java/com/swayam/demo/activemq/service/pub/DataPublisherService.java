@@ -1,4 +1,4 @@
-package com.swayam.demo.activemq.service;
+package com.swayam.demo.activemq.service.pub;
 
 import com.swayam.demo.activemq.model.BankDetailSortOrder;
 
