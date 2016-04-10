@@ -9,6 +9,8 @@
 
 	<name>spring-active-mq</name>
 	<url>http://palashray.com</url>
+	
+	<description>Example of Spring/Apache Active MQ integration</description>
 
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>

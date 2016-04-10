@@ -10,9 +10,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.destination.DestinationResolver;
+import org.springframework.jms.support.destination.DynamicDestinationResolver;
 
 @Configuration
+@EnableJms
 @ComponentScan("com.swayam.demo.activemq")
 @PropertySource("classpath:application.properties")
 public class ActiveMQConfig {
@@ -27,6 +32,20 @@ public class ActiveMQConfig {
 	PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory();
 	pooledConnectionFactory.setConnectionFactory(connectionFactory);
 	return pooledConnectionFactory;
+    }
+
+    @Bean
+    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory, DestinationResolver destinationResolver) {
+	DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+	factory.setConnectionFactory(connectionFactory);
+	factory.setDestinationResolver(destinationResolver);
+	factory.setConcurrency("3-10");
+	return factory;
+    }
+
+    @Bean
+    public DestinationResolver destinationResolver() {
+	return new DynamicDestinationResolver();
     }
 
     @Bean

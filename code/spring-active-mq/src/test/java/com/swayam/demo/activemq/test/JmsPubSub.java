@@ -6,7 +6,7 @@ import com.swayam.demo.activemq.config.ActiveMQConfig;
 import com.swayam.demo.activemq.model.BankDetailSortOrder;
 import com.swayam.demo.activemq.service.DataPublisherService;
 
-public class JmsPublisher {
+public class JmsPubSub {
 
     public static void main(String[] args) {
 	try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ActiveMQConfig.class);) {
