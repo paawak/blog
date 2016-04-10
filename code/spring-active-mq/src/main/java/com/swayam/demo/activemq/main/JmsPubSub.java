@@ -1,4 +1,4 @@
-package com.swayam.demo.activemq.test;
+package com.swayam.demo.activemq.main;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
