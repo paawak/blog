@@ -17,6 +17,10 @@
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<testResources>
+			<testResource>src/test/resources</testResource>
+		</testResources>
 		<outputDirectory>target/classes</outputDirectory>
 		<plugins>
 			<plugin>

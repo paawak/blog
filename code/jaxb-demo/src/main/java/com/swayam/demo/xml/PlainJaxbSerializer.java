@@ -20,33 +20,33 @@ public class PlainJaxbSerializer implements XmlSerializer {
 
     @Override
     public void serialize(Object object, OutputStream outputStream) {
-        JAXBContext jaxbContext;
-        try {
-            jaxbContext = JAXBContext.newInstance(EmployeeGroups.class, SimpleMapEntry.class);
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
+	JAXBContext jaxbContext;
+	try {
+	    jaxbContext = JAXBContext.newInstance(EmployeeGroups.class, SimpleMapEntry.class);
+	} catch (JAXBException e) {
+	    throw new RuntimeException(e);
+	}
 
-        Marshaller marshaller;
-        try {
-            marshaller = jaxbContext.createMarshaller();
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
+	Marshaller marshaller;
+	try {
+	    marshaller = jaxbContext.createMarshaller();
+	} catch (JAXBException e) {
+	    throw new RuntimeException(e);
+	}
 
-        // for formatted xml
-        try {
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        } catch (PropertyException e) {
-            LOG.warn("Invalid property", e);
-        }
+	// for formatted xml
+	try {
+	    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+	} catch (PropertyException e) {
+	    LOG.warn("Invalid property", e);
+	}
 
-        Result xmlResultCapturer = new StreamResult(outputStream);
-        try {
-            marshaller.marshal(object, xmlResultCapturer);
-        } catch (Exception e) {
-            LOG.error("could not convert rmi output to xml", e);
-        }
+	Result xmlResultCapturer = new StreamResult(outputStream);
+	try {
+	    marshaller.marshal(object, xmlResultCapturer);
+	} catch (Exception e) {
+	    LOG.error("could not convert rmi output to xml", e);
+	}
     }
 
 }
