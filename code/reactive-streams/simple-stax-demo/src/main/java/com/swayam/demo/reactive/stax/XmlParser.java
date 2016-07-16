@@ -9,7 +9,12 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class XmlParser<T> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(XmlParser.class);
 
     private final StaxListener<T> staxListener;
     private final String xmlElementName;
@@ -62,6 +67,9 @@ public class XmlParser<T> {
 		}
 	    } else if (eventType == XMLStreamConstants.CHARACTERS) {
 		buffer.append(xmlStreamReader.getText().trim());
+	    } else if (eventType == XMLStreamConstants.END_DOCUMENT) {
+		staxListener.endOfDocument();
+		LOGGER.info("end of xml document");
 	    }
 	}
     }

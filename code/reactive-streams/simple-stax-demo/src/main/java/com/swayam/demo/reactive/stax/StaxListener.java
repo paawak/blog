@@ -4,4 +4,6 @@ public interface StaxListener<T> {
 
     void newElement(T newElement);
 
+    void endOfDocument();
+
 }

@@ -16,8 +16,17 @@ public class XmlParserTest {
     @Test
     public void testParse() throws XMLStreamException, IOException {
 
-	StaxListener<LineItemRow> staxListener = (LineItemRow newElement) -> {
-	    LOGGER.info("newElement: {}", newElement);
+	StaxListener<LineItemRow> staxListener = new StaxListener<LineItemRow>() {
+
+	    @Override
+	    public void newElement(LineItemRow newElement) {
+		LOGGER.info("newElement: {}", newElement);
+	    }
+
+	    @Override
+	    public void endOfDocument() {
+		LOGGER.info("Document ended");
+	    }
 	};
 
 	XmlParser<LineItemRow> xmlParser = new XmlParser<LineItemRow>(staxListener, "T", LineItemRow.class);
