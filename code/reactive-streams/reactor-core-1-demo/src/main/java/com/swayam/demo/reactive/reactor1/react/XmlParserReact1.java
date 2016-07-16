@@ -21,9 +21,9 @@ import reactor.core.composable.Stream;
 import reactor.core.composable.spec.Streams;
 import reactor.event.dispatch.ThreadPoolExecutorDispatcher;
 
-public class XmlParser {
+public class XmlParserReact1 {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(XmlParser.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(XmlParserReact1.class);
 
     private static final String XML_ELEMENT_NAME = "T";
 
@@ -34,7 +34,7 @@ public class XmlParser {
 
     private final Deferred<LineItemRow, Stream<LineItemRow>> deferred;
 
-    public XmlParser(Environment environment, CountDownLatch countDownLatch) {
+    public XmlParserReact1(Environment environment, CountDownLatch countDownLatch) {
 	this.environment = environment;
 	this.countDownLatch = countDownLatch;
 	jaxbUnmarshaller = new JaxbUnmarshaller();

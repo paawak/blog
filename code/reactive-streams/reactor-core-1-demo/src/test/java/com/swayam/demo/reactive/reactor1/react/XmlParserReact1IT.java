@@ -15,9 +15,9 @@ import reactor.core.composable.Stream;
 import reactor.event.dispatch.Dispatcher;
 import reactor.event.dispatch.ThreadPoolExecutorDispatcher;
 
-public class XmlParserIT {
+public class XmlParserReact1IT {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(XmlParserIT.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(XmlParserReact1IT.class);
 
     @Test
     public void testParse() throws IOException, InterruptedException {
@@ -28,8 +28,8 @@ public class XmlParserIT {
 
 	CountDownLatch countDownLatch = new CountDownLatch(1);
 
-	XmlParser xmlParser = new XmlParser(environment, countDownLatch);
-	Stream<LineItemRow> stream = xmlParser.parse(new GZIPInputStream(XmlParserIT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
+	XmlParserReact1 xmlParser = new XmlParserReact1(environment, countDownLatch);
+	Stream<LineItemRow> stream = xmlParser.parse(new GZIPInputStream(XmlParserReact1IT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
 
 	stream.consume((LineItemRow lineItemRow) -> {
 	    LOGGER.info("new event {}", lineItemRow);
