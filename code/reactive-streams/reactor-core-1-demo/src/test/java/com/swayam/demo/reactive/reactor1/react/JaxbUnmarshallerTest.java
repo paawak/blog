@@ -1,4 +1,4 @@
-package com.swayam.demo.reactive.reactor1.parser;
+package com.swayam.demo.reactive.reactor1.react;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import org.junit.Test;
 
 import com.swayam.demo.reactive.reactor1.model.LineItemRow;
-import com.swayam.demo.reactive.reactor1.parser.JaxbUnmarshaller;
+import com.swayam.demo.reactive.reactor1.react.JaxbUnmarshaller;
+import com.swayam.demo.reactive.reactor1.react.LineItemRowImpl;
 
 public class JaxbUnmarshallerTest {
 

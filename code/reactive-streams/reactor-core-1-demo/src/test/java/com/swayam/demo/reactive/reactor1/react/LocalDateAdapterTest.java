@@ -1,4 +1,4 @@
-package com.swayam.demo.reactive.reactor1.parser;
+package com.swayam.demo.reactive.reactor1.react;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
-import com.swayam.demo.reactive.reactor1.parser.LocalDateAdapter;
+import com.swayam.demo.reactive.reactor1.react.LocalDateAdapter;
 
 public class LocalDateAdapterTest {
 

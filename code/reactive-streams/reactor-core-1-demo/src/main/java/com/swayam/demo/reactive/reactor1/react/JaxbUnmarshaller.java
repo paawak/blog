@@ -1,4 +1,4 @@
-package com.swayam.demo.reactive.reactor1.parser;
+package com.swayam.demo.reactive.reactor1.react;
 
 import java.io.InputStream;
 
