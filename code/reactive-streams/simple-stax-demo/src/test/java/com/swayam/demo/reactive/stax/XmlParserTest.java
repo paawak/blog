@@ -6,12 +6,21 @@ import java.util.zip.GZIPInputStream;
 import javax.xml.stream.XMLStreamException;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlParserTest {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(XmlParserTest.class);
+
     @Test
     public void testParse() throws XMLStreamException, IOException {
-	XmlParser xmlParser = new XmlParser();
+
+	StaxListener<LineItemRow> staxListener = (LineItemRow newElement) -> {
+	    LOGGER.info("newElement: {}", newElement);
+	};
+
+	XmlParser<LineItemRow> xmlParser = new XmlParser<LineItemRow>(staxListener, "T", LineItemRow.class);
 	xmlParser.parse(new GZIPInputStream(XmlParserTest.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
     }
 

@@ -191,4 +191,11 @@ public class LineItemRow {
 	this.comment = comment;
     }
 
+    @Override
+    public String toString() {
+	return "LineItemRow [orderKey=" + orderKey + ", partKey=" + partKey + ", supplierKey=" + supplierKey + ", lineNumber=" + lineNumber + ", quantity=" + quantity + ", extendedPrice="
+		+ extendedPrice + ", discount=" + discount + ", tax=" + tax + ", returnFlag=" + returnFlag + ", lineStatus=" + lineStatus + ", shippingDate=" + shippingDate + ", commitDate="
+		+ commitDate + ", receiptDate=" + receiptDate + ", shippingInstructions=" + shippingInstructions + ", shipMode=" + shipMode + ", comment=" + comment + "]";
+    }
+
 }
