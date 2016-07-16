@@ -3,6 +3,7 @@ package com.swayam.demo.reactive.reactor1.react;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.CountDownLatch;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -18,6 +19,7 @@ import reactor.core.Environment;
 import reactor.core.composable.Deferred;
 import reactor.core.composable.Stream;
 import reactor.core.composable.spec.Streams;
+import reactor.event.dispatch.ThreadPoolExecutorDispatcher;
 
 public class XmlParser {
 
@@ -25,11 +27,16 @@ public class XmlParser {
 
     private static final String XML_ELEMENT_NAME = "T";
 
+    private final Environment environment;
+    private final CountDownLatch countDownLatch;
+
     private final JaxbUnmarshaller jaxbUnmarshaller;
 
     private final Deferred<LineItemRow, Stream<LineItemRow>> deferred;
 
-    public XmlParser(Environment environment) {
+    public XmlParser(Environment environment, CountDownLatch countDownLatch) {
+	this.environment = environment;
+	this.countDownLatch = countDownLatch;
 	jaxbUnmarshaller = new JaxbUnmarshaller();
 	deferred = Streams.defer(environment);
     }
@@ -44,7 +51,7 @@ public class XmlParser {
 	    }
 	};
 
-	new Thread(doParse).start();
+	environment.getDispatcher(ThreadPoolExecutorDispatcher.class.getSimpleName()).execute(doParse);
 
 	return deferred.compose();
     }
@@ -92,6 +99,7 @@ public class XmlParser {
 		buffer.append(xmlStreamReader.getText().trim());
 	    } else if (eventType == XMLStreamConstants.END_DOCUMENT) {
 		// TODO:: not sure how to signal the end of document
+		countDownLatch.countDown();
 		LOGGER.info("end of xml document");
 	    }
 	}

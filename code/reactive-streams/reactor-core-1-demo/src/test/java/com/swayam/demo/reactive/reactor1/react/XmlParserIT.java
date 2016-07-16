@@ -1,6 +1,7 @@
 package com.swayam.demo.reactive.reactor1.react;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 import java.util.zip.GZIPInputStream;
 
 import org.junit.Test;
@@ -11,6 +12,8 @@ import com.swayam.demo.reactive.reactor1.model.LineItemRow;
 
 import reactor.core.Environment;
 import reactor.core.composable.Stream;
+import reactor.event.dispatch.Dispatcher;
+import reactor.event.dispatch.ThreadPoolExecutorDispatcher;
 
 public class XmlParserIT {
 
@@ -20,18 +23,19 @@ public class XmlParserIT {
     public void testParse() throws IOException, InterruptedException {
 
 	Environment environment = new Environment();
-	// Dispatcher dispatcher = new ThreadPoolExecutorDispatcher(1, 128);
-	// environment.addDispatcher(ThreadPoolExecutorDispatcher.class.getSimpleName(),
-	// dispatcher);
+	Dispatcher dispatcher = new ThreadPoolExecutorDispatcher(1, 128);
+	environment.addDispatcher(ThreadPoolExecutorDispatcher.class.getSimpleName(), dispatcher);
 
-	XmlParser xmlParser = new XmlParser(environment);
+	CountDownLatch countDownLatch = new CountDownLatch(1);
+
+	XmlParser xmlParser = new XmlParser(environment, countDownLatch);
 	Stream<LineItemRow> stream = xmlParser.parse(new GZIPInputStream(XmlParserIT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
 
 	stream.consume((LineItemRow lineItemRow) -> {
 	    LOGGER.info("new event {}", lineItemRow);
 	});
 
-	Thread.sleep(10_000);
+	countDownLatch.await();
 
     }
 
