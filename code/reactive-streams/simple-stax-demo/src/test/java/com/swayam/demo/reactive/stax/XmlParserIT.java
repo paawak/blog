@@ -9,9 +9,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlParserTest {
+public class XmlParserIT {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(XmlParserTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(XmlParserIT.class);
 
     @Test
     public void testParse() throws XMLStreamException, IOException {
@@ -30,7 +30,7 @@ public class XmlParserTest {
 	};
 
 	XmlParser<LineItemRow> xmlParser = new XmlParser<LineItemRow>(staxListener, "T", LineItemRow.class);
-	xmlParser.parse(new GZIPInputStream(XmlParserTest.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
+	xmlParser.parse(new GZIPInputStream(XmlParserIT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
     }
 
 }
