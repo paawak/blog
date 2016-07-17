@@ -82,7 +82,7 @@ public class XmlParserReact2 {
 
 		    LineItemRow newElement = jaxbUnmarshaller.unmarshall(new ByteArrayInputStream(buffer.toString().getBytes(StandardCharsets.UTF_8)), LineItemRow.class);
 
-		    LOGGER.info("publishing: {}", newElement);
+		    LOGGER.trace("publishing: {}", newElement);
 		    processor.onNext(newElement);
 
 		    buffer.setLength(0);

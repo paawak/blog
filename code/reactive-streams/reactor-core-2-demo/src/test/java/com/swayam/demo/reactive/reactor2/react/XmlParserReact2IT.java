@@ -29,7 +29,7 @@ public class XmlParserReact2IT {
 	Stream<LineItemRow> flux = xmlParser.parse(new GZIPInputStream(XmlParserReact2IT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
 
 	Map<Integer, List<LineItemRow>> groupedByData = flux.collect(Collectors.groupingBy((LineItemRow row) -> {
-	    LOGGER.info("grouping by: {}", row);
+	    LOGGER.trace("grouping by: {}", row);
 	    return row.getOrderKey();
 	}));
 
