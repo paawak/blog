@@ -30,26 +30,17 @@ class StaxSpliterator<T> implements Spliterator<T>, EndOfDocumentListener {
 
 	T nonNullElement = null;
 
-	if (buffer.isEmpty()) {
-	    LOGGER.trace("the buffer is empty, waiting for some time...");
-
-	    try {
-		nonNullElement = buffer.poll(TIMEOUT, TimeUnit.MILLISECONDS);
-	    } catch (InterruptedException e) {
-		throw new RuntimeException(e);
-	    }
-
-	    if (nonNullElement == null) {
-		LOGGER.trace("terminating as received null after waiting");
-		return false;
-	    }
-
-	}
+	LOGGER.trace("the buffer is empty, waiting for some time...");
 
 	try {
-	    nonNullElement = buffer.take();
+	    nonNullElement = buffer.poll(TIMEOUT, TimeUnit.MILLISECONDS);
 	} catch (InterruptedException e) {
 	    throw new RuntimeException(e);
+	}
+
+	if (nonNullElement == null) {
+	    LOGGER.trace("terminating as received null after waiting");
+	    return false;
 	}
 
 	action.accept(nonNullElement);
