@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
+import java.util.stream.Stream;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -15,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import com.swayam.demo.reactive.reactor2.model.LineItemRow;
 
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.UnicastProcessor;
 
 public class XmlParserReact2 {
@@ -38,7 +38,7 @@ public class XmlParserReact2 {
 
     }
 
-    public Flux<LineItemRow> parse(InputStream inputStream) {
+    public Stream<LineItemRow> parse(InputStream inputStream) {
 
 	Runnable doParse = () -> {
 	    try {
@@ -50,7 +50,7 @@ public class XmlParserReact2 {
 
 	new Thread(doParse).start();
 
-	return processor.connect();
+	return processor.toStream();
     }
 
     private void doParse(InputStream inputStream) throws XMLStreamException {
