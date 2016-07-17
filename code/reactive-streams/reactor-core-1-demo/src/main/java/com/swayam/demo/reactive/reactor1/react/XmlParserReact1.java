@@ -93,8 +93,8 @@ public class XmlParserReact1 {
 		buffer.append(xmlStreamReader.getText().trim());
 	    } else if (eventType == XMLStreamConstants.END_DOCUMENT) {
 		// TODO:: not sure how to signal the end of document
-		countDownLatch.countDown();
 		LOGGER.info("end of xml document");
+		countDownLatch.countDown();
 	    }
 	}
 
