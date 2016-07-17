@@ -50,7 +50,7 @@ public class XmlParserReact2 {
 
 	new Thread(doParse).start();
 
-	return processor;
+	return processor.connect();
     }
 
     private void doParse(InputStream inputStream) throws XMLStreamException {
@@ -66,9 +66,8 @@ public class XmlParserReact2 {
 	    if (eventType == XMLStreamConstants.START_ELEMENT) {
 		String element = xmlStreamReader.getLocalName();
 
-		// FIXME: bad hack
-		if ("table".equals(element)) {
-		    continue;
+		if (XML_ELEMENT_NAME.equals(element)) {
+		    buffer = newStringBuilder();
 		}
 
 		buffer.append("<").append(element).append(">");
@@ -77,28 +76,23 @@ public class XmlParserReact2 {
 
 		String element = xmlStreamReader.getLocalName();
 
-		// FIXME: bad hack
-		if ("table".equals(element)) {
-		    continue;
-		}
-
 		buffer.append("</").append(element).append(">");
 
 		if (XML_ELEMENT_NAME.equals(element)) {
 
 		    LineItemRow newElement = jaxbUnmarshaller.unmarshall(new ByteArrayInputStream(buffer.toString().getBytes(StandardCharsets.UTF_8)), LineItemRow.class);
 
-		    buffer = newStringBuilder();
-
+		    LOGGER.info("publishing: {}", newElement);
 		    processor.onNext(newElement);
+
+		    buffer.setLength(0);
 		}
 	    } else if (eventType == XMLStreamConstants.CHARACTERS) {
 		buffer.append(xmlStreamReader.getText().trim());
 	    } else if (eventType == XMLStreamConstants.END_DOCUMENT) {
-		// TODO:: not sure how to signal the end of document
-		countDownLatch.countDown();
-		processor.onComplete();
 		LOGGER.info("end of xml document");
+		processor.onComplete();
+		countDownLatch.countDown();
 	    }
 	}
 
