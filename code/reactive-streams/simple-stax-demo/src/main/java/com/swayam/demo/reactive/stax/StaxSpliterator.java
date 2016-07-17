@@ -31,7 +31,7 @@ class StaxSpliterator<T> implements Spliterator<T>, EndOfDocumentListener {
 	T nonNullElement = null;
 
 	if (buffer.isEmpty()) {
-	    LOGGER.warn("the buffer is empty, waiting for some time...");
+	    LOGGER.trace("the buffer is empty, waiting for some time...");
 
 	    try {
 		nonNullElement = buffer.poll(TIMEOUT, TimeUnit.MILLISECONDS);
@@ -40,7 +40,7 @@ class StaxSpliterator<T> implements Spliterator<T>, EndOfDocumentListener {
 	    }
 
 	    if (nonNullElement == null) {
-		LOGGER.warn("terminating as received null after waiting");
+		LOGGER.trace("terminating as received null after waiting");
 		return false;
 	    }
 
