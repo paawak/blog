@@ -3,6 +3,11 @@ package com.swayam.demo.reactive.stax;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -16,19 +21,45 @@ public class XmlParser<T> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XmlParser.class);
 
-    private final StaxListener<T> staxListener;
     private final String xmlElementName;
-    private final JaxbUnmarshaller jaxbUnmarshaller;
     private final Class<T> classToUnmarshall;
+    private final CountDownLatch countDownLatch;
 
-    public XmlParser(StaxListener<T> staxListener, String xmlElementName, Class<T> classToUnmarshall) {
-	this.staxListener = staxListener;
+    private final JaxbUnmarshaller jaxbUnmarshaller;
+    private final BlockingQueue<T> blockingQueue;
+    private final StaxSpliterator<T> staxSpliterator;
+    private final Stream<T> stream;
+
+    public XmlParser(String xmlElementName, Class<T> classToUnmarshall, CountDownLatch countDownLatch) {
 	this.xmlElementName = xmlElementName;
 	this.classToUnmarshall = classToUnmarshall;
+	this.countDownLatch = countDownLatch;
+
 	jaxbUnmarshaller = new JaxbUnmarshaller();
+
+	blockingQueue = new ArrayBlockingQueue<>(10_000);
+
+	staxSpliterator = new StaxSpliterator<>(blockingQueue);
+
+	stream = StreamSupport.stream(staxSpliterator, true);
     }
 
-    public void parse(InputStream inputStream) throws XMLStreamException {
+    public Stream<T> parse(InputStream inputStream) {
+
+	Runnable doParse = () -> {
+	    try {
+		doParse(inputStream);
+	    } catch (XMLStreamException e) {
+		throw new RuntimeException(e);
+	    }
+	};
+
+	new Thread(doParse).start();
+
+	return stream;
+    }
+
+    private void doParse(InputStream inputStream) throws XMLStreamException {
 	XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 	XMLStreamReader xmlStreamReader = xmlInputFactory.createXMLStreamReader(inputStream);
 
@@ -55,15 +86,18 @@ public class XmlParser<T> {
 
 		    T newElement = jaxbUnmarshaller.unmarshall(new ByteArrayInputStream(buffer.toString().getBytes(StandardCharsets.UTF_8)), classToUnmarshall);
 
-		    staxListener.newElement(newElement);
+		    LOGGER.info("publishing: {}", newElement);
+
+		    blockingQueue.add(newElement);
 
 		    buffer.setLength(0);
 		}
 	    } else if (eventType == XMLStreamConstants.CHARACTERS) {
 		buffer.append(xmlStreamReader.getText().trim());
 	    } else if (eventType == XMLStreamConstants.END_DOCUMENT) {
-		staxListener.endOfDocument();
+		staxSpliterator.endOfDocument();
 		LOGGER.info("end of xml document");
+		countDownLatch.countDown();
 	    }
 	}
     }
