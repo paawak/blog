@@ -7,8 +7,9 @@
 	<packaging>jar</packaging>
 	<name>spliterator-demo</name>
 	<description>
-		A simple program using stax to parse a large xml. It uses Jaxb to unmarshall a logical row in the xml and uses the Observer pattern to notify when a 
-		new Object is created.
+		A simple program to demo the usage of Spliterator to create Stream. We use stax to parse a large xml. And then 
+		use spliterator to create a Stream. It is backed by a BlockingQueue which acts as a buffer. We use Jaxb to unmarshall a 
+		logical row in a huge gzipped xml. Then we make operations like aggregation, etc. on the Stream.
 	</description>
 	<url>http://palashray.com</url>
 	<build>
