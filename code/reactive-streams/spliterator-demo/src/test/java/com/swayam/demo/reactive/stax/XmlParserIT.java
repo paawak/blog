@@ -29,7 +29,7 @@ public class XmlParserIT {
 	Stream<LineItemRow> stream = xmlParser.parse(new GZIPInputStream(XmlParserIT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
 
 	Map<Integer, List<LineItemRow>> groupedByData = stream.collect(Collectors.groupingBy((LineItemRow row) -> {
-	    LOGGER.info("grouping by: {}", row);
+	    LOGGER.trace("grouping by: {}", row);
 	    return row.getOrderKey();
 	}));
 

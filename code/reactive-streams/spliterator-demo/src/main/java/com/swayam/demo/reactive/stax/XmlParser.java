@@ -86,7 +86,7 @@ public class XmlParser<T> {
 
 		    T newElement = jaxbUnmarshaller.unmarshall(new ByteArrayInputStream(buffer.toString().getBytes(StandardCharsets.UTF_8)), classToUnmarshall);
 
-		    LOGGER.info("publishing: {}", newElement);
+		    LOGGER.trace("publishing: {}", newElement);
 
 		    blockingQueue.add(newElement);
 
