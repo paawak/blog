@@ -3,6 +3,7 @@ package com.swayam.demo.reactive.stax;
 import java.util.Spliterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 import org.slf4j.Logger;
@@ -13,7 +14,7 @@ class StaxSpliterator<T> implements Spliterator<T>, EndOfDocumentListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(StaxSpliterator.class);
 
     private final BlockingQueue<T> buffer;
-    private boolean endOfDocument;
+    private AtomicBoolean endOfDocument = new AtomicBoolean(false);
 
     private static final long TIMEOUT = 100;;
 
@@ -24,7 +25,7 @@ class StaxSpliterator<T> implements Spliterator<T>, EndOfDocumentListener {
     @Override
     public boolean tryAdvance(Consumer<? super T> action) {
 
-	if (endOfDocument) {
+	if (endOfDocument.get()) {
 	    return false;
 	}
 
@@ -66,7 +67,7 @@ class StaxSpliterator<T> implements Spliterator<T>, EndOfDocumentListener {
     @Override
     public void endOfDocument() {
 	LOGGER.info("end of document event received");
-	endOfDocument = true;
+	endOfDocument.set(true);
     }
 
 }
