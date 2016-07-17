@@ -69,9 +69,8 @@ public class XmlParserReact1 {
 	    if (eventType == XMLStreamConstants.START_ELEMENT) {
 		String element = xmlStreamReader.getLocalName();
 
-		// FIXME: bad hack
-		if ("table".equals(element)) {
-		    continue;
+		if (XML_ELEMENT_NAME.equals(element)) {
+		    buffer = newStringBuilder();
 		}
 
 		buffer.append("<").append(element).append(">");
@@ -80,20 +79,15 @@ public class XmlParserReact1 {
 
 		String element = xmlStreamReader.getLocalName();
 
-		// FIXME: bad hack
-		if ("table".equals(element)) {
-		    continue;
-		}
-
 		buffer.append("</").append(element).append(">");
 
 		if (XML_ELEMENT_NAME.equals(element)) {
 
 		    LineItemRow newElement = jaxbUnmarshaller.unmarshall(new ByteArrayInputStream(buffer.toString().getBytes(StandardCharsets.UTF_8)), LineItemRowImpl.class);
 
-		    buffer = newStringBuilder();
-
 		    deferred.accept(newElement);
+
+		    buffer.setLength(0);
 		}
 	    } else if (eventType == XMLStreamConstants.CHARACTERS) {
 		buffer.append(xmlStreamReader.getText().trim());

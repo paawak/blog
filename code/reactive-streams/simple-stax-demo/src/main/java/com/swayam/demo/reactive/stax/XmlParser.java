@@ -39,9 +39,8 @@ public class XmlParser<T> {
 	    if (eventType == XMLStreamConstants.START_ELEMENT) {
 		String element = xmlStreamReader.getLocalName();
 
-		// FIXME: bad hack
-		if ("table".equals(element)) {
-		    continue;
+		if (xmlElementName.equals(element)) {
+		    buffer = newStringBuilder();
 		}
 
 		buffer.append("<").append(element).append(">");
@@ -50,20 +49,15 @@ public class XmlParser<T> {
 
 		String element = xmlStreamReader.getLocalName();
 
-		// FIXME: bad hack
-		if ("table".equals(element)) {
-		    continue;
-		}
-
 		buffer.append("</").append(element).append(">");
 
 		if (xmlElementName.equals(element)) {
 
 		    T newElement = jaxbUnmarshaller.unmarshall(new ByteArrayInputStream(buffer.toString().getBytes(StandardCharsets.UTF_8)), classToUnmarshall);
 
-		    buffer = newStringBuilder();
-
 		    staxListener.newElement(newElement);
+
+		    buffer.setLength(0);
 		}
 	    } else if (eventType == XMLStreamConstants.CHARACTERS) {
 		buffer.append(xmlStreamReader.getText().trim());
