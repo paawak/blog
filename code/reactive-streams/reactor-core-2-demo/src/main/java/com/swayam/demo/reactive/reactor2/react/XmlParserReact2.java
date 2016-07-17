@@ -63,7 +63,9 @@ public class XmlParserReact2 {
 	while (xmlStreamReader.hasNext()) {
 
 	    int eventType = xmlStreamReader.next();
-	    if (eventType == XMLStreamConstants.START_ELEMENT) {
+	    if (eventType == XMLStreamConstants.START_DOCUMENT) {
+		LOGGER.info("started parsing document");
+	    } else if (eventType == XMLStreamConstants.START_ELEMENT) {
 		String element = xmlStreamReader.getLocalName();
 
 		if (XML_ELEMENT_NAME.equals(element)) {
