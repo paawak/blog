@@ -8,10 +8,10 @@
   <name>swayam-ear-builder</name>
 
   <modules>
-    <module>../swayam-ear</module>
-    <module>../swayam-ejb</module>
-    <module>../swayam-war</module>
-    <module>../swayam-shared</module>
+    <module>swayam-ear</module>
+    <module>swayam-ejb</module>
+    <module>swayam-war</module>
+    <module>swayam-shared</module>
   </modules>
 
 </project>
