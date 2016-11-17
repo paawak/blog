@@ -15,6 +15,10 @@
 
 package com.swayam.eardemo.ejb.dao.impl;
 
+import java.util.Random;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.swayam.eardemo.ejb.dao.PersonDao;
@@ -27,10 +31,12 @@ import com.swayam.eardemo.shared.model.Person;
 @Repository
 public class PersonDaoImpl implements PersonDao {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonDaoImpl.class);
+
     @Override
     public int save(Person person) {
-        // TODO Auto-generated method stub
-        return 0;
+        LOGGER.info("person: {}", person);
+        return new Random().nextInt();
     }
 
 }

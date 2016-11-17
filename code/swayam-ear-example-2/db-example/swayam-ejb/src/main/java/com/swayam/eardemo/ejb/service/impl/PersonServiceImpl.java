@@ -15,8 +15,10 @@
 
 package com.swayam.eardemo.ejb.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.swayam.eardemo.ejb.dao.PersonDao;
 import com.swayam.eardemo.ejb.service.PersonService;
 import com.swayam.eardemo.shared.model.Person;
 
@@ -27,10 +29,16 @@ import com.swayam.eardemo.shared.model.Person;
 @Service
 public class PersonServiceImpl implements PersonService {
 
+    private final PersonDao personDao;
+
+    @Autowired
+    public PersonServiceImpl(PersonDao personDao) {
+        this.personDao = personDao;
+    }
+
     @Override
     public int save(Person person) {
-        // TODO Auto-generated method stub
-        return 0;
+        return personDao.save(person);
     }
 
 }
