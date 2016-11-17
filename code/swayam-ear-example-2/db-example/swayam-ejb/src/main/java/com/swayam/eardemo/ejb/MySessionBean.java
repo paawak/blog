@@ -5,9 +5,12 @@
 
 package com.swayam.eardemo.ejb;
 
-import com.swayam.eardemo.shared.MySessionBeanRemote;
 import java.util.Random;
+
 import javax.ejb.Stateless;
+
+import com.swayam.eardemo.shared.api.MySessionBeanRemote;
+import com.swayam.eardemo.shared.model.Person;
 
 /**
  *
@@ -16,15 +19,18 @@ import javax.ejb.Stateless;
 @Stateless
 public class MySessionBean implements MySessionBeanRemote {
 
-    private Random rand;
-
-    public MySessionBean() {        
-        rand = new Random(7676326986854665363l);
+    public MySessionBean() {
     }
 
+    @Override
     public String sayHello() {
-        return "Hi " + rand.nextInt();
+        return "Hi " + new Random().nextInt();
     }
-        
- 
+
+    @Override
+    public int savePerson(Person person) {
+        System.out.println("***************** person: " + person);
+        return new Random().nextInt();
+    }
+
 }

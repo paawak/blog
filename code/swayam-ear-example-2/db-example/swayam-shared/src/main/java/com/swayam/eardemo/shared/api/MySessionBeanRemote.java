@@ -3,9 +3,11 @@
  * and open the template in the editor.
  */
 
-package com.swayam.eardemo.shared;
+package com.swayam.eardemo.shared.api;
 
 import javax.ejb.Remote;
+
+import com.swayam.eardemo.shared.model.Person;
 
 /**
  *
@@ -15,5 +17,7 @@ import javax.ejb.Remote;
 public interface MySessionBeanRemote {
 
     String sayHello();
-    
+
+    int savePerson(Person person);
+
 }

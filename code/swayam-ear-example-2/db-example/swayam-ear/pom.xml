@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.swayam.eardemo</groupId>
     <artifactId>swayam-ear</artifactId>
-    <version>1.0.0</version>
+    <version>2.0</version>
 
     <packaging>ear</packaging>
     <name>swayam-ear</name>
@@ -66,7 +66,7 @@
     </dependencies>
 
     <properties>
-        <swayam-version>1.0.0</swayam-version>
+        <swayam-version>2.0</swayam-version>
     </properties>
 
 </project>

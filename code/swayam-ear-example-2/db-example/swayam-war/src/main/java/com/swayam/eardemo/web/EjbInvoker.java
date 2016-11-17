@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.swayam.eardemo.web;
 
@@ -10,12 +6,12 @@ import java.io.PrintWriter;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.swayam.eardemo.shared.MySessionBeanRemote;
+import com.swayam.eardemo.shared.api.MySessionBeanRemote;
+import com.swayam.eardemo.shared.model.Person;
 
 /**
  *
@@ -25,21 +21,8 @@ public class EjbInvoker extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     * 
-     * @param request
-     *            servlet request
-     * @param response
-     *            servlet response
-     * @throws ServletException
-     *             if a servlet-specific error occurs
-     * @throws IOException
-     *             if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -53,12 +36,31 @@ public class EjbInvoker extends HttpServlet {
 
             MySessionBeanRemote remoteBean = InitialContext.doLookup(contextName);
 
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+
+            System.out.println("******************* firstName: " + firstName + ", lastName: " + lastName);
+
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet EjbInvoker</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>" + remoteBean.sayHello() + "</h1>");
+
+            if ((firstName != null) && (lastName != null)) {
+                int result = remoteBean.savePerson(new Person(firstName, lastName));
+                out.println("<h2>Saved FirstName: " + firstName + " and LastName: " + lastName
+                        + ", got back: " + result + "</h2>");
+            }
+
+            out.println("<form method='post'>");
+            out.println("<div>");
+            out.println("<div>FirstName: <input type='text' name='firstName'/></div>");
+            out.println("<div>LastName: <input type='text' name='lastName'/></div>");
+            out.println("<div><input type='submit' name='submit' value='Submit'/></div>");
+            out.println("</div>");
+            out.println("</form>");
             out.println("</body>");
             out.println("</html>");
 
@@ -70,49 +72,18 @@ public class EjbInvoker extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on
-    // the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     * 
-     * @param request
-     *            servlet request
-     * @param response
-     *            servlet response
-     * @throws ServletException
-     *             if a servlet-specific error occurs
-     * @throws IOException
-     *             if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     * 
-     * @param request
-     *            servlet request
-     * @param response
-     *            servlet response
-     * @throws ServletException
-     *             if a servlet-specific error occurs
-     * @throws IOException
-     *             if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     * 
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
