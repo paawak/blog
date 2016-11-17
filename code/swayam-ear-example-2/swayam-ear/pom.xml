@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.swayam.eardemo</groupId>
+    <artifactId>swayam-ear</artifactId>
+    <version>1.0.0</version>
+
+    <packaging>ear</packaging>
+    <name>swayam-ear</name>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven.java.net</id>
+            <name>Java.net Maven2 Repository</name>
+            <url>http://download.java.net/maven/2</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <finalName>swayam-ear</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <modules>
+                        <webModule>
+                            <groupId>com.swayam.eardemo</groupId>
+                            <artifactId>swayam-war</artifactId>
+                            <bundleFileName>swayam-war.war</bundleFileName>
+                            <contextRoot>/swayam-war</contextRoot>
+                        </webModule>
+                        <ejbModule>
+                            <groupId>com.swayam.eardemo</groupId>
+                            <artifactId>swayam-ejb</artifactId>
+                            <bundleFileName>swayam-ejb.jar</bundleFileName>
+                        </ejbModule>
+                    </modules>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.swayam.eardemo</groupId>
+            <artifactId>swayam-war</artifactId>
+            <version>${swayam-version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>com.swayam.eardemo</groupId>
+            <artifactId>swayam-ejb</artifactId>
+            <version>${swayam-version}</version>
+            <type>ejb</type>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <swayam-version>1.0.0</swayam-version>
+    </properties>
+
+</project>
