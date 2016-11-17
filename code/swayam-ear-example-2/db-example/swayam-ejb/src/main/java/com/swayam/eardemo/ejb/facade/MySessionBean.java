@@ -1,13 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-package com.swayam.eardemo.ejb;
+package com.swayam.eardemo.ejb.facade;
 
 import java.util.Random;
 
 import javax.ejb.Stateless;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.swayam.eardemo.shared.api.MySessionBeanRemote;
 import com.swayam.eardemo.shared.model.Person;
@@ -19,6 +18,8 @@ import com.swayam.eardemo.shared.model.Person;
 @Stateless
 public class MySessionBean implements MySessionBeanRemote {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MySessionBean.class);
+
     public MySessionBean() {
     }
 
@@ -29,7 +30,7 @@ public class MySessionBean implements MySessionBeanRemote {
 
     @Override
     public int savePerson(Person person) {
-        System.out.println("***************** person: " + person);
+        LOGGER.info("person: {}", person);
         return new Random().nextInt();
     }
 

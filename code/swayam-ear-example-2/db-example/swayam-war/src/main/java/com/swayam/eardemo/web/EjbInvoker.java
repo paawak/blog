@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.swayam.eardemo.shared.api.MySessionBeanRemote;
 import com.swayam.eardemo.shared.model.Person;
 
@@ -20,6 +23,8 @@ import com.swayam.eardemo.shared.model.Person;
 public class EjbInvoker extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EjbInvoker.class);
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
@@ -32,14 +37,14 @@ public class EjbInvoker extends HttpServlet {
             // "java:global/swayam-ear/swayam-ejb/MySessionBean";
             String contextName = "java:app/swayam-ejb/MySessionBean";
 
-            System.out.println("******************* contextName: " + contextName);
+            LOGGER.info("looking up context with name: {}", contextName);
 
             MySessionBeanRemote remoteBean = InitialContext.doLookup(contextName);
 
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
 
-            System.out.println("******************* firstName: " + firstName + ", lastName: " + lastName);
+            LOGGER.info("firstName: {}, lastName: {}", firstName, lastName);
 
             out.println("<html>");
             out.println("<head>");
@@ -75,12 +80,14 @@ public class EjbInvoker extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        LOGGER.info("handling GET");
         processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        LOGGER.info("handling POST");
         processRequest(request, response);
     }
 
