@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.swayam.eardemo</groupId>
-  <artifactId>swayam-ear-builder</artifactId>
+  <artifactId>swayam-jee-builder</artifactId>
   <packaging>pom</packaging>
   <version>1.0.0</version>
-  <name>swayam-ear-builder</name>
+  <name>swayam-jee-builder</name>
 
   <modules>
     <module>swayam-ear</module>
