@@ -17,9 +17,11 @@ package com.swayam.eardemo.ejb.dao.impl;
 
 import java.util.Random;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 
 import com.swayam.eardemo.ejb.dao.PersonDao;
 import com.swayam.eardemo.shared.model.Person;
@@ -28,7 +30,8 @@ import com.swayam.eardemo.shared.model.Person;
  * 
  * @author paawak
  */
-@Repository
+@Default
+@ApplicationScoped
 public class PersonDaoImpl implements PersonDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonDaoImpl.class);

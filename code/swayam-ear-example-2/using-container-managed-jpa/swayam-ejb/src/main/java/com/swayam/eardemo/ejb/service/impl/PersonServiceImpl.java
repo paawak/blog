@@ -15,8 +15,9 @@
 
 package com.swayam.eardemo.ejb.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 
 import com.swayam.eardemo.ejb.dao.PersonDao;
 import com.swayam.eardemo.ejb.service.PersonService;
@@ -26,12 +27,13 @@ import com.swayam.eardemo.shared.model.Person;
  * 
  * @author paawak
  */
-@Service
+@Default
+@ApplicationScoped
 public class PersonServiceImpl implements PersonService {
 
     private final PersonDao personDao;
 
-    @Autowired
+    @Inject
     public PersonServiceImpl(PersonDao personDao) {
         this.personDao = personDao;
     }
