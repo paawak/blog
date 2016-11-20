@@ -46,7 +46,7 @@ public class PersonDaoImpl implements PersonDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Resource(name = "java:/datasources/SwayamEarDS")
+    @Resource(lookup = "java:/datasources/SwayamEarDS")
     private DataSource dataSource;
 
     @Override
