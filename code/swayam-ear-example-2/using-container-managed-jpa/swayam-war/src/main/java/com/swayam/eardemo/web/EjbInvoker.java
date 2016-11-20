@@ -3,8 +3,6 @@ package com.swayam.eardemo.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -16,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.swayam.eardemo.shared.api.MySessionBeanRemote;
-import com.swayam.eardemo.shared.model.Person;
 
 /**
  *
@@ -28,6 +25,10 @@ public class EjbInvoker extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EjbInvoker.class);
 
+    // private static final String CONTEXT_NAME =
+    // "java:global/swayam-ear/swayam-ejb/MySessionBean";
+    private static final String CONTEXT_NAME = "java:app/swayam-ejb/MySessionBean";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -35,51 +36,23 @@ public class EjbInvoker extends HttpServlet {
 
         try {
 
-            // String contextName =
-            // "java:global/swayam-ear/swayam-ejb/MySessionBean";
-            String contextName = "java:app/swayam-ejb/MySessionBean";
+            LOGGER.info("looking up context with name: {}", CONTEXT_NAME);
 
-            LOGGER.info("looking up context with name: {}", contextName);
-
-            MySessionBeanRemote remoteBean = InitialContext.doLookup(contextName);
-
-            String firstName = request.getParameter("firstName");
-            String lastName = request.getParameter("lastName");
-
-            LOGGER.info("firstName: {}, lastName: {}", firstName, lastName);
+            MySessionBeanRemote remoteBean = InitialContext.doLookup(CONTEXT_NAME);
 
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet EjbInvoker</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>" + remoteBean.sayHello() + "</h1>");
+            out.println("<h1>This illustrates a Servlet calling an EJB</h1>");
+            out.println("<h2>EJB Returned: " + remoteBean.sayHello() + "</h2>");
 
-            if ((firstName != null) && (lastName != null)) {
-                Person person = new Person();
-                person.setFirstName(firstName);
-                person.setLastName(lastName);
-                // FIXME: get it from servlet
-                person.setDateOfBirth(LocalDate.of(1955, 6, 18));
-                person.setDateOfJoining(LocalDateTime.now());
-
-                int result = remoteBean.savePerson(person);
-                out.println("<h2>Saved FirstName: " + firstName + " and LastName: " + lastName
-                        + ", got back: " + result + "</h2>");
-            }
-
-            out.println("<form method='post'>");
-            out.println("<div>");
-            out.println("<div>FirstName: <input type='text' name='firstName'/></div>");
-            out.println("<div>LastName: <input type='text' name='lastName'/></div>");
-            out.println("<div><input type='submit' name='submit' value='Submit'/></div>");
-            out.println("</div>");
-            out.println("</form>");
             out.println("</body>");
             out.println("</html>");
 
         } catch (NamingException ex) {
-            ex.printStackTrace();
+            LOGGER.error("naming exception", ex);
         } finally {
             out.close();
         }
