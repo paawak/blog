@@ -39,7 +39,7 @@
         personId = Optional.of(remoteBean.savePerson(person));
     }	
 %>
-	<h1>This illustrates invoking of an EJB</h1>
+	<h1>This illustrates a JSP invoking of an EJB</h1>
 <%
 	if (personId.isPresent()){
 %>

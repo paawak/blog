@@ -40,17 +40,13 @@ public class EjbInvoker extends HttpServlet {
 
             MySessionBeanRemote remoteBean = InitialContext.doLookup(CONTEXT_NAME);
 
-            String firstName = request.getParameter("firstName");
-            String lastName = request.getParameter("lastName");
-
-            LOGGER.info("firstName: {}, lastName: {}", firstName, lastName);
-
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet EjbInvoker</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>" + remoteBean.sayHello() + "</h1>");
+            out.println("<h1>This illustrates a Servlet calling an EJB</h1>");
+            out.println("<h2>EJB Returned: " + remoteBean.sayHello() + "</h2>");
 
             out.println("</body>");
             out.println("</html>");
