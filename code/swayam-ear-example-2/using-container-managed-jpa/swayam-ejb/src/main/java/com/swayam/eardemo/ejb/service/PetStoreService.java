@@ -24,6 +24,8 @@ import com.swayam.eardemo.shared.model.Pet;
  */
 public interface PetStoreService {
 
-    int save(Person person, Pet pet);
+    int saveTransactional(Person person, Pet pet);
+
+    int saveNonTransactional(Person person, Pet pet);
 
 }

@@ -23,6 +23,8 @@ import com.swayam.eardemo.shared.model.Pet;
  */
 public interface PetDao {
 
-    int save(Pet pet);
+    int saveWithEntityManager(Pet pet);
+
+    int saveWithConnection(Pet pet);
 
 }

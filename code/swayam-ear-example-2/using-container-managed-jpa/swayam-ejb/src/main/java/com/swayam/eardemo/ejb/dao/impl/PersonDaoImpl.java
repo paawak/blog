@@ -15,10 +15,17 @@
 
 package com.swayam.eardemo.ejb.dao.impl;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,11 +46,30 @@ public class PersonDaoImpl implements PersonDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Resource(name = "java:/datasources/SwayamEarDS")
+    private DataSource dataSource;
+
     @Override
-    public int save(Person person) {
+    public int saveWithEntityManager(Person person) {
         LOGGER.info("person: {}", person);
         entityManager.persist(person);
         return person.getId();
+    }
+
+    @Override
+    public int saveWithConnection(Person person) {
+        try {
+            Connection con = dataSource.getConnection();
+            String sql = "insert into person (first_name, last_name, date_of_birth) values (?, ?, ?)";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, person.getFirstName());
+            preparedStatement.setString(2, person.getLastName());
+            preparedStatement.setDate(3, Date.valueOf(person.getDateOfBirth()));
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
 }

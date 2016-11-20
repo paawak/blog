@@ -23,6 +23,8 @@ import com.swayam.eardemo.shared.model.Person;
  */
 public interface PersonDao {
 
-    int save(Person person);
+    int saveWithEntityManager(Person person);
+
+    int saveWithConnection(Person person);
 
 }

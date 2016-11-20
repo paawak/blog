@@ -35,7 +35,11 @@
         
         MySessionBeanRemote remoteBean = InitialContext.doLookup(contextName);
 
-        personId = Optional.of(remoteBean.savePerson(person));
+        if (false) {
+        	personId = Optional.of(remoteBean.saveTransactional(person));
+        } else {
+            personId = Optional.of(remoteBean.saveNonTransactional(person));
+        }
     }	
 %>
 	<h1>This illustrates a JSP invoking of an EJB</h1>

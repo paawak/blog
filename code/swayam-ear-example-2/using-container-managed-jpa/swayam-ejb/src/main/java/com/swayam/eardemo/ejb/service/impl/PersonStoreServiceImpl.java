@@ -48,19 +48,34 @@ public class PersonStoreServiceImpl implements PetStoreService {
     }
 
     @Override
-    public int save(Person person, Pet pet) {
+    public int saveTransactional(Person person, Pet pet) {
         LOGGER.info("saving person...");
-        int personId = personDao.save(person);
+        int personId = personDao.saveWithEntityManager(person);
 
         LOGGER.info("saved person, returned id is: {}", personId);
 
         LOGGER.info("saving pet...");
 
-        int petId = petDao.save(pet);
+        int petId = petDao.saveWithEntityManager(pet);
 
         LOGGER.info("saved pet, returned id is: {}", petId);
 
         return personId;
+    }
+
+    @Override
+    public int saveNonTransactional(Person person, Pet pet) {
+        LOGGER.info("saving person...");
+        int personId = personDao.saveWithConnection(person);
+
+        LOGGER.info("saved person, returned id is: {}", personId);
+
+        LOGGER.info("saving pet...");
+
+        int petId = petDao.saveWithConnection(pet);
+
+        LOGGER.info("saved pet, returned id is: {}", petId);
+        return 0;
     }
 
 }

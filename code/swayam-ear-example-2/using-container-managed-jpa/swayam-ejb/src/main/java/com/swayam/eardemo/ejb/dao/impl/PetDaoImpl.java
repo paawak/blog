@@ -15,10 +15,17 @@
 
 package com.swayam.eardemo.ejb.dao.impl;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,11 +46,30 @@ public class PetDaoImpl implements PetDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Resource(name = "java:/datasources/SwayamEarDS")
+    private DataSource dataSource;
+
     @Override
-    public int save(Pet pet) {
+    public int saveWithEntityManager(Pet pet) {
         LOGGER.info("pet: {}", pet);
         entityManager.persist(pet);
         return pet.getId();
+    }
+
+    @Override
+    public int saveWithConnection(Pet pet) {
+        try {
+            Connection con = dataSource.getConnection();
+            String sql = "insert into pet (name, animal_type, date_of_birth) values (?, ?, ?)";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, pet.getName());
+            preparedStatement.setString(2, pet.getAnimalType().name());
+            preparedStatement.setDate(3, Date.valueOf(pet.getDateOfBirth()));
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
 }

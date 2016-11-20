@@ -18,6 +18,8 @@ public interface MySessionBeanRemote {
 
     String sayHello();
 
-    int savePerson(Person person);
+    int saveTransactional(Person person);
+
+    int saveNonTransactional(Person person);
 
 }
