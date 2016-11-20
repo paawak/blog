@@ -15,10 +15,10 @@
 
 package com.swayam.eardemo.ejb.dao.impl;
 
-import java.util.Random;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,10 +36,14 @@ public class PersonDaoImpl implements PersonDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonDaoImpl.class);
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
     public int save(Person person) {
         LOGGER.info("person: {}", person);
-        return new Random().nextInt();
+        entityManager.persist(person);
+        return person.getId();
     }
 
 }

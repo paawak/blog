@@ -19,40 +19,40 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 /**
  * 
  * @author paawak
  */
-@Entity
+@Entity(name = "person")
 public class Person implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "first_name")
     @NotNull
     private String firstName;
 
+    @Column(name = "last_name")
     @NotNull
     private String lastName;
 
+    @Column(name = "date_of_birth")
     @NotNull
-    @Temporal(javax.persistence.TemporalType.DATE)
-    @Past
     private LocalDate dateOfBirth;
 
+    @Column(name = "date_of_joining")
     @NotNull
-    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDateTime dateOfJoining;
 
     public Person() {
