@@ -9,8 +9,4 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:jdbc.properties")
 public class SpringConfig {
 
-    public SpringConfig() {
-        System.out.println("***********************");
-    }
-
 }

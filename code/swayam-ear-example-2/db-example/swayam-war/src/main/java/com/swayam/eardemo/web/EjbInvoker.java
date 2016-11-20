@@ -3,6 +3,8 @@ package com.swayam.eardemo.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -54,7 +56,14 @@ public class EjbInvoker extends HttpServlet {
             out.println("<h1>" + remoteBean.sayHello() + "</h1>");
 
             if ((firstName != null) && (lastName != null)) {
-                int result = remoteBean.savePerson(new Person(firstName, lastName));
+                Person person = new Person();
+                person.setFirstName(firstName);
+                person.setLastName(lastName);
+                // FIXME: get it from servlet
+                person.setDateOfBirth(LocalDate.of(1955, 6, 18));
+                person.setDateOfJoining(LocalDateTime.now());
+
+                int result = remoteBean.savePerson(person);
                 out.println("<h2>Saved FirstName: " + firstName + " and LastName: " + lastName
                         + ", got back: " + result + "</h2>");
             }
