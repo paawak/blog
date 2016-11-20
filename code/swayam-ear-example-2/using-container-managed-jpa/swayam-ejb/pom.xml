@@ -13,10 +13,14 @@
 	<packaging>ejb</packaging>
 
     <build>
+		<filters>
+			<filter>${basedir}/src/main/resources/jdbc.properties</filter>
+		</filters>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <resources>
         	<resource>
         		<directory>${basedir}/src/main/resources</directory>
+        		<filtering>true</filtering>
         	</resource>
         </resources>
 
