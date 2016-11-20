@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS person;
-
-CREATE TABLE person (
-	id INTEGER(6) NOT NULL UNIQUE PRIMARY KEY,
-	first_name VARCHAR(50) NOT NULL,
-	last_name VARCHAR(50) NOT NULL,
-	date_of_birth DATE NOT NULL,
-	date_of_joining DATETIME NOT NULL
-);
