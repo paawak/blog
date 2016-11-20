@@ -16,13 +16,14 @@
 package com.swayam.eardemo.ejb.service;
 
 import com.swayam.eardemo.shared.model.Person;
+import com.swayam.eardemo.shared.model.Pet;
 
 /**
  * 
  * @author paawak
  */
-public interface PersonService {
+public interface PetStoreService {
 
-    int save(Person person);
+    int save(Person person, Pet pet);
 
 }

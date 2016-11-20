@@ -29,7 +29,6 @@
         person.setLastName(lastName);
         // FIXME: get it from servlet
         person.setDateOfBirth(LocalDate.of(1955, 6, 18));
-        person.setDateOfJoining(LocalDateTime.now());
         
         // String contextName = "java:global/swayam-ear/swayam-ejb/MySessionBean";
         String contextName = "java:app/swayam-ejb/MySessionBean";

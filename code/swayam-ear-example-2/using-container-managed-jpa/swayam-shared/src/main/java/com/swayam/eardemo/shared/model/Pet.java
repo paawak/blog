@@ -29,28 +29,26 @@ import javax.validation.constraints.NotNull;
  * 
  * @author paawak
  */
-@Entity(name = "person")
-public class Person implements Serializable {
+@Entity(name = "pet")
+public class Pet implements Serializable {
 
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "first_name")
-    @NotNull
-    private String firstName;
+    private String name;
 
-    @Column(name = "last_name")
+    @Column(name = "animal_type")
     @NotNull
-    private String lastName;
+    private AnimalType animalType;
 
     @Column(name = "date_of_birth")
     @NotNull
     private LocalDate dateOfBirth;
 
-    public Person() {
+    public Pet() {
 
     }
 
@@ -62,20 +60,20 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public AnimalType getAnimalType() {
+        return animalType;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAnimalType(AnimalType animalType) {
+        this.animalType = animalType;
     }
 
     public LocalDate getDateOfBirth() {
@@ -90,10 +88,10 @@ public class Person implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((animalType == null) ? 0 : animalType.hashCode());
         result = prime * result + ((dateOfBirth == null) ? 0 : dateOfBirth.hashCode());
-        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
 
@@ -105,35 +103,30 @@ public class Person implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Person other = (Person) obj;
+        Pet other = (Pet) obj;
+        if (animalType != other.animalType)
+            return false;
         if (dateOfBirth == null) {
             if (other.dateOfBirth != null)
                 return false;
         } else if (!dateOfBirth.equals(other.dateOfBirth))
-            return false;
-
-        if (firstName == null) {
-            if (other.firstName != null)
-                return false;
-        } else if (!firstName.equals(other.firstName))
             return false;
         if (id == null) {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (lastName == null) {
-            if (other.lastName != null)
+        if (name == null) {
+            if (other.name != null)
                 return false;
-        } else if (!lastName.equals(other.lastName))
+        } else if (!name.equals(other.name))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
-                + dateOfBirth + "]";
+        return "Pet [id=" + id + ", name=" + name + ", animalType=" + animalType + ", dateOfBirth=" + dateOfBirth + "]";
     }
 
 }

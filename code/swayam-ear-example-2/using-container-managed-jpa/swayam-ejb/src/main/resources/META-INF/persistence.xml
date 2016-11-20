@@ -3,5 +3,6 @@
         <description>Persistence unit for the SwayamEar module</description>
         <jta-data-source>${jdbc.datasource.jndi}</jta-data-source>
         <class>com.swayam.eardemo.shared.model.Person</class>
+        <class>com.swayam.eardemo.shared.model.Pet</class>
     </persistence-unit>
 </persistence>
