@@ -136,6 +136,37 @@ public class BinaryHeapBackedByFixedArrayTest {
         assertArrayEquals(expectedArray, testClass.getElementsAsArray());
     }
 
+    /**
+     * Test case courtesy: <br/>
+     * <a href=
+     * "http://opendatastructures.org/ods-java/10_1_BinaryHeap_Implicit_Bi.html">http://opendatastructures.org/ods-java/10_1_BinaryHeap_Implicit_Bi.html</a>
+     */
+    @Test
+    public void testAdd_happy_7() {
+        // given
+        Integer[] expectedArray = new Integer[] { 4, 9, 6, 17, 26, 8, 16, 19, 69, 32, 93, 55, 50 };
+
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(13);
+
+        // when
+        testClass.add(4);
+        testClass.add(9);
+        testClass.add(8);
+        testClass.add(17);
+        testClass.add(26);
+        testClass.add(50);
+        testClass.add(16);
+        testClass.add(19);
+        testClass.add(69);
+        testClass.add(32);
+        testClass.add(93);
+        testClass.add(55);
+        testClass.add(6);
+
+        // then
+        assertArrayEquals(expectedArray, testClass.getElementsAsArray());
+    }
+
     @Test
     public void testAdd_exceeds_maxSize() {
         // given
