@@ -15,6 +15,8 @@
 
 package com.swayam.practice.algos.heap;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -22,11 +24,75 @@ import javax.swing.JFrame;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 
+import org.junit.Test;
+
 /**
  * 
  * @author paawak
  */
 public class BinaryHeapBackedByFixedArrayTest {
+
+    @Test
+    public void testAdd_1() {
+        // given
+        Integer[] expectedArray = new Integer[] { 552 };
+
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(1);
+
+        // when
+        testClass.add(552);
+
+        // then
+        assertArrayEquals(expectedArray, testClass.getElementsAsArray());
+    }
+
+    @Test
+    public void testAdd_2() {
+        // given
+        Integer[] expectedArray = new Integer[] { 12, 552 };
+
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(2);
+
+        // when
+        testClass.add(552);
+        testClass.add(12);
+
+        // then
+        assertArrayEquals(expectedArray, testClass.getElementsAsArray());
+    }
+
+    @Test
+    public void testAdd_3() {
+        // given
+        Integer[] expectedArray = new Integer[] { 12, 552, 100 };
+
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(3);
+
+        // when
+        testClass.add(552);
+        testClass.add(12);
+        testClass.add(100);
+
+        // then
+        assertArrayEquals(expectedArray, testClass.getElementsAsArray());
+    }
+
+    @Test
+    public void testAdd_4() {
+        // given
+        Integer[] expectedArray = new Integer[] { 12, 200, 100, 552 };
+
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(4);
+
+        // when
+        testClass.add(552);
+        testClass.add(12);
+        testClass.add(100);
+        testClass.add(200);
+
+        // then
+        assertArrayEquals(expectedArray, testClass.getElementsAsArray());
+    }
 
     public static void main(String[] a) {
         new BinaryHeapBackedByFixedArrayTest().displayTree();
@@ -34,28 +100,28 @@ public class BinaryHeapBackedByFixedArrayTest {
 
     private void displayTree() {
 
-        BinaryHeapBackedByFixedArray<Integer> heap = new BinaryHeapBackedByFixedArray<>(100);
-        heap.add(552);
-        heap.add(12);
-        heap.add(100);
-        heap.add(200);
-        heap.add(3);
-        heap.add(44);
-        heap.add(57);
-        heap.add(89);
-        heap.add(30);
-        heap.add(10);
-        heap.add(17);
-        heap.add(4);
-        heap.add(23);
-        heap.add(15);
-        heap.add(122);
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(100);
+        testClass.add(552);
+        testClass.add(12);
+        testClass.add(100);
+        testClass.add(200);
+        testClass.add(3);
+        testClass.add(44);
+        testClass.add(57);
+        testClass.add(89);
+        testClass.add(30);
+        testClass.add(10);
+        testClass.add(17);
+        testClass.add(4);
+        testClass.add(23);
+        testClass.add(15);
+        testClass.add(122);
 
         EventQueue.invokeLater(() -> {
             JFrame frame = new JFrame();
             frame.getContentPane().setLayout(new BorderLayout());
 
-            JTree tree = new JTree(new DefaultTreeModel(heap.getElementAsTreeNode(0)));
+            JTree tree = new JTree(new DefaultTreeModel(testClass.getElementsAsTreeNode()));
 
             frame.getContentPane().add(tree, BorderLayout.CENTER);
 

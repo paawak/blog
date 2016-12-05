@@ -19,6 +19,7 @@ import java.util.Optional;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
 
 import com.swayam.practice.algos.queue.PriorityQueue;
 
@@ -73,31 +74,17 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
         return getElement(ROOT_INDEX);
     }
 
-    private void reAdjustArrayToConformToHeapProperty(int startIndexForNode) {
-
-        if (startIndexForNode == 0) {
-            return;
-        }
-
-        E nodeElement = getElement(startIndexForNode);
-        int parentNodeIndex = getParent(startIndexForNode);
-        E parentNodeElement = getElement(parentNodeIndex);
-
-        int comparisonWithParent = nodeElement.compareTo(parentNodeElement);
-
-        if (comparisonWithParent == 0) {
-            throw new IllegalStateException(
-                    String.format("The element %s already exists, at position %d", nodeElement, parentNodeIndex));
-        } else if (comparisonWithParent < 0) {
-
-            // swap the parent with the child
-            array[parentNodeIndex] = nodeElement;
-            array[startIndexForNode] = parentNodeElement;
-        }
-        reAdjustArrayToConformToHeapProperty(parentNodeIndex);
+    public TreeNode getElementsAsTreeNode() {
+        return getElementAsTreeNode(ROOT_INDEX);
     }
 
-    public MutableTreeNode getElementAsTreeNode(int nodeIndex) {
+    public Object[] getElementsAsArray() {
+        Object[] backingArray = new Object[actualArraySize];
+        System.arraycopy(array, 0, backingArray, 0, actualArraySize);
+        return backingArray;
+    }
+
+    private MutableTreeNode getElementAsTreeNode(int nodeIndex) {
 
         // traverse the current node
         DefaultMutableTreeNode elementNode = new DefaultMutableTreeNode(getElement(nodeIndex));
@@ -122,6 +109,30 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
 
     }
 
+    private void reAdjustArrayToConformToHeapProperty(int startIndexForNode) {
+
+        if (startIndexForNode == 0) {
+            return;
+        }
+
+        E nodeElement = getElement(startIndexForNode);
+        int parentNodeIndex = getParent(startIndexForNode);
+        E parentNodeElement = getElement(parentNodeIndex);
+
+        int comparisonWithParent = nodeElement.compareTo(parentNodeElement);
+
+        if (comparisonWithParent == 0) {
+            throw new IllegalStateException(
+                    String.format("The element %s already exists, at position %d", nodeElement, parentNodeIndex));
+        } else if (comparisonWithParent < 0) {
+
+            // swap the parent with the child
+            array[parentNodeIndex] = nodeElement;
+            array[startIndexForNode] = parentNodeElement;
+        }
+        reAdjustArrayToConformToHeapProperty(parentNodeIndex);
+    }
+
     @SuppressWarnings("unchecked")
     private E getElement(int nodeIndex) {
         return (E) array[nodeIndex];
@@ -135,11 +146,10 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
             throw new IllegalArgumentException("The index cannot be negative");
         }
 
-        // check if this is the right child or left child: the left child is
-        // always odd and the right child is always even
-        if ((nodeIndex % 2) == 0) {
+        // check if this is the right child or left child
+        if ((nodeIndex % 2) == 0) { // the right child is always even
             return (nodeIndex - 2) / 2;
-        } else {
+        } else {// the left child is always odd
             return (nodeIndex - 1) / 2;
         }
 
