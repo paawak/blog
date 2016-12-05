@@ -15,14 +15,20 @@
 
 package com.swayam.practice.algos.tree;
 
+import javax.swing.tree.TreeNode;
+
 /**
  * 
  * @author paawak
  */
 public interface Tree<E extends Comparable<E>> {
 
-    int getLeftChildIndex(int nodeIndex);
+    void add(E element);
 
-    int getRightChildIndex(int nodeIndex);
+    E remove();
+
+    TreeNode getElementsAsTreeNode();
+
+    int getElementCount();
 
 }

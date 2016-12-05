@@ -22,6 +22,7 @@ import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 import com.swayam.practice.algos.queue.PriorityQueue;
+import com.swayam.practice.algos.tree.Tree;
 
 /**
  * Take a look at the below links for implementation details:
@@ -35,7 +36,7 @@ import com.swayam.practice.algos.queue.PriorityQueue;
  * 
  * @author paawak
  */
-public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements PriorityQueue<E> {
+public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements PriorityQueue<E>, Tree<E> {
 
     private static final int ROOT_INDEX = 0;
 
@@ -84,6 +85,7 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
         return getElement(ROOT_INDEX);
     }
 
+    @Override
     public TreeNode getElementsAsTreeNode() {
         return getElementAsTreeNode(ROOT_INDEX);
     }
@@ -92,6 +94,11 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
         Object[] backingArray = new Object[actualArraySize];
         System.arraycopy(array, 0, backingArray, 0, actualArraySize);
         return backingArray;
+    }
+
+    @Override
+    public int getElementCount() {
+        return actualArraySize;
     }
 
     private MutableTreeNode getElementAsTreeNode(int nodeIndex) {

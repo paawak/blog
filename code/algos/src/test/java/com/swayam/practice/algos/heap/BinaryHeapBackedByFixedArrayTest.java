@@ -17,13 +17,6 @@ package com.swayam.practice.algos.heap;
 
 import static org.junit.Assert.assertArrayEquals;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -250,61 +243,6 @@ public class BinaryHeapBackedByFixedArrayTest {
         testClass.remove();
 
         // then: error
-    }
-
-    public static void main(String[] a) {
-        new BinaryHeapBackedByFixedArrayTest().displayTree();
-    }
-
-    private void displayTree() {
-
-        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(100);
-        // testClass.add(552);
-        // testClass.add(12);
-        // testClass.add(100);
-        // testClass.add(200);
-        // testClass.add(3);
-        // testClass.add(44);
-        // testClass.add(57);
-        // testClass.add(89);
-        // testClass.add(30);
-        // testClass.add(10);
-        // testClass.add(17);
-        // testClass.add(4);
-        // testClass.add(23);
-        // testClass.add(15);
-        // testClass.add(122);
-
-        testClass.add(4);
-        testClass.add(9);
-        testClass.add(6);
-        testClass.add(17);
-        testClass.add(26);
-        testClass.add(8);
-        testClass.add(16);
-        testClass.add(19);
-        testClass.add(69);
-        testClass.add(32);
-        testClass.add(93);
-        testClass.add(55);
-        testClass.add(50);
-        testClass.remove();
-
-        EventQueue.invokeLater(() -> {
-            JFrame frame = new JFrame();
-            frame.getContentPane().setLayout(new BorderLayout());
-
-            JTree tree = new JTree(new DefaultTreeModel(testClass.getElementsAsTreeNode()));
-
-            frame.getContentPane().add(tree, BorderLayout.CENTER);
-
-            frame.setSize(500, 500);
-
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            frame.setVisible(true);
-        });
-
     }
 
 }
