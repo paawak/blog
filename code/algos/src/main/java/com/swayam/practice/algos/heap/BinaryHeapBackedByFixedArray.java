@@ -149,7 +149,7 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
         // check if this is the right child or left child
         if ((nodeIndex % 2) == 0) { // the right child is always even
             return (nodeIndex - 2) / 2;
-        } else {// the left child is always odd
+        } else { // the left child is always odd
             return (nodeIndex - 1) / 2;
         }
 

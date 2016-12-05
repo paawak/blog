@@ -24,7 +24,9 @@ import javax.swing.JFrame;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * 
@@ -32,8 +34,11 @@ import org.junit.Test;
  */
 public class BinaryHeapBackedByFixedArrayTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
-    public void testAdd_1() {
+    public void testAdd_happy_1() {
         // given
         Integer[] expectedArray = new Integer[] { 552 };
 
@@ -47,7 +52,7 @@ public class BinaryHeapBackedByFixedArrayTest {
     }
 
     @Test
-    public void testAdd_2() {
+    public void testAdd_happy_2() {
         // given
         Integer[] expectedArray = new Integer[] { 12, 552 };
 
@@ -62,7 +67,7 @@ public class BinaryHeapBackedByFixedArrayTest {
     }
 
     @Test
-    public void testAdd_3() {
+    public void testAdd_happy_3() {
         // given
         Integer[] expectedArray = new Integer[] { 12, 552, 100 };
 
@@ -78,7 +83,7 @@ public class BinaryHeapBackedByFixedArrayTest {
     }
 
     @Test
-    public void testAdd_4() {
+    public void testAdd_happy_4() {
         // given
         Integer[] expectedArray = new Integer[] { 12, 200, 100, 552 };
 
@@ -92,6 +97,78 @@ public class BinaryHeapBackedByFixedArrayTest {
 
         // then
         assertArrayEquals(expectedArray, testClass.getElementsAsArray());
+    }
+
+    @Test
+    public void testAdd_happy_5() {
+        // given
+        Integer[] expectedArray = new Integer[] { 3, 12, 100, 552, 200 };
+
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(10);
+
+        // when
+        testClass.add(552);
+        testClass.add(12);
+        testClass.add(100);
+        testClass.add(200);
+        testClass.add(3);
+
+        // then
+        assertArrayEquals(expectedArray, testClass.getElementsAsArray());
+    }
+
+    @Test
+    public void testAdd_happy_6() {
+        // given
+        Integer[] expectedArray = new Integer[] { 3, 12, 44, 552, 200, 100 };
+
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(10);
+
+        // when
+        testClass.add(552);
+        testClass.add(12);
+        testClass.add(100);
+        testClass.add(200);
+        testClass.add(3);
+        testClass.add(44);
+
+        // then
+        assertArrayEquals(expectedArray, testClass.getElementsAsArray());
+    }
+
+    @Test
+    public void testAdd_exceeds_maxSize() {
+        // given
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(2);
+
+        thrown.expect(IllegalStateException.class);
+        thrown.expectMessage("The array cannot exceed its maximum allocated size of 2");
+
+        // when
+        testClass.add(552);
+        testClass.add(12);
+        testClass.add(100);
+
+        // then: error
+    }
+
+    @Test
+    public void testAdd_duplicateElement() {
+        // given
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(10);
+
+        thrown.expect(IllegalStateException.class);
+        thrown.expectMessage("The element 3 already exists, at position 0");
+
+        // when
+        testClass.add(552);
+        testClass.add(12);
+        testClass.add(100);
+        testClass.add(3);
+        testClass.add(600);
+        testClass.add(3);
+
+        // then: error
     }
 
     public static void main(String[] a) {
