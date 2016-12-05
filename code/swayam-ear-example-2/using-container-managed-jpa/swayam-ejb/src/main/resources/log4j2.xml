@@ -21,10 +21,10 @@
 	</Appenders>
 
 	<Loggers>
-		<asyncRoot level="debug">
+		<root level="debug">
 			<AppenderRef ref="CONSOLE" />
 			<AppenderRef ref="FILE" />
-		</asyncRoot>
+		</root>
 	</Loggers>
 
 </Configuration>
