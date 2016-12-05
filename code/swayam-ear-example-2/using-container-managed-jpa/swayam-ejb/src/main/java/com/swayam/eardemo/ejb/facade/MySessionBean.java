@@ -41,7 +41,7 @@ public class MySessionBean implements MySessionBeanRemote {
         LOGGER.info("person: {}", person);
         // FIXME: get this from the client
         Pet pet = new Pet();
-        // pet.setName("Benjamin");
+        pet.setName("Benjamin");
         pet.setAnimalType(AnimalType.BUNNY);
         pet.setDateOfBirth(LocalDate.of(2008, 9, 9));
         return petStoreService.saveTransactional(person, pet);

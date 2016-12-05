@@ -71,8 +71,12 @@ public class PersonStoreServiceImpl implements PetStoreService {
         LOGGER.info("saved person, returned id is: {}", personId);
 
         LOGGER.info("saving pet...");
-
-        int petId = petDao.saveWithConnection(pet);
+        int petId = -1;
+        // try {
+        petId = petDao.saveWithConnection(pet);
+        // } catch (Exception e) {
+        // LOGGER.error("error saving pet", e);
+        // }
 
         LOGGER.info("saved pet, returned id is: {}", petId);
         return 0;
