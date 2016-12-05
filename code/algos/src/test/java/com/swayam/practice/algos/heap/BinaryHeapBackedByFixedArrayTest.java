@@ -167,6 +167,41 @@ public class BinaryHeapBackedByFixedArrayTest {
         assertArrayEquals(expectedArray, testClass.getElementsAsArray());
     }
 
+    @Test
+    public void testAdd_exceeds_maxSize() {
+        // given
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(2);
+
+        thrown.expect(IllegalStateException.class);
+        thrown.expectMessage("The array cannot exceed its maximum allocated size of 2");
+
+        // when
+        testClass.add(552);
+        testClass.add(12);
+        testClass.add(100);
+
+        // then: error
+    }
+
+    @Test
+    public void testAdd_duplicateElement() {
+        // given
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(10);
+
+        thrown.expect(IllegalStateException.class);
+        thrown.expectMessage("The element 3 already exists, at position 0");
+
+        // when
+        testClass.add(552);
+        testClass.add(12);
+        testClass.add(100);
+        testClass.add(3);
+        testClass.add(600);
+        testClass.add(3);
+
+        // then: error
+    }
+
     /**
      * Test case courtesy: <br/>
      * <a href=
@@ -200,36 +235,19 @@ public class BinaryHeapBackedByFixedArrayTest {
     }
 
     @Test
-    public void testAdd_exceeds_maxSize() {
-        // given
-        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(2);
-
-        thrown.expect(IllegalStateException.class);
-        thrown.expectMessage("The array cannot exceed its maximum allocated size of 2");
-
-        // when
-        testClass.add(552);
-        testClass.add(12);
-        testClass.add(100);
-
-        // then: error
-    }
-
-    @Test
-    public void testAdd_duplicateElement() {
+    public void testRemove_whenEmpty() {
         // given
         BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(10);
 
         thrown.expect(IllegalStateException.class);
-        thrown.expectMessage("The element 3 already exists, at position 0");
+        thrown.expectMessage("Cannot remove elements from empty array");
 
         // when
         testClass.add(552);
         testClass.add(12);
-        testClass.add(100);
-        testClass.add(3);
-        testClass.add(600);
-        testClass.add(3);
+        testClass.remove();
+        testClass.remove();
+        testClass.remove();
 
         // then: error
     }
