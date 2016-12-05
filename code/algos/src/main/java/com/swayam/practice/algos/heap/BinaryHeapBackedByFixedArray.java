@@ -60,13 +60,23 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
 
         array[actualArraySize++] = element;
 
-        reAdjustArrayToConformToHeapProperty(actualArraySize - 1);
+        reAdjustArrayByComparingWithParent(actualArraySize - 1);
 
     }
 
     @Override
     public E remove() {
-        throw new UnsupportedOperationException();
+        if (actualArraySize == 0) {
+            throw new IllegalStateException("Cannot remove elements from empty array");
+        }
+
+        E rootElementToBeRemoved = getElement(ROOT_INDEX);
+        array[ROOT_INDEX] = array[actualArraySize - 1];
+        array[--actualArraySize] = null;
+
+        reAdjustArrayByComparingWithChildren(ROOT_INDEX);
+
+        return rootElementToBeRemoved;
     }
 
     @Override
@@ -109,7 +119,43 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
 
     }
 
-    private void reAdjustArrayToConformToHeapProperty(int startIndexForNode) {
+    private void reAdjustArrayByComparingWithChildren(int startIndexForNode) {
+
+        if (startIndexForNode == actualArraySize - 1) {
+            return;
+        }
+
+        // traverse the left node/sub-tree
+        Optional<Integer> leftChildIndex = getLeftChildIndex(startIndexForNode);
+
+        if (leftChildIndex.isPresent()) {
+            compareAndSwapChildNode(startIndexForNode, leftChildIndex.get());
+        }
+
+        // traverse the right node/sub-tree
+        Optional<Integer> rightChildIndex = getRightChildIndex(startIndexForNode);
+
+        if (rightChildIndex.isPresent()) {
+            compareAndSwapChildNode(startIndexForNode, rightChildIndex.get());
+        }
+
+    }
+
+    private void compareAndSwapChildNode(int nodeIndex, int childIndex) {
+        E node = getElement(nodeIndex);
+        E childNode = getElement(childIndex);
+        int comparisonWithChild = node.compareTo(childNode);
+
+        if (comparisonWithChild > 0) {
+            // swap the child with the parent
+            array[childIndex] = node;
+            array[nodeIndex] = childNode;
+        }
+
+        reAdjustArrayByComparingWithChildren(childIndex);
+    }
+
+    private void reAdjustArrayByComparingWithParent(int startIndexForNode) {
 
         if (startIndexForNode == 0) {
             return;
@@ -130,7 +176,7 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
             array[parentNodeIndex] = nodeElement;
             array[startIndexForNode] = parentNodeElement;
         }
-        reAdjustArrayToConformToHeapProperty(parentNodeIndex);
+        reAdjustArrayByComparingWithParent(parentNodeIndex);
     }
 
     @SuppressWarnings("unchecked")

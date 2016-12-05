@@ -167,6 +167,38 @@ public class BinaryHeapBackedByFixedArrayTest {
         assertArrayEquals(expectedArray, testClass.getElementsAsArray());
     }
 
+    /**
+     * Test case courtesy: <br/>
+     * <a href=
+     * "http://opendatastructures.org/ods-java/10_1_BinaryHeap_Implicit_Bi.html">http://opendatastructures.org/ods-java/10_1_BinaryHeap_Implicit_Bi.html</a>
+     */
+    @Test
+    public void testRemove_happy() {
+        // given
+        Integer[] expectedArray = new Integer[] { 6, 17, 8, 19, 26, 9, 16, 50, 69, 32, 93, 55 };
+
+        BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(14);
+
+        // when
+        testClass.add(4);
+        testClass.add(9);
+        testClass.add(6);
+        testClass.add(17);
+        testClass.add(26);
+        testClass.add(8);
+        testClass.add(16);
+        testClass.add(19);
+        testClass.add(69);
+        testClass.add(32);
+        testClass.add(93);
+        testClass.add(55);
+        testClass.add(50);
+        testClass.remove();
+
+        // then
+        assertArrayEquals(expectedArray, testClass.getElementsAsArray());
+    }
+
     @Test
     public void testAdd_exceeds_maxSize() {
         // given
@@ -209,21 +241,36 @@ public class BinaryHeapBackedByFixedArrayTest {
     private void displayTree() {
 
         BinaryHeapBackedByFixedArray<Integer> testClass = new BinaryHeapBackedByFixedArray<>(100);
-        testClass.add(552);
-        testClass.add(12);
-        testClass.add(100);
-        testClass.add(200);
-        testClass.add(3);
-        testClass.add(44);
-        testClass.add(57);
-        testClass.add(89);
-        testClass.add(30);
-        testClass.add(10);
-        testClass.add(17);
+        // testClass.add(552);
+        // testClass.add(12);
+        // testClass.add(100);
+        // testClass.add(200);
+        // testClass.add(3);
+        // testClass.add(44);
+        // testClass.add(57);
+        // testClass.add(89);
+        // testClass.add(30);
+        // testClass.add(10);
+        // testClass.add(17);
+        // testClass.add(4);
+        // testClass.add(23);
+        // testClass.add(15);
+        // testClass.add(122);
+
         testClass.add(4);
-        testClass.add(23);
-        testClass.add(15);
-        testClass.add(122);
+        testClass.add(9);
+        testClass.add(6);
+        testClass.add(17);
+        testClass.add(26);
+        testClass.add(8);
+        testClass.add(16);
+        testClass.add(19);
+        testClass.add(69);
+        testClass.add(32);
+        testClass.add(93);
+        testClass.add(55);
+        testClass.add(50);
+        testClass.remove();
 
         EventQueue.invokeLater(() -> {
             JFrame frame = new JFrame();
