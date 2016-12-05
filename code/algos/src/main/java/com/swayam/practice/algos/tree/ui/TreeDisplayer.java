@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.swayam.practice.algos.tree;
+package com.swayam.practice.algos.tree.ui;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 
-import com.swayam.practice.algos.heap.BinaryHeapBackedByFixedArray;
+import com.swayam.practice.algos.tree.Tree;
 
 /**
  *
@@ -114,82 +114,6 @@ public class TreeDisplayer extends javax.swing.JFrame {
         tree.remove();
         jTree.setModel(new DefaultTreeModel(tree.getElementsAsTreeNode()));
     }// GEN-LAST:event_btnRemoveActionPerformed
-
-    /**
-     * @param args
-     *            the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting
-        // code (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.
-         * html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TreeDisplayer.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TreeDisplayer.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TreeDisplayer.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TreeDisplayer.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        }
-        // </editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                BinaryHeapBackedByFixedArray<Integer> tree = new BinaryHeapBackedByFixedArray<>(100);
-
-                // tree.add(552);
-                // tree.add(12);
-                // tree.add(100);
-                // tree.add(200);
-                // tree.add(3);
-                // tree.add(44);
-                // tree.add(57);
-                // tree.add(89);
-                // tree.add(30);
-                // tree.add(10);
-                // tree.add(17);
-                // tree.add(4);
-                // tree.add(23);
-                // tree.add(15);
-                // tree.add(122);
-
-                tree.add(4);
-                tree.add(9);
-                tree.add(6);
-                tree.add(17);
-                tree.add(26);
-                tree.add(8);
-                tree.add(16);
-                tree.add(19);
-                tree.add(69);
-                tree.add(32);
-                tree.add(93);
-                tree.add(55);
-                tree.add(50);
-                new TreeDisplayer(tree).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
