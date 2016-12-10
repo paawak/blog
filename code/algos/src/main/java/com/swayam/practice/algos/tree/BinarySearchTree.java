@@ -1,7 +1,7 @@
 /*
- * Tree.java
+ * BinarySearchTree.java
  *
- * Created on 03-Dec-2016 8:13:27 PM
+ * Created on 10-Dec-2016 8:22:01 PM
  *
  * Copyright (c) 2002 - 2008 : Swayam Inc.
  *
@@ -15,25 +15,12 @@
 
 package com.swayam.practice.algos.tree;
 
-import javax.swing.tree.TreeNode;
-
 /**
  * 
  * @author paawak
  */
-public interface Tree<E extends Comparable<E>> {
+public interface BinarySearchTree<E extends Comparable<E>> extends Tree<E> {
 
-    void add(E element);
-
-    /**
-     * Removes the root element
-     * 
-     * @return root element
-     */
-    E remove();
-
-    TreeNode getElementsAsTreeNode();
-
-    boolean isEmpty();
+    void remove(E element);
 
 }

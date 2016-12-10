@@ -24,85 +24,78 @@ import java.util.Optional;
 public class Node<E extends Comparable<E>> {
 
     private final E value;
+    private final Node<E> parentNode;
 
-    private Node<E> leftNode;
+    private Node<E> leftChild;
 
-    private Node<E> rightNode;
+    private Node<E> rightChild;
 
-    public Node(E value) {
+    public Node(E value, Node<E> parentNode) {
+        if (value == null) {
+            throw new IllegalArgumentException("value cannot be null");
+        }
+
+        if (parentNode == null) {
+            throw new IllegalArgumentException("parentNode cannot be null");
+        }
+        this.value = value;
+        this.parentNode = parentNode;
+    }
+
+    private Node(E value) {
         if (value == null) {
             throw new IllegalArgumentException("value cannot be null");
         }
         this.value = value;
+        parentNode = null;
     }
 
-    public Optional<Node<E>> getLeftNode() {
-        return Optional.ofNullable(leftNode);
+    public Optional<Node<E>> getLeftChild() {
+        return Optional.ofNullable(leftChild);
     }
 
-    public void setLeftNode(Node<E> leftNode) {
+    public void setLeftChild(Node<E> leftNode) {
         if (leftNode == null) {
             throw new IllegalArgumentException("leftNode cannot be null");
         }
-        this.leftNode = leftNode;
+        this.leftChild = leftNode;
     }
 
-    public Optional<Node<E>> getRightNode() {
-        return Optional.ofNullable(rightNode);
+    public Optional<Node<E>> getRightChild() {
+        return Optional.ofNullable(rightChild);
     }
 
-    public void setRightNode(Node<E> rightNode) {
+    public void setRightChild(Node<E> rightNode) {
         if (rightNode == null) {
             throw new IllegalArgumentException("rightNode cannot be null");
         }
-        this.rightNode = rightNode;
+        this.rightChild = rightNode;
     }
 
     public E getValue() {
         return value;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((leftNode == null) ? 0 : leftNode.hashCode());
-        result = prime * result + ((rightNode == null) ? 0 : rightNode.hashCode());
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
-        return result;
+    public Optional<Node<E>> getParentNode() {
+        return Optional.ofNullable(parentNode);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        @SuppressWarnings("rawtypes")
-        Node other = (Node) obj;
-        if (leftNode == null) {
-            if (other.leftNode != null)
-                return false;
-        } else if (!leftNode.equals(other.leftNode))
-            return false;
-        if (rightNode == null) {
-            if (other.rightNode != null)
-                return false;
-        } else if (!rightNode.equals(other.rightNode))
-            return false;
-        if (value == null) {
-            if (other.value != null)
-                return false;
-        } else if (!value.equals(other.value))
-            return false;
-        return true;
+    public void removeLeftChild() {
+        leftChild = null;
+    }
+
+    public void removeRightChild() {
+        rightChild = null;
+    }
+
+    public static <E extends Comparable<E>> Node<E> createRootNode(E element) {
+        return new Node<E>(element);
     }
 
     @Override
     public String toString() {
-        return "Node [value=" + value + ", leftNode=" + leftNode + ", rightNode=" + rightNode + "]";
+        return "Node [value=" + value + ", parentNode=" + parentNode + ", leftChild=" + leftChild + ", rightChild="
+                + rightChild + "]";
     }
 
 }

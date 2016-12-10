@@ -97,8 +97,8 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
     }
 
     @Override
-    public int getElementCount() {
-        return actualArraySize;
+    public boolean isEmpty() {
+        return actualArraySize == 0;
     }
 
     private MutableTreeNode getElementAsTreeNode(int nodeIndex) {

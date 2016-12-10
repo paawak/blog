@@ -106,7 +106,7 @@ public class TreeDisplayer extends javax.swing.JFrame {
     }// GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRemoveActionPerformed
-        if (tree.getElementCount() == 0) {
+        if (tree.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Cannot remove element as the tree is empty", "Tree is empty",
                     JOptionPane.WARNING_MESSAGE);
             return;
