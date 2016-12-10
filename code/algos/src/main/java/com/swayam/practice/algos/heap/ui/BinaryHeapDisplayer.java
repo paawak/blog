@@ -15,7 +15,13 @@
 
 package com.swayam.practice.algos.heap.ui;
 
+import javax.swing.UnsupportedLookAndFeelException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.swayam.practice.algos.heap.BinaryHeapBackedByFixedArray;
+import com.swayam.practice.algos.tree.Tree;
 import com.swayam.practice.algos.tree.ui.TreeDisplayer;
 
 /**
@@ -23,6 +29,8 @@ import com.swayam.practice.algos.tree.ui.TreeDisplayer;
  * @author paawak
  */
 public class BinaryHeapDisplayer {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BinaryHeapDisplayer.class);
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -39,25 +47,16 @@ public class BinaryHeapDisplayer {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TreeDisplayer.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TreeDisplayer.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TreeDisplayer.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TreeDisplayer.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException ex) {
+            LOGGER.error("Error setting lookNfeel", ex);
         }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                BinaryHeapBackedByFixedArray<Integer> tree = new BinaryHeapBackedByFixedArray<>(100);
+                Tree<Integer> tree = new BinaryHeapBackedByFixedArray<>(100);
 
                 // tree.add(552);
                 // tree.add(12);
