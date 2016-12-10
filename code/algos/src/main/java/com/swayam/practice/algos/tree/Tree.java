@@ -25,6 +25,11 @@ public interface Tree<E extends Comparable<E>> {
 
     void add(E element);
 
+    /**
+     * Removes the root element
+     * 
+     * @return root element
+     */
     E remove();
 
     TreeNode getElementsAsTreeNode();
