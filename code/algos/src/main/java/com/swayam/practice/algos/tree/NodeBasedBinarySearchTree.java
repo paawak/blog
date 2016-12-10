@@ -111,7 +111,8 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
     }
 
     private Node<E> mergeTrees(Node<E> node1, Node<E> node2) {
-        // TODO Auto-generated method stub
+        node1.removeParent();
+        node2.removeParent();
         return null;
     }
 

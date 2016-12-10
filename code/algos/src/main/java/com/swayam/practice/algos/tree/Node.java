@@ -24,30 +24,26 @@ import java.util.Optional;
 public class Node<E extends Comparable<E>> {
 
     private final E value;
-    private final Node<E> parentNode;
+    private Node<E> parentNode;
 
     private Node<E> leftChild;
 
     private Node<E> rightChild;
-
-    public Node(E value, Node<E> parentNode) {
-        if (value == null) {
-            throw new IllegalArgumentException("value cannot be null");
-        }
-
-        if (parentNode == null) {
-            throw new IllegalArgumentException("parentNode cannot be null");
-        }
-        this.value = value;
-        this.parentNode = parentNode;
-    }
 
     private Node(E value) {
         if (value == null) {
             throw new IllegalArgumentException("value cannot be null");
         }
         this.value = value;
-        parentNode = null;
+    }
+
+    public Node(E value, Node<E> parentNode) {
+        this(value);
+
+        if (parentNode == null) {
+            throw new IllegalArgumentException("parentNode cannot be null");
+        }
+        this.parentNode = parentNode;
     }
 
     public Optional<Node<E>> getLeftChild() {
@@ -86,6 +82,10 @@ public class Node<E extends Comparable<E>> {
 
     public void removeRightChild() {
         rightChild = null;
+    }
+
+    public void removeParent() {
+        parentNode = null;
     }
 
     public static <E extends Comparable<E>> Node<E> createRootNode(E element) {
