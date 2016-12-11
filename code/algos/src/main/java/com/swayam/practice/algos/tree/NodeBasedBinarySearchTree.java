@@ -120,17 +120,7 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
             } else {
                 Node<E> parentNode = nodeToBeRemoved.getParentNode().get();
 
-                int comparison = nodeToBeRemoved.getValue().compareTo(parentNode.getValue());
-
-                if (comparison == 0) {
-                    throw new IllegalStateException("The value " + parentNode.getValue() + " occurs more than once");
-                } else if (comparison < 0) {
-                    // left node is the node to be removed
-                    parentNode.removeLeftChild();
-                } else {
-                    // right node is the node to be removed
-                    parentNode.removeRightChild();
-                }
+                detachNodeFromParent(nodeToBeRemoved);
 
                 mergeNodes(parentNode, leftChild);
             }
@@ -175,16 +165,11 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
 
     }
 
-    private void removeLeaf(Node<E> nodeToBeRemoved) {
+    private void detachNodeFromParent(Node<E> nodeToBeDetached) {
 
-        if (nodeToBeRemoved == rootNode) {
-            rootNode = null;
-            return;
-        }
+        Node<E> parent = nodeToBeDetached.getParentNode().get();
 
-        Node<E> parent = nodeToBeRemoved.getParentNode().get();
-
-        int comparison = nodeToBeRemoved.getValue().compareTo(parent.getValue());
+        int comparison = nodeToBeDetached.getValue().compareTo(parent.getValue());
 
         if (comparison < 0) {
             parent.removeLeftChild();
@@ -194,6 +179,17 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
             // should never come here, as duplicates are not allowed
             throw new IllegalStateException("duplicates present in the tree!");
         }
+
+    }
+
+    private void removeLeaf(Node<E> nodeToBeRemoved) {
+
+        if (nodeToBeRemoved == rootNode) {
+            rootNode = null;
+            return;
+        }
+
+        detachNodeFromParent(nodeToBeRemoved);
 
     }
 
