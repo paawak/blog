@@ -94,8 +94,33 @@ public class Node<E extends Comparable<E>> {
 
     @Override
     public String toString() {
-        return "Node [value=" + value + ", parentNode=" + parentNode + ", leftChild=" + leftChild + ", rightChild="
-                + rightChild + "]";
+        StringBuilder sb = new StringBuilder(100);
+        sb.append("Node [value=").append(value).append(", parentNode=");
+        if (parentNode != null) {
+            sb.append(parentNode.getValue());
+        } else {
+            sb.append("NULL");
+        }
+
+        sb.append(", leftChild=");
+
+        if (leftChild != null) {
+            sb.append(leftChild.getValue());
+        } else {
+            sb.append("NULL");
+        }
+
+        sb.append(", rightChild=");
+
+        if (rightChild != null) {
+            sb.append(rightChild.getValue());
+        } else {
+            sb.append("NULL");
+        }
+
+        sb.append("]");
+
+        return sb.toString();
     }
 
 }
