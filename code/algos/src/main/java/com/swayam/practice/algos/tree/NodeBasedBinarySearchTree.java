@@ -73,52 +73,65 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
             return;
         }
 
-        Node<E> node = nodeOptional.get();
+        Node<E> nodeToBeRemoved = nodeOptional.get();
 
-        if ((!node.getLeftChild().isPresent()) && (!node.getRightChild().isPresent())) {
+        if ((!nodeToBeRemoved.getLeftChild().isPresent()) && (!nodeToBeRemoved.getRightChild().isPresent())) {
             // if this is a leaf
-            removeLeaf(node);
-        } else if ((node.getLeftChild().isPresent()) && (!node.getRightChild().isPresent())) {
+            removeLeaf(nodeToBeRemoved);
+        } else if ((nodeToBeRemoved.getLeftChild().isPresent()) && (!nodeToBeRemoved.getRightChild().isPresent())) {
             // if only left child present
 
-            if (node == rootNode) {
+            if (nodeToBeRemoved == rootNode) {
                 // left child becomes the new root
-                Node<E> newRoot = node.getLeftChild().get();
+                Node<E> newRoot = nodeToBeRemoved.getLeftChild().get();
                 newRoot.removeParent();
                 rootNode = newRoot;
                 return;
             }
 
-            mergeNodes(node.getParentNode().get(), node.getLeftChild().get());
+            mergeNodes(nodeToBeRemoved.getParentNode().get(), nodeToBeRemoved.getLeftChild().get());
 
-        } else if ((!node.getLeftChild().isPresent()) && (node.getRightChild().isPresent())) {
+        } else if ((!nodeToBeRemoved.getLeftChild().isPresent()) && (nodeToBeRemoved.getRightChild().isPresent())) {
             // if only right child present
 
-            if (node == rootNode) {
+            if (nodeToBeRemoved == rootNode) {
                 // right child becomes the new root
-                Node<E> newRoot = node.getRightChild().get();
+                Node<E> newRoot = nodeToBeRemoved.getRightChild().get();
                 newRoot.removeParent();
                 rootNode = newRoot;
                 return;
             }
 
-            mergeNodes(node.getParentNode().get(), node.getRightChild().get());
+            mergeNodes(nodeToBeRemoved.getParentNode().get(), nodeToBeRemoved.getRightChild().get());
 
         } else {
             // if both children present
 
-            Node<E> leftChild = node.getLeftChild().get();
-            Node<E> rightChild = node.getRightChild().get();
+            Node<E> leftChild = nodeToBeRemoved.getLeftChild().get();
+            Node<E> rightChild = nodeToBeRemoved.getRightChild().get();
 
             leftChild.removeParent();
             rightChild.removeParent();
 
             mergeNodes(leftChild, rightChild);
 
-            if (node == rootNode) {
+            if (nodeToBeRemoved == rootNode) {
                 rootNode = leftChild;
             } else {
-                Node<E> parentNode = node.getParentNode().get();
+                Node<E> parentNode = nodeToBeRemoved.getParentNode().get();
+
+                int comparison = nodeToBeRemoved.getValue().compareTo(parentNode.getValue());
+
+                if (comparison == 0) {
+                    throw new IllegalStateException("The value " + parentNode.getValue() + " occurs more than once");
+                } else if (comparison < 0) {
+                    // left node is the node to be removed
+                    parentNode.removeLeftChild();
+                } else {
+                    // right node is the node to be removed
+                    parentNode.removeRightChild();
+                }
+
                 mergeNodes(parentNode, leftChild);
             }
 
