@@ -151,8 +151,9 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
 
     @Override
     public List<E> getSortedElementsDesc() {
-
-        return null;
+        List<E> accumulator = new ArrayList<>();
+        descOrderTraversal(rootNode, accumulator);
+        return accumulator;
     }
 
     @Override
@@ -184,6 +185,27 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
         if (rightChildNode.isPresent()) {
             inOrderTraversal(rightChildNode.get(), accumulator);
         }
+    }
+
+    private void descOrderTraversal(Node<E> node, List<E> accumulator) {
+
+        // traverse the right child node
+        Optional<Node<E>> rightChildNode = node.getRightChild();
+
+        if (rightChildNode.isPresent()) {
+            descOrderTraversal(rightChildNode.get(), accumulator);
+        }
+
+        // traverse the current node
+        accumulator.add(node.getValue());
+
+        // traverse the left child node
+        Optional<Node<E>> leftChildNode = node.getLeftChild();
+
+        if (leftChildNode.isPresent()) {
+            descOrderTraversal(leftChildNode.get(), accumulator);
+        }
+
     }
 
     private void mergeNodes(Node<E> newParentNode, Node<E> childNode) {

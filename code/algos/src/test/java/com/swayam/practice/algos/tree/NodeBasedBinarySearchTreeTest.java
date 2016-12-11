@@ -52,4 +52,28 @@ public class NodeBasedBinarySearchTreeTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void testGetSortedElementsDesc() {
+        // given
+        List<Integer> expected = Arrays.asList(49, 43, 31, 19, 17, 11, 10, 8, 6, 5, 4);
+        NodeBasedBinarySearchTree<Integer> testClass = new NodeBasedBinarySearchTree<>();
+        testClass.add(6);
+        testClass.add(11);
+        testClass.add(8);
+        testClass.add(19);
+        testClass.add(4);
+        testClass.add(10);
+        testClass.add(5);
+        testClass.add(17);
+        testClass.add(43);
+        testClass.add(49);
+        testClass.add(31);
+
+        // when
+        List<Integer> result = testClass.getSortedElementsDesc();
+
+        // then
+        assertEquals(expected, result);
+    }
+
 }
