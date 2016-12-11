@@ -154,6 +154,8 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
 
     private void mergeNodes(Node<E> newParentNode, Node<E> childNode) {
 
+        childNode.setParentNode(newParentNode);
+
         int comparison = childNode.getValue().compareTo(newParentNode.getValue());
 
         if (comparison == 0) {
@@ -271,6 +273,11 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
     }
 
     private MutableTreeNode getAsTreeNode(Node<E> node) {
+
+        if (node == null) {
+            return new DefaultMutableTreeNode();
+        }
+
         // traverse the current node
         DefaultMutableTreeNode elementNode = new DefaultMutableTreeNode(node.getValue());
 

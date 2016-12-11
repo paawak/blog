@@ -72,6 +72,13 @@ public class Node<E extends Comparable<E>> {
         return value;
     }
 
+    public void setParentNode(Node<E> parentNode) {
+        if (parentNode == null) {
+            throw new IllegalArgumentException("parentNode cannot be null");
+        }
+        this.parentNode = parentNode;
+    }
+
     public Optional<Node<E>> getParentNode() {
         return Optional.ofNullable(parentNode);
     }
