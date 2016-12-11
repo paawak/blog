@@ -11,6 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.swayam.practice.algos.tree.BinarySearchTree;
 import com.swayam.practice.algos.tree.Tree;
 
@@ -21,6 +24,8 @@ import com.swayam.practice.algos.tree.Tree;
 public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericTreeDisplayerFrame.class);
 
     private final Tree<Integer> tree;
 
@@ -113,7 +118,11 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
             Optional<Integer> input = getUserInputForInteger("Enter the number to remove");
 
             if (input.isPresent()) {
-                ((BinarySearchTree<Integer>) tree).remove(input.get());
+                Integer inputInt = input.get();
+
+                LOGGER.info("Trying to remove element {}...", inputInt);
+
+                ((BinarySearchTree<Integer>) tree).remove(inputInt);
             }
 
         } else {
