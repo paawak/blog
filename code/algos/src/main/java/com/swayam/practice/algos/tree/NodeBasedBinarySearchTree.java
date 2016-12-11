@@ -15,6 +15,8 @@
 
 package com.swayam.practice.algos.tree;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -143,13 +145,45 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
     }
 
     @Override
+    public boolean isEmpty() {
+        return rootNode == null;
+    }
+
+    @Override
+    public List<E> getSortedElementsDesc() {
+
+        return null;
+    }
+
+    @Override
+    public List<E> getSortedElementsAsc() {
+        List<E> accumulator = new ArrayList<>();
+        inOrderTraversal(rootNode, accumulator);
+        return accumulator;
+    }
+
+    @Override
     public TreeNode getElementsAsTreeNode() {
         return getAsTreeNode(rootNode);
     }
 
-    @Override
-    public boolean isEmpty() {
-        return rootNode == null;
+    private void inOrderTraversal(Node<E> node, List<E> accumulator) {
+        // traverse the left child node
+        Optional<Node<E>> leftChildNode = node.getLeftChild();
+
+        if (leftChildNode.isPresent()) {
+            inOrderTraversal(leftChildNode.get(), accumulator);
+        }
+
+        // traverse the current node
+        accumulator.add(node.getValue());
+
+        // traverse the right child node
+        Optional<Node<E>> rightChildNode = node.getRightChild();
+
+        if (rightChildNode.isPresent()) {
+            inOrderTraversal(rightChildNode.get(), accumulator);
+        }
     }
 
     private void mergeNodes(Node<E> newParentNode, Node<E> childNode) {

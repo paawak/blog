@@ -15,6 +15,8 @@
 
 package com.swayam.practice.algos.tree;
 
+import java.util.List;
+
 /**
  * 
  * @author paawak
@@ -22,5 +24,9 @@ package com.swayam.practice.algos.tree;
 public interface BinarySearchTree<E extends Comparable<E>> extends Tree<E> {
 
     void remove(E element);
+
+    List<E> getSortedElementsDesc();
+
+    List<E> getSortedElementsAsc();
 
 }
