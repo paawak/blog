@@ -175,16 +175,16 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
 
     }
 
-    private void removeLeaf(Node<E> node) {
+    private void removeLeaf(Node<E> nodeToBeRemoved) {
 
-        if (node == rootNode) {
+        if (nodeToBeRemoved == rootNode) {
             rootNode = null;
             return;
         }
 
-        Node<E> parent = node.getParentNode().get();
+        Node<E> parent = nodeToBeRemoved.getParentNode().get();
 
-        int comparison = parent.getValue().compareTo(node.getValue());
+        int comparison = nodeToBeRemoved.getValue().compareTo(parent.getValue());
 
         if (comparison < 0) {
             parent.removeLeftChild();
