@@ -97,10 +97,13 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAddActionPerformed
 
-        Optional<Integer> input = getUserInputForInteger("Enter the number to add");
+        Optional<Integer> input = getUserInputForInteger("Enter the number to add", "Add");
 
         if (input.isPresent()) {
-            tree.add(input.get());
+            Integer inputInt = input.get();
+
+            LOGGER.info("Trying to add element {}...", inputInt);
+            tree.add(inputInt);
             jTree.setModel(new DefaultTreeModel(tree.getElementsAsTreeNode()));
         }
 
@@ -115,7 +118,7 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
 
         if (tree instanceof BinarySearchTree) {
 
-            Optional<Integer> input = getUserInputForInteger("Enter the number to remove");
+            Optional<Integer> input = getUserInputForInteger("Enter the number to remove", "Remove");
 
             if (input.isPresent()) {
                 Integer inputInt = input.get();
@@ -132,8 +135,8 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
         jTree.setModel(new DefaultTreeModel(tree.getElementsAsTreeNode()));
     }// GEN-LAST:event_btnRemoveActionPerformed
 
-    private Optional<Integer> getUserInputForInteger(String message) {
-        String input = JOptionPane.showInputDialog(this, message, "Input Dialog",
+    private Optional<Integer> getUserInputForInteger(String message, String title) {
+        String input = JOptionPane.showInputDialog(this, message, title,
                 JOptionPane.INFORMATION_MESSAGE);
 
         try {

@@ -66,6 +66,8 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
     @Override
     public void remove(E element) {
 
+        LOGGER.info("Trying to remove element {} from tree", element);
+
         Optional<Node<E>> nodeOptional = searchRecursive(element, rootNode);
 
         if (!nodeOptional.isPresent()) {
@@ -77,12 +79,15 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
 
         if ((!nodeToBeRemoved.getLeftChild().isPresent()) && (!nodeToBeRemoved.getRightChild().isPresent())) {
             // if this is a leaf
+            LOGGER.debug("the node {} is a leaf", nodeToBeRemoved);
             removeLeaf(nodeToBeRemoved);
         } else if ((nodeToBeRemoved.getLeftChild().isPresent()) && (!nodeToBeRemoved.getRightChild().isPresent())) {
             // if only left child present
+            LOGGER.debug("the node {} has only a single LEFT child", nodeToBeRemoved);
 
             if (nodeToBeRemoved == rootNode) {
                 // left child becomes the new root
+                LOGGER.debug("the node {} is actually the ROOT node", nodeToBeRemoved);
                 Node<E> newRoot = nodeToBeRemoved.getLeftChild().get();
                 newRoot.removeParent();
                 rootNode = newRoot;
@@ -95,9 +100,11 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
 
         } else if ((!nodeToBeRemoved.getLeftChild().isPresent()) && (nodeToBeRemoved.getRightChild().isPresent())) {
             // if only right child present
+            LOGGER.debug("the node {} has only a single RIGHT child", nodeToBeRemoved);
 
             if (nodeToBeRemoved == rootNode) {
                 // right child becomes the new root
+                LOGGER.debug("the node {} is actually the ROOT node", nodeToBeRemoved);
                 Node<E> newRoot = nodeToBeRemoved.getRightChild().get();
                 newRoot.removeParent();
                 rootNode = newRoot;
@@ -110,6 +117,7 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
 
         } else {
             // if both children present
+            LOGGER.debug("the node {} has both LEFT and RIGHT children", nodeToBeRemoved);
 
             Node<E> leftChild = nodeToBeRemoved.getLeftChild().get();
             Node<E> rightChild = nodeToBeRemoved.getRightChild().get();
@@ -120,6 +128,7 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
             mergeNodes(leftChild, rightChild);
 
             if (nodeToBeRemoved == rootNode) {
+                LOGGER.debug("the node {} is actually the ROOT node", nodeToBeRemoved);
                 rootNode = leftChild;
             } else {
                 Node<E> parentNode = nodeToBeRemoved.getParentNode().get();
@@ -189,6 +198,7 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
     private void removeLeaf(Node<E> nodeToBeRemoved) {
 
         if (nodeToBeRemoved == rootNode) {
+            LOGGER.debug("the node {} is actually the ROOT node", nodeToBeRemoved);
             rootNode = null;
             return;
         }
