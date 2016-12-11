@@ -89,6 +89,8 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
                 return;
             }
 
+            detachNodeFromParent(nodeToBeRemoved);
+
             mergeNodes(nodeToBeRemoved.getParentNode().get(), nodeToBeRemoved.getLeftChild().get());
 
         } else if ((!nodeToBeRemoved.getLeftChild().isPresent()) && (nodeToBeRemoved.getRightChild().isPresent())) {
@@ -101,6 +103,8 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
                 rootNode = newRoot;
                 return;
             }
+
+            detachNodeFromParent(nodeToBeRemoved);
 
             mergeNodes(nodeToBeRemoved.getParentNode().get(), nodeToBeRemoved.getRightChild().get());
 
