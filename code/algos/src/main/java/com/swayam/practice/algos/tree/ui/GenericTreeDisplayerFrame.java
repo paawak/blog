@@ -5,10 +5,13 @@
  */
 package com.swayam.practice.algos.tree.ui;
 
+import java.util.Optional;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 
+import com.swayam.practice.algos.tree.BinarySearchTree;
 import com.swayam.practice.algos.tree.Tree;
 
 /**
@@ -36,7 +39,8 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         pnlTitle = new javax.swing.JPanel();
@@ -65,6 +69,7 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
 
         btnAdd.setText("add node ...");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
@@ -73,6 +78,7 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
 
         btnRemove.setText("remove");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
             }
@@ -86,19 +92,11 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAddActionPerformed
 
-        String input = JOptionPane.showInputDialog(this, "Enter the number to add", "Input Dialog",
-                JOptionPane.INFORMATION_MESSAGE);
+        Optional<Integer> input = getUserInputForInteger("Enter the number to add");
 
-        Integer inputAsInt;
-
-        try {
-            inputAsInt = Integer.valueOf(input);
-            tree.add(inputAsInt);
-
+        if (input.isPresent()) {
+            tree.add(input.get());
             jTree.setModel(new DefaultTreeModel(tree.getElementsAsTreeNode()));
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Enter a valid number", "Invalid input", JOptionPane.ERROR_MESSAGE);
         }
 
     }// GEN-LAST:event_btnAddActionPerformed
@@ -109,9 +107,35 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
-        tree.remove();
+
+        if (tree instanceof BinarySearchTree) {
+
+            Optional<Integer> input = getUserInputForInteger("Enter the number to remove");
+
+            if (input.isPresent()) {
+                ((BinarySearchTree<Integer>) tree).remove(input.get());
+            }
+
+        } else {
+            tree.remove();
+        }
+
         jTree.setModel(new DefaultTreeModel(tree.getElementsAsTreeNode()));
     }// GEN-LAST:event_btnRemoveActionPerformed
+
+    private Optional<Integer> getUserInputForInteger(String message) {
+        String input = JOptionPane.showInputDialog(this, message, "Input Dialog",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        try {
+            Integer inputAsInt = Integer.valueOf(input);
+            return Optional.of(inputAsInt);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Enter a valid number", "Invalid input", JOptionPane.ERROR_MESSAGE);
+            return Optional.empty();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
