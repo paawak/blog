@@ -68,7 +68,7 @@ public class NodeBasedBinarySearchTreeDisplayer {
                 tree.add(43);
                 tree.add(49);
                 tree.add(31);
-                new TreeDisplayer(tree).setVisible(true);
+                new GenericTreeDisplayerFrame(tree).setVisible(true);
             }
         });
     }

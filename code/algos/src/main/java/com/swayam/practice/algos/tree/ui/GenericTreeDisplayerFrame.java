@@ -15,7 +15,7 @@ import com.swayam.practice.algos.tree.Tree;
  *
  * @author paawak
  */
-public class TreeDisplayer extends javax.swing.JFrame {
+public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class TreeDisplayer extends javax.swing.JFrame {
     /**
      * Creates new form TreeDisplayer
      */
-    public TreeDisplayer(Tree<Integer> tree) {
+    public GenericTreeDisplayerFrame(Tree<Integer> tree) {
         this.tree = tree;
         initComponents();
     }
@@ -36,7 +36,7 @@ public class TreeDisplayer extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         pnlTitle = new javax.swing.JPanel();
@@ -65,7 +65,6 @@ public class TreeDisplayer extends javax.swing.JFrame {
 
         btnAdd.setText("add node ...");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
@@ -74,7 +73,6 @@ public class TreeDisplayer extends javax.swing.JFrame {
 
         btnRemove.setText("remove");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
-            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
             }

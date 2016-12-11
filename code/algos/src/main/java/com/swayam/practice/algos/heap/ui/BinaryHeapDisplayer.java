@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import com.swayam.practice.algos.heap.BinaryHeapBackedByFixedArray;
 import com.swayam.practice.algos.tree.Tree;
-import com.swayam.practice.algos.tree.ui.TreeDisplayer;
+import com.swayam.practice.algos.tree.ui.GenericTreeDisplayerFrame;
 
 /**
  * 
@@ -87,7 +87,7 @@ public class BinaryHeapDisplayer {
                 tree.add(93);
                 tree.add(55);
                 tree.add(50);
-                new TreeDisplayer(tree).setVisible(true);
+                new GenericTreeDisplayerFrame(tree).setVisible(true);
             }
         });
     }
