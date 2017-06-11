@@ -38,7 +38,10 @@ public class DataListenerForStompHandlerImpl implements DataListener {
 					: getPlainText(jsonString);
 
 			session.sendMessage(messageToBeSent);
-		} catch (IOException e) {
+
+			Thread.sleep(1000);
+
+		} catch (IOException | InterruptedException e) {
 			throw new RuntimeException(e);
 		}
 
