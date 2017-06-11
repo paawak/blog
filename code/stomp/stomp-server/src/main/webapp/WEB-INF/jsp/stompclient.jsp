@@ -5,11 +5,11 @@
 	function connect() {
 		console.log("trying to connect to websocket...");
 		var webScocketClient = new WebSocket(
-				"ws://localhost:8080/stomp-server/hello-stomp");
+				"ws://localhost:8080/stomp-server/streaming-bank-details-plain");
 		webScocketClient.onopen = function(event) {
 			console.log("connection to websocket opened");
 			webScocketClient
-					.send("Here's some text that the server is urgently awaiting!");
+					.send("MARITAL_STATUS");
 		};
 		webScocketClient.onmessage = onMessage;
 	}
