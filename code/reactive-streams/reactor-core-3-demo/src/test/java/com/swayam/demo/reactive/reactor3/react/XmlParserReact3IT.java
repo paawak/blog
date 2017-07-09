@@ -31,28 +31,36 @@ public class XmlParserReact3IT {
 		Flux<LineItemRow> flux = xmlParser.parse(new GZIPInputStream(
 				XmlParserReact3IT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
 
-		Mono<Map<Integer, List<LineItemRow>>> groupedByData = flux.collect(Collectors.groupingBy((LineItemRow row) -> {
-			LOGGER.debug("grouping by: {}", row);
-			return row.getOrderKey();
-		}));
+		if (true) {
+			flux.subscribe((LineItemRow lineItemRow) -> {
+				LOGGER.info("RAW event: {}", lineItemRow);
+			});
+		} else {
 
-		groupedByData.subscribe((Map<Integer, List<LineItemRow>> next) -> {
-			next.entrySet().parallelStream().map((Entry<Integer, List<LineItemRow>> entry) -> {
-				int orderKey = entry.getKey();
-				DoubleStream doubleStream = entry.getValue().parallelStream().mapToDouble((LineItemRow row) -> {
-					return row.getExtendedPrice();
+			Mono<Map<Integer, List<LineItemRow>>> groupedByData = flux
+					.collect(Collectors.groupingBy((LineItemRow row) -> {
+						LOGGER.debug("grouping by: {}", row);
+						return row.getOrderKey();
+					}));
+
+			groupedByData.subscribe((Map<Integer, List<LineItemRow>> next) -> {
+				next.entrySet().parallelStream().map((Entry<Integer, List<LineItemRow>> entry) -> {
+					int orderKey = entry.getKey();
+					DoubleStream doubleStream = entry.getValue().parallelStream().mapToDouble((LineItemRow row) -> {
+						return row.getExtendedPrice();
+					});
+
+					LineItemRow aggregatedRow = new LineItemRow();
+					aggregatedRow.setOrderKey(orderKey);
+					aggregatedRow.setExtendedPrice((float) doubleStream.sum());
+
+					return aggregatedRow;
+				}).forEach((LineItemRow row) -> {
+					LOGGER.info("new aggregated event: {}", row);
 				});
 
-				LineItemRow aggregatedRow = new LineItemRow();
-				aggregatedRow.setOrderKey(orderKey);
-				aggregatedRow.setExtendedPrice((float) doubleStream.sum());
-
-				return aggregatedRow;
-			}).forEach((LineItemRow row) -> {
-				LOGGER.info("new aggregated event: {}", row);
 			});
-
-		});
+		}
 
 		countDownLatch.await();
 

@@ -25,6 +25,9 @@
 			<AppenderRef ref="CONSOLE" />
 			<AppenderRef ref="FILE" />
 		</Root>
+		
+		<Logger name="com.swayam.demo.reactive.reactor3.react.XmlParserReact3" level="info" />
+		<Logger name="com.swayam.demo.reactive.reactor3.react.XmlParserReact3IT" level="info" />
 
 	</Loggers>
 
