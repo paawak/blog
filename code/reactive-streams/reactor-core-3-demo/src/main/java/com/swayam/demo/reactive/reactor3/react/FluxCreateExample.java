@@ -16,26 +16,24 @@ public class FluxCreateExample {
 	public Flux<LineItemRow> parse(InputStream inputStream) {
 
 		Flux<LineItemRow> flux = Flux.create((FluxSink<LineItemRow> fluxSink) -> {
-			Runnable doParse = () -> {
-				try {
-					XmlParser xmlParser = new XmlParser();
-					xmlParser.parse(inputStream, LineItemRow.class, new XmlEventListener<LineItemRow>() {
+			try {
+				XmlParser xmlParser = new XmlParser();
+				xmlParser.parse(inputStream, LineItemRow.class, new XmlEventListener<LineItemRow>() {
 
-						@Override
-						public void element(LineItemRow element) {
-							fluxSink.next(element);
-						}
+					@Override
+					public void element(LineItemRow element) {
+						fluxSink.next(element);
+					}
 
-						@Override
-						public void completed() {
-							fluxSink.complete();
-						}
-					});
-				} catch (XMLStreamException xmlStreamException) {
-					fluxSink.error(xmlStreamException);
-				}
-			};
-			new Thread(doParse).start();
+					@Override
+					public void completed() {
+						fluxSink.complete();
+					}
+				});
+			} catch (XMLStreamException xmlStreamException) {
+				fluxSink.error(xmlStreamException);
+			}
+
 		});
 
 		return flux;
