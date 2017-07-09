@@ -1,4 +1,4 @@
-package com.swayam.demo.reactive.reactor3.react;
+package com.swayam.demo.reactive.reactor3.react.impl;
 
 import java.io.InputStream;
 import java.util.function.Supplier;
@@ -9,13 +9,15 @@ import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 
 import com.swayam.demo.reactive.reactor3.model.LineItemRow;
+import com.swayam.demo.reactive.reactor3.react.ReactiveXmlParser;
 import com.swayam.demo.reactive.reactor3.xml.XmlEventListener;
 import com.swayam.demo.reactive.reactor3.xml.XmlParser;
 
 import reactor.core.publisher.Flux;
 
-public class FluxDeferExample {
+public class FluxDeferExample implements ReactiveXmlParser {
 
+	@Override
 	public Flux<LineItemRow> parse(InputStream inputStream) {
 
 		Supplier<Publisher<LineItemRow>> supplier = () -> {
