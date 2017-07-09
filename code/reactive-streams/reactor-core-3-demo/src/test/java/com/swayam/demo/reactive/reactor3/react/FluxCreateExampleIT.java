@@ -27,40 +27,34 @@ public class FluxCreateExampleIT {
 
 		CountDownLatch countDownLatch = new CountDownLatch(1);
 
-		FluxCreateExample xmlParser = new FluxCreateExample(countDownLatch);
+		FluxCreateExample xmlParser = new FluxCreateExample();
 		Flux<LineItemRow> flux = xmlParser.parse(new GZIPInputStream(
 				FluxCreateExampleIT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
 
-		if (true) {
-			flux.subscribe((LineItemRow lineItemRow) -> {
-				LOGGER.info("RAW event: {}", lineItemRow);
-			});
-		} else {
+		Mono<Map<Integer, List<LineItemRow>>> groupedByData = flux.collect(Collectors.groupingBy((LineItemRow row) -> {
+			LOGGER.debug("grouping by: {}", row);
+			return row.getOrderKey();
+		}));
 
-			Mono<Map<Integer, List<LineItemRow>>> groupedByData = flux
-					.collect(Collectors.groupingBy((LineItemRow row) -> {
-						LOGGER.debug("grouping by: {}", row);
-						return row.getOrderKey();
-					}));
-
-			groupedByData.subscribe((Map<Integer, List<LineItemRow>> next) -> {
-				next.entrySet().parallelStream().map((Entry<Integer, List<LineItemRow>> entry) -> {
-					int orderKey = entry.getKey();
-					DoubleStream doubleStream = entry.getValue().parallelStream().mapToDouble((LineItemRow row) -> {
-						return row.getExtendedPrice();
-					});
-
-					LineItemRow aggregatedRow = new LineItemRow();
-					aggregatedRow.setOrderKey(orderKey);
-					aggregatedRow.setExtendedPrice((float) doubleStream.sum());
-
-					return aggregatedRow;
-				}).forEach((LineItemRow row) -> {
-					LOGGER.info("new aggregated event: {}", row);
+		groupedByData.subscribe((Map<Integer, List<LineItemRow>> next) -> {
+			next.entrySet().parallelStream().map((Entry<Integer, List<LineItemRow>> entry) -> {
+				int orderKey = entry.getKey();
+				DoubleStream doubleStream = entry.getValue().parallelStream().mapToDouble((LineItemRow row) -> {
+					return row.getExtendedPrice();
 				});
 
+				LineItemRow aggregatedRow = new LineItemRow();
+				aggregatedRow.setOrderKey(orderKey);
+				aggregatedRow.setExtendedPrice((float) doubleStream.sum());
+
+				return aggregatedRow;
+			}).forEach((LineItemRow row) -> {
+				LOGGER.info("new aggregated event: {}", row);
 			});
-		}
+
+		}, null, () -> {
+			countDownLatch.countDown();
+		});
 
 		countDownLatch.await();
 

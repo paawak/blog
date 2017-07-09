@@ -26,9 +26,8 @@
 			<AppenderRef ref="FILE" />
 		</Root>
 		
-		<Logger name="com.swayam.demo.reactive.reactor3.react.FluxCreateExample" level="info" />
+		<Logger name="com.swayam.demo.reactive.reactor3.xml.XmlParser" level="info" />
 		<Logger name="com.swayam.demo.reactive.reactor3.react.FluxCreateExampleIT" level="info" />
-		<Logger name="com.swayam.demo.reactive.reactor3.react.FluxDeferExample" level="info" />
 		<Logger name="com.swayam.demo.reactive.reactor3.react.FluxDeferExampleIT" level="info" />
 
 	</Loggers>
