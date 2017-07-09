@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
-import java.util.stream.Stream;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -16,7 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import com.swayam.demo.reactive.reactor3.model.LineItemRow;
 
-import reactor.core.publisher.UnicastProcessor;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.FluxSink;
 
 public class XmlParserReact3 {
 
@@ -28,32 +28,28 @@ public class XmlParserReact3 {
 
 	private final JaxbUnmarshaller jaxbUnmarshaller;
 
-	private final UnicastProcessor<LineItemRow> processor;
-
 	public XmlParserReact3(CountDownLatch countDownLatch) {
 		this.countDownLatch = countDownLatch;
 		jaxbUnmarshaller = new JaxbUnmarshaller();
-
-		processor = UnicastProcessor.create();
-
 	}
 
-	public Stream<LineItemRow> parse(InputStream inputStream) {
+	public Flux<LineItemRow> parse(InputStream inputStream) {
 
-		Runnable doParse = () -> {
-			try {
-				doParse(inputStream);
-			} catch (XMLStreamException xmlStreamException) {
-				processor.onError(xmlStreamException);
-			}
-		};
+		Flux<LineItemRow> flux = Flux.create((FluxSink<LineItemRow> fluxSink) -> {
+			Runnable doParse = () -> {
+				try {
+					doParse(inputStream, fluxSink);
+				} catch (XMLStreamException xmlStreamException) {
+					fluxSink.error(xmlStreamException);
+				}
+			};
+			new Thread(doParse).start();
+		});
 
-		new Thread(doParse).start();
-
-		return processor.toStream();
+		return flux;
 	}
 
-	private void doParse(InputStream inputStream) throws XMLStreamException {
+	private void doParse(InputStream inputStream, FluxSink<LineItemRow> fluxSink) throws XMLStreamException {
 		XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 		XMLStreamReader xmlStreamReader;
 		xmlStreamReader = xmlInputFactory.createXMLStreamReader(inputStream);
@@ -86,8 +82,8 @@ public class XmlParserReact3 {
 							new ByteArrayInputStream(buffer.toString().getBytes(StandardCharsets.UTF_8)),
 							LineItemRow.class);
 
-					LOGGER.trace("publishing: {}", newElement);
-					processor.onNext(newElement);
+					LOGGER.debug("publishing: {}", newElement);
+					fluxSink.next(newElement);
 
 					buffer.setLength(0);
 				}
@@ -95,7 +91,7 @@ public class XmlParserReact3 {
 				buffer.append(xmlStreamReader.getText().trim());
 			} else if (eventType == XMLStreamConstants.END_DOCUMENT) {
 				LOGGER.info("end of xml document");
-				processor.onComplete();
+				fluxSink.complete();
 				countDownLatch.countDown();
 			}
 		}

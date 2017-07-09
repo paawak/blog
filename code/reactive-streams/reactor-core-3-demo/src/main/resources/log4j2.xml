@@ -6,15 +6,15 @@
 		</Console>
 
 		<RollingRandomAccessFile name="FILE"
-			fileName="./logs/reactor.log" filePattern="./logs/reactor-%d{yyyy-MM-dd-HH}-%i.log.gz"
-			immediateFlush="false" append="true">
+			fileName="./logs/reactor.log" filePattern="./logs/reactor-%d{yyyy-MM-dd-HH}-%i.log"
+			immediateFlush="false" append="false">
 			<PatternLayout>
 				<pattern>%d{ISO8601} %p [%t] %c{1}.%M(%L) | %m%n</pattern>
 				<charset>utf-8</charset>
 			</PatternLayout>
 			<Policies>
 				<TimeBasedTriggeringPolicy />
-				<SizeBasedTriggeringPolicy size="10 MB" />
+				<SizeBasedTriggeringPolicy size="100 MB" />
 			</Policies>
 			<DefaultRolloverStrategy max="20" />
 		</RollingRandomAccessFile>
