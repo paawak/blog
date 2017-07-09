@@ -18,18 +18,18 @@ import com.swayam.demo.reactive.reactor3.model.LineItemRow;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public class XmlParserReact3IT {
+public class XmlParserWithFluxSinkIT {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(XmlParserReact3IT.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(XmlParserWithFluxSinkIT.class);
 
 	@Test
 	public void testParse() throws IOException, InterruptedException {
 
 		CountDownLatch countDownLatch = new CountDownLatch(1);
 
-		XmlParserReact3 xmlParser = new XmlParserReact3(countDownLatch);
+		XmlParserWithFluxSink xmlParser = new XmlParserWithFluxSink(countDownLatch);
 		Flux<LineItemRow> flux = xmlParser.parse(new GZIPInputStream(
-				XmlParserReact3IT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
+				XmlParserWithFluxSinkIT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
 
 		if (true) {
 			flux.subscribe((LineItemRow lineItemRow) -> {
