@@ -18,9 +18,9 @@ import com.swayam.demo.reactive.reactor3.model.LineItemRow;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
-public class XmlParserWithFluxSink {
+public class FluxCreateExample {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(XmlParserWithFluxSink.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(FluxCreateExample.class);
 
 	private static final String XML_ELEMENT_NAME = "T";
 
@@ -28,7 +28,7 @@ public class XmlParserWithFluxSink {
 
 	private final JaxbUnmarshaller jaxbUnmarshaller;
 
-	public XmlParserWithFluxSink(CountDownLatch countDownLatch) {
+	public FluxCreateExample(CountDownLatch countDownLatch) {
 		this.countDownLatch = countDownLatch;
 		jaxbUnmarshaller = new JaxbUnmarshaller();
 	}
