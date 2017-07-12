@@ -1,6 +1,9 @@
 package com.swayam.demo.reactive.reactor3.react;
 
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.zip.GZIPInputStream;
 
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,29 +28,45 @@ public class ReactiveXmlParserIT {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReactiveXmlParserIT.class);
 
+	private InputStream xmlInputStream;
+
+	@Before
+	public void init() throws IOException, InterruptedException {
+		xmlInputStream = new GZIPInputStream(
+				ReactiveXmlParserIT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz"));
+	}
+
 	@Test
-	public void testFluxCreate() throws IOException, InterruptedException {
+	public void testFluxCreate_simple() throws InterruptedException {
 		ReactiveXmlParser xmlParser = new FluxCreateExample();
 		testSimpleSubscriber(xmlParser);
+	}
+
+	@Test
+	public void testFluxCreate_groupBy() throws InterruptedException {
+		ReactiveXmlParser xmlParser = new FluxCreateExample();
 		testGroupBy(xmlParser);
 	}
 
-	@Ignore
 	@Test
-	public void testFluxDefer() throws IOException, InterruptedException {
+	public void testFluxDefer_simple() throws InterruptedException {
 		ReactiveXmlParser xmlParser = new FluxDeferExample();
 		testSimpleSubscriber(xmlParser);
+	}
+
+	@Test
+	public void testFluxDefer_groupBy() throws InterruptedException {
+		ReactiveXmlParser xmlParser = new FluxDeferExample();
 		testGroupBy(xmlParser);
 	}
 
-	private void testSimpleSubscriber(ReactiveXmlParser xmlParser) throws IOException, InterruptedException {
+	private void testSimpleSubscriber(ReactiveXmlParser xmlParser) throws InterruptedException {
 
 		LOGGER.info("TEST SIMPLE");
 
 		CountDownLatch countDownLatch = new CountDownLatch(1);
 
-		Flux<LineItemRow> flux = xmlParser.parse(new GZIPInputStream(
-				ReactiveXmlParserIT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
+		Flux<LineItemRow> flux = xmlParser.parse(xmlInputStream);
 
 		flux.subscribe((LineItemRow lineItemRow) -> {
 			LOGGER.debug("RAW event: {}", lineItemRow);
@@ -56,21 +75,26 @@ public class ReactiveXmlParserIT {
 			countDownLatch.countDown();
 		});
 
+		flux.doOnError((Throwable t) -> {
+			LOGGER.error("COMPLETED SIMPLE with error", t);
+			countDownLatch.countDown();
+			fail("COMPLETED SIMPLE with error");
+		});
+
 		countDownLatch.await();
 
 	}
 
-	private void testGroupBy(ReactiveXmlParser xmlParser) throws IOException, InterruptedException {
+	private void testGroupBy(ReactiveXmlParser xmlParser) throws InterruptedException {
 
 		LOGGER.info("TEST GROUP BY");
 
 		CountDownLatch countDownLatch = new CountDownLatch(1);
 
-		Flux<LineItemRow> flux = xmlParser.parse(new GZIPInputStream(
-				ReactiveXmlParserIT.class.getResourceAsStream("/datasets/xml/www.cs.washington.edu/lineitem.xml.gz")));
+		Flux<LineItemRow> flux = xmlParser.parse(xmlInputStream);
 
 		Mono<Map<Integer, List<LineItemRow>>> groupedByData = flux.collect(Collectors.groupingBy((LineItemRow row) -> {
-			LOGGER.debug("grouping by: {}", row);
+			LOGGER.info("grouping by: {}", row);
 			return row.getOrderKey();
 		}));
 
@@ -90,7 +114,11 @@ public class ReactiveXmlParserIT {
 				LOGGER.info("new aggregated event: {}", row);
 			});
 
-		}, null, () -> {
+		}, (Throwable t) -> {
+			countDownLatch.countDown();
+			LOGGER.error("COMPLETED GROUP BY with error", t);
+			fail("COMPLETED GROUP BY with error");
+		}, () -> {
 			LOGGER.info("COMPLETED GROUP BY");
 			countDownLatch.countDown();
 		});
