@@ -1,0 +1,19 @@
+Start Hadoop
+
+$HADOOP_HOME/bin/hdfs namenode -format
+
+$HADOOP_HOME/sbin/start-dfs.sh
+
+$HADOOP_HOME/sbin/start-yarn.sh
+
+Creating a directory
+
+hdfs dfs -mkdir /paawak
+
+
+hdfs dfs -put src/main/resources/Country.csv
+
+hadoop jar target/hadoop-demo-1.0-SNAPSHOT.jar com.swayam.demo.hadoop.MovieRatings /paawak/ratings.dat /paawak/out-ratings
+
+
+
