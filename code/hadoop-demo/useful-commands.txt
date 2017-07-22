@@ -6,6 +6,8 @@ $HADOOP_HOME/sbin/start-dfs.sh
 
 $HADOOP_HOME/sbin/start-yarn.sh
 
+http://localhost:50070/dfshealth.html#tab-overview
+
 Creating a directory
 
 hdfs dfs -mkdir /paawak
