@@ -1,29 +1,37 @@
 package com.swayam.demo.bigdata.spark;
 
+import java.util.stream.StreamSupport;
+
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
+import scala.Tuple2;
+
 public class HelloSparkApp {
 	public static void main(String[] args) {
-		// create Spark context with Spark configuration
 		try (JavaSparkContext sparkContext = new JavaSparkContext(
 				new SparkConf().setAppName(HelloSparkApp.class.getSimpleName()));) {
 
-			// read in text file and split each document into words
 			JavaRDD<String> logRdd = sparkContext
 					.textFile("hdfs://localhost:9000/user/paawak/sparkx/apache.access.log.PROJECT")
 					.map((String singleLogLine) -> {
-						// sample log line:
-						// in24.inetnebr.com - - [01/Aug/1995:00:00:01 -0400]
-						// "GET
-						// /shuttle/missions/sts-68/news/sts-68-mcc-05.txt
-						// HTTP/1.0" 200
-						// 1839
-						return singleLogLine.split("\\-")[0].trim();
-					}).distinct();
+						LogLineParser logLineParser = new LogLineParser();
+						return logLineParser.extractErrorCode(singleLogLine);
+					}).filter((String errorCode) -> {
+						return !errorCode.equals("200");
+					});
 
-			logRdd.saveAsTextFile(
+			JavaPairRDD<String, Long> errorCodePair = logRdd.groupBy((String errorCode) -> {
+				return errorCode;
+			}).mapToPair((Tuple2<String, Iterable<String>> input) -> {
+				Tuple2<String, Long> outputTuple = new Tuple2<>(input._1,
+						StreamSupport.stream(input._2.spliterator(), true).count());
+				return outputTuple;
+			});
+
+			errorCodePair.saveAsTextFile(
 					"hdfs://localhost:9000/user/paawak/sparkx/" + HelloSparkApp.class.getSimpleName() + ".out");
 
 		}
