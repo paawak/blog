@@ -23,7 +23,8 @@ public class HelloSparkApp {
 						return singleLogLine.split("\\-")[0].trim();
 					}).distinct();
 
-			System.out.println(logRdd.collect());
+			logRdd.saveAsTextFile(
+					"hdfs://localhost:9000/user/paawak/sparkx/" + HelloSparkApp.class.getSimpleName() + ".out");
 
 		}
 	}
