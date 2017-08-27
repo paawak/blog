@@ -52,5 +52,8 @@ spark-submit --class com.swayam.demo.bigdata.spark.HelloSparkApp \
 --name HelloSparkApp --conf "spark.app.id=HelloSparkApp" \
 target/spark-demo-1.0-SNAPSHOT.jar 
 
+spark-submit --class com.swayam.demo.bigdata.spark.HelloSparkApp /kaaj/source/blog/code/big-data/spark-demo/target/spark-demo-1.0-SNAPSHOT.jar 
+
+
 
 
