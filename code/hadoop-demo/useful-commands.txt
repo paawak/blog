@@ -6,7 +6,13 @@ $HADOOP_HOME/sbin/start-dfs.sh
 
 $HADOOP_HOME/sbin/start-yarn.sh
 
-http://localhost:50070/dfshealth.html#tab-overview
+$HADOOP_HOME/sbin/mr-jobhistory-daemon.sh --config $HADOOP_CONF_DIR start historyserver
+
+http://localhost:50070/
+http://localhost:8088/cluster
+
+Hadoop temp directory: /usr/local/hadoop/hadoop-2.8.0/hdfs-tmp
+
 
 Creating a directory
 
@@ -19,6 +25,27 @@ hadoop fs -rm -r /paawak/out*
 
 
 hadoop jar target/hadoop-demo-1.0-SNAPSHOT.jar com.swayam.demo.hadoop.MovieRatings /paawak/ratings.dat /paawak/out-ratings
+
+
+Init Hive
+schematool -dbType mysql -initSchema
+
+
+Starting Hive
+hive --service metastore 
+
+
+
+For importing data with Sqoop:
+sqoop import --connect jdbc:mysql://localhost:3306/datasets --username root -P --table bank_details -m 1 --target-dir /user/paawak/sqoop/bank_details
+
+sqoop import --connect jdbc:mysql://localhost:3306/datasets --username root -P --table bank_details -m 1 --hive-import --hive-table bank_details_staging
+
+
+Using Pig with Hcatalog:
+pig -useHCatalog
+
+
 
 
 
