@@ -5,10 +5,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 
 public class StraightestPath {
@@ -27,17 +25,47 @@ public class StraightestPath {
 
 		System.out.println("startPosition: " + startPosition + ", endPosition: " + endPosition);
 
-		Set<MatrixPosition> traversedPositions = new HashSet<>();
+		List<MatrixPosition> traversedPositions = new ArrayList<>();
 
-		straightestPath.traverse(startPosition, endPosition, inputData, traversedPositions);
+		List<Integer> changeCount = new ArrayList<>();
+
+		straightestPath.traverse(startPosition, endPosition, inputData, traversedPositions, changeCount);
+		int totalCount = 0;
+		for (int count : changeCount) {
+			totalCount += count;
+		}
+
+		System.out.println("Total Count: " + totalCount);
+		System.out.println("TraversedPositions: " + traversedPositions);
 
 	}
 
 	private void traverse(MatrixPosition startPosition, MatrixPosition endPosition, InputData inputData,
-			Set<MatrixPosition> traversedPositions) {
+			List<MatrixPosition> traversedPositions, List<Integer> changeCount) {
+
+		if (traversedPositions.isEmpty()) {
+			changeCount.add(1);
+		} else if (traversedPositions.size() > 1) {
+			MatrixPosition lastPosition = traversedPositions.get(traversedPositions.size() - 1);
+			MatrixPosition lastButOnePosition = traversedPositions.get(traversedPositions.size() - 2);
+
+			if (((lastButOnePosition.getRowIndex() == lastPosition.getRowIndex())
+					&& (startPosition.getRowIndex() != lastPosition.getRowIndex()))
+					|| ((lastButOnePosition.getColumnIndex() == lastPosition.getColumnIndex())
+							&& (startPosition.getColumnIndex() != lastPosition.getColumnIndex()))) {
+				changeCount.add(1);
+			}
+		}
+
 		List<PathDirection> pathPriority = getTraversalPriority(startPosition, endPosition);
 
-		List<GoPoint> goPoints = countPathChange(startPosition, inputData, pathPriority);
+		List<GoPoint> goPoints = new ArrayList<>();
+
+		boolean end = countPathChange(startPosition, inputData, pathPriority, goPoints);
+
+		if (end) {
+			System.out.println("THE END");
+		}
 
 		for (GoPoint goPoint : goPoints) {
 			goPoint.setStarted(true);
@@ -46,14 +74,12 @@ public class StraightestPath {
 				continue;
 			}
 			traversedPositions.add(currentPosition);
-			traverse(currentPosition, endPosition, inputData, traversedPositions);
+			traverse(currentPosition, endPosition, inputData, traversedPositions, changeCount);
 		}
 	}
 
-	private List<GoPoint> countPathChange(MatrixPosition position, InputData inputData,
-			List<PathDirection> pathPriority) {
-
-		List<GoPoint> goPoints = new ArrayList<>();
+	private boolean countPathChange(MatrixPosition position, InputData inputData, List<PathDirection> pathPriority,
+			List<GoPoint> goPoints) {
 
 		List<PathDirection> pathOrdered = new ArrayList<>();
 		pathOrdered.addAll(pathPriority);
@@ -70,12 +96,13 @@ public class StraightestPath {
 			if (nextPosition.isPresent()) {
 				boolean end = applyTraverseLogic(nextPosition.get(), inputData, goPoints);
 				if (end) {
-					return Collections.emptyList();
+					return true;
 				}
+
 			}
 		}
 
-		return Collections.unmodifiableList(goPoints);
+		return false;
 
 	}
 

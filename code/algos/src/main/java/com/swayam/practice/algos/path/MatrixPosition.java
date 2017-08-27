@@ -45,7 +45,7 @@ public class MatrixPosition {
 
 	@Override
 	public String toString() {
-		return "MatrixPosition [rowIndex=" + rowIndex + ", columnIndex=" + columnIndex + "]";
+		return "[r=" + rowIndex + ", c=" + columnIndex + "]";
 	}
 
 }
