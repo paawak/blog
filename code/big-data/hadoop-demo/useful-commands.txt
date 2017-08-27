@@ -47,5 +47,10 @@ pig -useHCatalog
 
 
 
+spark-submit --class com.swayam.demo.bigdata.spark.HelloSparkApp \
+--master local --deploy-mode client --executor-memory 1g \
+--name HelloSparkApp --conf "spark.app.id=HelloSparkApp" \
+target/spark-demo-1.0-SNAPSHOT.jar 
+
 
 
