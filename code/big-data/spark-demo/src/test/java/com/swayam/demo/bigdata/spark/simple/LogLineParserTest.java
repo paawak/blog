@@ -1,8 +1,10 @@
-package com.swayam.demo.bigdata.spark;
+package com.swayam.demo.bigdata.spark.simple;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import com.swayam.demo.bigdata.spark.simple.LogLineParser;
 
 public class LogLineParserTest {
 

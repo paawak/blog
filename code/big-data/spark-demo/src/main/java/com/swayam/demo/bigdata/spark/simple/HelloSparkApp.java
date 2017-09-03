@@ -1,4 +1,4 @@
-package com.swayam.demo.bigdata.spark;
+package com.swayam.demo.bigdata.spark.simple;
 
 import java.util.stream.StreamSupport;
 
