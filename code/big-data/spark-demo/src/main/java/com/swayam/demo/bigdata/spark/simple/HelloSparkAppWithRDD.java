@@ -9,10 +9,10 @@ import org.apache.spark.api.java.JavaSparkContext;
 
 import scala.Tuple2;
 
-public class HelloSparkApp {
+public class HelloSparkAppWithRDD {
 	public static void main(String[] args) {
 		try (JavaSparkContext sparkContext = new JavaSparkContext(
-				new SparkConf().setAppName(HelloSparkApp.class.getSimpleName()));) {
+				new SparkConf().setAppName(HelloSparkAppWithRDD.class.getSimpleName()));) {
 
 			JavaRDD<String> logRdd = sparkContext
 					.textFile("hdfs://localhost:9000/user/paawak/sparkx/apache.access.log.PROJECT")
@@ -31,8 +31,8 @@ public class HelloSparkApp {
 				return outputTuple;
 			});
 
-			errorCodePair.saveAsTextFile(
-					"hdfs://localhost:9000/user/paawak/sparkx/" + HelloSparkApp.class.getSimpleName() + ".out");
+			errorCodePair.saveAsTextFile("hdfs://localhost:9000/user/paawak/sparkx/out/"
+					+ HelloSparkAppWithRDD.class.getSimpleName() + ".out");
 
 		}
 	}
