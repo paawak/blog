@@ -1,7 +1,7 @@
 package com.swayam.demo.jpa.one2many.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,10 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "BOOK")
@@ -39,13 +40,9 @@ public class Book implements Serializable {
 	@JoinColumn(name = "main_chapter_id")
 	private Chapter mainChapter;
 
-	// @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
-	// CascadeType.MERGE })
-	// @JoinTable(name = "BOOK_GENRE", joinColumns = @JoinColumn(name =
-	// "book_id", referencedColumnName = "id"), inverseJoinColumns =
-	// @JoinColumn(name = "genre_id", referencedColumnName = "id"))
-	@Transient
-	private List<Genre> genres;
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "BOOK_GENRE", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
+	private Set<Genre> genres;
 
 	public Long getId() {
 		return id;
@@ -79,11 +76,11 @@ public class Book implements Serializable {
 		this.mainChapter = mainChapter;
 	}
 
-	public List<Genre> getGenres() {
+	public Set<Genre> getGenres() {
 		return genres;
 	}
 
-	public void setGenres(List<Genre> genres) {
+	public void setGenres(Set<Genre> genres) {
 		this.genres = genres;
 	}
 

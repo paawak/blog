@@ -1,7 +1,7 @@
 package com.swayam.demo.jpa.one2many.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -41,7 +41,7 @@ public class Chapter implements Serializable {
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "CHAPTER_HIERERCHY", joinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"))
-	private List<Chapter> subChapters;
+	private Set<Chapter> subChapters;
 
 	public Long getId() {
 		return id;
@@ -75,11 +75,11 @@ public class Chapter implements Serializable {
 		this.contents = contents;
 	}
 
-	public List<Chapter> getSubChapters() {
+	public Set<Chapter> getSubChapters() {
 		return subChapters;
 	}
 
-	public void setSubChapters(List<Chapter> subChapters) {
+	public void setSubChapters(Set<Chapter> subChapters) {
 		this.subChapters = subChapters;
 	}
 
