@@ -78,7 +78,7 @@ INSERT INTO CHAPTER (id,title,plot_summary,content_id) VALUES (25,'eeee 444',NUL
 INSERT INTO CHAPTER (id,title,plot_summary,content_id) VALUES (26,'fff 111',NULL,26);
 INSERT INTO CHAPTER (id,title,plot_summary,content_id) VALUES (27,'fffff 222',NULL,27);
 INSERT INTO CHAPTER (id,title,plot_summary,content_id) VALUES (28,'ffff 333',NULL,28);
-INSERT INTO CHAPTER (id,title,plot_summary,content_id) VALUES (29,'fffff',NULL,29);
+INSERT INTO CHAPTER (id,title,plot_summary,content_id) VALUES (29,'fffff 444',NULL,29);
 INSERT INTO CHAPTER (id,title,plot_summary,content_id) VALUES (30,'main CHAPTER for brazilian cat',NULL,30);
 
 
@@ -115,7 +115,7 @@ INSERT INTO CHAPTER_HIERERCHY (parent_id,child_id) VALUES (6,29);
 
 
 
-INSERT INTO BOOK (id,title,author_id,main_chapter_id) VALUES (1,'The Bazilian Cat',10,1);
+INSERT INTO BOOK (id,title,author_id,main_chapter_id) VALUES (1,'The Bazilian Cat',10,30);
 
 
 INSERT INTO BOOK_GENRE (book_id,genre_id) VALUES (1,2);
