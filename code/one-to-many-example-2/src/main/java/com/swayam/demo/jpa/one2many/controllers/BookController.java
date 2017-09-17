@@ -1,8 +1,7 @@
 package com.swayam.demo.jpa.one2many.controllers;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +19,8 @@ public class BookController {
 		this.bookService = bookService;
 	}
 
-	@RequestMapping(path = "/books/${bookId}", method = RequestMethod.GET)
-	public Book getBook(@PathParam("bookId") Long bookId) {
+	@RequestMapping(path = "/books/{bookId}", method = RequestMethod.GET)
+	public Book getBook(@PathVariable("bookId") Long bookId) {
 		return bookService.getBook(bookId);
 	}
 
