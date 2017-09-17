@@ -1,12 +1,16 @@
 package com.swayam.demo.jpa.one2many.config;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+
+import com.swayam.demo.jpa.one2many.model.Book;
 
 @Configuration
 public class DaoConfig {
@@ -39,8 +43,8 @@ public class DaoConfig {
 	}
 
 	@Bean
-	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-		return new JdbcTemplate(dataSource);
+	public JpaRepository<Book, Long> bookRepository(EntityManager entityManager) {
+		return new SimpleJpaRepository<>(Book.class, entityManager);
 	}
 
 }
