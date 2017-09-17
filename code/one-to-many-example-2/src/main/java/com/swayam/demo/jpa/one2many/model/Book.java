@@ -37,8 +37,8 @@ public class Book implements Serializable {
 	private Author author;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "BOOK_CHAPTER", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "chapter_id", referencedColumnName = "id"))
-	private List<Chapter> chapters;
+	@JoinColumn(name = "main_chapter_id")
+	private Chapter mainChapter;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "BOOK_GENRE", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
@@ -68,12 +68,12 @@ public class Book implements Serializable {
 		this.author = author;
 	}
 
-	public List<Chapter> getChapters() {
-		return chapters;
+	public Chapter getMainChapter() {
+		return mainChapter;
 	}
 
-	public void setChapters(List<Chapter> chapters) {
-		this.chapters = chapters;
+	public void setMainChapter(Chapter mainChapter) {
+		this.mainChapter = mainChapter;
 	}
 
 	public List<Genre> getGenres() {
@@ -89,7 +89,7 @@ public class Book implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((author == null) ? 0 : author.hashCode());
-		result = prime * result + ((chapters == null) ? 0 : chapters.hashCode());
+		result = prime * result + ((mainChapter == null) ? 0 : mainChapter.hashCode());
 		result = prime * result + ((genres == null) ? 0 : genres.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -110,10 +110,10 @@ public class Book implements Serializable {
 				return false;
 		} else if (!author.equals(other.author))
 			return false;
-		if (chapters == null) {
-			if (other.chapters != null)
+		if (mainChapter == null) {
+			if (other.mainChapter != null)
 				return false;
-		} else if (!chapters.equals(other.chapters))
+		} else if (!mainChapter.equals(other.mainChapter))
 			return false;
 		if (genres == null) {
 			if (other.genres != null)
@@ -135,8 +135,8 @@ public class Book implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", chapters=" + chapters + ", genres="
-				+ genres + "]";
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", mainChapter=" + mainChapter
+				+ ", genres=" + genres + "]";
 	}
 
 }
