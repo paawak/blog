@@ -2,13 +2,33 @@ package com.swayam.demo.jpa.one2many.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "SECTION")
 public class Section implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sectionIdGenerator")
+	@SequenceGenerator(name = "sectionIdGenerator", sequenceName = "SEQ_SECTION_ID")
+	@Column(name = "id")
 	private Long id;
-	private String text;
+
+	@Column(name = "section_text")
+	private String sectionText;
+
+	@Column(name = "style")
 	private String style;
+
+	@Column(name = "section_length")
 	private int length;
 
 	public Long getId() {
@@ -19,12 +39,12 @@ public class Section implements Serializable {
 		this.id = id;
 	}
 
-	public String getText() {
-		return text;
+	public String getSectionText() {
+		return sectionText;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public void setSectionText(String sectionText) {
+		this.sectionText = sectionText;
 	}
 
 	public String getStyle() {
@@ -50,7 +70,7 @@ public class Section implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + length;
 		result = prime * result + ((style == null) ? 0 : style.hashCode());
-		result = prime * result + ((text == null) ? 0 : text.hashCode());
+		result = prime * result + ((sectionText == null) ? 0 : sectionText.hashCode());
 		return result;
 	}
 
@@ -75,17 +95,17 @@ public class Section implements Serializable {
 				return false;
 		} else if (!style.equals(other.style))
 			return false;
-		if (text == null) {
-			if (other.text != null)
+		if (sectionText == null) {
+			if (other.sectionText != null)
 				return false;
-		} else if (!text.equals(other.text))
+		} else if (!sectionText.equals(other.sectionText))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Section [id=" + id + ", text=" + text + ", style=" + style + ", length=" + length + "]";
+		return "Section [id=" + id + ", text=" + sectionText + ", style=" + style + ", length=" + length + "]";
 	}
 
 }

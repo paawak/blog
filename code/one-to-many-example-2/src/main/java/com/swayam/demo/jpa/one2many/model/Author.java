@@ -2,13 +2,30 @@ package com.swayam.demo.jpa.one2many.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "AUTHOR")
 public class Author implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authorIdGenerator")
+	@SequenceGenerator(name = "authorIdGenerator", sequenceName = "SEQ_AUTHOR_ID")
+	@Column(name = "id")
 	private Long id;
+
+	@Column(name = "first_name")
 	private String firstName;
-	private String middleName;
+
+	@Column(name = "last_name")
 	private String lastName;
 
 	public Long getId() {
@@ -27,14 +44,6 @@ public class Author implements Serializable {
 		this.firstName = firstName;
 	}
 
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
 	public String getLastName() {
 		return lastName;
 	}
@@ -50,7 +59,6 @@ public class Author implements Serializable {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((middleName == null) ? 0 : middleName.hashCode());
 		return result;
 	}
 
@@ -78,18 +86,13 @@ public class Author implements Serializable {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
-		if (middleName == null) {
-			if (other.middleName != null)
-				return false;
-		} else if (!middleName.equals(other.middleName))
-			return false;
+
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Author [id=" + id + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
-				+ "]";
+		return "Author [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 
 }

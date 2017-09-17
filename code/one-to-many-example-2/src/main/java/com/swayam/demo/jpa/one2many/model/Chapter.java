@@ -3,14 +3,44 @@ package com.swayam.demo.jpa.one2many.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "CHAPTER")
 public class Chapter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chapterIdGenerator")
+	@SequenceGenerator(name = "chapterIdGenerator", sequenceName = "SEQ_CHAPTER_ID")
+	@Column(name = "id")
 	private Long id;
+
+	@Column(name = "title")
 	private String title;
+
+	@Column(name = "plot_summary")
 	private String plotSummary;
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "content_id")
 	private Section contents;
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "CHAPTER_HIERERCHY", joinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"))
 	private List<Chapter> subChapters;
 
 	public Long getId() {

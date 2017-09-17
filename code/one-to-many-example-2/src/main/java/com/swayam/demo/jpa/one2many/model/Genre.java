@@ -2,12 +2,30 @@ package com.swayam.demo.jpa.one2many.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "GENRE")
 public class Genre implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "genreIdGenerator")
+	@SequenceGenerator(name = "genreIdGenerator", sequenceName = "SEQ_GENRE_ID")
+	@Column(name = "id")
 	private Long id;
+
+	@Column(name = "short_name")
 	private String shortName;
+
+	@Column(name = "name")
 	private String name;
 
 	public Long getId() {
