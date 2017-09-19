@@ -32,7 +32,7 @@ public class Book implements Serializable {
 	@Column(name = "title")
 	private String title;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "author_id")
 	private Author author;
 
@@ -40,7 +40,7 @@ public class Book implements Serializable {
 	@JoinColumn(name = "main_chapter_id")
 	private Chapter mainChapter;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "BOOK_GENRE", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
 	private Set<Genre> genres;
 

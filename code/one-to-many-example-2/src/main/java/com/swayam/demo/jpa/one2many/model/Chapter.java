@@ -35,7 +35,7 @@ public class Chapter implements Serializable {
 	@Column(name = "plot_summary")
 	private String plotSummary;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "content_id")
 	private Section contents;
 
