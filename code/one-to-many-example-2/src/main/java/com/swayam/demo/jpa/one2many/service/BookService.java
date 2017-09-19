@@ -6,4 +6,6 @@ public interface BookService {
 
 	Book getBook(Long bookId);
 
+	Book saveOrUpdate(Book book);
+
 }

@@ -21,4 +21,9 @@ public class BookServiceImpl implements BookService {
 		return bookRepo.findOne(bookId);
 	}
 
+	@Override
+	public Book saveOrUpdate(Book book) {
+		return bookRepo.save(book);
+	}
+
 }
