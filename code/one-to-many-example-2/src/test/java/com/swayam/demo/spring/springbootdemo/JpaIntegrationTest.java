@@ -45,7 +45,7 @@ public class JpaIntegrationTest {
 		try (Connection con = DriverManager.getConnection(url, user, password)) {
 			Statement stat = con.createStatement();
 			stat.executeQuery(getLines("/sql/schema_hsql.sql"));
-			stat.executeQuery(getLines("/sql/data.sql"));
+			stat.executeQuery(getLines("/sql/data_hsql.sql"));
 			stat.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
