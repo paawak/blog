@@ -3,18 +3,16 @@ package com.swayam.demo.jpa.one2many.dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import com.swayam.demo.jpa.one2many.model.Book;
 
-@Repository
-public class BookJpaBasedDao implements BookDao {
+public class JpaBasedBookDao implements BookDao {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BookJpaBasedDao.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JpaBasedBookDao.class);
 
 	private final JpaRepository<Book, Long> bookRepo;
 
-	public BookJpaBasedDao(JpaRepository<Book, Long> bookRepo) {
+	public JpaBasedBookDao(JpaRepository<Book, Long> bookRepo) {
 		this.bookRepo = bookRepo;
 	}
 

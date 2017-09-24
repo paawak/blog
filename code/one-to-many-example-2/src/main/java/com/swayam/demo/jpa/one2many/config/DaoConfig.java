@@ -6,10 +6,13 @@ import javax.sql.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
+import com.swayam.demo.jpa.one2many.dao.BookDao;
+import com.swayam.demo.jpa.one2many.dao.JpaBasedBookDao;
 import com.swayam.demo.jpa.one2many.model.Book;
 
 @Configuration
@@ -42,9 +45,11 @@ public class DaoConfig {
 		return new org.apache.tomcat.jdbc.pool.DataSource(poolProperties);
 	}
 
+	@Primary
 	@Bean
-	public JpaRepository<Book, Long> bookRepository(EntityManager entityManager) {
-		return new SimpleJpaRepository<>(Book.class, entityManager);
+	public BookDao jpaBasedBookDao(EntityManager entityManager) {
+		JpaRepository<Book, Long> bookRepository = new SimpleJpaRepository<>(Book.class, entityManager);
+		return new JpaBasedBookDao(bookRepository);
 	}
 
 }
