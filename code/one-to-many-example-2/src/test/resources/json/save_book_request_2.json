@@ -1,0 +1,30 @@
+{
+  "title": "The Bazilian Cat",
+  "author": {
+    "id": 10
+  },
+  "mainChapter": {
+    "title": "main CHAPTER for brazilian cat",
+    "plotSummary": null,
+    "contents": {
+      "id": 30
+    },
+    "subChapters": [
+      {
+        "title": "aaaaa",
+        "plotSummary": null,
+        "contents": {
+          "id": 1
+        }
+      }
+    ]
+  },
+  "genres": [
+    {
+      "id": 3
+    },
+    {
+      "id": 2
+    }
+  ]
+}

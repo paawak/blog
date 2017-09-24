@@ -17,7 +17,7 @@ public class Author implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authorIdGenerator")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "authorIdGenerator")
 	@SequenceGenerator(name = "authorIdGenerator", sequenceName = "SEQ_AUTHOR_ID")
 	@Column(name = "id")
 	private Long id;

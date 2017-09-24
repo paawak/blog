@@ -17,7 +17,7 @@ public class Genre implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "genreIdGenerator")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "genreIdGenerator")
 	@SequenceGenerator(name = "genreIdGenerator", sequenceName = "SEQ_GENRE_ID")
 	@Column(name = "id")
 	private Long id;
