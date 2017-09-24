@@ -4,8 +4,8 @@ import com.swayam.demo.jpa.one2many.model.Book;
 
 public interface BookDao {
 
-	Book findOne(Long bookId);
+	Book getBook(Long bookId);
 
-	Book save(Book book);
+	Long saveNewBook(Book book);
 
 }

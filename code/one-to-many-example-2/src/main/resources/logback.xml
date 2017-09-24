@@ -9,13 +9,14 @@
 		</layout>
 	</appender>
 
-	<!--
-	<logger name="org.hibernate.type" level="debug" additivity="false">
+	<logger name="org.springframework" level="info" additivity="true">
 		<appender-ref ref="STDOUT" />
 	</logger>
-	-->
+	<logger name="org.hibernate" level="info" additivity="true">
+		<appender-ref ref="STDOUT" />
+	</logger>
 
-	<root level="info">
+	<root level="debug">
 		<appender-ref ref="STDOUT" />
 	</root>
 

@@ -18,12 +18,13 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public Book getBook(Long bookId) {
-		return bookRepo.findOne(bookId);
+		return bookRepo.getBook(bookId);
 	}
 
 	@Override
 	public Book saveOrUpdate(Book book) {
-		return bookRepo.save(book);
+		Long id = bookRepo.saveNewBook(book);
+		return bookRepo.getBook(id);
 	}
 
 }
