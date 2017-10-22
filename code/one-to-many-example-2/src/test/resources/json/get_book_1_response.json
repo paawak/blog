@@ -1,0 +1,388 @@
+{
+  "id": 1,
+  "title": "The Bazilian Cat",
+  "author": {
+    "id": 10,
+    "firstName": "Arthur Conan",
+    "lastName": "Doyle"
+  },
+  "mainChapter": {
+    "id": 30,
+    "title": "main CHAPTER for brazilian cat",
+    "plotSummary": null,
+    "contents": {
+      "id": 30,
+      "sectionText": "The monstrous cat walked over to one side of the room and coiled itself up under a grating. Everard King came out, and taking the iron handle which I have mentioned, he began to turn it. As he did so the line of bars in the corridor began to pass through a slot in the wall and closed up the front of this grating, so as to make an effective cage. When it was in position he opened the door once more and invited me into the room, which was heavy with the pungent, musty smell peculiar to the great carnivora. ",
+      "style": null,
+      "length": 345
+    },
+    "subChapters": [
+      {
+        "id": 1,
+        "title": "aaaaa",
+        "plotSummary": null,
+        "contents": {
+          "id": 1,
+          "sectionText": "It is hard luck on a young fellow to have expensive tastes, great expectations, aristocratic connections, but no actual money in his pocket, and no profession by which he may earn any. The fact was that my father, a good, sanguine, easy-going man, had such confidence in the wealth and benevolence of his bachelor elder brother, Lord Southerton, that he took it for granted that I, his only son, would never be called upon to earn a living for myself. He imagined that if there were not a vacancy for me on the great Southerton Estates, at least there would be found some post in that diplomatic service which still remains the special preserve of our privileged classes. He died too early to realize how false his calculations had been. Neither my uncle nor the State took the slightest notice of me, or showed any interest in my career. An occasional brace of pheasants, or basket of hares, was all that ever reached me to remind me that I was heir to Otwell House and one of the richest estates in the country. In the meantime, I found myself a bachelor and man about town, living in a suite of apartments in Grosvenor Mansions, with no occupation save that of pigeon-shooting and polo-playing at Hurlingham. Month by month I realized that it was more and more difficult to get the brokers to renew my bills, or to cash any further post-obits upon an unentailed property. Ruin lay right across my path, and every day I saw it clearer, nearer, and more absolutely unavoidable. ",
+          "style": null,
+          "length": 263
+        },
+        "subChapters": [
+          {
+            "id": 7,
+            "title": "aaa 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 2,
+              "sectionText": "\"Then light this cigar and come round with me and see my little menagerie.\" ",
+              "style": null,
+              "length": 56
+            },
+            "subChapters": []
+          },
+          {
+            "id": 8,
+            "title": "aaa 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 3,
+              "sectionText": "The whole afternoon was occupied by this inspection, which included all the birds, beasts, and even reptiles which he had imported. Some were free, some in cages, a few actually in the house. He spoke with enthusiasm of his successes and his failures, his births and his deaths, and he would cry out in his delight, like a schoolboy, when, as we walked, some gaudy bird would flutter up from the grass, or some curious beast slink into the cover. Finally he led me down a corridor which extended from one wing of the house. At the end of this there was a heavy door with a sliding shutter in it, and beside it there projected from the wall an iron handle attached to a wheel and a drum. A line of stout bars extended across the passage. ",
+              "style": null,
+              "length": 67
+            },
+            "subChapters": []
+          },
+          {
+            "id": 9,
+            "title": "aaa 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 4,
+              "sectionText": "\"I am about to show you the jewel of my collection,\" said he. \"There is only one other specimen in Europe, now that the Rotterdam cub is dead. It is a Brazilian cat.\" ",
+              "style": null,
+              "length": 23
+            },
+            "subChapters": []
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "cccc",
+        "plotSummary": null,
+        "contents": {
+          "id": 10,
+          "sectionText": "Nothing could be more hearty than his manner, and he set me at my ease in an instant. But it needed all his cordiality to atone for the frigidity and even rudeness of his wife, a tall, haggard woman, who came forward at his summons. She was, I believe, of Brazilian extraction, though she spoke excellent English, and I excused her manners on the score of her ignorance of our customs. She did not attempt to conceal, however, either then or afterwards, that I was no very welcome visitor at Greylands Court. Her actual words were, as a rule, courteous, but she was the possessor of a pair of particularly expressive dark eyes, and I read in them very clearly from the first that she heartily wished me back in London once more.",
+          "style": null,
+          "length": 56
+        },
+        "subChapters": [
+          {
+            "id": 17,
+            "title": "ccc 444",
+            "plotSummary": null,
+            "contents": {
+              "id": 14,
+              "sectionText": "\"But I was not thinking of going today,\" I answered, frankly—perhaps even defiantly, for I was determined not to be driven out by this woman. ",
+              "style": null,
+              "length": 67
+            },
+            "subChapters": []
+          },
+          {
+            "id": 15,
+            "title": "ccc 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 12,
+              "sectionText": "But, in spite of his cheery good nature, he was a man with a strong will and a fiery temper of his own. Of this I had an example upon the following morning. The curious aversion which Mrs. Everard King had conceived towards me was so strong, that her manner at breakfast was almost offensive. But her meaning became unmistakable when her husband had quitted the room. ",
+              "style": null,
+              "length": 789
+            },
+            "subChapters": []
+          },
+          {
+            "id": 16,
+            "title": "ccc 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 13,
+              "sectionText": "\"The best train in the day is at twelve-fifteen,\" said she. ",
+              "style": null,
+              "length": 56
+            },
+            "subChapters": []
+          },
+          {
+            "id": 14,
+            "title": "ccc 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 11,
+              "sectionText": "However, my debts were too pressing and my designs upon my wealthy relative were too vital for me to allow them to be upset by the ill-temper of his wife, so I disregarded her coldness and reciprocated the extreme cordiality of his welcome. No pains had been spared by him to make me comfortable. My room was a charming one. He implored me to tell him anything which could add to my happiness. It was on the tip of my tongue to inform him that a blank cheque would materially help towards that end, but I felt that it might be premature in the present state of our acquaintance. The dinner was excellent, and as we sat together afterwards over his Havanas and coffee, which later he told me was specially prepared upon his own plantation, it seemed to me that all my driver's eulogies were justified, and that I had never met a more large-hearted and hospitable man. ",
+              "style": null,
+              "length": 678
+            },
+            "subChapters": []
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "eeee",
+        "plotSummary": null,
+        "contents": {
+          "id": 20,
+          "sectionText": "\"My husband has asked me to apologize to you, Mr. Marshall King,\" said she, standing with downcast eyes before me. ",
+          "style": null,
+          "length": 67
+        },
+        "subChapters": [
+          {
+            "id": 22,
+            "title": "eeee 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 21,
+              "sectionText": "\"Please do not say another word, Mrs. King.\" ",
+              "style": null,
+              "length": 67
+            },
+            "subChapters": []
+          },
+          {
+            "id": 23,
+            "title": "eee 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 22,
+              "sectionText": "Her dark eyes suddenly blazed out at me. ",
+              "style": null,
+              "length": 78
+            },
+            "subChapters": []
+          },
+          {
+            "id": 24,
+            "title": "eeee 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 23,
+              "sectionText": "\"You fool!\" she hissed, with frantic vehemence, and turning on her heel swept back to the house. ",
+              "style": null,
+              "length": 98
+            },
+            "subChapters": []
+          },
+          {
+            "id": 25,
+            "title": "eeee 444",
+            "plotSummary": null,
+            "contents": {
+              "id": 24,
+              "sectionText": "The insult was so outrageous, so insufferable, that I could only stand staring after her in bewilderment. I was still there when my host joined me. He was his cheery, chubby self once more. ",
+              "style": null,
+              "length": 45
+            },
+            "subChapters": []
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "ffff",
+        "plotSummary": null,
+        "contents": {
+          "id": 25,
+          "sectionText": "\"I hope that my wife has apologized for her foolish remarks,\" said he. ",
+          "style": null,
+          "length": 44
+        },
+        "subChapters": [
+          {
+            "id": 26,
+            "title": "fff 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 26,
+              "sectionText": "\"Oh, yes—yes, certainly!\" ",
+              "style": null,
+              "length": 56
+            },
+            "subChapters": []
+          },
+          {
+            "id": 29,
+            "title": "fffff 444",
+            "plotSummary": null,
+            "contents": {
+              "id": 29,
+              "sectionText": "\"No, no; certainly not.\" ",
+              "style": null,
+              "length": 45
+            },
+            "subChapters": []
+          },
+          {
+            "id": 27,
+            "title": "fffff 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 27,
+              "sectionText": "He put his hand through my arm and walked with me up and down the lawn. ",
+              "style": null,
+              "length": 78
+            },
+            "subChapters": []
+          },
+          {
+            "id": 28,
+            "title": "ffff 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 28,
+              "sectionText": "\"You must not take it seriously,\" said he. \"It would grieve me inexpressibly if you curtailed your visit by one hour. The fact is—there is no reason why there should be any concealment between relatives—that my poor dear wife is incredibly jealous. She hates that anyone—male or female—should for an instant come between us. Her ideal is a desert island and an eternal tete-a-tete. That gives you the clue to her actions, which are, I confess, upon this particular point, not very far removed from mania. Tell me that you will think no more of it.\" ",
+              "style": null,
+              "length": 123
+            },
+            "subChapters": []
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "dddd",
+        "plotSummary": null,
+        "contents": {
+          "id": 15,
+          "sectionText": "\"Oh, if it rests with you—\" said she, and stopped with a most insolent expression in her eyes. ",
+          "style": null,
+          "length": 68
+        },
+        "subChapters": [
+          {
+            "id": 21,
+            "title": "ddd 444",
+            "plotSummary": null,
+            "contents": {
+              "id": 19,
+              "sectionText": "He closed the door behind me, and then, for an instant, I heard him talking in a low voice of concentrated passion to his wife. This gross breach of hospitality had evidently hit upon his tenderest point. I am no eavesdropper, so I walked out on to the lawn. Presently I heard a hurried step behind me, and there was the lady, her face pale with excitement, and her eyes red with tears. ",
+              "style": null,
+              "length": 56
+            },
+            "subChapters": []
+          },
+          {
+            "id": 19,
+            "title": "ddd 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 17,
+              "sectionText": "\"What's this? What's this?\" said a voice, and there he was in the room. He had overheard my last words, and a glance at our faces had told him the rest. In an instant his chubby, cheery face set into an expression of absolute ferocity. ",
+              "style": null,
+              "length": 1223
+            },
+            "subChapters": []
+          },
+          {
+            "id": 20,
+            "title": "ddd 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 18,
+              "sectionText": "\"Might I trouble you to walk outside, Marshall?\" said he. (I may mention that my own name is Marshall King.) ",
+              "style": null,
+              "length": 456
+            },
+            "subChapters": []
+          },
+          {
+            "id": 18,
+            "title": "ddd 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 16,
+              "sectionText": "\"I am sure,\" I answered, \"that Mr. Everard King would tell me if I were outstaying my welcome.\" ",
+              "style": null,
+              "length": 23
+            },
+            "subChapters": []
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "bbbbb",
+        "plotSummary": null,
+        "contents": {
+          "id": 5,
+          "sectionText": "What made me feel my own poverty the more was that, apart from the great wealth of Lord Southerton, all my other relations were fairly well-to-do. The nearest of these was Everard King, my father's nephew and my own first cousin, who had spent an adventurous life in Brazil, and had now returned to this country to settle down on his fortune. We never knew how he made his money, but he appeared to have plenty of it, for he bought the estate of Greylands, near Clipton-on-the-Marsh, in Suffolk. For the first year of his residence in England he took no more notice of me than my miserly uncle; but at last one summer morning, to my very great relief and joy, I received a letter asking me to come down that very day and spend a short visit at Greylands Court. I was expecting a rather long visit to Bankruptcy Court at the time, and this interruption seemed almost providential. If I could only get on terms with this unknown relative of mine, I might pull through yet. For the family credit he could not let me go entirely to the wall. I ordered my valet to pack my valise, and I set off the same evening for Clipton-on-the-Marsh. ",
+          "style": null,
+          "length": 210
+        },
+        "subChapters": [
+          {
+            "id": 13,
+            "title": "bbb 444",
+            "plotSummary": null,
+            "contents": {
+              "id": 9,
+              "sectionText": "\"My dear!\" he cried, glancing over his shoulder; \"my dear, here is our guest! Welcome, welcome to Greylands! I am delighted to make your acquaintance, Cousin Marshall, and I take it as a great compliment that you should honour this sleepy little country place with your presence.\" ",
+              "style": null,
+              "length": 223
+            },
+            "subChapters": []
+          },
+          {
+            "id": 11,
+            "title": "bbb 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 7,
+              "sectionText": "My attention was drawn away from my driver's panegyric by the appearance of a very beautiful bird which settled on a telegraph-post beside the road. At first I thought that it was a jay, but it was larger, with a brighter plumage. The driver accounted for its presence at once by saying that it belonged to the very man whom we were about to visit. It seems that the acclimatization of foreign creatures was one of his hobbies, and that he had brought with him from Brazil a number of birds and beasts which he was endeavouring to rear in England. When once we had passed the gates of Greylands Park we had ample evidence of this taste of his. Some small spotted deer, a curious wild pig known, I believe, as a peccary, a gorgeously feathered oriole, some sort of armadillo, and a singular lumbering in-toed beast like a very fat badger, were among the creatures which I observed as we drove along the winding avenue. ",
+              "style": null,
+              "length": 167
+            },
+            "subChapters": []
+          },
+          {
+            "id": 12,
+            "title": "bbb 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 8,
+              "sectionText": "Mr. Everard King, my unknown cousin, was standing in person upon the steps of his house, for he had seen us in the distance, and guessed that it was I. His appearance was very homely and benevolent, short and stout, forty-five years old, perhaps, with a round, good-humoured face, burned brown with the tropical sun, and shot with a thousand wrinkles. He wore white linen clothes, in true planter style, with a cigar between his lips, and a large Panama hat upon the back of his head. It was such a figure as one associates with a verandahed bungalow, and it looked curiously out of place in front of this broad, stone English mansion, with its solid wings and its Palladio pillars before the doorway.",
+              "style": null,
+              "length": 278
+            },
+            "subChapters": []
+          },
+          {
+            "id": 10,
+            "title": "bbb 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 6,
+              "sectionText": "After changing at Ipswich, a little local train deposited me at a small, deserted station lying amidst a rolling grassy country, with a sluggish and winding river curving in and out amidst the valleys, between high, silted banks, which showed that we were within reach of the tide. No carriage was awaiting me (I found afterwards that my telegram had been delayed), so I hired a dogcart at the local inn. The driver, an excellent fellow, was full of my relative's praises, and I learned from him that Mr. Everard King was already a name to conjure with in that part of the county. He had entertained the school-children, he had thrown his grounds open to visitors, he had subscribed to charities—in short, his benevolence had been so universal that my driver could only account for it on the supposition that he had parliamentary ambitions. ",
+              "style": "",
+              "length": 146
+            },
+            "subChapters": []
+          }
+        ]
+      }
+    ]
+  },
+  "genres": [
+    {
+      "id": 3,
+      "shortName": "mys",
+      "name": "mystery"
+    },
+    {
+      "id": 2,
+      "shortName": "fc",
+      "name": "fition"
+    }
+  ]
+}

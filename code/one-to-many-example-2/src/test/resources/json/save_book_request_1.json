@@ -1,0 +1,261 @@
+{
+  "title": "The Bazilian Cat",
+  "author": {
+    "id": 10
+  },
+  "mainChapter": {
+    "title": "main CHAPTER for brazilian cat",
+    "plotSummary": null,
+    "contents": {
+      "id": 30
+    },
+    "subChapters": [
+      {
+        "title": "aaaaa",
+        "plotSummary": null,
+        "contents": {
+          "id": 1
+        },
+        "subChapters": [
+          {
+            "title": "aaa 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 2
+            },
+            "subChapters": []
+          },
+          {
+            "title": "aaa 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 3
+            },
+            "subChapters": []
+          },
+          {
+            "title": "aaa 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 4
+            },
+            "subChapters": []
+          }
+        ]
+      },
+      {
+        "title": "cccc",
+        "plotSummary": null,
+        "contents": {
+          "id": 10
+        },
+        "subChapters": [
+          {
+            "title": "ccc 444",
+            "plotSummary": null,
+            "contents": {
+              "id": 14
+            },
+            "subChapters": []
+          },
+          {
+            "title": "ccc 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 12
+            },
+            "subChapters": []
+          },
+          {
+            "title": "ccc 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 13
+            },
+            "subChapters": []
+          },
+          {
+            "title": "ccc 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 11
+            },
+            "subChapters": []
+          }
+        ]
+      },
+      {
+        "title": "eeee",
+        "plotSummary": null,
+        "contents": {
+          "id": 20
+        },
+        "subChapters": [
+          {
+            "title": "eeee 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 21
+            },
+            "subChapters": []
+          },
+          {
+            "title": "eee 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 22
+            },
+            "subChapters": []
+          },
+          {
+            "title": "eeee 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 23
+            },
+            "subChapters": []
+          },
+          {
+            "title": "eeee 444",
+            "plotSummary": null,
+            "contents": {
+              "id": 24
+            },
+            "subChapters": []
+          }
+        ]
+      },
+      {
+        "title": "ffff",
+        "plotSummary": null,
+        "contents": {
+          "id": 25
+        },
+        "subChapters": [
+          {
+            "title": "fff 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 26
+            },
+            "subChapters": []
+          },
+          {
+            "title": "fffff 444",
+            "plotSummary": null,
+            "contents": {
+              "id": 29
+            },
+            "subChapters": []
+          },
+          {
+            "title": "fffff 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 27
+            },
+            "subChapters": []
+          },
+          {
+            "title": "ffff 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 28
+            },
+            "subChapters": []
+          }
+        ]
+      },
+      {
+        "title": "dddd",
+        "plotSummary": null,
+        "contents": {
+          "id": 15
+        },
+        "subChapters": [
+          {
+            "title": "ddd 444",
+            "plotSummary": null,
+            "contents": {
+              "id": 19
+            },
+            "subChapters": []
+          },
+          {
+            "title": "ddd 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 17
+            },
+            "subChapters": []
+          },
+          {
+            "title": "ddd 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 18
+            },
+            "subChapters": []
+          },
+          {
+            "title": "ddd 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 16
+            },
+            "subChapters": []
+          }
+        ]
+      },
+      {
+        "title": "bbbbb",
+        "plotSummary": null,
+        "contents": {
+          "id": 5
+        },
+        "subChapters": [
+          {
+            "title": "bbb 444",
+            "plotSummary": null,
+            "contents": {
+              "id": 9
+            },
+            "subChapters": []
+          },
+          {
+            "title": "bbb 222",
+            "plotSummary": null,
+            "contents": {
+              "id": 7
+            },
+            "subChapters": []
+          },
+          {
+            "title": "bbb 333",
+            "plotSummary": null,
+            "contents": {
+              "id": 8
+            },
+            "subChapters": []
+          },
+          {
+            "title": "bbb 111",
+            "plotSummary": null,
+            "contents": {
+              "id": 6
+            },
+            "subChapters": []
+          }
+        ]
+      }
+    ]
+  },
+  "genres": [
+    {
+      "id": 3
+    },
+    {
+      "id": 2
+    }
+  ]
+}
