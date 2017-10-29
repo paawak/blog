@@ -28,7 +28,7 @@ public class SelfSignedCertificateConnectorDemo {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SelfSignedCertificateConnectorDemo.class);
 
 	public static void main(String[] a) throws IOException {
-		String selfSignedUrl = "https://localhost:8443/docs/security-howto.html";
+		String selfSignedUrl = "https://localhost:9090/docs/security-howto.html";
 		Response response = new SelfSignedCertificateConnectorDemo().connectUnTrusted(selfSignedUrl);
 		LOGGER.info("The content is: {}", response.returnContent().asString());
 	}
