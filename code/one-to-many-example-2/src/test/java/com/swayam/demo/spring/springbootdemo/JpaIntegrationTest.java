@@ -37,12 +37,14 @@ public class JpaIntegrationTest {
 	private EntityManager entityManager;
 
 	@Before
-	public void setup() {
-		String url = "jdbc:hsqldb:mem:test_db";
-		String user = "SA";
-		String password = "";
+	public void setup() throws IOException {
+		Properties props = new Properties();
+		props.load(JpaIntegrationTest.class.getResourceAsStream("/application-test.properties"));
+		String dbUrl = props.getProperty("jdbc.url");
+		String dbUser = props.getProperty("jdbc.username");
+		String dbPassword = props.getProperty("jdbc.password");
 
-		try (Connection con = DriverManager.getConnection(url, user, password)) {
+		try (Connection con = DriverManager.getConnection(dbUrl, dbUser, dbPassword)) {
 			Statement stat = con.createStatement();
 			stat.executeQuery(getLines("/sql/schema_hsql.sql"));
 			stat.executeQuery(getLines("/sql/data_hsql.sql"));
@@ -51,7 +53,7 @@ public class JpaIntegrationTest {
 			throw new RuntimeException(e);
 		}
 
-		entityManager = createEntityManager(url, user, password);
+		entityManager = createEntityManager(dbUrl, dbUser, dbPassword);
 	}
 
 	@After
