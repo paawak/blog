@@ -1,0 +1,10 @@
+docker build -t self-signed-tomcat8 .
+
+docker run -d -p 9090:8080 self-signed-tomcat8
+
+To log into the running container:
+docker ps (gets the container id)
+docker exec -it <container id> bash
+
+
+
