@@ -66,7 +66,7 @@ public class JpaIntegrationTest {
 		System.out.println(book);
 	}
 
-	private EntityManager createEntityManager(String url, String user, String password) {
+	private EntityManager createEntityManager(String dbUrl, String dbUser, String dbPassword) {
 
 		MutablePersistenceUnitInfo mutablePersistenceUnitInfo = new MutablePersistenceUnitInfo() {
 			@Override
@@ -79,11 +79,11 @@ public class JpaIntegrationTest {
 		mutablePersistenceUnitInfo.setPersistenceProviderClassName(HibernatePersistenceProvider.class.getName());
 
 		Properties props = new Properties();
-		props.put("hibernate.connection.url", url);
-		props.put("hibernate.connection.username", user);
+		props.put("hibernate.connection.url", dbUrl);
+		props.put("hibernate.connection.username", dbUser);
 
-		if (StringUtils.hasText(password)) {
-			props.put("hibernate.connection.password", password);
+		if (StringUtils.hasText(dbPassword)) {
+			props.put("hibernate.connection.password", dbPassword);
 		}
 
 		mutablePersistenceUnitInfo.setProperties(props);
