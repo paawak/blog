@@ -20,10 +20,20 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.TrustStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class SelfSignedCertificateConnector {
+public class SelfSignedCertificateConnectorDemo {
 
-	public Response connectUnTrusted() throws IOException {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SelfSignedCertificateConnectorDemo.class);
+
+	public static void main(String[] a) throws IOException {
+		String selfSignedUrl = "https://localhost:8443/docs/security-howto.html";
+		Response response = new SelfSignedCertificateConnectorDemo().connectUnTrusted(selfSignedUrl);
+		LOGGER.info("The content is: {}", response.returnContent().asString());
+	}
+
+	public Response connectUnTrusted(String selfSignedUrl) throws IOException {
 		TrustStrategy trustStrategy = new TrustStrategy() {
 			@Override
 			public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
@@ -48,7 +58,7 @@ public class SelfSignedCertificateConnector {
 
 		Executor executor = Executor.newInstance(httpClient).use(cookieStore);
 
-		Request request = Request.Post("");
+		Request request = Request.Post(selfSignedUrl);
 
 		return executor.execute(request);
 
