@@ -1,10 +1,19 @@
+#to build the image from dockerfile
 docker build -t self-signed-tomcat8 .
 
-docker run -d -p 9090:8080 self-signed-tomcat8
+#to run the docker image
+docker run -d -p 9090:8080 paawak/self-signed-tomcat8
 
-To log into the running container:
+#To log into the running container:
 docker ps (gets the container id)
 docker exec -it <container id> bash
+
+#publish the docker image onto dockerhub
+docker login
+
+docker tag self-signed-tomcat8 paawak/self-signed-tomcat8:latest
+
+docker push paawak/self-signed-tomcat8:latest
 
 
 
