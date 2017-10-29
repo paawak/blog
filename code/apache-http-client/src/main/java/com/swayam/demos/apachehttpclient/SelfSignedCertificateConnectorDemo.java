@@ -52,9 +52,10 @@ public class SelfSignedCertificateConnectorDemo {
 		CloseableHttpClient httpClient = HttpClients.custom().setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
 				.setSSLContext(sslContext).build();
 
+		// optional cookie store
 		CookieStore cookieStore = new BasicCookieStore();
 		BasicClientCookie cookie = new BasicClientCookie("foo", "value");
-		cookie.setDomain("palashray.com");
+		cookie.setDomain("localhost");
 
 		Executor executor = Executor.newInstance(httpClient).use(cookieStore);
 
