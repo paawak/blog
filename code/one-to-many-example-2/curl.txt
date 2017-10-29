@@ -1,0 +1,2 @@
+#Insert new Book with chapters in hiererchy
+curl -H "Content-Type: application/json" -X POST -d @/kaaj/source/blog/code/one-to-many-example-2/src/test/resources/json/save_book_request_1.json http://localhost:8080/books

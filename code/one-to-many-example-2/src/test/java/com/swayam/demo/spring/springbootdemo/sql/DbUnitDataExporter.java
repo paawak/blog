@@ -13,12 +13,12 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 
-public class DbUnitDataCreator {
+public class DbUnitDataExporter {
 
 	public static void main(String[] args) throws IOException, SQLException, DatabaseUnitException {
 
 		Properties props = new Properties();
-		props.load(DbUnitDataCreator.class.getResourceAsStream("/application.properties"));
+		props.load(DbUnitDataExporter.class.getResourceAsStream("/application.properties"));
 		String dbUrl = props.getProperty("jdbc.url");
 		String dbUser = props.getProperty("jdbc.username");
 		String dbPassword = props.getProperty("jdbc.password");
@@ -26,7 +26,12 @@ public class DbUnitDataCreator {
 		Connection jdbcConnection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
 		IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 		IDataSet fullDataSet = connection.createDataSet();
-		FlatXmlDataSet.write(fullDataSet, new FileOutputStream("full_data.xml"));
+
+		try {
+			FlatXmlDataSet.write(fullDataSet, new FileOutputStream("full_data.xml"));
+		} finally {
+			connection.close();
+		}
 
 	}
 
