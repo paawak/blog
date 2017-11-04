@@ -22,8 +22,9 @@ public class EntityManagerBasedBookDao implements BookDao {
 	@Override
 	public Book getBook(Long bookId) {
 		LOGGER.info("retrieving book with id: {}", bookId);
-		entityManager.clear();
-		return entityManager.find(Book.class, bookId);
+		Book book = entityManager.find(Book.class, bookId);
+		entityManager.refresh(book);
+		return book;
 	}
 
 	@Transactional
