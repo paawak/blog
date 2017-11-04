@@ -91,7 +91,7 @@ public class JpaIntegrationTest extends JpaIntegrationTestParent {
 		assertSavedBook(savedBook);
 	}
 
-	private void assertSavedBook(Book book) {
+	static void assertSavedBook(Book book) {
 		assertNotNull(book.getId());
 		Author author = book.getAuthor();
 		assertEquals(10L, author.getId().longValue());
