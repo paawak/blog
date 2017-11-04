@@ -41,7 +41,7 @@ public class JpaIntegrationTest extends JpaIntegrationTestParent {
 	}
 
 	@Test
-	public void testBookInsert_flush() throws JsonParseException, JsonMappingException, IOException {
+	public void testBookInsert_clear_and_query() throws JsonParseException, JsonMappingException, IOException {
 		Book book = new ObjectMapper()
 				.readValue(JpaIntegrationTest.class.getResourceAsStream("/json/save_book_request_1.json"), Book.class);
 
@@ -50,8 +50,6 @@ public class JpaIntegrationTest extends JpaIntegrationTestParent {
 		entityTransaction.begin();
 
 		entityManager.persist(book);
-
-		entityManager.flush();
 
 		entityTransaction.commit();
 		entityManager.clear();
