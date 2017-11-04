@@ -15,6 +15,9 @@
 	<logger name="org.hibernate" level="info" additivity="true">
 		<appender-ref ref="STDOUT" />
 	</logger>
+	<logger name="org.apache.http" level="info" additivity="true">
+		<appender-ref ref="STDOUT" />
+	</logger>
 
 	<root level="debug">
 		<appender-ref ref="STDOUT" />
