@@ -21,7 +21,7 @@ public class EndToEndIntegration {
 	@Test
 	public void testBookInsert() throws IOException {
 		Request request = Request.Post("http://localhost:8080/books").bodyStream(
-				EndToEndIntegration.class.getResourceAsStream("/json/save_book_request_1.json"),
+				EndToEndIntegration.class.getResourceAsStream("/json/save_new_book_request_complex.json"),
 				ContentType.APPLICATION_JSON);
 		Response response = request.execute();
 		Book savedBook = new ObjectMapper().readValue(response.returnContent().asStream(), Book.class);
