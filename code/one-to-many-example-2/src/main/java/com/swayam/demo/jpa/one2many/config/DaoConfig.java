@@ -41,6 +41,7 @@ public class DaoConfig {
 		poolProperties.setMinIdle(10);
 		poolProperties.setLogAbandoned(true);
 		poolProperties.setRemoveAbandoned(true);
+		poolProperties.setDefaultAutoCommit(false);
 		poolProperties.setJdbcInterceptors(environment.getProperty("jdbc.interceptors"));
 
 		return new org.apache.tomcat.jdbc.pool.DataSource(poolProperties);
