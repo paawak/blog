@@ -2,27 +2,30 @@ package com.swayam.demo.spring.springbootdemo;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.SharedCacheMode;
+import javax.persistence.ValidationMode;
+import javax.persistence.spi.ClassTransformer;
+import javax.persistence.spi.PersistenceUnitInfo;
+import javax.persistence.spi.PersistenceUnitTransactionType;
+import javax.sql.DataSource;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
-import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
-import org.hibernate.jpa.boot.internal.PersistenceUnitInfoDescriptor;
-import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
-import org.hibernate.jpa.boot.spi.PersistenceUnitDescriptor;
 import org.junit.After;
 import org.junit.Before;
-import org.springframework.orm.jpa.persistenceunit.MutablePersistenceUnitInfo;
 import org.springframework.util.StringUtils;
 
 import com.swayam.demo.jpa.one2many.model.Author;
@@ -63,16 +66,6 @@ public abstract class JpaIntegrationTestParent {
 
 	private EntityManager createEntityManager(String dbUrl, String dbUser, String dbPassword) {
 
-		MutablePersistenceUnitInfo mutablePersistenceUnitInfo = new MutablePersistenceUnitInfo() {
-			@Override
-			public ClassLoader getNewTempClassLoader() {
-				return null;
-			}
-		};
-
-		mutablePersistenceUnitInfo.setPersistenceUnitName("TestUnit");
-		mutablePersistenceUnitInfo.setPersistenceProviderClassName(HibernatePersistenceProvider.class.getName());
-
 		Properties props = new Properties();
 		props.put("hibernate.connection.url", dbUrl);
 		props.put("hibernate.connection.username", dbUser);
@@ -81,21 +74,99 @@ public abstract class JpaIntegrationTestParent {
 			props.put("hibernate.connection.password", dbPassword);
 		}
 
-		mutablePersistenceUnitInfo.setProperties(props);
+		PersistenceUnitInfo persistenceUnitInfo = new PersistenceUnitInfo() {
 
-		mutablePersistenceUnitInfo.addManagedClassName(Author.class.getName());
-		mutablePersistenceUnitInfo.addManagedClassName(Book.class.getName());
-		mutablePersistenceUnitInfo.addManagedClassName(Chapter.class.getName());
-		mutablePersistenceUnitInfo.addManagedClassName(Genre.class.getName());
-		mutablePersistenceUnitInfo.addManagedClassName(Section.class.getName());
+			@Override
+			public Properties getProperties() {
+				return props;
+			}
 
-		PersistenceUnitDescriptor persistenceUnitDescriptor = new PersistenceUnitInfoDescriptor(
-				mutablePersistenceUnitInfo);
+			@Override
+			public List<String> getManagedClassNames() {
+				return Arrays.asList(Author.class.getName(), Book.class.getName(), Chapter.class.getName(),
+						Genre.class.getName(), Section.class.getName());
+			}
 
-		EntityManagerFactoryBuilder entityManagerFactoryBuilder = new EntityManagerFactoryBuilderImpl(
-				persistenceUnitDescriptor, Collections.EMPTY_MAP);
+			@Override
+			public String getPersistenceUnitName() {
+				return "TestUnit";
+			}
 
-		EntityManagerFactory entityManagerFactory = entityManagerFactoryBuilder.build();
+			@Override
+			public String getPersistenceProviderClassName() {
+				return HibernatePersistenceProvider.class.getName();
+			}
+
+			@Override
+			public PersistenceUnitTransactionType getTransactionType() {
+				return null;
+			}
+
+			@Override
+			public DataSource getJtaDataSource() {
+				return null;
+			}
+
+			@Override
+			public DataSource getNonJtaDataSource() {
+				return null;
+			}
+
+			@Override
+			public List<String> getMappingFileNames() {
+				return null;
+			}
+
+			@Override
+			public List<URL> getJarFileUrls() {
+				return null;
+			}
+
+			@Override
+			public URL getPersistenceUnitRootUrl() {
+				return null;
+			}
+
+			@Override
+			public boolean excludeUnlistedClasses() {
+				return false;
+			}
+
+			@Override
+			public SharedCacheMode getSharedCacheMode() {
+				return null;
+			}
+
+			@Override
+			public ValidationMode getValidationMode() {
+				return null;
+			}
+
+			@Override
+			public String getPersistenceXMLSchemaVersion() {
+				return null;
+			}
+
+			@Override
+			public ClassLoader getClassLoader() {
+				return null;
+			}
+
+			@Override
+			public void addTransformer(ClassTransformer transformer) {
+
+			}
+
+			@Override
+			public ClassLoader getNewTempClassLoader() {
+				return null;
+			}
+		};
+
+		HibernatePersistenceProvider hibernatePersistenceProvider = new HibernatePersistenceProvider();
+
+		EntityManagerFactory entityManagerFactory = hibernatePersistenceProvider
+				.createContainerEntityManagerFactory(persistenceUnitInfo, Collections.EMPTY_MAP);
 
 		return entityManagerFactory.createEntityManager();
 
