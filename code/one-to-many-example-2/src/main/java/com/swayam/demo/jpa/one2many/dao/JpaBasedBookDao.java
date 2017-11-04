@@ -20,13 +20,14 @@ public class JpaBasedBookDao implements BookDao {
 	@Transactional(readOnly = true)
 	@Override
 	public Book getBook(Long bookId) {
-		LOGGER.debug("retrieving book with id: {}", bookId);
+		LOGGER.info("retrieving book with id: {}", bookId);
 		return bookRepo.findOne(bookId);
 	}
 
 	@Transactional
 	@Override
 	public Long saveNewBook(Book book) {
+		LOGGER.info("saving book: {}", book);
 		return bookRepo.saveAndFlush(book).getId();
 	}
 

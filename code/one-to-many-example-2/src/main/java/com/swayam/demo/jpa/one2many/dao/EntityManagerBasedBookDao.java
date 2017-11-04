@@ -21,7 +21,7 @@ public class EntityManagerBasedBookDao implements BookDao {
 	@Transactional(readOnly = true)
 	@Override
 	public Book getBook(Long bookId) {
-		LOGGER.debug("retrieving book with id: {}", bookId);
+		LOGGER.info("retrieving book with id: {}", bookId);
 		entityManager.clear();
 		return entityManager.find(Book.class, bookId);
 	}
@@ -29,6 +29,7 @@ public class EntityManagerBasedBookDao implements BookDao {
 	@Transactional
 	@Override
 	public Long saveNewBook(Book book) {
+		LOGGER.info("saving book: {}", book);
 		entityManager.persist(book);
 		return book.getId();
 	}
