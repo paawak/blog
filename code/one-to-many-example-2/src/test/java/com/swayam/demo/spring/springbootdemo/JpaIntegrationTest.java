@@ -1,6 +1,8 @@
 package com.swayam.demo.spring.springbootdemo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 import java.util.Set;
@@ -41,25 +43,6 @@ public class JpaIntegrationTest extends JpaIntegrationTestParent {
 	}
 
 	@Test
-	public void testBookInsert_clear_and_query() throws JsonParseException, JsonMappingException, IOException {
-		Book book = new ObjectMapper()
-				.readValue(JpaIntegrationTest.class.getResourceAsStream("/json/save_book_request_1.json"), Book.class);
-
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		entityTransaction.begin();
-
-		entityManager.persist(book);
-
-		entityTransaction.commit();
-		entityManager.clear();
-
-		Book savedBook = entityManager.find(Book.class, book.getId());
-
-		assertSavedBook(savedBook);
-	}
-
-	@Test
 	public void testBookInsert_simple() throws JsonParseException, JsonMappingException, IOException {
 		Book book = new ObjectMapper()
 				.readValue(JpaIntegrationTest.class.getResourceAsStream("/json/save_book_request_1.json"), Book.class);
@@ -72,15 +55,49 @@ public class JpaIntegrationTest extends JpaIntegrationTestParent {
 
 		entityTransaction.commit();
 
+		assertNotNull(book.getId());
+		Author author = book.getAuthor();
+		assertEquals(10L, author.getId().longValue());
+		assertNull(author.getFirstName());
+	}
+
+	@Test
+	public void testBookInsert_refresh() throws JsonParseException, JsonMappingException, IOException {
+		Book book = new ObjectMapper()
+				.readValue(JpaIntegrationTest.class.getResourceAsStream("/json/save_book_request_1.json"), Book.class);
+
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		entityManager.persist(book);
+		entityTransaction.commit();
+		entityManager.refresh(book);
+
 		assertSavedBook(book);
 	}
 
-	private void assertSavedBook(Book savedBook) {
-		Author author = savedBook.getAuthor();
+	@Test
+	public void testBookInsert_clear_and_query() throws JsonParseException, JsonMappingException, IOException {
+		Book book = new ObjectMapper()
+				.readValue(JpaIntegrationTest.class.getResourceAsStream("/json/save_book_request_1.json"), Book.class);
+
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		entityManager.persist(book);
+		entityTransaction.commit();
+		entityManager.clear();
+
+		Book savedBook = entityManager.find(Book.class, book.getId());
+
+		assertSavedBook(savedBook);
+	}
+
+	private void assertSavedBook(Book book) {
+		assertNotNull(book.getId());
+		Author author = book.getAuthor();
 		assertEquals(10L, author.getId().longValue());
 		assertEquals("Arthur Conan", author.getFirstName());
 		assertEquals("Doyle", author.getLastName());
-		Set<Genre> genres = savedBook.getGenres();
+		Set<Genre> genres = book.getGenres();
 		assertEquals(2, genres.size());
 
 		Genre genre_1 = new Genre();
