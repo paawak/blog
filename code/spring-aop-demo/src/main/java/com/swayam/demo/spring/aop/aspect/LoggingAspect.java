@@ -22,6 +22,13 @@ public class LoggingAspect {
 	@Around("jdbcOperationsPointcut()")
 	public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
 
+		String methodName = pjp.getSignature().getName();
+		Object[] args = pjp.getArgs();
+		String sql = "";
+		if ((args.length >= 1) && (args[0] instanceof String)) {
+			sql = (String) args[0];
+		}
+
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 
@@ -29,7 +36,7 @@ public class LoggingAspect {
 
 		stopWatch.stop();
 
-		LOGGER.info("This operation took {} millis", stopWatch.getLastTaskTimeMillis());
+		LOGGER.info("JdbcOperations:{}({}) took {} millis", methodName, sql, stopWatch.getLastTaskTimeMillis());
 
 		return retVal;
 	}
