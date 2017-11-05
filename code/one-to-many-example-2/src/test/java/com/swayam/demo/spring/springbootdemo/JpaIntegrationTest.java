@@ -44,8 +44,8 @@ public class JpaIntegrationTest extends JpaIntegrationTestParent {
 
 	@Test
 	public void testBookInsert_simple() throws JsonParseException, JsonMappingException, IOException {
-		Book book = new ObjectMapper()
-				.readValue(JpaIntegrationTest.class.getResourceAsStream("/json/save_book_request_1.json"), Book.class);
+		Book book = new ObjectMapper().readValue(
+				JpaIntegrationTest.class.getResourceAsStream("/json/save_new_book_request_complex.json"), Book.class);
 
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 
@@ -63,8 +63,8 @@ public class JpaIntegrationTest extends JpaIntegrationTestParent {
 
 	@Test
 	public void testBookInsert_refresh() throws JsonParseException, JsonMappingException, IOException {
-		Book book = new ObjectMapper()
-				.readValue(JpaIntegrationTest.class.getResourceAsStream("/json/save_book_request_1.json"), Book.class);
+		Book book = new ObjectMapper().readValue(
+				JpaIntegrationTest.class.getResourceAsStream("/json/save_new_book_request_complex.json"), Book.class);
 
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
@@ -77,8 +77,8 @@ public class JpaIntegrationTest extends JpaIntegrationTestParent {
 
 	@Test
 	public void testBookInsert_clear_and_query() throws JsonParseException, JsonMappingException, IOException {
-		Book book = new ObjectMapper()
-				.readValue(JpaIntegrationTest.class.getResourceAsStream("/json/save_book_request_1.json"), Book.class);
+		Book book = new ObjectMapper().readValue(
+				JpaIntegrationTest.class.getResourceAsStream("/json/save_new_book_request_complex.json"), Book.class);
 
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
@@ -93,6 +93,7 @@ public class JpaIntegrationTest extends JpaIntegrationTestParent {
 
 	static void assertSavedBook(Book book) {
 		assertNotNull(book.getId());
+		System.out.println("Book Id: " + book.getId());
 		Author author = book.getAuthor();
 		assertEquals(10L, author.getId().longValue());
 		assertEquals("Arthur Conan", author.getFirstName());
