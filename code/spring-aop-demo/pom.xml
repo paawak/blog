@@ -28,6 +28,27 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.3.5.v20151012</version>
+				<configuration>
+					<scanIntervalSeconds>90</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/${project.name}</contextPath>
+					</webApp>
+					<httpConnector>
+						<port>8090</port>
+					</httpConnector>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencyManagement>
@@ -42,6 +63,12 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -61,14 +88,32 @@
 			<artifactId>spring-jdbc</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.aspectj</groupId>
-		    <artifactId>aspectjweaver</artifactId>
-		    <version>1.8.9</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>cglib</groupId>
-		    <artifactId>cglib</artifactId>
-		    <version>3.2.4</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.9</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>3.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -127,6 +172,7 @@
 		<log4j.version>2.3</log4j.version>
 		<spring.version>4.2.2.RELEASE</spring.version>
 		<slf4j.version>1.7.12</slf4j.version>
+		<jackson.version>2.5.4</jackson.version>
 	</properties>
 
 </project>
