@@ -1,11 +1,11 @@
-package com.swayam.demo.spring.aop.enduser.dao;
+package com.swayam.demo.spring.aop.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.swayam.demo.spring.aop.enduser.model.BankDetail;
+import com.swayam.demo.spring.aop.model.BankDetail;
 
 public class BankDetailMapper implements RowMapper<BankDetail> {
 

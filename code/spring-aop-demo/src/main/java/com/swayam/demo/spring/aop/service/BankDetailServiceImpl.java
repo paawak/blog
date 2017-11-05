@@ -1,12 +1,12 @@
-package com.swayam.demo.spring.aop.enduser.service;
+package com.swayam.demo.spring.aop.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.swayam.demo.spring.aop.enduser.dao.BankDetailDao;
-import com.swayam.demo.spring.aop.enduser.model.BankDetail;
+import com.swayam.demo.spring.aop.dao.BankDetailDao;
+import com.swayam.demo.spring.aop.model.BankDetail;
 
 @Service
 public class BankDetailServiceImpl implements BankDetailService {

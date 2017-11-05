@@ -1,4 +1,4 @@
-package com.swayam.demo.spring.aop.enduser.model;
+package com.swayam.demo.spring.aop.model;
 
 import java.math.BigDecimal;
 

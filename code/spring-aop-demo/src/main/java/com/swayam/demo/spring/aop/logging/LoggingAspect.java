@@ -1,4 +1,4 @@
-package com.swayam.demo.spring.aop.enduser.logging;
+package com.swayam.demo.spring.aop.logging;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
