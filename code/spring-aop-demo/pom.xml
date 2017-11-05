@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.swayam.demo.spring.aop</groupId>
-	<artifactId>dumb-framework</artifactId>
+	<artifactId>spring-aop-demo</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>dumb-framework</name>
+	<name>spring-aop-demo</name>
 	<description>
-		I came across a problem in our project when Spring AOP does not work. But I had to programatically use AspectJ AOP to make AOP work. This is an attempt to reproduce that problem and validate my understanding about the cause of the problem.
+		Demo of some cases where Spring AOP can be put to good use
 	</description>
 	<url>http://palashray.com</url>
 	<build>
@@ -59,6 +59,16 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>1.8.9</version>
+		</dependency>
+		<dependency>
+		    <groupId>cglib</groupId>
+		    <artifactId>cglib</artifactId>
+		    <version>3.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
