@@ -6,7 +6,7 @@
 		</Console>
 
 		<RollingRandomAccessFile name="FILE"
-			fileName="./logs/simple-spring-rest.log" filePattern="./logs/simple-spring-rest-%d{yyyy-MM-dd-HH}-%i.log.gz"
+			fileName="./logs/spring-aop-demo.log" filePattern="./logs/spring-aop-demo-%d{yyyy-MM-dd-HH}-%i.log.gz"
 			immediateFlush="false" append="true">
 			<PatternLayout>
 				<pattern>%d{ISO8601} %p [%t] %c{1}.%M(%L) | %m%n</pattern>
