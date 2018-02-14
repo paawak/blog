@@ -1,5 +1,8 @@
 package com.swayam.practice.algos.dynamicprogramming.misc;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,17 +37,18 @@ Output : -1
  */
 public class DifferenceIn0And1 {
 
+	private static final int MAX_LENGTH = 3;
 	private final Map<String, Integer> countMap = new HashMap<>();
-	private int cacheHitCount = 0;
+	// private int cacheHitCount = 0;
 
 	public int compute(String binary) {
 		countLengthForCombination(binary);
-		System.out.println("cacheHitCount=" + cacheHitCount);
+		// System.out.println("cacheHitCount=" + cacheHitCount);
 		return countMap.values().parallelStream().mapToInt(value -> value).max().getAsInt();
 	}
 
 	private void countLengthForCombination(String binary) {
-		System.out.println(binary);
+		// System.out.println(binary);
 		if (!binary.contains("0")) {
 			countMap.put(binary, -1);
 			return;
@@ -54,15 +58,15 @@ public class DifferenceIn0And1 {
 			return;
 		}
 		if (countMap.containsKey(binary)) {
-			cacheHitCount++;
+			// cacheHitCount++;
 			return;
 		}
 
 		countMap.put(binary, countDiff(binary));
 
-		for (int i = binary.length(); i >= 3; i--) {
-			for (int j = 0; j < binary.length() - 3; j++) {
-				if (i < j + 3) {
+		for (int i = binary.length(); i >= MAX_LENGTH; i--) {
+			for (int j = 0; j < binary.length() - MAX_LENGTH; j++) {
+				if (i < j + MAX_LENGTH) {
 					continue;
 				}
 				String substring = binary.substring(j, i);
@@ -87,6 +91,17 @@ public class DifferenceIn0And1 {
 		}
 
 		return result;
+	}
+
+	/** Geeks for Geeks code */
+	public static void main(String[] a) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		br.readLine();
+		String input1 = br.readLine();
+		String input2 = br.readLine();
+		System.out.println(new DifferenceIn0And1().compute(input1));
+		System.out.println(new DifferenceIn0And1().compute(input2));
+
 	}
 
 }
