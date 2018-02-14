@@ -7,6 +7,18 @@ import org.junit.Test;
 public class DifferenceIn0And1Test {
 
 	@Test
+	public void testCompute_noZero() {
+		// given
+		DifferenceIn0And1 testClass = new DifferenceIn0And1();
+
+		// when
+		int result = testClass.compute("111111111111");
+
+		// then
+		assertEquals(-1, result);
+	}
+
+	@Test
 	public void testCompute() {
 		// given
 		DifferenceIn0And1 testClass = new DifferenceIn0And1();
