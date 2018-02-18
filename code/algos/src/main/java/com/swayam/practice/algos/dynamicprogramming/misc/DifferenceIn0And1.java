@@ -96,12 +96,11 @@ public class DifferenceIn0And1 {
 	/** Geeks for Geeks code */
 	public static void main(String[] a) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		br.readLine();
-		String input1 = br.readLine();
-		String input2 = br.readLine();
-		System.out.println(new DifferenceIn0And1().compute(input1));
-		System.out.println(new DifferenceIn0And1().compute(input2));
-
+		int count = Integer.parseInt(br.readLine());
+		for (int i = 0; i < count; i++) {
+			String input = br.readLine();
+			System.out.println(new DifferenceIn0And1().compute(input));
+		}
 	}
 
 }
