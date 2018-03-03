@@ -25,6 +25,12 @@ public class FluxCreateExample implements ReactiveXmlParser {
 					@Override
 					public void element(LineItemRow element) {
 						fluxSink.next(element);
+						try {
+							Thread.sleep(5_000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 
 					@Override

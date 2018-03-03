@@ -1,11 +1,13 @@
 package com.swayam.demo.reactive.reactor3.react;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Supplier;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
@@ -23,100 +25,83 @@ public class FluxDeferGroupByBug {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FluxDeferGroupByBug.class);
 
+	private static final long DELAY_MILLIS = 2_000;
+
 	@Test
 	public void testCreate() throws InterruptedException {
 
+		// given
+		Item[] testData = createTestData();
+
 		Flux<Item> flux = Flux.create((FluxSink<Item> fluxSink) -> {
-			Item lineItemRow_1 = new Item();
-			lineItemRow_1.setOrderKey(1);
-			lineItemRow_1.setExtendedPrice(20);
-			fluxSink.next(lineItemRow_1);
 
-			Item lineItemRow_2 = new Item();
-			lineItemRow_2.setOrderKey(2);
-			lineItemRow_2.setExtendedPrice(30);
-			fluxSink.next(lineItemRow_2);
+			for (int index = 0; index < testData.length; index++) {
 
-			Item lineItemRow_3 = new Item();
-			lineItemRow_3.setOrderKey(2);
-			lineItemRow_3.setExtendedPrice(30);
-			fluxSink.next(lineItemRow_3);
+				fluxSink.next(testData[index]);
 
-			Item lineItemRow_4 = new Item();
-			lineItemRow_4.setOrderKey(1);
-			lineItemRow_4.setExtendedPrice(15);
-			fluxSink.next(lineItemRow_4);
+				if (index == 3) {
+					try {
+						Thread.sleep(DELAY_MILLIS);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 
-			Item lineItemRow_5 = new Item();
-			lineItemRow_5.setOrderKey(1);
-			lineItemRow_5.setExtendedPrice(55);
-			fluxSink.next(lineItemRow_5);
-
-			Item lineItemRow_6 = new Item();
-			lineItemRow_6.setOrderKey(2);
-			lineItemRow_6.setExtendedPrice(65);
-			fluxSink.next(lineItemRow_6);
+			}
 
 			fluxSink.complete();
 
 		});
 
-		operateOnFlux(flux);
+		// when
+		boolean result = operateOnFlux(flux);
+
+		// then
+		assertTrue(result);
 
 	}
 
 	@Test
 	public void testDeferBug() throws InterruptedException {
 
+		// given
+		Item[] testData = createTestData();
+
 		Publisher<Item> publisher = (Subscriber<? super Item> lineItemRowSubscriber) -> {
 
-			Item lineItemRow_1 = new Item();
-			lineItemRow_1.setOrderKey(1);
-			lineItemRow_1.setExtendedPrice(20);
-			lineItemRowSubscriber.onNext(lineItemRow_1);
+			for (int index = 0; index < testData.length; index++) {
 
-			Item lineItemRow_2 = new Item();
-			lineItemRow_2.setOrderKey(2);
-			lineItemRow_2.setExtendedPrice(30);
-			lineItemRowSubscriber.onNext(lineItemRow_2);
+				lineItemRowSubscriber.onNext(testData[index]);
 
-			Item lineItemRow_3 = new Item();
-			lineItemRow_3.setOrderKey(2);
-			lineItemRow_3.setExtendedPrice(30);
-			lineItemRowSubscriber.onNext(lineItemRow_3);
+				if (index == 3) {
+					try {
+						Thread.sleep(DELAY_MILLIS);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 
-			Item lineItemRow_4 = new Item();
-			lineItemRow_4.setOrderKey(1);
-			lineItemRow_4.setExtendedPrice(15);
-			lineItemRowSubscriber.onNext(lineItemRow_4);
-
-			Item lineItemRow_5 = new Item();
-			lineItemRow_5.setOrderKey(1);
-			lineItemRow_5.setExtendedPrice(55);
-			lineItemRowSubscriber.onNext(lineItemRow_5);
-
-			Item lineItemRow_6 = new Item();
-			lineItemRow_6.setOrderKey(2);
-			lineItemRow_6.setExtendedPrice(65);
-			lineItemRowSubscriber.onNext(lineItemRow_6);
+			}
 
 			lineItemRowSubscriber.onComplete();
 
 		};
 
-		Supplier<Publisher<Item>> supplier = () -> {
+		Flux<Item> flux = Flux.defer(() -> {
 			return publisher;
-		};
+		});
 
-		Flux<Item> flux = Flux.defer(supplier);
+		// when
+		boolean result = operateOnFlux(flux);
 
-		operateOnFlux(flux);
+		// then
+		assertTrue(result);
 
 	}
 
-	public void operateOnFlux(Flux<Item> flux) throws InterruptedException {
+	private boolean operateOnFlux(Flux<Item> flux) throws InterruptedException {
 
-		// CountDownLatch countDownLatch = new CountDownLatch(1);
+		CountDownLatch countDownLatch = new CountDownLatch(1);
 
 		Mono<Map<Integer, List<Item>>> groupedByData = flux.collect(Collectors.groupingBy((Item row) -> {
 			LOGGER.info("grouping by: {}", row);
@@ -124,6 +109,7 @@ public class FluxDeferGroupByBug {
 		}));
 
 		groupedByData.subscribe((Map<Integer, List<Item>> next) -> {
+			LOGGER.info("next: {}", next);
 			next.entrySet().parallelStream().map((Entry<Integer, List<Item>> entry) -> {
 				int orderKey = entry.getKey();
 				DoubleStream doubleStream = entry.getValue().parallelStream().mapToDouble((Item row) -> {
@@ -140,15 +126,44 @@ public class FluxDeferGroupByBug {
 			});
 
 		}, (Throwable t) -> {
-			// countDownLatch.countDown();
+			countDownLatch.countDown();
 			LOGGER.error("COMPLETED GROUP BY with error", t);
 			fail("COMPLETED GROUP BY with error");
 		}, () -> {
 			LOGGER.info("COMPLETED GROUP BY");
-			// countDownLatch.countDown();
+			countDownLatch.countDown();
 		});
 
-		// countDownLatch.await();
+		return countDownLatch.await(5, TimeUnit.SECONDS);
+
+	}
+
+	private Item[] createTestData() {
+		Item lineItemRow_1 = new Item();
+		lineItemRow_1.setOrderKey(1);
+		lineItemRow_1.setExtendedPrice(20);
+
+		Item lineItemRow_2 = new Item();
+		lineItemRow_2.setOrderKey(2);
+		lineItemRow_2.setExtendedPrice(30);
+
+		Item lineItemRow_3 = new Item();
+		lineItemRow_3.setOrderKey(2);
+		lineItemRow_3.setExtendedPrice(40);
+
+		Item lineItemRow_4 = new Item();
+		lineItemRow_4.setOrderKey(1);
+		lineItemRow_4.setExtendedPrice(15);
+
+		Item lineItemRow_5 = new Item();
+		lineItemRow_5.setOrderKey(1);
+		lineItemRow_5.setExtendedPrice(55);
+
+		Item lineItemRow_6 = new Item();
+		lineItemRow_6.setOrderKey(2);
+		lineItemRow_6.setExtendedPrice(65);
+
+		return new Item[] { lineItemRow_1, lineItemRow_2, lineItemRow_3, lineItemRow_4, lineItemRow_5, lineItemRow_6 };
 
 	}
 

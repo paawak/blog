@@ -32,6 +32,12 @@ public class FluxDeferExample implements ReactiveXmlParser {
 					@Override
 					public void element(LineItemRow element) {
 						lineItemRowSubscriber.onNext(element);
+						try {
+							Thread.sleep(5_000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 
 					@Override
