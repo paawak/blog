@@ -1,4 +1,4 @@
-package com.swayam.demo.pdf;
+package com.swayam.demo.pdfbox2;
 
 import java.io.File;
 import java.io.FileInputStream;
