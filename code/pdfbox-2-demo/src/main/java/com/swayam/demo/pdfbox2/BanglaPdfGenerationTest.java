@@ -17,6 +17,16 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 public class BanglaPdfGenerationTest
 {
 
+    /**
+     * The unicode of this is given below:
+     * 
+     * <pre>
+     * \u0986\u09ae\u09bf  \u0995\u09cb\u09a8 \u09aa\u09a5\u09c7  \u0995\u09cd\u09b7\u09c0\u09b0\u09c7\u09b0 \u09b7\u09a8\u09cd\u09a1  \u09aa\u09c1\u09a4\u09c1\u09b2 \u09b0\u09c1\u09aa\u09cb  \u0997\u0999\u09cd\u0997\u09be \u098b\u09b7\u09bf
+     * </pre>
+     * 
+     */
+    private static final String BANGLA_TEXT = "আমি কোন পথে ক্ষীরের লক্ষ্মী ষন্ড পুতুল রুপো গঙ্গা ঋষি";
+
     static
     {
         System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
@@ -28,8 +38,6 @@ public class BanglaPdfGenerationTest
         String filename = System.getProperty("user.home") + "/a.pdf";
 
         System.err.println("filename=" + filename);
-
-        String message = "\u0986\u09ae\u09bf  \u0995\u09cb\u09a8 \u09aa\u09a5\u09c7  \u0995\u09cd\u09b7\u09c0\u09b0\u09c7\u09b0 \u09b7\u09a8\u09cd\u09a1  \u09aa\u09c1\u09a4\u09c1\u09b2 \u09b0\u09c1\u09aa\u09cb  \u0997\u0999\u09cd\u0997\u09be \u098b\u09b7\u09bf";
 
         PDDocument doc = new PDDocument();
         try
@@ -47,7 +55,7 @@ public class BanglaPdfGenerationTest
             contents.beginText();
             contents.setFont(font, 12);
             contents.newLineAtOffset(100, 700);
-            contents.showText(message);
+            contents.showText(BANGLA_TEXT);
             contents.endText();
             contents.close();
 
