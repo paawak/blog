@@ -25,7 +25,8 @@ public class BanglaPdfGenerationTest
      * </pre>
      * 
      */
-    private static final String BANGLA_TEXT = "আমি কোন পথে ক্ষীরের লক্ষ্মী ষন্ড পুতুল রুপো গঙ্গা ঋষি";
+    private static final String BANGLA_TEXT_1 = "আমি কোন পথে ক্ষীরের লক্ষ্মী ষন্ড পুতুল রুপো গঙ্গা ঋষি";
+    private static final String BANGLA_TEXT_2 = "দ্রুত গাঢ় শেয়াল অলস কুকুর জুড়ে জাম্প";
 
     static
     {
@@ -55,7 +56,7 @@ public class BanglaPdfGenerationTest
             contents.beginText();
             contents.setFont(font, 12);
             contents.newLineAtOffset(100, 700);
-            contents.showText(BANGLA_TEXT);
+            contents.showText(BANGLA_TEXT_1 + "     " + BANGLA_TEXT_2);
             contents.endText();
             contents.close();
 
