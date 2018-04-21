@@ -7,6 +7,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 /**
  * https://svn.apache.org/viewvc/pdfbox/trunk/examples/src/main/java/org/apache/pdfbox/examples/pdmodel/HelloWorldTTF.java?view=markup
@@ -43,8 +44,9 @@ public class BanglaPdfGenerationTest
         PDDocument doc = new PDDocument();
         try
         {
-            PDPage page = new PDPage();
-            doc.addPage(page);
+
+            PDPage page1 = new PDPage();
+            doc.addPage(page1);
 
             // PDFont font = PDType0Font.load(doc, BanglaPdfGenerationTest.class
             // .getResourceAsStream("/SOLAIMANLIPI_22-02-2012.TTF"), true);
@@ -52,16 +54,24 @@ public class BanglaPdfGenerationTest
             PDFont font = PDType0Font.load(doc,
                     BanglaPdfGenerationTest.class.getResourceAsStream("/Lohit-Bengali.ttf"), true);
 
-            PDPageContentStream contents = new PDPageContentStream(doc, page);
-            contents.setLineWidth(400);
-            contents.beginText();
-            contents.setFont(font, 12);
-            contents.newLineAtOffset(10, 700);
-            contents.showText(BANGLA_TEXT_1);
-            contents.newLineAtOffset(10, 50);
-            contents.showText(BANGLA_TEXT_2);
-            contents.endText();
-            contents.close();
+            PDPageContentStream contents1 = new PDPageContentStream(doc, page1);
+            contents1.setLineWidth(400);
+            contents1.beginText();
+            contents1.setFont(font, 12);
+            contents1.newLineAtOffset(10, 700);
+            contents1.showText(BANGLA_TEXT_1);
+            contents1.newLineAtOffset(0, -30);
+            contents1.showText(BANGLA_TEXT_2);
+            contents1.endText();
+            contents1.close();
+
+            PDPage page2 = new PDPage();
+            doc.addPage(page2);
+            PDPageContentStream contents2 = new PDPageContentStream(doc, page2);
+            PDImageXObject pdImage = PDImageXObject.createFromFile(
+                    BanglaPdfGenerationTest.class.getResource("/bangla-text.png").getFile(), doc);
+            contents2.drawImage(pdImage, 20, 20, pdImage.getWidth(), pdImage.getHeight());
+            contents2.close();
 
             doc.save(filename);
         }
