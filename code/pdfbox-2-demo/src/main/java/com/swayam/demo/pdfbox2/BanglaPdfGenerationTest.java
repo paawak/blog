@@ -26,7 +26,7 @@ public class BanglaPdfGenerationTest
      * 
      */
     private static final String BANGLA_TEXT_1 = "আমি কোন পথে ক্ষীরের লক্ষ্মী ষন্ড পুতুল রুপো গঙ্গা ঋষি";
-    private static final String BANGLA_TEXT_2 = "দ্রুত গাঢ় শেয়াল অলস কুকুর জুড়ে জাম্প";
+    private static final String BANGLA_TEXT_2 = "দ্রুত গাঢ় শেয়াল অলস কুকুর জুড়ে জাম্প ধুর্ত  হঠাৎ ভাঙেনি মৌলিক ঐশি দৈ   ঋষি কল্লোল ব্যাস নির্ভয় ";
 
     static
     {
@@ -47,16 +47,19 @@ public class BanglaPdfGenerationTest
             doc.addPage(page);
 
             // PDFont font = PDType0Font.load(doc, BanglaPdfGenerationTest.class
-            // .getResourceAsStream("/SOLAIMANLIPI_22-02-2012.TTF"), false);
+            // .getResourceAsStream("/SOLAIMANLIPI_22-02-2012.TTF"), true);
 
             PDFont font = PDType0Font.load(doc,
-                    BanglaPdfGenerationTest.class.getResourceAsStream("/Lohit-Bengali.ttf"), false);
+                    BanglaPdfGenerationTest.class.getResourceAsStream("/Lohit-Bengali.ttf"), true);
 
             PDPageContentStream contents = new PDPageContentStream(doc, page);
+            contents.setLineWidth(400);
             contents.beginText();
             contents.setFont(font, 12);
-            contents.newLineAtOffset(100, 700);
-            contents.showText(BANGLA_TEXT_1 + "     " + BANGLA_TEXT_2);
+            contents.newLineAtOffset(10, 700);
+            contents.showText(BANGLA_TEXT_1);
+            contents.newLineAtOffset(10, 50);
+            contents.showText(BANGLA_TEXT_2);
             contents.endText();
             contents.close();
 
