@@ -45,10 +45,11 @@ public class BanglaPdfGenerationTest {
 			doc.addPage(page1);
 
 			// PDFont font = PDType0Font.load(doc, BanglaPdfGenerationTest.class
-			// .getResourceAsStream("/SOLAIMANLIPI_22-02-2012.TTF"), true);
+			// .getResourceAsStream("/font/ttf/bengali/SOLAIMANLIPI_22-02-2012.TTF"),
+			// false);
 
-			PDFont font = PDType0Font.load(doc, BanglaPdfGenerationTest.class.getResourceAsStream("/Lohit-Bengali.ttf"),
-					true);
+			PDFont font = PDType0Font.load(doc,
+					BanglaPdfGenerationTest.class.getResourceAsStream("/font/ttf/bengali/Lohit-Bengali.ttf"), true);
 
 			PDPageContentStream contents1 = new PDPageContentStream(doc, page1);
 			contents1.setLineWidth(400);
@@ -65,7 +66,7 @@ public class BanglaPdfGenerationTest {
 			doc.addPage(page2);
 			PDPageContentStream contents2 = new PDPageContentStream(doc, page2);
 			PDImageXObject pdImage = PDImageXObject
-					.createFromFile(BanglaPdfGenerationTest.class.getResource("/bangla-text.png").getFile(), doc);
+					.createFromFile(BanglaPdfGenerationTest.class.getResource("/image/bangla-text.png").getFile(), doc);
 			contents2.drawImage(pdImage, 20, 20, pdImage.getWidth(), pdImage.getHeight());
 			contents2.close();
 
