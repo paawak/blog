@@ -1,0 +1,26 @@
+
+=======================================
+Installation Intsructions (INCOMPLETE)
+=======================================
+
+Installaion in GNU/Linux
+-------------------------
+To install this font in Red Hat Linux version 8.0 (Psyche), just copy this font
+into your $HOME/.fonts/ 
+Then issue the command 	fc-cache
+And the font should get installed.
+
+To install the font in Mandrake (versions 8.0 and above), just run Control Center,
+and use the font installation tool.
+
+<SOMEONE, PLEASE DO THE REST :)>
+
+Installation in Windows (Not recommended ;)
+-------------------------------------------
+
+Just copy the font in C:\windows\fonts\ , and bhoom!! REBOOT.
+:)
+
+
+
+

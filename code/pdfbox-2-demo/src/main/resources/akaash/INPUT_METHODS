@@ -1,0 +1,20 @@
+:::'###::::'##:::'##::::'###:::::::'###:::::'######::'##::::'##:
+::'## ##::: ##::'##::::'## ##:::::'## ##:::'##... ##: ##:::: ##:
+:'##:. ##:: ##:'##::::'##:. ##:::'##:. ##:: ##:::..:: ##:::: ##:
+'##:::. ##: #####::::'##:::. ##:'##:::. ##:. ######:: #########:
+ #########: ##. ##::: #########: #########::..... ##: ##.... ##:
+ ##.... ##: ##:. ##:: ##.... ##: ##.... ##:'##::: ##: ##:::: ##:
+ ##:::: ##: ##::. ##: ##:::: ##: ##:::: ##:. ######:: ##:::: ##:
+..:::::..::..::::..::..:::::..::..:::::..:::......:::..:::::..::
+
+===================
+The input methods
+===================
+
+To test the fonts, you need to write something. And to write something,
+you need a mechanism to input the Bangla Unicode chars through the keyboard.
+That has been described in the Bengali Keyboard Layout mini-HOWTO by Taneem
+Ahmed at http://www.bengalinux.org.
+Of course, you can also use Yudit to write Bangla - refer to the Yudit documentation
+for that.
+

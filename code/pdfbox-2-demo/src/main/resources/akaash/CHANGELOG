@@ -1,0 +1,16 @@
+
+===========
+ChangeLog
+===========
+
+Tuesday, Oct 15th, 2002 - Version 0.5 - First Release
+
+Monday,  Dec  9th, 2002 - Version 0.75 -
+				Major improvements with the English glyphs.
+				Added a number of new glyphs for the conjuncts (around 650 glyphs now)
+				General Clean Up.
+				Now all the Unicode characters for Bengali are in the font.
+Wednesday, May 28th, 2002 - Version 0.85 -
+				Uses the Free Bangla Font template.
+				Glyphs slighty better.
+				
