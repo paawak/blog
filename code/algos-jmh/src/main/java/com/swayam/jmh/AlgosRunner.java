@@ -13,7 +13,7 @@ public class AlgosRunner {
 	public static void main(String[] args) throws RunnerException {
 		Options opt = new OptionsBuilder().include(IntegerArrayMatcherSimpleStringImplBenchmark.class.getSimpleName())
 				.include(IntegerArrayMatcherTrieImplBenchmark.class.getSimpleName()).warmupIterations(5)
-				.measurementIterations(5).forks(1).build();
+				.measurementIterations(5).forks(3).build();
 
 		new Runner(opt).run();
 	}
