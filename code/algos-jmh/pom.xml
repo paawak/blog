@@ -26,7 +26,7 @@
         <dependency>
             <groupId>com.swayam.practice.algos</groupId>
             <artifactId>algos</artifactId>
-            <version>1.0</version>
+            <version>${algos.version}</version>
         </dependency>
     </dependencies>
 
@@ -46,7 +46,9 @@
         <!--
             Name of the benchmark Uber-JAR to generate.
           -->
-        <uberjar.name>benchmarks</uberjar.name>
+        <uberjar.name>algos-jmh-benchmarks</uberjar.name>
+        
+        <algos.version>1.1</algos.version>
     </properties>
 
     <build>
