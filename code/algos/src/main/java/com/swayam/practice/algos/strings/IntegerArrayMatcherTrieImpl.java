@@ -4,17 +4,34 @@ public class IntegerArrayMatcherTrieImpl implements IntegerArrayMatcher {
 
 	private static final int TRIE_ARRAY_SIZE = 10;
 
-	private final int[] tokens;
 	private final TrieNode root;
 
 	public IntegerArrayMatcherTrieImpl(int[] tokens) {
-		this.tokens = tokens;
 		root = createTrieStructure(tokens);
 	}
 
 	@Override
 	public boolean contains(int needle) {
-		// TODO Auto-generated method stub
+
+		char[] digitArray = Integer.toString(needle).toCharArray();
+
+		TrieNode currentParent = root;
+
+		for (int index = 0; index < digitArray.length; index++) {
+			char digit = digitArray[index];
+			boolean endOfToken = index == digitArray.length - 1;
+			int trieIndex = getTrieIndex(digit);
+			if (!currentParent.hasChildAt(trieIndex)) {
+				return false;
+			}
+
+			currentParent = currentParent.getChildAt(trieIndex);
+
+			if (endOfToken) {
+				return currentParent.isEndOfToken();
+			}
+		}
+
 		return false;
 	}
 
