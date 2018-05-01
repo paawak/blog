@@ -57,6 +57,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
             <version>${jmh.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.swayam.practice.algos</groupId>
+            <artifactId>algos</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <properties>
