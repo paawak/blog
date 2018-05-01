@@ -7,17 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
 import org.junit.Test;
 
-public class ArrayMatcherTrieImplTest {
-
-	private ArrayMatcher<Integer> testClass;
-
-	@Before
-	public void init() {
-		testClass = new ArrayMatcherTrieImpl<>();
-	}
+public class IntegerArrayMatcherTrieImplTest {
 
 	@Test
 	public void testSplit_1() {
@@ -26,8 +18,10 @@ public class ArrayMatcherTrieImplTest {
 				Arrays.asList(Arrays.asList(84, 93), Arrays.asList(102, 82), Arrays.asList(104, 87)));
 		List<Integer> glyphIds = Arrays.asList(84, 112, 93, 104, 82, 61, 96, 102, 93, 104, 87, 110);
 
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(glyphIds);
+
 		// when
-		List<List<Integer>> tokens = testClass.split(glyphIds, matchers);
+		List<List<Integer>> tokens = testClass.split(matchers);
 
 		// then
 		assertEquals(Arrays.asList(Arrays.asList(84, 112, 93, 104, 82, 61, 96, 102, 93), Arrays.asList(104, 87),
@@ -43,8 +37,10 @@ public class ArrayMatcherTrieImplTest {
 
 		List<Integer> glyphIds = Arrays.asList(67, 112, 96, 103, 93, 108, 93);
 
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(glyphIds);
+
 		// when
-		List<List<Integer>> tokens = testClass.split(glyphIds, matchers);
+		List<List<Integer>> tokens = testClass.split(matchers);
 
 		// then
 		assertEquals(Arrays.asList(Arrays.asList(67, 112, 96), Arrays.asList(103, 93, 108, 93)), tokens);
@@ -59,8 +55,10 @@ public class ArrayMatcherTrieImplTest {
 
 		List<Integer> glyphIds = Arrays.asList(94, 67, 112, 96, 112, 91, 103);
 
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(glyphIds);
+
 		// when
-		List<List<Integer>> tokens = testClass.split(glyphIds, matchers);
+		List<List<Integer>> tokens = testClass.split(matchers);
 
 		// then
 		assertEquals(Arrays.asList(Arrays.asList(94), Arrays.asList(67, 112, 96), Arrays.asList(112, 91, 103)), tokens);
@@ -74,8 +72,10 @@ public class ArrayMatcherTrieImplTest {
 
 		List<Integer> glyphIds = Arrays.asList(94, 167, 112, 91, 103);
 
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(glyphIds);
+
 		// when
-		List<List<Integer>> tokens = testClass.split(glyphIds, matchers);
+		List<List<Integer>> tokens = testClass.split(matchers);
 
 		// then
 		assertEquals(Arrays.asList(Arrays.asList(94, 167, 112, 91, 103)), tokens);
