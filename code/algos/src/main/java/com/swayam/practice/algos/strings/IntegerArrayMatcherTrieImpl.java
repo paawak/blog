@@ -1,27 +1,24 @@
 package com.swayam.practice.algos.strings;
 
-import java.util.List;
-import java.util.Set;
-
 public class IntegerArrayMatcherTrieImpl implements IntegerArrayMatcher {
 
 	private static final int TRIE_ARRAY_SIZE = 10;
 
-	private final List<Integer> tokens;
+	private final int[] tokens;
 	private final TrieNode root;
 
-	public IntegerArrayMatcherTrieImpl(List<Integer> tokens) {
+	public IntegerArrayMatcherTrieImpl(int[] tokens) {
 		this.tokens = tokens;
 		root = createTrieStructure(tokens);
 	}
 
 	@Override
-	public List<List<Integer>> split(Set<List<Integer>> patterns) {
+	public boolean contains(int needle) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
-	private TrieNode createTrieStructure(List<Integer> tokens) {
+	private TrieNode createTrieStructure(int[] tokens) {
 		// create the root node
 		TrieNode root = new TrieNode(false);
 
