@@ -17,7 +17,7 @@ import com.swayam.practice.algos.strings.IntegerArrayMatcherTrieImpl;
 public class IntegerArrayMatcherTrieImplBenchmark {
 
 	@Benchmark
-	@BenchmarkMode(Mode.All)
+	@BenchmarkMode(Mode.AverageTime)
 	@OutputTimeUnit(TimeUnit.MICROSECONDS)
 	public void testContains_positive() {
 		// given
@@ -30,7 +30,7 @@ public class IntegerArrayMatcherTrieImplBenchmark {
 	}
 
 	@Benchmark
-	@BenchmarkMode(Mode.All)
+	@BenchmarkMode(Mode.AverageTime)
 	@OutputTimeUnit(TimeUnit.MICROSECONDS)
 	public void testContains_negative_1() {
 		// given
@@ -39,11 +39,11 @@ public class IntegerArrayMatcherTrieImplBenchmark {
 
 		// when
 		@SuppressWarnings("unused")
-		boolean result = testClass.contains(1041);
+		boolean result = testClass.contains(826);
 	}
 
 	@Benchmark
-	@BenchmarkMode(Mode.All)
+	@BenchmarkMode(Mode.AverageTime)
 	@OutputTimeUnit(TimeUnit.MICROSECONDS)
 	public void testContains_negative_2() {
 		// given
@@ -52,7 +52,7 @@ public class IntegerArrayMatcherTrieImplBenchmark {
 
 		// when
 		@SuppressWarnings("unused")
-		boolean result = testClass.contains(10);
+		boolean result = testClass.contains(9);
 	}
 
 	public static void main(String[] args) throws RunnerException {
