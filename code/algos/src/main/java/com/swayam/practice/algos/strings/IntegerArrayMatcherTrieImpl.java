@@ -101,7 +101,7 @@ public class IntegerArrayMatcherTrieImpl implements IntegerArrayMatcher {
 			return children[trieIndex] != null;
 		}
 
-		boolean isEndOfToken() {
+		public boolean isEndOfToken() {
 			return endOfToken;
 		}
 
