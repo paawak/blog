@@ -35,6 +35,11 @@ public class IntegerArrayMatcherTrieImpl implements IntegerArrayMatcher {
 		return false;
 	}
 
+	@Override
+	public void delete(int needle) {
+		throw new UnsupportedOperationException();
+	}
+
 	private TrieNode createTrieStructure(int[] tokens) {
 		// create the root node
 		TrieNode root = new TrieNode(false);

@@ -12,7 +12,16 @@ public class IntegerArrayMatcherSimpleStringImpl implements IntegerArrayMatcher 
 
 	@Override
 	public boolean contains(int needle) {
-		return tokensAsString.contains(SEPARATOR + needle + SEPARATOR);
+		return tokensAsString.contains(padToken(needle));
+	}
+
+	@Override
+	public void delete(int needle) {
+		throw new UnsupportedOperationException();
+	}
+
+	private String padToken(int needle) {
+		return SEPARATOR + needle + SEPARATOR;
 	}
 
 	private String createTokenString(int[] tokens) {

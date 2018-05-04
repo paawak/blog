@@ -68,4 +68,53 @@ public class IntegerArrayMatcherTrieImplTest {
 		assertFalse(result);
 	}
 
+	@Test
+	public void testDelete_positive_1() {
+		// given
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(new int[] { 94, 167, 112, 91, 103 });
+
+		// when
+		testClass.delete(167);
+
+		// then
+		assertFalse(testClass.contains(167));
+	}
+
+	@Test
+	public void testDelete_positive_2() {
+		// given
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(new int[] { 94, 167, 112, 91, 103, 94 });
+
+		// when
+		testClass.delete(94);
+
+		// then
+		assertFalse(testClass.contains(94));
+	}
+
+	@Test
+	public void testDelete_negative_1() {
+		// given
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(new int[] { 94, 167, 112, 91, 103 });
+
+		// when
+		testClass.delete(16);
+
+		// then
+		assertTrue(testClass.contains(167));
+	}
+
+	@Test
+	public void testDelete_negative_2() {
+		// given
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(new int[] { 94, 167, 112, 91, 103 });
+
+		// when
+		testClass.delete(9);
+
+		// then
+		assertTrue(testClass.contains(94));
+		assertTrue(testClass.contains(91));
+	}
+
 }

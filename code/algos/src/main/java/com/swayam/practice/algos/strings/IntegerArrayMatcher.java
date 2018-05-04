@@ -4,4 +4,6 @@ public interface IntegerArrayMatcher {
 
 	boolean contains(int needle);
 
+	void delete(int needle);
+
 }
