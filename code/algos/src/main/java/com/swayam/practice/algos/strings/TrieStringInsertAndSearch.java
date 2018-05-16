@@ -23,18 +23,19 @@ import java.io.InputStreamReader;
  * 
  * Source:<br>
  * <a href=
- * "https://practice.geeksforgeeks.org/problems/trie-insert-and-search/0">https://practice.geeksforgeeks.org/problems/trie-insert-and-search/0</a>
+ * "https://practice.geeksforgeeks.org/problems/trie-insert-and-search/0"
+ * >https://practice.geeksforgeeks.org/problems/trie-insert-and-search/0</a>
  * 
  * @author paawak
  *
  */
-public class StringArrayMatcherTrieImpl {
+public class TrieStringInsertAndSearch {
 
 	private static final int TRIE_ARRAY_SIZE = 26;
 
 	private final TrieNode root;
 
-	public StringArrayMatcherTrieImpl(String[] tokens) {
+	public TrieStringInsertAndSearch(String[] tokens) {
 		root = createTrieStructure(tokens);
 	}
 
@@ -89,7 +90,8 @@ public class StringArrayMatcherTrieImpl {
 	}
 
 	private TrieNode addTrieNode(TrieNode parent, int trieIndex, boolean endOfToken) {
-		// check if the parent has this data, if yes, return the child node, else,
+		// check if the parent has this data, if yes, return the child node,
+		// else,
 		// create a new child node
 		if (parent.hasChildAt(trieIndex)) {
 			return parent.getChildAt(trieIndex);
@@ -145,8 +147,8 @@ public class StringArrayMatcherTrieImpl {
 				throw new IllegalArgumentException();
 			}
 			String needle = br.readLine();
-			StringArrayMatcherTrieImpl stringArrayMatcherTrieImpl = new StringArrayMatcherTrieImpl(tokens);
-			boolean found = stringArrayMatcherTrieImpl.contains(needle);
+			TrieStringInsertAndSearch trieStringInsertAndSearch = new TrieStringInsertAndSearch(tokens);
+			boolean found = trieStringInsertAndSearch.contains(needle);
 			System.out.println(found ? 1 : 0);
 		}
 	}
