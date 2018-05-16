@@ -10,8 +10,7 @@ public class IntegerArrayMatcherTrieImplTest {
 	@Test
 	public void testContains_positive_1() {
 		// given
-		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(
-				new int[] { 84, 112, 93, 104, 82, 61, 96, 102, 93, 104, 87, 110 });
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(new int[] { 84, 112, 93, 104, 82, 61, 96, 102, 93, 104, 87, 110 });
 
 		// when
 		boolean result = testClass.contains(104);
@@ -83,13 +82,27 @@ public class IntegerArrayMatcherTrieImplTest {
 	@Test
 	public void testDelete_positive_2() {
 		// given
-		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(new int[] { 94, 167, 112, 91, 103, 94 });
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(new int[] { 1167, 194, 167, 112, 91, 103, 94 });
 
 		// when
-		testClass.delete(94);
+		testClass.delete(167);
 
 		// then
-		assertFalse(testClass.contains(94));
+		assertFalse(testClass.contains(167));
+		assertTrue(testClass.contains(1167));
+	}
+
+	@Test
+	public void testDelete_positive_3() {
+		// given
+		IntegerArrayMatcher testClass = new IntegerArrayMatcherTrieImpl(new int[] { 1167, 194, 167, 112, 91, 103, 94 });
+
+		// when
+		testClass.delete(1167);
+
+		// then
+		assertFalse(testClass.contains(1167));
+		assertTrue(testClass.contains(167));
 	}
 
 	@Test

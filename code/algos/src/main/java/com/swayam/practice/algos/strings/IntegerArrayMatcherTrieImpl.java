@@ -37,7 +37,27 @@ public class IntegerArrayMatcherTrieImpl implements IntegerArrayMatcher {
 
 	@Override
 	public void delete(int needle) {
-		throw new UnsupportedOperationException();
+		char[] digitArray = Integer.toString(needle).toCharArray();
+
+		TrieNode currentParent = root;
+
+		for (int index = 0; index < digitArray.length; index++) {
+			char digit = digitArray[index];
+			boolean endOfToken = index == digitArray.length - 1;
+			int trieIndex = getTrieIndex(digit);
+			if (!currentParent.hasChildAt(trieIndex)) {
+				break;
+			}
+
+			if (endOfToken) {
+				if (currentParent.getChildAt(trieIndex).isEndOfToken()) {
+					currentParent.setChildToNull(trieIndex);
+				}
+			} else {
+				currentParent = currentParent.getChildAt(trieIndex);
+			}
+		}
+
 	}
 
 	private TrieNode createTrieStructure(int[] tokens) {
@@ -67,7 +87,8 @@ public class IntegerArrayMatcherTrieImpl implements IntegerArrayMatcher {
 	}
 
 	private TrieNode addTrieNode(TrieNode parent, int trieIndex, boolean endOfToken) {
-		// check if the parent has this data, if yes, return the child node, else,
+		// check if the parent has this data, if yes, return the child node,
+		// else,
 		// create a new child node
 		if (parent.hasChildAt(trieIndex)) {
 			return parent.getChildAt(trieIndex);
@@ -98,6 +119,13 @@ public class IntegerArrayMatcherTrieImpl implements IntegerArrayMatcher {
 			children[trieIndex] = newNode;
 		}
 
+		public void setChildToNull(int trieIndex) {
+			if (!hasChildAt(trieIndex)) {
+				throw new IllegalStateException("No child exists at the given index: " + trieIndex);
+			}
+			children[trieIndex] = null;
+		}
+
 		public TrieNode getChildAt(int trieIndex) {
 			return children[trieIndex];
 		}
@@ -111,5 +139,25 @@ public class IntegerArrayMatcherTrieImpl implements IntegerArrayMatcher {
 		}
 
 	}
+
+	// private static class TrieNodeDetailsForDelete {
+	//
+	// private final TrieNode node;
+	// private final int indexToDelete;
+	//
+	// public TrieNodeDetailsForDelete(TrieNode node, int indexToDelete) {
+	// this.node = node;
+	// this.indexToDelete = indexToDelete;
+	// }
+	//
+	// public TrieNode getNode() {
+	// return node;
+	// }
+	//
+	// public int getIndexToDelete() {
+	// return indexToDelete;
+	// }
+	//
+	// }
 
 }
