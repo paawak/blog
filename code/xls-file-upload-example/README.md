@@ -1,6 +1,6 @@
 # About
 
-This is a demo for uploding Microsoft XLS files via the Jersey-based REST service
+This is a demo for uploding Microsoft XLS files via the Jersey-based REST service. This works with *jboss-5.1.0.GA*, deployed on *JDK-6*.
 
 # Testing
 
