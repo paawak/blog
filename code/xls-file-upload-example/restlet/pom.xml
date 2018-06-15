@@ -36,13 +36,6 @@
 								<exclude>WEB-INF/lib/*</exclude>
 							</excludes>
 						</resource>
-						<resource>
-							<directory>${restlet.library.path}</directory>
-							<targetPath>WEB-INF/lib/</targetPath>
-							<includes>
-								<include>*.jar</include>
-							</includes>
-						</resource>
 					</webResources>
 				</configuration>
 			</plugin>
@@ -53,22 +46,16 @@
 			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet</artifactId>
 			<version>${restlet.version}</version>
-			<scope>system</scope>
-			<systemPath>${restlet.library.path}/org.restlet.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet.ext.fileupload</artifactId>
 			<version>${restlet.version}</version>
-			<scope>system</scope>
-			<systemPath>${restlet.library.path}/org.restlet.ext.fileupload.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet.ext.servlet</artifactId>
 			<version>${restlet.version}</version>
-			<scope>system</scope>
-			<systemPath>${restlet.library.path}/org.restlet.ext.servlet.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
@@ -108,4 +95,24 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>restlet</id>
+			<name>Restlet Repository</name>
+			<url>file://${restlet.library.path}</url>
+		</repository>
+	</repositories>
+
 </project>
