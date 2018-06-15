@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.swayam.demo.web.xls.jersey2.service.XlsReader;
+import com.swayam.demo.web.xls.restlet.service.XlsReader;
 
 public class XlsReaderTest {
 

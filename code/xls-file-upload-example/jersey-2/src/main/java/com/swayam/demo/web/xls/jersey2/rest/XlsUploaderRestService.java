@@ -1,4 +1,4 @@
-package com.swayam.demo.web.xls.rest;
+package com.swayam.demo.web.xls.jersey2.rest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import com.swayam.demo.web.xls.service.XlsReader;
+import com.swayam.demo.web.xls.jersey2.service.XlsReader;
 
 @Path("/xls")
 public class XlsUploaderRestService {
