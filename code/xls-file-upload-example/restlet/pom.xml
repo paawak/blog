@@ -9,7 +9,8 @@
 	<name>xls-file-upload-example</name>
 	<url>http://palashray.com</url>
 	<properties>
-		<restlet.version>2.0-M3</restlet.version>
+		<restlet.version>jee-2.1.6</restlet.version>
+		<restlet.library.path>${basedir}/restlet-jee-2.1.6-jars</restlet.library.path>
 	</properties>
 	<build>
 		<finalName>xls-file-upload-example</finalName>
@@ -35,6 +36,13 @@
 								<exclude>WEB-INF/lib/*</exclude>
 							</excludes>
 						</resource>
+						<resource>
+							<directory>${restlet.library.path}</directory>
+							<targetPath>WEB-INF/lib/</targetPath>
+							<includes>
+								<include>*.jar</include>
+							</includes>
+						</resource>
 					</webResources>
 				</configuration>
 			</plugin>
@@ -45,16 +53,42 @@
 			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet</artifactId>
 			<version>${restlet.version}</version>
+			<scope>system</scope>
+			<systemPath>${restlet.library.path}/org.restlet.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet.ext.fileupload</artifactId>
 			<version>${restlet.version}</version>
+			<scope>system</scope>
+			<systemPath>${restlet.library.path}/org.restlet.ext.fileupload.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet.ext.servlet</artifactId>
 			<version>${restlet.version}</version>
+			<scope>system</scope>
+			<systemPath>${restlet.library.path}/org.restlet.ext.servlet.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi_R4_core</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -74,22 +108,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<repositories>
-		<repository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>central</id>
-			<name>Central Repository</name>
-			<url>https://repo.maven.apache.org/maven2</url>
-		</repository>
-		<repository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>restlet</id>
-			<name>Restlet Repository</name>
-			<url>http://maven.restlet.com</url>
-		</repository>
-	</repositories>
 </project>

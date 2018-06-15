@@ -7,7 +7,7 @@ import org.restlet.routing.Router;
 public class XlsFileUploadApplication extends Application {
 
 	@Override
-	public synchronized Restlet createRoot() {
+	public synchronized Restlet createInboundRoot() {
 		Router router = new Router(getContext());
 
 		router.attach("/upload", XlsUploaderRestService.class);
