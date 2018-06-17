@@ -2,15 +2,18 @@
 
 This is a demo for uploding Microsoft XLS files via the Restlet-based REST service. This works with *jboss-5.1.0.GA*, deployed on *JDK-6*.
 
-# Restlet Framework links
+# Restlet Framework tutorials
 
 * https://restlet.com/open-source/documentation/user-guide/2.2/introduction/getting-started/maven
 * https://restlet.com/open-source/documentation/user-guide/2.2/editions/jee/overview#run-in-a-servlet-container
 * https://restlet.com/open-source/documentation/user-guide/2.2/extensions/jaxrs
 * https://restlet.com/open-source/documentation/user-guide/2.2/extensions/fileupload
 
+# Restlet Framework download link
+* https://restlet.com/open-source/downloads/current/
+
 # Restlet Maven Repo
-http://maven.restlet.com
+* http://maven.restlet.com
 
 # Testing
 
