@@ -12,6 +12,10 @@
 			<param-name>org.restlet.application</param-name>
 			<param-value>com.swayam.demo.web.xls.restlet.rest.XlsFileUploadApplication</param-value>
 		</init-param>
+		<!-- <init-param>
+			<param-name>org.restlet.application</param-name>
+			<param-value>org.restlet.ext.jaxrs.JaxRsApplication</param-value>
+		</init-param> -->
 	</servlet>
 
 	<servlet-mapping>
