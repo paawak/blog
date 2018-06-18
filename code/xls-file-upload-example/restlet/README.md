@@ -23,5 +23,8 @@ The below command should do the job:
 
 You can also test it through its index page, this uses pure HTML form to upload the xls file.
 
+The JaxRS integration url is:
+
+http://localhost:8080/xls-file-upload-example/jaxrs/health
 	
 	

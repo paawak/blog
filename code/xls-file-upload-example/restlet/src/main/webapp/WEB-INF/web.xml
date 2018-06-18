@@ -11,7 +11,7 @@
 		<servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
 		<init-param>
 			<param-name>org.restlet.application</param-name>
-			<param-value>com.swayam.demo.web.xls.restlet.rest.XlsFileUploadApplication</param-value>
+			<param-value>com.swayam.demo.web.xls.restlet.endpoint.RestletApplicationEndPoint</param-value>
 		</init-param>
 	</servlet>
 	
@@ -20,7 +20,7 @@
 		<servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
 		<init-param>
 			<param-name>org.restlet.application</param-name>
-			<param-value>com.swayam.demo.web.xls.restlet.rest.JaxRsRestApplication</param-value>
+			<param-value>com.swayam.demo.web.xls.restlet.endpoint.JaxRsApplicationEndPoint</param-value>
 		</init-param>
 	</servlet>
 	

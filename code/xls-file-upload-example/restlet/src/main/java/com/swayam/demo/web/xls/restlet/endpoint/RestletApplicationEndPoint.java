@@ -1,10 +1,12 @@
-package com.swayam.demo.web.xls.restlet.rest;
+package com.swayam.demo.web.xls.restlet.endpoint;
 
 import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
 
-public class XlsFileUploadApplication extends Application {
+import com.swayam.demo.web.xls.restlet.rest.XlsUploaderRestService;
+
+public class RestletApplicationEndPoint extends Application {
 
 	@Override
 	public synchronized Restlet createInboundRoot() {
