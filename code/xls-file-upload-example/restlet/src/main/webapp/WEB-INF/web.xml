@@ -3,6 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+
 	<display-name>xls-file-upload-restlet</display-name>
 
 	<servlet>
@@ -12,14 +13,25 @@
 			<param-name>org.restlet.application</param-name>
 			<param-value>com.swayam.demo.web.xls.restlet.rest.XlsFileUploadApplication</param-value>
 		</init-param>
-		<!-- <init-param>
-			<param-name>org.restlet.application</param-name>
-			<param-value>org.restlet.ext.jaxrs.JaxRsApplication</param-value>
-		</init-param> -->
 	</servlet>
-
+	
+	<servlet>
+		<servlet-name>JaxRsServlet</servlet-name>
+		<servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
+		<init-param>
+			<param-name>org.restlet.application</param-name>
+			<param-value>com.swayam.demo.web.xls.restlet.rest.JaxRsRestApplication</param-value>
+		</init-param>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>RestletServlet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>JaxRsServlet</servlet-name>
+		<url-pattern>/jaxrs/*</url-pattern>
+	</servlet-mapping>	
+	
 </web-app>
