@@ -23,26 +23,26 @@ import org.springframework.web.servlet.view.JstlView;
 @PropertySource("classpath:jdbc.properties")
 public class WebConfig implements WebMvcConfigurer {
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-	Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder = new Jackson2ObjectMapperBuilder();
-	converters.add(new MappingJackson2HttpMessageConverter(jackson2ObjectMapperBuilder.build()));
-	Jaxb2RootElementHttpMessageConverter jaxb2RootElementHttpMessageConverter = new Jaxb2RootElementHttpMessageConverter();
-	converters.add(jaxb2RootElementHttpMessageConverter);
-    }
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder = new Jackson2ObjectMapperBuilder();
+		converters.add(new MappingJackson2HttpMessageConverter(jackson2ObjectMapperBuilder.build()));
+		Jaxb2RootElementHttpMessageConverter jaxb2RootElementHttpMessageConverter = new Jaxb2RootElementHttpMessageConverter();
+		converters.add(jaxb2RootElementHttpMessageConverter);
+	}
 
-    @Bean
-    public ViewResolver viewResolver() {
-	InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-	viewResolver.setViewClass(JstlView.class);
-	viewResolver.setPrefix("/WEB-INF/jsp/");
-	viewResolver.setSuffix(".jsp");
-	return viewResolver;
-    }
+	@Bean
+	public ViewResolver viewResolver() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setViewClass(JstlView.class);
+		viewResolver.setPrefix("/WEB-INF/jsp/");
+		viewResolver.setSuffix(".jsp");
+		return viewResolver;
+	}
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfig() {
-	return new PropertySourcesPlaceholderConfigurer();
-    }
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertyConfig() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
 
 }
