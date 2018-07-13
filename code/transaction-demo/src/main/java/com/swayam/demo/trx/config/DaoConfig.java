@@ -19,7 +19,6 @@ public class DaoConfig {
 	@Bean(destroyMethod = "close")
 	public DataSource mysqlDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName(environment.getProperty("jdbc.mysql.driverClassName"));
 		dataSource.setUrl(environment.getProperty("jdbc.mysql.url"));
 		dataSource.setUsername(environment.getProperty("jdbc.mysql.username"));
 		dataSource.setPassword(environment.getProperty("jdbc.mysql.password"));
@@ -35,7 +34,6 @@ public class DaoConfig {
 	@Bean(destroyMethod = "close")
 	public DataSource postgresDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName(environment.getProperty("jdbc.postgres.driverClassName"));
 		dataSource.setUrl(environment.getProperty("jdbc.postgres.url"));
 		dataSource.setUsername(environment.getProperty("jdbc.postgres.username"));
 		dataSource.setPassword(environment.getProperty("jdbc.postgres.password"));

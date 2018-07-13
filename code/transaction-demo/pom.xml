@@ -11,6 +11,15 @@
 		This demoes a simple web-application, and how transaction works
 	</description>
 	<url>http://palashray.com</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<log4j.version>2.3</log4j.version>
+		<jackson.version>2.9.6</jackson.version>
+		<spring.version>4.2.2.RELEASE</spring.version>
+		<slf4j.version>1.7.12</slf4j.version>
+	</properties>
+
 	<build>
 		<finalName>${project.name}</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -168,12 +177,38 @@
 		</dependency>
 	</dependencies>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<log4j.version>2.3</log4j.version>
-		<jackson.version>2.9.6</jackson.version>
-		<spring.version>4.2.2.RELEASE</spring.version>
-		<slf4j.version>1.7.12</slf4j.version>
-	</properties>
+	<profiles>
+		<profile>
+			<id>db-migration</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.flywaydb</groupId>
+						<artifactId>flyway-maven-plugin</artifactId>
+						<version>5.1.4</version>
+						<executions>
+							<execution>
+								<id>mysql-migrate</id>
+								<phase>install</phase>
+								<goals>
+									<goal>migrate</goal>
+								</goals>
+								<configuration>
+									<configFile>${project.basedir}/src/main/sql/mysql/flyway-mysql.conf</configFile>
+									<locations>
+										<location>filesystem:${project.basedir}/src/main/sql/mysql</location>
+									</locations>
+									<sqlMigrationSeparator>__</sqlMigrationSeparator>
+									<sqlMigrationSuffixes>
+										<sqlMigrationSuffix>.sql</sqlMigrationSuffix>
+									</sqlMigrationSuffixes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

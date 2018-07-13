@@ -1,11 +1,3 @@
-DROP TABLE IF EXISTS AUTHOR;
-
-CREATE TABLE AUTHOR (
-	id BIGINT(20) NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
-	first_name VARCHAR(200) NOT NULL,
-	last_name VARCHAR(200) NOT NULL
-);
-
 INSERT INTO AUTHOR (id,first_name,last_name) VALUES (1,'Balaichand','Mukhopadhyay');
 INSERT INTO AUTHOR (id,first_name,last_name) VALUES (2,'Salman','Rushdie');
 INSERT INTO AUTHOR (id,first_name,last_name) VALUES (3,'PG','Wodehouse');
