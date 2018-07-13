@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.controller;
+package com.swayam.demo.trx.web.rest;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.swayam.demo.trx.model.BankDetail;
+import com.swayam.demo.trx.entity.BankDetail;
 import com.swayam.demo.trx.service.BankDetailService;
 
 @RestController

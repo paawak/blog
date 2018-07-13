@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.swayam.demo.trx.dao.BankDetailDao;
-import com.swayam.demo.trx.model.BankDetail;
+import com.swayam.demo.trx.entity.BankDetail;
 
 @Service
 public class BankDetailServiceImpl implements BankDetailService {

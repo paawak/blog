@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.swayam.demo.trx.model.BankDetail;
+import com.swayam.demo.trx.entity.BankDetail;
 
 public class BankDetailMapper implements RowMapper<BankDetail> {
 

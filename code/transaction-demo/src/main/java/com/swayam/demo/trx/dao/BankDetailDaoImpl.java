@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.swayam.demo.trx.model.BankDetail;
+import com.swayam.demo.trx.entity.BankDetail;
 
 @Repository
 public class BankDetailDaoImpl implements BankDetailDao {

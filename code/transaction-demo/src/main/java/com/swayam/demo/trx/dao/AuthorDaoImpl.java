@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.swayam.demo.trx.model.Author;
+import com.swayam.demo.trx.entity.Author;
 
 @Repository
 public class AuthorDaoImpl implements AuthorDao {
@@ -24,6 +24,13 @@ public class AuthorDaoImpl implements AuthorDao {
 			return new Author(resultSet.getLong("id"), resultSet.getString("first_name"),
 					resultSet.getString("last_name"));
 		});
+	}
+
+	@Override
+	public long addAuthor(Author author) {
+		String sql = "insert into author (id, first_name, last_name) values (?, ?, ?)";
+		jdbcTemplate.update(sql, author.getId(), author.getFirstName(), author.getLastName());
+		return author.getId();
 	}
 
 }
