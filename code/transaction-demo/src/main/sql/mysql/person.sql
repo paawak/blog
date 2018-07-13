@@ -1,5 +1,20 @@
-CREATE TABLE IF NOT EXISTS person (
-  id bigint(20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  first_name varchar(50) NOT NULL,
-  last_name varchar(50) NOT NULL
+DROP TABLE IF EXISTS AUTHOR;
+
+CREATE TABLE AUTHOR (
+	id BIGINT(20) NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
+	first_name VARCHAR(200) NOT NULL,
+	last_name VARCHAR(200) NOT NULL
 );
+
+INSERT INTO AUTHOR (id,first_name,last_name) VALUES (1,'Balaichand','Mukhopadhyay');
+INSERT INTO AUTHOR (id,first_name,last_name) VALUES (2,'Salman','Rushdie');
+INSERT INTO AUTHOR (id,first_name,last_name) VALUES (3,'PG','Wodehouse');
+INSERT INTO AUTHOR (id,first_name,last_name) VALUES (4,'Frederick','Forsyth');
+INSERT INTO AUTHOR (id,first_name,last_name) VALUES (5,'Saradindu','Bandyopadhyay');
+INSERT INTO AUTHOR (id,first_name,last_name) VALUES (6,'Rabindranath','Tagore');
+INSERT INTO AUTHOR (id,first_name,last_name) VALUES (7,'Bankim','Chatterjee');
+INSERT INTO AUTHOR (id,first_name,last_name) VALUES (8,'Sharat','Chatterjee');
+INSERT INTO AUTHOR (id,first_name,last_name) VALUES (9,'Amitava','Ghosh');
+INSERT INTO AUTHOR (id,first_name,last_name) VALUES (10,'Arthur Conan','Doyle');
+
+
