@@ -204,6 +204,23 @@
 									</sqlMigrationSuffixes>
 								</configuration>
 							</execution>
+							<execution>
+								<id>postgres-migrate</id>
+								<phase>install</phase>
+								<goals>
+									<goal>migrate</goal>
+								</goals>
+								<configuration>
+									<configFile>${project.basedir}/src/main/sql/postgres/flyway-postgres.conf</configFile>
+									<locations>
+										<location>filesystem:${project.basedir}/src/main/sql/postgres</location>
+									</locations>
+									<sqlMigrationSeparator>__</sqlMigrationSeparator>
+									<sqlMigrationSuffixes>
+										<sqlMigrationSuffix>.sql</sqlMigrationSuffix>
+									</sqlMigrationSuffixes>
+								</configuration>
+							</execution>
 						</executions>
 					</plugin>
 				</plugins>
