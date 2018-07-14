@@ -2,11 +2,11 @@ package com.swayam.demo.trx.web.dto;
 
 public class AuthorRequest {
 
-	private long authorId;
-	private String authorFirstName;
-	private String authorLastName;
-	private String genreShortName;
-	private String genreName;
+	private final long authorId;
+	private final String authorFirstName;
+	private final String authorLastName;
+	private final String genreShortName;
+	private final String genreName;
 
 	public AuthorRequest() {
 		this(0, null, null, null, null);
@@ -39,26 +39,6 @@ public class AuthorRequest {
 
 	public String getGenreName() {
 		return genreName;
-	}
-
-	public void setAuthorId(long authorId) {
-		this.authorId = authorId;
-	}
-
-	public void setAuthorFirstName(String authorFirstName) {
-		this.authorFirstName = authorFirstName;
-	}
-
-	public void setAuthorLastName(String authorLastName) {
-		this.authorLastName = authorLastName;
-	}
-
-	public void setGenreShortName(String genreShortName) {
-		this.genreShortName = genreShortName;
-	}
-
-	public void setGenreName(String genreName) {
-		this.genreName = genreName;
 	}
 
 	@Override
