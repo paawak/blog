@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.swayam.demo.trx.dao.AuthorDao;
 import com.swayam.demo.trx.dao.GenreDao;
@@ -37,6 +38,7 @@ public class AuthorServiceImpl implements AuthorService {
 		return authorDao.getAuthors();
 	}
 
+	@Transactional(value = "postgresTxManager")
 	@Override
 	public Map<String, String> saveAuthor(AuthorRequest authorRequest) {
 		Map<String, String> map = new HashMap<>();

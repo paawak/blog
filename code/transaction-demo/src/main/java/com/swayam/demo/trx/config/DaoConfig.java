@@ -9,7 +9,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@EnableTransactionManagement
 @Configuration
 public class DaoConfig {
 
@@ -54,6 +58,16 @@ public class DaoConfig {
 	@Bean
 	public JdbcTemplate postgresJdbcTemplate(@Qualifier("postgresDataSource") DataSource dataSource) {
 		return new JdbcTemplate(dataSource);
+	}
+
+	@Bean
+	public PlatformTransactionManager mysqlTxManager(@Qualifier("mysqlDataSource") DataSource dataSource) {
+		return new DataSourceTransactionManager(dataSource);
+	}
+
+	@Bean
+	public PlatformTransactionManager postgresTxManager(@Qualifier("postgresDataSource") DataSource dataSource) {
+		return new DataSourceTransactionManager(dataSource);
 	}
 
 }
