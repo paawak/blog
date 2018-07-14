@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.swayam.demo.trx.dao.AuthorDao;
@@ -14,6 +16,8 @@ import com.swayam.demo.trx.web.dto.AuthorRequest;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthorServiceImpl.class);
 
 	private final AuthorDao authorDao;
 	private final GenreDao genreDao;
@@ -39,11 +43,17 @@ public class AuthorServiceImpl implements AuthorService {
 		// save genre
 		long genreId = genreDao
 				.addGenre(new Genre(null, authorRequest.getGenreShortName(), authorRequest.getGenreName()));
+
+		LOGGER.info("genreId: {}", genreId);
+
 		map.put("genreId", String.valueOf(genreId));
 		// save author
 		long authorId = authorDao.addAuthor(new Author(authorRequest.getAuthorId(), authorRequest.getAuthorFirstName(),
 				authorRequest.getAuthorLastName()));
 		map.put("authorId", String.valueOf(authorId));
+
+		LOGGER.info("authorId: {}", authorId);
+
 		return map;
 	}
 
