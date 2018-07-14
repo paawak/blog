@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AuthorUIController {
 
-	@GetMapping(path = { "author.jsp", "author.html" })
+	@GetMapping(path = { "/author.html" })
 	public ModelAndView showAddPersonPage() {
 		return new ModelAndView("author");
 	}
