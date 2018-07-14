@@ -33,9 +33,9 @@ public class GenreDaoImpl implements GenreDao {
 	@Override
 	public long addGenre(Genre genre) {
 		KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-		String sql = "insert into genre (id, short_name, name) values (SEQ_GENRE_ID.nextVal, ?, ?)";
+		String sql = "insert into genre (short_name, name) values (?, ?)";
 		PreparedStatementCreator psc = (Connection con) -> {
-			PreparedStatement pstat = con.prepareStatement(sql);
+			PreparedStatement pstat = con.prepareStatement(sql, new String[] { "id" });
 			pstat.setString(1, genre.getShortName());
 			pstat.setString(2, genre.getName());
 			return pstat;

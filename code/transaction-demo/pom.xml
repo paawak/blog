@@ -191,6 +191,7 @@
 								<id>mysql-migrate</id>
 								<phase>install</phase>
 								<goals>
+									<goal>clean</goal>
 									<goal>migrate</goal>
 								</goals>
 								<configuration>
@@ -208,6 +209,7 @@
 								<id>postgres-migrate</id>
 								<phase>install</phase>
 								<goals>
+									<goal>clean</goal>
 									<goal>migrate</goal>
 								</goals>
 								<configuration>
