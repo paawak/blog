@@ -7,12 +7,12 @@ import com.swayam.demo.trx.entity.Author;
 import com.swayam.demo.trx.entity.Genre;
 import com.swayam.demo.trx.web.dto.AuthorRequest;
 
-public interface AuthorService {
+public interface BookService {
 
 	List<Genre> getGenres();
 
 	List<Author> getAuthors();
 
-	Map<String, String> saveAuthor(AuthorRequest authorRequest);
+	Map<String, String> addAuthorWithGenre(AuthorRequest authorRequest);
 
 }

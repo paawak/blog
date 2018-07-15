@@ -16,14 +16,14 @@ import com.swayam.demo.trx.entity.Genre;
 import com.swayam.demo.trx.web.dto.AuthorRequest;
 
 @Service
-public class AuthorServiceImpl implements AuthorService {
+public class BookServiceImpl implements BookService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AuthorServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BookServiceImpl.class);
 
 	private final AuthorDao authorDao;
 	private final GenreDao genreDao;
 
-	public AuthorServiceImpl(AuthorDao authorDao, GenreDao genreDao) {
+	public BookServiceImpl(AuthorDao authorDao, GenreDao genreDao) {
 		this.authorDao = authorDao;
 		this.genreDao = genreDao;
 	}
@@ -40,7 +40,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Transactional(value = "postgresTxManager")
 	@Override
-	public Map<String, String> saveAuthor(AuthorRequest authorRequest) {
+	public Map<String, String> addAuthorWithGenre(AuthorRequest authorRequest) {
 		Map<String, String> map = new HashMap<>();
 		// save genre
 		long genreId = genreDao

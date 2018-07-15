@@ -8,21 +8,21 @@
 </head>
 <body>
 	<h1 align="center">Add Author</h1>
-	<form action="author" method="post" enctype="application/x-www-form-urlencoded"> 
+	<form action="rest/author-genre" method="post" enctype="application/x-www-form-urlencoded"> 
 		<div>
-			<div align="center">
+			<div align="left">
 				Author Id: <input name="authorId" type="text" />
 			</div>
-			<div align="center">
+			<div align="left">
 				Author First Name: <input name="authorFirstName" type="text" />
 			</div>
-			<div align="center">
+			<div align="left">
 				Author Last Name: <input name="authorLastName" type="text" />
 			</div>
-			<div align="center">
+			<div align="left">
 				Genre Short Name: <input name="genreShortName" type="text" />
 			</div>
-			<div align="center">
+			<div align="left">
 				Genre Name: <input name="genreName" type="text" />
 			</div>
 			<div align="center">

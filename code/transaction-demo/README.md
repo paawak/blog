@@ -16,15 +16,18 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 
 ## UI
 
-	http://localhost:8090/transaction-demo/author.html
+	http://localhost:8090/transaction-demo/book.html
 
 ## REST
 
 ### Genres
-	http://localhost:8090/transaction-demo/genre
+	http://localhost:8090/transaction-demo/rest/genre
 	
 ### Author
-	http://localhost:8090/transaction-demo/author	
+	http://localhost:8090/transaction-demo/rest/author
+	
+### Save Author and Genre
+	http://localhost:8090/transaction-demo/rest/author-genre	
 	
 # Sources
 		
@@ -42,7 +45,7 @@ The ManagementRealm user is manager/manager123
 
 To install a JDBC driver as a module you need to create a file path structure under the WILDFLY_HOME/modules, copy the JDBC driver JAR into the main/ subdirectory and create a module.xml file. The contents of module.xml is below:
 
-```
+``` html
 <module name="jdbc.postgres" xmlns="urn:jboss:module:1.5">
 
     <resources>
