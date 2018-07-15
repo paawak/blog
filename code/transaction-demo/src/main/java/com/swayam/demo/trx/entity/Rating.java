@@ -4,13 +4,13 @@ public class Rating {
 
 	private final Long id;
 	private final String userName;
-	private final String authorName;
+	private final long authorId;
 	private final int rating;
 
-	public Rating(Long id, String userName, String authorName, int rating) {
+	public Rating(Long id, String userName, long authorId, int rating) {
 		this.id = id;
 		this.userName = userName;
-		this.authorName = authorName;
+		this.authorId = authorId;
 		this.rating = rating;
 	}
 
@@ -22,8 +22,8 @@ public class Rating {
 		return userName;
 	}
 
-	public String getAuthorName() {
-		return authorName;
+	public long getAuthorId() {
+		return authorId;
 	}
 
 	public int getRating() {
@@ -34,7 +34,7 @@ public class Rating {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((authorName == null) ? 0 : authorName.hashCode());
+		result = prime * result + (int) (authorId ^ (authorId >>> 32));
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + rating;
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
@@ -50,10 +50,7 @@ public class Rating {
 		if (getClass() != obj.getClass())
 			return false;
 		Rating other = (Rating) obj;
-		if (authorName == null) {
-			if (other.authorName != null)
-				return false;
-		} else if (!authorName.equals(other.authorName))
+		if (authorId != other.authorId)
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -72,7 +69,7 @@ public class Rating {
 
 	@Override
 	public String toString() {
-		return String.format("Rating [id=%s, userName=%s, authorName=%s, rating=%s]", id, userName, authorName, rating);
+		return String.format("Rating [id=%s, userName=%s, authorId=%s, rating=%s]", id, userName, authorId, rating);
 	}
 
 }

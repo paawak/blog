@@ -40,19 +40,19 @@ public class BookServiceImpl implements BookService {
 
 	@Transactional(value = "postgresTxManager")
 	@Override
-	public Map<String, String> addAuthorWithGenre(AuthorRequest authorRequest) {
-		Map<String, String> map = new HashMap<>();
+	public Map<String, Long> addAuthorWithGenre(AuthorRequest authorRequest) {
+		Map<String, Long> map = new HashMap<>();
 		// save genre
 		long genreId = genreDao
 				.addGenre(new Genre(null, authorRequest.getGenreShortName(), authorRequest.getGenreName()));
 
 		LOGGER.info("genreId: {}", genreId);
 
-		map.put("genreId", String.valueOf(genreId));
+		map.put("genreId", genreId);
 		// save author
 		long authorId = authorDao.addAuthor(new Author(authorRequest.getAuthorId(), authorRequest.getAuthorFirstName(),
 				authorRequest.getAuthorLastName()));
-		map.put("authorId", String.valueOf(authorId));
+		map.put("authorId", authorId);
 
 		LOGGER.info("authorId: {}", authorId);
 

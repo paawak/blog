@@ -39,7 +39,7 @@ public class BookRestController {
 	}
 
 	@PostMapping(path = "/author-genre", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Map<String, String> save(AuthorRequest authorRequest) {
+	public Map<String, Long> save(AuthorRequest authorRequest) {
 		LOGGER.debug("authorRequest: {}", authorRequest);
 		return bookService.addAuthorWithGenre(authorRequest);
 	}

@@ -13,6 +13,6 @@ public interface BookService {
 
 	List<Author> getAuthors();
 
-	Map<String, String> addAuthorWithGenre(AuthorRequest authorRequest);
+	Map<String, Long> addAuthorWithGenre(AuthorRequest authorRequest);
 
 }
