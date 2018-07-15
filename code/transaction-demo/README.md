@@ -25,11 +25,38 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 	
 ### Author
 	http://localhost:8090/transaction-demo/author	
-
-
 	
 # Sources
 		
 		https://github.com/paawak/blog/tree/master/code/transaction-demo
 	
+# Running on Wildfly 13
+
+## Configuring Users
+
+To add a new user execute the add-user.sh script within the bin folder of your WildFly installation and enter the requested information.
+
+The ManagementRealm user is manager/manager123
+
+## Configuring JDBC Driver
+
+To install a JDBC driver as a module you need to create a file path structure under the WILDFLY_HOME/modules, copy the JDBC driver JAR into the main/ subdirectory and create a module.xml file. The contents of module.xml is below:
+
+```
+<module name="jdbc.postgres" xmlns="urn:jboss:module:1.5">
+
+    <resources>
+        <resource-root path="postgresql-42.2.3.jre7.jar"/>
+    </resources>
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="javax.transaction.api"/>
+        <module name="javax.servlet.api" optional="true"/>
+    </dependencies>
+</module>
+```
+		
+Thereafter, use the Management Console to add the JDBC Resource. After that, you can add a DataSource, XA or Non-XA
+
+		
 	

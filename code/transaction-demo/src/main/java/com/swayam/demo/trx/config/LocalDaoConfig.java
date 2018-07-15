@@ -7,18 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@EnableTransactionManagement
+@Profile("local")
+@PropertySource("classpath:jdbc.properties")
 @Configuration
-public class LocalDaoConfig {
+public class LocalDaoConfig implements DaoConfig {
 
 	@Autowired
 	private Environment environment;
 
+	@Override
 	@Bean(destroyMethod = "close")
 	public DataSource mysqlDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -34,6 +37,7 @@ public class LocalDaoConfig {
 		return dataSource;
 	}
 
+	@Override
 	@Bean(destroyMethod = "close")
 	public DataSource postgresDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -49,11 +53,13 @@ public class LocalDaoConfig {
 		return dataSource;
 	}
 
+	@Override
 	@Bean
 	public PlatformTransactionManager mysqlTxManager(@Qualifier("mysqlDataSource") DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);
 	}
 
+	@Override
 	@Bean
 	public PlatformTransactionManager postgresTxManager(@Qualifier("postgresDataSource") DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);
