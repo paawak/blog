@@ -45,7 +45,7 @@ The ManagementRealm user is manager/manager123
 
 To install a JDBC driver as a module you need to create a file path structure under the WILDFLY_HOME/modules, copy the JDBC driver JAR into the main/ subdirectory and create a module.xml file. The contents of module.xml is below:
 
-``` html
+``` xml
 <module name="jdbc.postgres" xmlns="urn:jboss:module:1.5">
 
     <resources>
