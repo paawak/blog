@@ -78,7 +78,7 @@ To install a JDBC driver as a module you need to create a file path structure un
 		
 Thereafter, use the Management Console to add the JDBC Resource. After that, you can add a DataSource, XA or Non-XA
 
-# Common Problem and their solution
+# Common Problems and their solutions
 ## Server startup fails with BeanNotOfRequiredTypeException
 
 This happens after adding the *@EnableAspectJAutoProxy* annotation. 
