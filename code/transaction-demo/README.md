@@ -10,7 +10,7 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 
 # How to run with Jetty
 
-	mvn clean jetty:run
+	 mvn jetty:run -Dspring.profiles.active=local
 
 # Accessing the API
 
