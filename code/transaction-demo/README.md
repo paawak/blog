@@ -16,7 +16,21 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 
 ## UI
 
-	http://localhost:8090/transaction-demo/book.html
+### book.html (http://localhost:8090/transaction-demo/book.html)
+- Saves data in 2 different tables within the same Postgres schema: **genre** and **author**
+- The table **genre** has an auto-increment primary key. 
+- The table **author** expects an unique primary key id every time from the user
+- The **author** table already contains data with Primary Keys ranging from *1* to *10*
+- To simulate transaction failure (unique constraint violation), the user can enter values from *1* to *10* in the *Author Id* field
+- For successful insertion the user should enter values above *10* in the *Author Id* field
+
+### rating.html (http://localhost:8090/transaction-demo/rating.html)
+- Saves data in 2 different databases: **author** table in **Postgres** and **rating** table in **Mysql**	
+- The table **rating** has an auto-increment primary key. 
+- The table **author** expects an unique primary key id every time from the user
+- The **author** table already contains data with Primary Keys ranging from *1* to *10*
+- To simulate transaction failure (unique constraint violation), the user can enter values from *1* to *10* in the *Author Id* field
+- For successful insertion the user should enter values above *10* in the *Author Id* field
 
 ## REST
 
@@ -28,6 +42,9 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 	
 ### Save Author and Genre
 	http://localhost:8090/transaction-demo/rest/author-genre	
+
+### Save Author and Rating	
+	http://localhost:8090/transaction-demo/rest/author-rating
 	
 # Sources
 		
