@@ -25,7 +25,7 @@ public class RatingDaoImpl implements RatingDao {
 
 	@Override
 	public List<Rating> getRatings() {
-		return jdbcTemplate.query("select * from genre", (ResultSet resultSet, int row) -> {
+		return jdbcTemplate.query("SELECT * FROM RATING", (ResultSet resultSet, int row) -> {
 			return new Rating(resultSet.getLong("id"), resultSet.getString("user_name"), resultSet.getLong("author_id"),
 					resultSet.getInt("rating"));
 		});
@@ -34,7 +34,7 @@ public class RatingDaoImpl implements RatingDao {
 	@Override
 	public long addRating(Rating rating) {
 		KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-		String sql = "insert into rating (user_name, author_id, rating) values (?, ?, ?)";
+		String sql = "INSERT INTO RATING (user_name, author_id, rating) VALUES (?, ?, ?)";
 		PreparedStatementCreator psc = (Connection con) -> {
 			PreparedStatement pstat = con.prepareStatement(sql, new String[] { "id" });
 			pstat.setString(1, rating.getUserName());

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1 align="center">Add Rating</h1>
-	<form action="rest/author-genre" method="post" enctype="application/x-www-form-urlencoded"> 
+	<form action="rest/author-rating" method="post" enctype="application/x-www-form-urlencoded"> 
 		<div>
 			<div align="left">
 				Author Id: <input name="authorId" type="text" />
