@@ -78,5 +78,21 @@ To install a JDBC driver as a module you need to create a file path structure un
 		
 Thereafter, use the Management Console to add the JDBC Resource. After that, you can add a DataSource, XA or Non-XA
 
+# Common Problem and their solution
+## Server startup fails with BeanNotOfRequiredTypeException
+
+This happens after adding the *@EnableAspectJAutoProxy* annotation. 
+The problem is, we are using a class instead of an interface. In the *RatingDaoImpl*, replace *JdbcTemplate* with *JdbcOperations*, which is an interface 
+
+The detailed exception is below:
+
+```
+Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'mysqlJdbcTemplate' is expected to be of type 'org.springframework.jdbc.core.JdbcTemplate' but was actually of type 'com.sun.proxy.$Proxy72'
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1148)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1065)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:818)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:724)
+
+```
 		
 	

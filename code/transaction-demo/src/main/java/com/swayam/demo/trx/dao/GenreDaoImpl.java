@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -17,15 +17,15 @@ import com.swayam.demo.trx.entity.Genre;
 @Repository
 public class GenreDaoImpl implements GenreDao {
 
-	private final JdbcTemplate jdbcTemplate;
+	private final JdbcOperations jdbcOperations;
 
-	public GenreDaoImpl(@Qualifier("postgresJdbcTemplate") JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	public GenreDaoImpl(@Qualifier("postgresJdbcTemplate") JdbcOperations jdbcOperations) {
+		this.jdbcOperations = jdbcOperations;
 	}
 
 	@Override
 	public List<Genre> getGenres() {
-		return jdbcTemplate.query("select * from genre", (ResultSet resultSet, int row) -> {
+		return jdbcOperations.query("select * from genre", (ResultSet resultSet, int row) -> {
 			return new Genre(resultSet.getLong("id"), resultSet.getString("short_name"), resultSet.getString("name"));
 		});
 	}
@@ -40,7 +40,7 @@ public class GenreDaoImpl implements GenreDao {
 			pstat.setString(2, genre.getName());
 			return pstat;
 		};
-		jdbcTemplate.update(psc, generatedKeyHolder);
+		jdbcOperations.update(psc, generatedKeyHolder);
 		return generatedKeyHolder.getKey().longValue();
 	}
 
