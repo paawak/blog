@@ -440,6 +440,10 @@
                 </in-vm-acceptor>
                 <jms-queue name="ExpiryQueue" entries="java:/jms/queue/ExpiryQueue"/>
                 <jms-queue name="DLQ" entries="java:/jms/queue/DLQ"/>
+                <!-- custom: start -->
+                <jms-queue name="myTestQueue" entries="jms/queue/mytest java:jboss/exported/jms/queue/mytest"/>
+				<jms-topic name="myTestTopic" entries="jms/topic/mytest java:jboss/exported/jms/topic/mytest"/>
+				<!-- custom: end -->
                 <connection-factory name="InVmConnectionFactory" entries="java:/ConnectionFactory" connectors="in-vm"/>
                 <connection-factory name="RemoteConnectionFactory" entries="java:jboss/exported/jms/RemoteConnectionFactory" connectors="http-connector"/>
                 <pooled-connection-factory name="activemq-ra" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" connectors="in-vm" transaction="xa"/>
