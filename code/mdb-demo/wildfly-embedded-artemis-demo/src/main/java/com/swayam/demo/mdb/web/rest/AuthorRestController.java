@@ -23,32 +23,31 @@ import com.swayam.demo.mdb.web.dto.AuthorRequest;
 @RequestMapping(path = "/rest")
 public class AuthorRestController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorRestController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthorRestController.class);
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private final ApplicationContext applicationContext;
-    private final Queue queue;
+	private final ApplicationContext applicationContext;
+	private final Queue queue;
 
-    public AuthorRestController(ApplicationContext applicationContext, Queue queue) {
-	this.applicationContext = applicationContext;
-	this.queue = queue;
-    }
+	public AuthorRestController(ApplicationContext applicationContext, Queue queue) {
+		this.applicationContext = applicationContext;
+		this.queue = queue;
+	}
 
-    @PostMapping(path = "/author", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String save(AuthorRequest authorRequest) throws JsonProcessingException, NamingException, JMSException {
-	LOGGER.debug("authorRequest: {}", authorRequest);
-	postMessageToJMS(objectMapper.writeValueAsString(authorRequest));
-	return "success";
-    }
+	@PostMapping(path = "/author", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public String save(AuthorRequest authorRequest) throws JsonProcessingException, NamingException, JMSException {
+		LOGGER.debug("authorRequest: {}", authorRequest);
+		postMessageToJMS(objectMapper.writeValueAsString(authorRequest));
+		return "success";
+	}
 
-    private void postMessageToJMS(String message) throws NamingException, JMSException {
-	QueueSession session = applicationContext.getBean(QueueSession.class);
-	QueueSender sender = session.createSender(queue);
-	TextMessage textMessage = session.createTextMessage();
-	textMessage.setText(message);
-	sender.send(textMessage);
-	LOGGER.info("sent message: {}", textMessage);
-    }
+	private void postMessageToJMS(String message) throws NamingException, JMSException {
+		QueueSession session = applicationContext.getBean(QueueSession.class);
+		QueueSender sender = session.createSender(queue);
+		TextMessage textMessage = session.createTextMessage(message);
+		sender.send(textMessage);
+		LOGGER.info("sent message: {}", textMessage);
+	}
 
 }
