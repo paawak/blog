@@ -10,28 +10,30 @@ import javax.jms.TextMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-	@ActivationConfigProperty(propertyName = "destination", propertyValue = "jms/queue/mytest") })
+@MessageDriven(name = "HelloWorldQueueMDB", activationConfig = {
+		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/HELLOWORLDMDBQueue"),
+		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
 public class AuthorRequestListenerBean implements MessageListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorRequestListenerBean.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthorRequestListenerBean.class);
 
-    @Override
-    public void onMessage(Message message) {
+	@Override
+	public void onMessage(Message message) {
 
-	if (!(message instanceof TextMessage)) {
-	    throw new UnsupportedOperationException("Expecting a " + TextMessage.class);
+		if (!(message instanceof TextMessage)) {
+			throw new UnsupportedOperationException("Expecting a " + TextMessage.class);
+		}
+
+		if (message instanceof TextMessage) {
+			TextMessage textMessage = (TextMessage) message;
+			try {
+				LOGGER.info("Text message received: {}", textMessage.getText());
+			} catch (JMSException e) {
+				LOGGER.error("exception reading messsage", e);
+			}
+		}
+
 	}
-
-	if (message instanceof TextMessage) {
-	    TextMessage textMessage = (TextMessage) message;
-	    try {
-		LOGGER.info("Text message received: {}", textMessage.getText());
-	    } catch (JMSException e) {
-		LOGGER.error("exception reading messsage", e);
-	    }
-	}
-
-    }
 
 }
