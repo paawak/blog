@@ -15,7 +15,6 @@
 		<resource-root path="activemq-protobuf-1.1.jar" />
 		<resource-root path="activemq-ra-5.15.4.jar" />
 		<resource-root path="activemq-spring-5.15.4.jar" />
-		<resource-root path="commons-logging-1.2.jar" />
 		<resource-root path="commons-net-3.6.jar" />
 		<resource-root path="commons-pool2-2.4.2.jar" />
 		<resource-root
@@ -27,11 +26,8 @@
 		<resource-root path="jackson-annotations-2.9.4.jar" />
 		<resource-root path="jackson-core-2.9.4.jar" />
 		<resource-root path="jackson-databind-2.9.4.jar" />
-		<resource-root path="log4j-1.2.17.jar" />
 		<resource-root path="mqtt-client-1.14.jar" />
 		<resource-root path="proton-j-0.27.1.jar" />
-		<resource-root path="slf4j-api-1.7.25.jar" />
-		<resource-root path="slf4j-log4j12-1.7.25.jar" />
 		<resource-root path="spring-aop-4.3.17.RELEASE.jar" />
 		<resource-root path="spring-beans-4.3.17.RELEASE.jar" />
 		<resource-root path="spring-context-4.3.17.RELEASE.jar" />
@@ -39,6 +35,12 @@
 		<resource-root
 			path="spring-expression-4.3.17.RELEASE.jar" />
 		<resource-root path="xbean-spring-4.2.jar" />
+		<!-- logging: start -->
+		<resource-root path="log4j-1.2.17.jar" />
+		<resource-root path="slf4j-api-1.7.25.jar" />
+		<resource-root path="slf4j-log4j12-1.7.25.jar" />
+		<resource-root path="commons-logging-1.2.jar" />
+		<!-- logging: end -->
 	</resources>
 	<dependencies>
 		<module name="javax.api" slot="main" />
