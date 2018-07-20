@@ -22,7 +22,12 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 ## Using external ActiveMW
 - https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly
 
+### Problems
+	Null pointer at org.apache.activemq.ra.ActiveMQConnectionSupport.setInfo(ActiveMQConnectionSupport.java:115)
+	
+
 ## Using the embedded message broker ActiveMQ Artemis
+
 
 ### Create Queue
 
