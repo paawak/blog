@@ -33,7 +33,7 @@ public class AuthorRatingServiceImpl implements AuthorRatingService {
 		return ratingDao.getRatings();
 	}
 
-	@Transactional(value = "postgresTxManager")
+	@Transactional
 	@Override
 	public Map<String, Long> addAuthorRating(AuthorRatingRequest authorRatingRequest) {
 		long ratingId = ratingDao.addRating(new Rating(null, authorRatingRequest.getUserName(),

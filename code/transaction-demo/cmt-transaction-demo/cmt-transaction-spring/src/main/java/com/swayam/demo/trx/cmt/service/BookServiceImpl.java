@@ -38,7 +38,7 @@ public class BookServiceImpl implements BookService {
 		return authorDao.getAuthors();
 	}
 
-	@Transactional(value = "postgresTxManager")
+	@Transactional
 	@Override
 	public Map<String, Long> addAuthorWithGenre(AuthorRequest authorRequest) {
 		Map<String, Long> map = new HashMap<>();

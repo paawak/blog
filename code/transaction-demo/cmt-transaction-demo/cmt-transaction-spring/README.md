@@ -12,7 +12,7 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 
 ## UI
 
-### book.html (http://localhost:8080/cmt-transaction-demo/book.html)
+### book.html (http://localhost:8080/cmt-transaction-spring/book.html)
 - Saves data in 2 different tables within the same Postgres schema: **genre** and **author**
 - The table **genre** has an auto-increment primary key. 
 - The table **author** expects an unique primary key id every time from the user
@@ -20,7 +20,7 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 - To simulate transaction failure (unique constraint violation), the user can enter values from *1* to *10* in the *Author Id* field
 - For successful insertion the user should enter values above *10* in the *Author Id* field
 
-### rating.html (http://localhost:8080/cmt-transaction-demo/rating.html)
+### rating.html (http://localhost:8080/cmt-transaction-spring/rating.html)
 - Saves data in 2 different databases: **author** table in **Postgres** and **rating** table in **Mysql**	
 - The table **rating** has an auto-increment primary key. 
 - The table **author** expects an unique primary key id every time from the user
@@ -31,16 +31,16 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 ## REST
 
 ### Genres
-	http://localhost:8080/cmt-transaction-demo/rest/genre
+	http://localhost:8080/cmt-transaction-spring/rest/genre
 	
 ### Author
-	http://localhost:8080/cmt-transaction-demo/rest/author
+	http://localhost:8080/cmt-transaction-spring/rest/author
 	
 ### Save Author and Genre
-	http://localhost:8080/cmt-transaction-demo/rest/author-genre	
+	http://localhost:8080/cmt-transaction-spring/rest/author-genre	
 
 ### Save Author and Rating	
-	http://localhost:8080/cmt-transaction-demo/rest/author-rating
+	http://localhost:8080/cmt-transaction-spring/rest/author-rating
 	
 # Sources
 		
