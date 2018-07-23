@@ -129,6 +129,7 @@
             <formatter name="COLOR-PATTERN">
                 <pattern-formatter pattern="%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n"/>
             </formatter>
+            <add-logging-api-dependencies value="false"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:batch-jberet:2.0">
             <default-job-repository name="in-memory"/>
@@ -460,7 +461,10 @@
         <subsystem xmlns="urn:jboss:domain:resource-adapters:5.0">
             <resource-adapters>  
                 <resource-adapter id="activemq-rar.rar">  
-                  <module slot="main" id="org.apache.activemq.ra" />  
+	                <!-- deploy as a RAR -->
+	                <archive>activemq-rar-5.15.4.rar</archive>
+	                <!-- deploy as a mdule -->
+	                <!-- <module slot="main" id="org.apache.activemq.ra" /> -->  
                     <transaction-support>XATransaction</transaction-support>  
                     <config-property name="UseInboundSession">  
                         false  
