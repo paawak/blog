@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.web.dto;
+package com.swayam.demo.trx.cmt.plain.web.dto;
 
 public class AuthorRatingRequest {
 

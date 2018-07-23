@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.service;
+package com.swayam.demo.trx.cmt.plain.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,16 +6,13 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.swayam.demo.trx.cmt.dao.AuthorDao;
-import com.swayam.demo.trx.cmt.dao.RatingDao;
-import com.swayam.demo.trx.cmt.entity.Author;
-import com.swayam.demo.trx.cmt.entity.Rating;
-import com.swayam.demo.trx.cmt.web.dto.AuthorRatingRequest;
+import com.swayam.demo.trx.cmt.plain.dao.AuthorDao;
+import com.swayam.demo.trx.cmt.plain.dao.RatingDao;
+import com.swayam.demo.trx.cmt.plain.entity.Author;
+import com.swayam.demo.trx.cmt.plain.entity.Rating;
+import com.swayam.demo.trx.cmt.plain.web.dto.AuthorRatingRequest;
 
-@Service
 public class AuthorRatingServiceImpl implements AuthorRatingService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthorRatingServiceImpl.class);
@@ -33,7 +30,6 @@ public class AuthorRatingServiceImpl implements AuthorRatingService {
 		return ratingDao.getRatings();
 	}
 
-	@Transactional
 	@Override
 	public Map<String, Long> addAuthorRating(AuthorRatingRequest authorRatingRequest) {
 		long ratingId = ratingDao.addRating(new Rating(null, authorRatingRequest.getUserName(),

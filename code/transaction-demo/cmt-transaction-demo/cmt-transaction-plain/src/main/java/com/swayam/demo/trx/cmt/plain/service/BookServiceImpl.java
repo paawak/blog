@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.service;
+package com.swayam.demo.trx.cmt.plain.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,16 +6,13 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.swayam.demo.trx.cmt.dao.AuthorDao;
-import com.swayam.demo.trx.cmt.dao.GenreDao;
-import com.swayam.demo.trx.cmt.entity.Author;
-import com.swayam.demo.trx.cmt.entity.Genre;
-import com.swayam.demo.trx.cmt.web.dto.AuthorRequest;
+import com.swayam.demo.trx.cmt.plain.dao.AuthorDao;
+import com.swayam.demo.trx.cmt.plain.dao.GenreDao;
+import com.swayam.demo.trx.cmt.plain.entity.Author;
+import com.swayam.demo.trx.cmt.plain.entity.Genre;
+import com.swayam.demo.trx.cmt.plain.web.dto.AuthorRequest;
 
-@Service
 public class BookServiceImpl implements BookService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BookServiceImpl.class);
@@ -38,7 +35,6 @@ public class BookServiceImpl implements BookService {
 		return authorDao.getAuthors();
 	}
 
-	@Transactional
 	@Override
 	public Map<String, Long> addAuthorWithGenre(AuthorRequest authorRequest) {
 		Map<String, Long> map = new HashMap<>();

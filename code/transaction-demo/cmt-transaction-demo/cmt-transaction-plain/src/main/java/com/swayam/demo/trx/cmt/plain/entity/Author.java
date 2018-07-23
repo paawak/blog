@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.entity;
+package com.swayam.demo.trx.cmt.plain.entity;
 
 public class Author {
 

@@ -1,22 +1,17 @@
-package com.swayam.demo.trx.cmt.web.rest;
+package com.swayam.demo.trx.cmt.plain.web.rest;
 
 import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.swayam.demo.trx.cmt.entity.Rating;
-import com.swayam.demo.trx.cmt.service.AuthorRatingService;
-import com.swayam.demo.trx.cmt.web.dto.AuthorRatingRequest;
+import com.swayam.demo.trx.cmt.plain.entity.Rating;
+import com.swayam.demo.trx.cmt.plain.service.AuthorRatingService;
+import com.swayam.demo.trx.cmt.plain.web.dto.AuthorRatingRequest;
 
-@RestController
-@RequestMapping(path = "/rest")
+//@RestController
+//@RequestMapping(path = "/rest")
 public class AuthorUserRestController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthorUserRestController.class);
@@ -27,12 +22,12 @@ public class AuthorUserRestController {
 		this.authorRatingService = authorRatingService;
 	}
 
-	@GetMapping(path = "/rating")
+//	@GetMapping(path = "/rating")
 	public List<Rating> getAuthors() {
 		return authorRatingService.getRatings();
 	}
 
-	@PostMapping(path = "/author-rating", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+//	@PostMapping(path = "/author-rating", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public Map<String, Long> save(AuthorRatingRequest authorRatingRequest) {
 		LOGGER.debug("authorRatingRequest: {}", authorRatingRequest);
 		return authorRatingService.addAuthorRating(authorRatingRequest);
