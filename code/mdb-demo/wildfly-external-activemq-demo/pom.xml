@@ -18,7 +18,7 @@
 		<jackson.version>2.9.6</jackson.version>
 		<spring.version>4.2.2.RELEASE</spring.version>
 		<slf4j.version>1.7.12</slf4j.version>
-		<activemq.version>5.15.4</activemq.version>
+		<activemq.version>5.15.0</activemq.version>
 	</properties>
 
 	<build>
@@ -44,6 +44,12 @@
 				<version>2.4</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webResources>
+						<webResource>	
+							<directory>src/main/wildfly</directory>
+							<include>META-INF/**</include>
+						</webResource>
+					</webResources>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -125,18 +131,6 @@
             <artifactId>activemq-ra</artifactId>
             <version>${activemq.version}</version>
         </dependency>
-        <!-- <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-spring</artifactId>
-            <version>${activemq.version}</version>
-        </dependency>
-		<dependency>
-			<groupId>org.wildfly</groupId>
-			<artifactId>wildfly-jms-client-bom</artifactId>
-			<version>12.0.0.Final</version>
-			<type>pom</type>
-		</dependency> -->
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -147,13 +141,18 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-jms-client-bom</artifactId>
+			<version>12.0.0.Final</version>
+			<type>pom</type>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${slf4j.version}</version>
@@ -162,13 +161,13 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>jul-to-slf4j</artifactId>
 			<version>${slf4j.version}</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 	        <groupId>org.slf4j</groupId>
 	        <artifactId>slf4j-log4j12</artifactId>
 	        <version>${slf4j.version}</version>
 	    </dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>${log4j.version}</version>
@@ -182,7 +181,17 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
 			<version>${log4j.version}</version>
+		</dependency> -->
+		<!-- <dependency>
+		    <groupId>org.jboss.slf4j</groupId>
+		    <artifactId>slf4j-jboss-logmanager</artifactId>
+		    <version>1.0.4.GA</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.logmanager</groupId>
+		    <artifactId>jboss-logmanager</artifactId>
+			<version>2.1.4.Final</version>
+		</dependency> -->
 	</dependencies>
 
 </project>

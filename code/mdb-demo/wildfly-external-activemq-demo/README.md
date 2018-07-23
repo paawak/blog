@@ -23,8 +23,51 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 - https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly
 
 ### Problems
-	Null pointer at org.apache.activemq.ra.ActiveMQConnectionSupport.setInfo(ActiveMQConnectionSupport.java:115)
-	
+**java.lang.ClassNotFoundException: org.slf4j.impl.Log4jLoggerAdapter**
+**Solution:**
+Add the below dependency:
+``` xml
+		<dependency>
+	        <groupId>org.slf4j</groupId>
+	        <artifactId>slf4j-log4j12</artifactId>
+	        <version>${slf4j.version}</version>
+	    </dependency>
+```
+
+**java.lang.ClassNotFoundException: org.slf4j.impl.Slf4jLogger**
+**Solution:**
+Add the below dependency:
+``` xml
+		<dependency>
+		    <groupId>org.jboss.slf4j</groupId>
+		    <artifactId>slf4j-jboss-logmanager</artifactId>
+		    <version>1.0.4.GA</version>
+		</dependency>
+```
+ 
+** java.lang.NoClassDefFoundError: org/jboss/logmanager/Level**
+**Solution:**
+``` xml
+		<dependency>
+			<groupId>org.jboss.logmanager</groupId>
+		    <artifactId>jboss-logmanager</artifactId>
+			<version>2.1.4.Final</version>
+		</dependency>
+```	
+
+**java.lang.ClassCastException: Cannot cast org.jboss.logmanager.Logger to org.jboss.logmanager.Logger**
+**Solution:**
+In the below subsystem,
+``` xml
+<subsystem xmlns="urn:jboss:domain:logging:5.0">
+```
+
+Put the below lines
+
+``` xml
+            <add-logging-api-dependencies value="false"/>
+            <use-deployment-logging-config value="true"/>
+```
 
 ## Using the embedded message broker ActiveMQ Artemis
 
