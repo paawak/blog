@@ -1,6 +1,6 @@
 # About
 
-This demoes a simple web-application, and how transaction works in a Container Managed Transaction. Our example container would be Wildfly 13. It uses Wildfly's JTA compliant container managed transactions. Spring is used for DI as well as transactions, though the underlying transaction manager is from Wildfly.
+This demoes a simple web-application, and how transaction works in a Container Managed Transaction. Our example container would be Wildfly 13. It uses Wildfly's JTA compliant container managed transactions. No Spring is used.
 
 # How to build
 
@@ -12,7 +12,7 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 
 ## UI
 
-### book.html (http://localhost:8080/cmt-transaction-spring/book.html)
+### book.html (http://localhost:8080/cmt-transaction-plain/book.html)
 - Saves data in 2 different tables within the same Postgres schema: **genre** and **author**
 - The table **genre** has an auto-increment primary key. 
 - The table **author** expects an unique primary key id every time from the user
@@ -20,7 +20,7 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 - To simulate transaction failure (unique constraint violation), the user can enter values from *1* to *10* in the *Author Id* field
 - For successful insertion the user should enter values above *10* in the *Author Id* field
 
-### rating.html (http://localhost:8080/cmt-transaction-spring/rating.html)
+### rating.html (http://localhost:8080/cmt-transaction-plain/rating.html)
 - Saves data in 2 different databases: **author** table in **Postgres** and **rating** table in **Mysql**	
 - The table **rating** has an auto-increment primary key. 
 - The table **author** expects an unique primary key id every time from the user
@@ -31,16 +31,16 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 ## REST
 
 ### Genres
-	http://localhost:8080/cmt-transaction-spring/rest/genre
+	http://localhost:8080/cmt-transaction-plain/rest/genre
 	
 ### Author
-	http://localhost:8080/cmt-transaction-spring/rest/author
+	http://localhost:8080/cmt-transaction-plain/rest/author
 	
 ### Save Author and Genre
-	http://localhost:8080/cmt-transaction-spring/rest/author-genre	
+	http://localhost:8080/cmt-transaction-plain/rest/author-genre	
 
 ### Save Author and Rating	
-	http://localhost:8080/cmt-transaction-spring/rest/author-rating
+	http://localhost:8080/cmt-transaction-plain/rest/author-rating
 	
 # Sources
 		

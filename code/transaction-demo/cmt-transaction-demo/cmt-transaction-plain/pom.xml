@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.swayam.demo</groupId>
-	<artifactId>cmt-transaction-spring</artifactId>
+	<artifactId>cmt-transaction-plain</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>cmt-transaction-spring</name>
+	<name>cmt-transaction-plain</name>
 	<description>
-		This demoes a simple web-application, and how transaction works in a Container Managed Transaction. Our example container would be Wildfly 13. It uses Wildfly's JTA compliant container managed transactions. Spring is used for DI as well as transactions, though the underlying transaction manager is from Wildfly.
+		This demoes a simple web-application, and how transaction works in a Container Managed Transaction. Our example container would be Wildfly 13. It uses Wildfly's JTA compliant container managed transactions. No Spring is used.
 	</description>
 	<url>http://palashray.com</url>
 
