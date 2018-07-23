@@ -39,21 +39,21 @@ public class MdbConfig {
 	env.put(Context.SECURITY_PRINCIPAL, environment.getProperty("WILDFLY_USER"));
 	env.put(Context.SECURITY_CREDENTIALS, environment.getProperty("WILDFLY_PASSWORD"));
 	InitialContext context = new InitialContext(env);
-	LOGGER.info("got the initial-context");
+	LOGGER.info("################################ got the initial-context");
 	return context;
     }
 
     @Bean
     public QueueConnectionFactory queueConnectionFactory(InitialContext context) throws NamingException {
-	QueueConnectionFactory factory = (QueueConnectionFactory) context.lookup(environment.getProperty("ARTEMIS_JMS_CONNECTION_FACTORY"));
-	LOGGER.info("got the connection factory");
+	QueueConnectionFactory factory = (QueueConnectionFactory) context.lookup(environment.getProperty("ACTIVEMQ_JMS_CONNECTION_FACTORY"));
+	LOGGER.info("################################ got the connection factory");
 	return factory;
     }
 
     @Bean
     public Queue jmsQueue(InitialContext context) throws NamingException {
-	Queue queue = (Queue) context.lookup(environment.getProperty("ARTEMIS_QUEUE_LOOKUP"));
-	LOGGER.info("got the queue");
+	Queue queue = (Queue) context.lookup(environment.getProperty("ACTIVEMQ_QUEUE_LOOKUP"));
+	LOGGER.info("################################ got the queue");
 	return queue;
     }
 
@@ -61,7 +61,7 @@ public class MdbConfig {
     @Scope("prototype")
     public QueueConnection queueConnection(QueueConnectionFactory queueConnectionFactory) throws JMSException {
 	QueueConnection queueConnection = queueConnectionFactory.createQueueConnection(environment.getProperty("WILDFLY_USER"), environment.getProperty("WILDFLY_PASSWORD"));
-	LOGGER.info("created a connection");
+	LOGGER.info("################################ created a connection");
 	return queueConnection;
     }
 
@@ -69,7 +69,7 @@ public class MdbConfig {
     @Scope("prototype")
     public QueueSession queueSession(QueueConnection queueConnection) throws JMSException {
 	QueueSession queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
-	LOGGER.info("created a queueSession");
+	LOGGER.info("################################ created a queueSession");
 	return queueSession;
 
     }
