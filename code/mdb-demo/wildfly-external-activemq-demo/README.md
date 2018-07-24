@@ -21,6 +21,7 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 
 ## Using external ActiveMQ
 - https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly
+- https://github.com/wildfly/quickstart/compare/master...jmesnil:helloworld-mdb-activemq-ra
 - https://github.com/wildfly/quickstart/tree/master/helloworld-mdb
 
 ## Creating rar module
