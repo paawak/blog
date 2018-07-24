@@ -19,8 +19,20 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 - Create a *Management User*
 - Create an *Application User* with name **user**, password **user123**. It should have a role **guest**
 
-## Using external ActiveMW
+## Using external ActiveMQ
 - https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly
+
+## Creating rar module
+### Create directory structure
+mkdir -p WILDFLY_HOME/modules/system/layers/base/org/apache/activemq/ra/main
+
+### Extract the contents of *activemq-rar-5.15.4.rar* into it
+cd WILDFLY_HOME/modules/system/layers/base/org/apache/activemq/ra/main
+jar -xvf  activemq/rar/activemq-rar-5.15.4.rar 
+
+### Copy the module.xml into it
+cp src/main/wildfly/module.xml WILDFLY_HOME/modules/system/layers/base/org/apache/activemq/ra/main/
+ 
 
 ### Problems
 **java.lang.ClassNotFoundException: org.slf4j.impl.Log4jLoggerAdapter**
