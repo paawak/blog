@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 		@ActivationConfigProperty(propertyName = "destination", propertyValue = "HELLOWORLDMDBQueue"),
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
-public class AuthorRequestListenerBean implements MessageListener {
+public class HelloWorldQueueMDB implements MessageListener {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AuthorRequestListenerBean.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorldQueueMDB.class);
 
 	@Override
 	public void onMessage(Message message) {
