@@ -5,7 +5,7 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 
 # To post a message to the queue:
 
-	http://localhost:8080/wildfly-external-activemq-demo/author.html
+	http://localhost:8080/wildfly-external-activemq-demo-spring/author.html
 
 
 # Configuring Wildfly
