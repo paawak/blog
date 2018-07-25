@@ -193,7 +193,7 @@
                 <singleton default-access-timeout="5000"/>
             </session-bean>
             <mdb>
-                <resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:activemq-ra.rar}"/>
+                <resource-adapter-ref resource-adapter-name="activemq-rar"/>
                 <bean-instance-pool-ref pool-name="mdb-strict-max-pool"/>
             </mdb>
             <pools>
@@ -462,9 +462,9 @@
             <resource-adapters>  
                 <resource-adapter id="activemq-rar.rar">  
 	                <!-- deploy as a RAR -->
-	                <archive>activemq-rar-5.15.4.rar</archive>
+	                <!-- <archive>activemq-rar-5.15.4.rar</archive> -->
 	                <!-- deploy as a mdule -->
-	                <!-- <module slot="main" id="org.apache.activemq.ra" /> -->  
+	                <module slot="main" id="org.apache.activemq.ra" />   
                     <transaction-support>XATransaction</transaction-support>  
                     <config-property name="UseInboundSession">  
                         false  
