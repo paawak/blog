@@ -1,4 +1,4 @@
-package com.swayam.demo.mdb.config;
+package com.swayam.demo.mdb.spring.config;
 
 import java.util.List;
 

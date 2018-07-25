@@ -1,4 +1,4 @@
-package com.swayam.demo.mdb.web.dto;
+package com.swayam.demo.mdb.spring.web.dto;
 
 public class AuthorRequest {
 
