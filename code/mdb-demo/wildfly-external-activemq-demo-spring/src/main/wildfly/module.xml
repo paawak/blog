@@ -41,8 +41,7 @@
 		<module name="javax.jms.api" slot="main" />
 		<module name="javax.management.j2ee.api" slot="main" />
 		<module name="javax.resource.api" slot="main" />
-		<module name="org.apache.commons.logging" />
-		<module name="org.apache.log4j" />
 		<module name="org.slf4j" />
+		<module name="org.slf4j.impl" />
 	</dependencies>
 </module>  
