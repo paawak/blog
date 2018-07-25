@@ -18,6 +18,7 @@
 <jboss-deployment-structure>
     <deployment>
         <dependencies>
+        	<module name="java.logging"/>
             <module name="org.apache.commons.logging" />
 			<module name="org.apache.log4j" />
 			<module name="org.slf4j" />
