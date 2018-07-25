@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
@@ -29,6 +30,7 @@ public class MdbConfig {
     @Autowired
     private Environment environment;
 
+    @Lazy
     @Bean
     public InitialContext context() throws NamingException {
 	Hashtable<String, String> env = new Hashtable<String, String>();
@@ -43,6 +45,7 @@ public class MdbConfig {
 	return context;
     }
 
+    @Lazy
     @Bean
     public QueueConnectionFactory queueConnectionFactory(InitialContext context) throws NamingException {
 	QueueConnectionFactory factory = (QueueConnectionFactory) context.lookup(environment.getProperty("ACTIVEMQ_JMS_CONNECTION_FACTORY"));
@@ -50,6 +53,7 @@ public class MdbConfig {
 	return factory;
     }
 
+    @Lazy
     @Bean
     public Queue jmsQueue(InitialContext context) throws NamingException {
 	Queue queue = (Queue) context.lookup(environment.getProperty("ACTIVEMQ_QUEUE_LOOKUP"));
@@ -57,6 +61,7 @@ public class MdbConfig {
 	return queue;
     }
 
+    @Lazy
     @Bean(destroyMethod = "close")
     @Scope("prototype")
     public QueueConnection queueConnection(QueueConnectionFactory queueConnectionFactory) throws JMSException {
@@ -65,6 +70,7 @@ public class MdbConfig {
 	return queueConnection;
     }
 
+    @Lazy
     @Bean(destroyMethod = "close")
     @Scope("prototype")
     public QueueSession queueSession(QueueConnection queueConnection) throws JMSException {
