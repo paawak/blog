@@ -6,7 +6,7 @@
 		</Console>
 
 		<RollingRandomAccessFile name="FILE"
-			fileName="./logs/trx-demo.log" filePattern="./logs/trx-demo-%d{yyyy-MM-dd-HH}-%i.log.gz"
+			fileName="./logs/wildfly-external-activemq-demo-plain.log" filePattern="./logs/wildfly-external-activemq-demo-plain-%d{yyyy-MM-dd-HH}-%i.log.gz"
 			immediateFlush="false" append="true">
 			<PatternLayout>
 				<pattern>%d{ISO8601} %p [%t] %c{1}.%M(%L) | %m%n</pattern>

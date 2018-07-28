@@ -19,9 +19,6 @@
     <deployment>
         <dependencies>
         	<module name="org.apache.activemq.ra" />
-			<module name="org.slf4j" />
-			<module name="org.slf4j.impl" />
-			<module name="org.jboss.logmanager" />
         </dependencies>
     </deployment>
 </jboss-deployment-structure>
