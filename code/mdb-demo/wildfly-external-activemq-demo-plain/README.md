@@ -5,7 +5,7 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 
 # To post a message to the queue:
 
-	http://localhost:8080/wildfly-external-activemq-demo/author.jsp
+	http://localhost:8080/wildfly-external-activemq-demo-plain/author.jsp
 
 
 # Configuring Wildfly
@@ -21,6 +21,8 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 
 ## Using external ActiveMQ
 - https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly
+- http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-activemq-on-jbosswildfly
+- http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-jboss-as7-openmq
 - https://github.com/wildfly/quickstart/compare/master...jmesnil:helloworld-mdb-activemq-ra
 - https://github.com/wildfly/quickstart/tree/master/helloworld-mdb
 
