@@ -19,8 +19,9 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 - Create a *Management User*
 - Create an *Application User* with name **user**, password **user123**. It should have a role **guest**
 
-## Using external ActiveMW
+## Using external ActiveMQ
 - https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly
+- http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-activemq-on-jbosswildfly
 
 ### Problems
 **java.lang.ClassNotFoundException: org.slf4j.impl.Log4jLoggerAdapter**
