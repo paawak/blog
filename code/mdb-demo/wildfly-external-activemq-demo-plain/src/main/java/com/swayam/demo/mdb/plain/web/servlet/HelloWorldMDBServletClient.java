@@ -35,11 +35,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jboss.ejb3.annotation.ResourceAdapter;
-
-@ResourceAdapter("activemq-rar.rar")
-@JMSDestinationDefinitions(value = { @JMSDestinationDefinition(/* resourceAdapter = "activemq-rar.rar", */
-		name = "java:/queue/HELLOWORLDMDBQueue", interfaceName = "javax.jms.Queue", destinationName = "HELLOWORLDMDBQueue") })
+@JMSDestinationDefinitions(value = {
+		@JMSDestinationDefinition(name = "java:/queue/HELLOWORLDMDBQueue", interfaceName = "javax.jms.Queue", destinationName = "HELLOWORLDMDBQueue") })
 @WebServlet("/rest/author")
 public class HelloWorldMDBServletClient extends HttpServlet {
 
