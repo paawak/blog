@@ -461,14 +461,9 @@
         <subsystem xmlns="urn:jboss:domain:resource-adapters:5.0">
             <resource-adapters>  
                 <resource-adapter id="activemq-rar.rar">  
-	                <!-- deploy as a RAR -->
-	                <!-- <archive>activemq-rar-5.15.4.rar</archive> -->
-	                <!-- deploy as a mdule -->
 	                <module slot="main" id="org.apache.activemq.ra" />   
                     <transaction-support>XATransaction</transaction-support>  
-                    <config-property name="UseInboundSession">  
-                        false  
-                    </config-property>  
+                    <config-property name="UseInboundSession">false</config-property>  
                     <config-property name="Password">admin</config-property>  
                     <config-property name="UserName">admin</config-property>  
                     <config-property name="ServerUrl">tcp://localhost:61616?jms.rmIdFromConnectionId=true</config-property>  
