@@ -25,59 +25,61 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class MdbConfig {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MdbConfig.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MdbConfig.class);
 
-    @Autowired
-    private Environment environment;
+	@Autowired
+	private Environment environment;
 
-    @Lazy
-    @Bean
-    public InitialContext context() throws NamingException {
-	Hashtable<String, String> env = new Hashtable<String, String>();
-	env.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-	env.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
-	env.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
-	env.put("jboss.naming.client.connect.options.org.xnio.Options.SASL_POLICY_NOPLAINTEXT", "false");
-	env.put(Context.SECURITY_PRINCIPAL, environment.getProperty("WILDFLY_USER"));
-	env.put(Context.SECURITY_CREDENTIALS, environment.getProperty("WILDFLY_PASSWORD"));
-	InitialContext context = new InitialContext(env);
-	LOGGER.info("################################ got the initial-context");
-	return context;
-    }
+	@Lazy
+	@Bean
+	public InitialContext context() throws NamingException {
+		Hashtable<String, String> env = new Hashtable<String, String>();
+		env.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
+		env.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
+		env.put("jboss.naming.client.connect.options.org.xnio.Options.SASL_POLICY_NOPLAINTEXT", "false");
+		env.put(Context.SECURITY_PRINCIPAL, environment.getProperty("WILDFLY_USER"));
+		env.put(Context.SECURITY_CREDENTIALS, environment.getProperty("WILDFLY_PASSWORD"));
+		InitialContext context = new InitialContext(env);
+		LOGGER.info("################################ got the initial-context");
+		return context;
+	}
 
-    @Lazy
-    @Bean
-    public QueueConnectionFactory queueConnectionFactory(InitialContext context) throws NamingException {
-	QueueConnectionFactory factory = (QueueConnectionFactory) context.lookup(environment.getProperty("ACTIVEMQ_JMS_CONNECTION_FACTORY"));
-	LOGGER.info("################################ got the connection factory");
-	return factory;
-    }
+	@Lazy
+	@Bean
+	public QueueConnectionFactory queueConnectionFactory(InitialContext context) throws NamingException {
+		QueueConnectionFactory factory = (QueueConnectionFactory) context
+				.lookup(environment.getProperty("ACTIVEMQ_JMS_CONNECTION_FACTORY"));
+		LOGGER.info("################################ got the connection factory");
+		return factory;
+	}
 
-    @Lazy
-    @Bean
-    public Queue jmsQueue(InitialContext context) throws NamingException {
-	Queue queue = (Queue) context.lookup(environment.getProperty("ACTIVEMQ_QUEUE_LOOKUP"));
-	LOGGER.info("################################ got the queue");
-	return queue;
-    }
+	@Lazy
+	@Bean
+	public Queue jmsQueue(InitialContext context) throws NamingException {
+		Queue queue = (Queue) context.lookup(environment.getProperty("ACTIVEMQ_QUEUE_LOOKUP"));
+		LOGGER.info("################################ got the queue");
+		return queue;
+	}
 
-    @Lazy
-    @Bean(destroyMethod = "close")
-    @Scope("prototype")
-    public QueueConnection queueConnection(QueueConnectionFactory queueConnectionFactory) throws JMSException {
-	QueueConnection queueConnection = queueConnectionFactory.createQueueConnection(environment.getProperty("WILDFLY_USER"), environment.getProperty("WILDFLY_PASSWORD"));
-	LOGGER.info("################################ created a connection");
-	return queueConnection;
-    }
+	@Lazy
+	@Bean(destroyMethod = "close")
+	@Scope("prototype")
+	public QueueConnection queueConnection(QueueConnectionFactory queueConnectionFactory) throws JMSException {
+		QueueConnection queueConnection = queueConnectionFactory.createQueueConnection(
+				environment.getProperty("WILDFLY_USER"), environment.getProperty("WILDFLY_PASSWORD"));
+		LOGGER.info("################################ created a connection");
+		return queueConnection;
+	}
 
-    @Lazy
-    @Bean(destroyMethod = "close")
-    @Scope("prototype")
-    public QueueSession queueSession(QueueConnection queueConnection) throws JMSException {
-	QueueSession queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
-	LOGGER.info("################################ created a queueSession");
-	return queueSession;
+	@Lazy
+	@Bean(destroyMethod = "close")
+	@Scope("prototype")
+	public QueueSession queueSession(QueueConnection queueConnection) throws JMSException {
+		QueueSession queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+		LOGGER.info("################################ created a queueSession");
+		return queueSession;
 
-    }
+	}
 
 }
