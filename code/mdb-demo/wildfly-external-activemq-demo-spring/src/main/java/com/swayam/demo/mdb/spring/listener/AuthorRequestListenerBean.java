@@ -7,11 +7,9 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
-import org.jboss.ejb3.annotation.ResourceAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@ResourceAdapter("activemq-rar.rar")
 @MessageDriven(name = "HelloWorldQueueMDB", activationConfig = {
 		@ActivationConfigProperty(propertyName = "destination", propertyValue = "HELLOWORLDMDBQueue"),
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
