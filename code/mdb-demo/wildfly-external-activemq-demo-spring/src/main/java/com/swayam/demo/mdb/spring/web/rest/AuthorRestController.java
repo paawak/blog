@@ -1,9 +1,9 @@
 package com.swayam.demo.mdb.spring.web.rest;
 
 import javax.jms.JMSException;
+import javax.jms.MessageProducer;
 import javax.jms.Queue;
-import javax.jms.QueueSender;
-import javax.jms.QueueSession;
+import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.NamingException;
 
@@ -43,10 +43,10 @@ public class AuthorRestController {
 	}
 
 	private void postMessageToJMS(String message) throws NamingException, JMSException {
-		QueueSession session = applicationContext.getBean(QueueSession.class);
-		QueueSender sender = session.createSender(queue);
+		Session session = applicationContext.getBean(Session.class);
+		MessageProducer producer = session.createProducer(queue);
 		TextMessage textMessage = session.createTextMessage(message);
-		sender.send(textMessage);
+		producer.send(textMessage);
 		LOGGER.info("sent message: {}", textMessage);
 	}
 
