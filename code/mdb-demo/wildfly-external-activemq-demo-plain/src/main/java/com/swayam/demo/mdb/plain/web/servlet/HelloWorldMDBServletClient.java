@@ -35,8 +35,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@JMSDestinationDefinitions(value = {
-		@JMSDestinationDefinition(name = "java:/queue/HELLOWORLDMDBQueue", interfaceName = "javax.jms.Queue", destinationName = "HelloWorldMDBQueue") })
+import org.jboss.ejb3.annotation.ResourceAdapter;
+
+@ResourceAdapter("activemq-rar.rar")
+@JMSDestinationDefinitions(value = { @JMSDestinationDefinition(/* resourceAdapter = "activemq-rar.rar", */
+		name = "java:/queue/HELLOWORLDMDBQueue", interfaceName = "javax.jms.Queue", destinationName = "HELLOWORLDMDBQueue") })
 @WebServlet("/rest/author")
 public class HelloWorldMDBServletClient extends HttpServlet {
 
@@ -44,7 +47,7 @@ public class HelloWorldMDBServletClient extends HttpServlet {
 
 	private static final int MSG_COUNT = 5;
 
-	@Resource(lookup = "java:/ConnectionFactory")
+	@Resource(mappedName = "java:/ActiveMQConnectionFactory")
 	private ConnectionFactory cf;
 
 	@Resource(mappedName = "java:/queue/HELLOWORLDMDBQueue")
@@ -59,7 +62,7 @@ public class HelloWorldMDBServletClient extends HttpServlet {
 		try {
 
 			Connection connection = cf.createConnection();
-			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
 			MessageProducer producer = session.createProducer(queue);
 
 			out.write("<p>Sending messages to <em>" + queue + "</em></p>");
@@ -70,6 +73,9 @@ public class HelloWorldMDBServletClient extends HttpServlet {
 				producer.send(message);
 				out.write("Message (" + i + "): " + text + "</br>");
 			}
+//			session.commit();
+			session.close();
+			connection.close();
 			out.write(
 					"<p><i>Go to your JBoss EAP server console or server log to see the result of messages processing.</i></p>");
 		} catch (JMSException e) {
