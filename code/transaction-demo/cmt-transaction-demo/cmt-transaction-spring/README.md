@@ -6,7 +6,7 @@ This demoes a simple web-application, and how transaction works in a Container M
 
 The below command cleans and initializes the Postgres and Mysql schema with Flyway and builds the war
 
-	mvn clean intsall -P db-migration
+	mvn clean install -P db-migration
 
 # Accessing the API
 
