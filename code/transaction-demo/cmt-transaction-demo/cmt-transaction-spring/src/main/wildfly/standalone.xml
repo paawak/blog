@@ -150,35 +150,7 @@
                         <user-name>sa</user-name>
                         <password>sa</password>
                     </security>
-                </datasource>
-                <datasource jndi-name="java:/MySqlDSNonXA" pool-name="MySqlDSNonXA">
-                    <connection-url>jdbc:mysql://localhost:3306/transaction_demo</connection-url>
-                    <driver-class>com.mysql.jdbc.Driver</driver-class>
-                    <driver>mysql</driver>
-                    <security>
-                        <user-name>root</user-name>
-                        <password>root123</password>
-                    </security>
-                    <validation>
-                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"/>
-                        <background-validation>true</background-validation>
-                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"/>
-                    </validation>
-                </datasource>
-                <datasource jndi-name="java:/PostgresDSNonXA" pool-name="PostgresDSNonXA">
-                    <connection-url>jdbc:postgresql://localhost:5432/transaction_demo</connection-url>
-                    <driver-class>org.postgresql.Driver</driver-class>
-                    <driver>postgres</driver>
-                    <security>
-                        <user-name>postgres</user-name>
-                        <password>postgres</password>
-                    </security>
-                    <validation>
-                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
-                        <background-validation>true</background-validation>
-                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
-                    </validation>
-                </datasource>                
+                </datasource>      
                 <drivers>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
