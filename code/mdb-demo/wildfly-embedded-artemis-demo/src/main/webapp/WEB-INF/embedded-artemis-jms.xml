@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messaging-deployment xmlns="urn:jboss:messaging-activemq-deployment:1.0">
+    <server>
+        <jms-destinations>
+            <jms-queue name="myTestQueue">
+                <entry name="jms/queue/mytest"/>
+                <entry name="java:jboss/exported/jms/queue/mytest"/>
+            </jms-queue>
+        </jms-destinations>
+    </server>
+</messaging-deployment>
