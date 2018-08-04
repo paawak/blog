@@ -25,6 +25,8 @@ public class HelloWorldQueueMDB implements MessageListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorldQueueMDB.class);
 
+    private AuthorDao authorDao;
+
     @PostConstruct
     @Inject
     public void init(ServletContext servletContext) {
@@ -33,9 +35,9 @@ public class HelloWorldQueueMDB implements MessageListener {
 
 	WebApplicationContext applicationContext = (WebApplicationContext) servletContext.getAttribute(WebappInitializer.SPRING_APPLICATION_CONTEXT);
 
-	AuthorDao authorDao = applicationContext.getBean(AuthorDao.class);
+	LOGGER.debug("***************** applicationContext: {}", applicationContext);
 
-	LOGGER.debug("authorDao: {}", authorDao);
+	authorDao = applicationContext.getBean(AuthorDao.class);
     }
 
     @Override
