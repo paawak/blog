@@ -2,38 +2,55 @@ package com.swayam.demo.trx.cmt.spring.mdb;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import javax.servlet.ServletContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.WebApplicationContext;
 
-@MessageDriven(name = "HelloWorldQueueMDB", activationConfig = {
-		@ActivationConfigProperty(propertyName = "destination", propertyValue = "HELLOWORLDMDBQueue"),
+import com.swayam.demo.trx.cmt.spring.config.WebappInitializer;
+import com.swayam.demo.trx.cmt.spring.dao.AuthorDao;
+
+@MessageDriven(name = "HelloWorldQueueMDB",
+	activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "HELLOWORLDMDBQueue"),
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
 public class HelloWorldQueueMDB implements MessageListener {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorldQueueMDB.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorldQueueMDB.class);
 
-	@Override
-	public void onMessage(Message message) {
+    @Inject
+    private ServletContext servletContext;
 
-		if (!(message instanceof TextMessage)) {
-			throw new UnsupportedOperationException("Expecting a " + TextMessage.class);
-		}
+    @Override
+    public void onMessage(Message message) {
 
-		if (message instanceof TextMessage) {
-			TextMessage textMessage = (TextMessage) message;
-			try {
-				LOGGER.info("Text message received: {}", textMessage.getText());
-			} catch (JMSException e) {
-				LOGGER.error("exception reading messsage", e);
-			}
-		}
+	LOGGER.info("################## servletContext: {}", servletContext);
 
+	WebApplicationContext applicationContext = (WebApplicationContext) servletContext.getAttribute(WebappInitializer.SPRING_APPLICATION_CONTEXT);
+
+	AuthorDao authorDao = applicationContext.getBean(AuthorDao.class);
+
+	LOGGER.info("authorDao: {}", authorDao);
+
+	if (!(message instanceof TextMessage)) {
+	    throw new UnsupportedOperationException("Expecting a " + TextMessage.class);
 	}
+
+	if (message instanceof TextMessage) {
+	    TextMessage textMessage = (TextMessage) message;
+	    try {
+		LOGGER.info("Text message received: {}", textMessage.getText());
+	    } catch (JMSException e) {
+		LOGGER.error("exception reading messsage", e);
+	    }
+	}
+
+    }
 
 }
