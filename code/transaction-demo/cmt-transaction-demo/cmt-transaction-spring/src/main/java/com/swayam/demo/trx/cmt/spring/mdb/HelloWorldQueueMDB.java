@@ -1,5 +1,6 @@
 package com.swayam.demo.trx.cmt.spring.mdb;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
@@ -27,8 +28,8 @@ public class HelloWorldQueueMDB implements MessageListener {
     @Inject
     private ServletContext servletContext;
 
-    @Override
-    public void onMessage(Message message) {
+    @PostConstruct
+    public void init() {
 
 	LOGGER.debug("################## servletContext: {}", servletContext);
 
@@ -37,6 +38,10 @@ public class HelloWorldQueueMDB implements MessageListener {
 	AuthorDao authorDao = applicationContext.getBean(AuthorDao.class);
 
 	LOGGER.debug("authorDao: {}", authorDao);
+    }
+
+    @Override
+    public void onMessage(Message message) {
 
 	if (!(message instanceof TextMessage)) {
 	    throw new UnsupportedOperationException("Expecting a " + TextMessage.class);
