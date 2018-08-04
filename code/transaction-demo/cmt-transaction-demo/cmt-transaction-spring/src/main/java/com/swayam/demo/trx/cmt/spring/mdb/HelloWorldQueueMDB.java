@@ -25,11 +25,9 @@ public class HelloWorldQueueMDB implements MessageListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorldQueueMDB.class);
 
-    @Inject
-    private ServletContext servletContext;
-
     @PostConstruct
-    public void init() {
+    @Inject
+    public void init(ServletContext servletContext) {
 
 	LOGGER.debug("################## servletContext: {}", servletContext);
 
