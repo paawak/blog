@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.web.rest;
+package com.swayam.demo.trx.cmt.spring.web.rest;
 
 import java.util.List;
 import java.util.Map;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.swayam.demo.trx.cmt.entity.Author;
-import com.swayam.demo.trx.cmt.entity.Genre;
-import com.swayam.demo.trx.cmt.service.BookService;
-import com.swayam.demo.trx.cmt.web.dto.AuthorRequest;
+import com.swayam.demo.trx.cmt.spring.entity.Author;
+import com.swayam.demo.trx.cmt.spring.entity.Genre;
+import com.swayam.demo.trx.cmt.spring.service.BookService;
+import com.swayam.demo.trx.cmt.spring.web.dto.AuthorRequest;
 
 @RestController
 @RequestMapping(path = "/rest")

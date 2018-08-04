@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.dao;
+package com.swayam.demo.trx.cmt.spring.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.swayam.demo.trx.cmt.entity.Rating;
+import com.swayam.demo.trx.cmt.spring.entity.Rating;
 
 @Repository
 public class RatingDaoImpl implements RatingDao {

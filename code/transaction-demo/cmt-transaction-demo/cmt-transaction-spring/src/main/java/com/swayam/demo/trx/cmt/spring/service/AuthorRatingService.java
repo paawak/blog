@@ -1,10 +1,10 @@
-package com.swayam.demo.trx.cmt.service;
+package com.swayam.demo.trx.cmt.spring.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.swayam.demo.trx.cmt.entity.Rating;
-import com.swayam.demo.trx.cmt.web.dto.AuthorRatingRequest;
+import com.swayam.demo.trx.cmt.spring.entity.Rating;
+import com.swayam.demo.trx.cmt.spring.web.dto.AuthorRatingRequest;
 
 public interface AuthorRatingService {
 

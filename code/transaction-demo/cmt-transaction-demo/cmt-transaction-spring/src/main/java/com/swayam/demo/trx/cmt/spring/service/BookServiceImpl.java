@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.service;
+package com.swayam.demo.trx.cmt.spring.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.swayam.demo.trx.cmt.dao.AuthorDao;
-import com.swayam.demo.trx.cmt.dao.GenreDao;
-import com.swayam.demo.trx.cmt.entity.Author;
-import com.swayam.demo.trx.cmt.entity.Genre;
-import com.swayam.demo.trx.cmt.web.dto.AuthorRequest;
+import com.swayam.demo.trx.cmt.spring.dao.AuthorDao;
+import com.swayam.demo.trx.cmt.spring.dao.GenreDao;
+import com.swayam.demo.trx.cmt.spring.entity.Author;
+import com.swayam.demo.trx.cmt.spring.entity.Genre;
+import com.swayam.demo.trx.cmt.spring.web.dto.AuthorRequest;
 
 @Service
 public class BookServiceImpl implements BookService {

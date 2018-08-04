@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.web.ui;
+package com.swayam.demo.trx.cmt.spring.web.ui;
 
 import java.util.HashMap;
 import java.util.Map;

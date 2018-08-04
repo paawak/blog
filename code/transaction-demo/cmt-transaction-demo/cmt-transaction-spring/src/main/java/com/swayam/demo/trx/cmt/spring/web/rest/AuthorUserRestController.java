@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.web.rest;
+package com.swayam.demo.trx.cmt.spring.web.rest;
 
 import java.util.List;
 import java.util.Map;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.swayam.demo.trx.cmt.entity.Rating;
-import com.swayam.demo.trx.cmt.service.AuthorRatingService;
-import com.swayam.demo.trx.cmt.web.dto.AuthorRatingRequest;
+import com.swayam.demo.trx.cmt.spring.entity.Rating;
+import com.swayam.demo.trx.cmt.spring.service.AuthorRatingService;
+import com.swayam.demo.trx.cmt.spring.web.dto.AuthorRatingRequest;
 
 @RestController
 @RequestMapping(path = "/rest")

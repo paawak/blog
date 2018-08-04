@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.config;
+package com.swayam.demo.trx.cmt.spring.config;
 
 import javax.sql.DataSource;
 

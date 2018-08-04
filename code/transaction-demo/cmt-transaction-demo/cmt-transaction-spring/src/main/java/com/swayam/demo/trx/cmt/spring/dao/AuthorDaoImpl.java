@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.cmt.dao;
+package com.swayam.demo.trx.cmt.spring.dao;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 
-import com.swayam.demo.trx.cmt.entity.Author;
+import com.swayam.demo.trx.cmt.spring.entity.Author;
 
 @Repository
 public class AuthorDaoImpl implements AuthorDao {

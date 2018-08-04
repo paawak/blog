@@ -1,51 +1,51 @@
-package com.swayam.demo.trx.cmt.web.dto;
+package com.swayam.demo.trx.cmt.spring.web.dto;
 
-public class AuthorRatingRequest {
+public class AuthorRequest {
 
-	private String userName;
-	private int rating;
 	private long authorId;
 	private String authorFirstName;
 	private String authorLastName;
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
+	private String genreShortName;
+	private String genreName;
 
 	public long getAuthorId() {
 		return authorId;
-	}
-
-	public void setAuthorId(long authorId) {
-		this.authorId = authorId;
 	}
 
 	public String getAuthorFirstName() {
 		return authorFirstName;
 	}
 
-	public void setAuthorFirstName(String authorFirstName) {
-		this.authorFirstName = authorFirstName;
-	}
-
 	public String getAuthorLastName() {
 		return authorLastName;
 	}
 
+	public String getGenreShortName() {
+		return genreShortName;
+	}
+
+	public String getGenreName() {
+		return genreName;
+	}
+
+	public void setAuthorId(long authorId) {
+		this.authorId = authorId;
+	}
+
+	public void setAuthorFirstName(String authorFirstName) {
+		this.authorFirstName = authorFirstName;
+	}
+
 	public void setAuthorLastName(String authorLastName) {
 		this.authorLastName = authorLastName;
+	}
+
+	public void setGenreShortName(String genreShortName) {
+		this.genreShortName = genreShortName;
+	}
+
+	public void setGenreName(String genreName) {
+		this.genreName = genreName;
 	}
 
 	@Override
@@ -55,8 +55,8 @@ public class AuthorRatingRequest {
 		result = prime * result + ((authorFirstName == null) ? 0 : authorFirstName.hashCode());
 		result = prime * result + (int) (authorId ^ (authorId >>> 32));
 		result = prime * result + ((authorLastName == null) ? 0 : authorLastName.hashCode());
-		result = prime * result + rating;
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+		result = prime * result + ((genreName == null) ? 0 : genreName.hashCode());
+		result = prime * result + ((genreShortName == null) ? 0 : genreShortName.hashCode());
 		return result;
 	}
 
@@ -68,7 +68,7 @@ public class AuthorRatingRequest {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AuthorRatingRequest other = (AuthorRatingRequest) obj;
+		AuthorRequest other = (AuthorRequest) obj;
 		if (authorFirstName == null) {
 			if (other.authorFirstName != null)
 				return false;
@@ -81,12 +81,15 @@ public class AuthorRatingRequest {
 				return false;
 		} else if (!authorLastName.equals(other.authorLastName))
 			return false;
-		if (rating != other.rating)
-			return false;
-		if (userName == null) {
-			if (other.userName != null)
+		if (genreName == null) {
+			if (other.genreName != null)
 				return false;
-		} else if (!userName.equals(other.userName))
+		} else if (!genreName.equals(other.genreName))
+			return false;
+		if (genreShortName == null) {
+			if (other.genreShortName != null)
+				return false;
+		} else if (!genreShortName.equals(other.genreShortName))
 			return false;
 		return true;
 	}
@@ -94,8 +97,8 @@ public class AuthorRatingRequest {
 	@Override
 	public String toString() {
 		return String.format(
-				"AuthorRatingRequest [userName=%s, rating=%s, authorId=%s, authorFirstName=%s, authorLastName=%s]",
-				userName, rating, authorId, authorFirstName, authorLastName);
+				"AuthorRequest [authorId=%s, authorFirstName=%s, authorLastName=%s, genreShortName=%s, genreName=%s]",
+				authorId, authorFirstName, authorLastName, genreShortName, genreName);
 	}
 
 }
