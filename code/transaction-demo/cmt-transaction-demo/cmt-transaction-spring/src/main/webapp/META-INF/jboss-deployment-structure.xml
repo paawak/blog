@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-deployment-structure>
-    <deployment>
-        <dependencies>
-        	<module name="org.apache.activemq.ra" />
-        </dependencies>
-    </deployment>
+	<deployment>
+		<exclusions>
+			<module name="org.slf4j" />
+			<module name="org.slf4j.impl" />
+			<module name="org.jboss.logmanager" />
+		</exclusions>
+		<dependencies>
+			<module name="org.apache.activemq.ra" />
+		</dependencies>
+	</deployment>
 </jboss-deployment-structure>
