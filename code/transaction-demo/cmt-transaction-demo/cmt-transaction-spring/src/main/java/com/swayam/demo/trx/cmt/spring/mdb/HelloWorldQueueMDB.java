@@ -30,13 +30,13 @@ public class HelloWorldQueueMDB implements MessageListener {
     @Override
     public void onMessage(Message message) {
 
-	LOGGER.info("################## servletContext: {}", servletContext);
+	LOGGER.debug("################## servletContext: {}", servletContext);
 
 	WebApplicationContext applicationContext = (WebApplicationContext) servletContext.getAttribute(WebappInitializer.SPRING_APPLICATION_CONTEXT);
 
 	AuthorDao authorDao = applicationContext.getBean(AuthorDao.class);
 
-	LOGGER.info("authorDao: {}", authorDao);
+	LOGGER.debug("authorDao: {}", authorDao);
 
 	if (!(message instanceof TextMessage)) {
 	    throw new UnsupportedOperationException("Expecting a " + TextMessage.class);
@@ -45,7 +45,7 @@ public class HelloWorldQueueMDB implements MessageListener {
 	if (message instanceof TextMessage) {
 	    TextMessage textMessage = (TextMessage) message;
 	    try {
-		LOGGER.info("Text message received: {}", textMessage.getText());
+		LOGGER.debug("Text message received: {}", textMessage.getText());
 	    } catch (JMSException e) {
 		LOGGER.error("exception reading messsage", e);
 	    }
