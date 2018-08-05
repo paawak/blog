@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource-adapters
+	xmlns="http://www.jboss.org/ironjacamar/schema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/resource-adapters_1_0.xsd">
+	<resource-adapter>
+		<archive>???</archive>
+		<bean-validation-groups>
+			<bean-validation-group>???</bean-validation-group>
+		</bean-validation-groups>
+		<bootstrap-context>???</bootstrap-context>
+		<config-property name="???">???</config-property>
+		<transaction-support>NoTransaction</transaction-support>
+		<connection-definitions>
+			<connection-definition use-ccm="true"
+				class-name="???" jndi-name="???" enabled="true"
+				use-java-context="true" pool-name="???">
+				<config-property name="???">???</config-property>
+				<pool>
+					<min-pool-size>33</min-pool-size>
+					<max-pool-size>33</max-pool-size>
+					<prefill>true</prefill>
+					<use-strict-min>true</use-strict-min>
+					<flush-strategy>???</flush-strategy>
+				</pool>
+				<security>
+					<application />
+				</security>
+				<timeout>
+					<blocking-timeout-millis>33</blocking-timeout-millis>
+					<idle-timeout-minutes>33</idle-timeout-minutes>
+					<allocation-retry>33</allocation-retry>
+					<allocation-retry-wait-millis>33</allocation-retry-wait-millis>
+					<xa-resource-timeout>33</xa-resource-timeout>
+				</timeout>
+				<validation>
+					<background-validation>true</background-validation>
+					<background-validation-millis>33</background-validation-millis>
+					<use-fast-fail>true</use-fast-fail>
+				</validation>
+				<recovery no-recovery="true">
+					<recover-credential>
+						<user-name>???</user-name>
+						<password>???</password>
+						<security-domain>???</security-domain>
+					</recover-credential>
+					<recover-plugin class-name="???">
+						<config-property name="???">???</config-property>
+					</recover-plugin>
+				</recovery>
+			</connection-definition>
+		</connection-definitions>
+		<admin-objects>
+			<admin-object class-name="???" jndi-name="???"
+				enabled="true" use-java-context="true" pool-name="???">
+				<config-property name="???">???</config-property>
+			</admin-object>
+		</admin-objects>
+	</resource-adapter>
+</resource-adapters>          
