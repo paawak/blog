@@ -20,45 +20,60 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@JMSDestinationDefinitions(value = { @JMSDestinationDefinition(name = "java:/queue/HELLOWORLDMDBQueue", interfaceName = "javax.jms.Queue", destinationName = "HELLOWORLDMDBQueue") })
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.swayam.demo.mdb.plain.web.dto.AuthorRequest;
+
+@JMSDestinationDefinitions(value = { @JMSDestinationDefinition(name = HelloWorldMDBServletClient.QUEUE_JNDI_NAME, interfaceName = "javax.jms.Queue", destinationName = "HELLOWORLDMDBQueue") })
 @WebServlet("/rest/author")
 public class HelloWorldMDBServletClient extends HttpServlet {
 
-    private static final long serialVersionUID = -8314035702649252239L;
+    private static final long serialVersionUID = 1L;
 
-    private static final int MSG_COUNT = 5;
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorldMDBServletClient.class);
+
+    public static final String QUEUE_JNDI_NAME = "java:/queue/HELLOWORLDMDBQueue";
 
     @Resource(mappedName = "java:/ActiveMQConnectionFactory")
-    private ConnectionFactory cf;
+    private ConnectionFactory connectionFactory;
 
-    @Resource(mappedName = "java:/queue/HELLOWORLDMDBQueue")
+    @Resource(mappedName = HelloWorldMDBServletClient.QUEUE_JNDI_NAME)
     private Queue queue;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	AuthorRequest authorRequest = new AuthorRequest();
+	authorRequest.setAuthorId(Long.valueOf(req.getParameter("authorId")));
+	authorRequest.setAuthorFirstName(req.getParameter("authorFirstName"));
+	authorRequest.setAuthorLastName(req.getParameter("authorLastName"));
+	authorRequest.setGenreShortName(req.getParameter("genreShortName"));
+	authorRequest.setGenreName(req.getParameter("genreName"));
+
+	LOGGER.debug(" Received authorRequest: {}", authorRequest);
+
 	resp.setContentType("text/html");
 	PrintWriter out = resp.getWriter();
 	out.write("<h1>Quickstart: Example demonstrates the use of <strong>JMS 2.0</strong> and <strong>EJB 3.2 Message-Driven Bean</strong> in JBoss EAP.</h1>");
 	try {
 
-	    Connection connection = cf.createConnection();
+	    Connection connection = connectionFactory.createConnection();
 	    Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
 	    MessageProducer producer = session.createProducer(queue);
 
 	    out.write("<p>Sending messages to <em>" + queue + "</em></p>");
-	    out.write("<h2>The following messages will be sent to the destination:</h2>");
-	    for (int i = 0; i < MSG_COUNT; i++) {
-		String text = "This is message " + (i + 1);
-		TextMessage message = session.createTextMessage(text);
-		producer.send(message);
-		out.write("Message (" + i + "): " + text + "</br>");
-	    }
-	    // session.commit();
+	    out.write("<h2>The following message will be sent to the destination:</h2>");
+	    String text = new ObjectMapper().writeValueAsString(authorRequest);
+	    TextMessage message = session.createTextMessage(text);
+	    producer.send(message);
+	    out.write("Message: " + text + "</br>");
 	    session.close();
 	    connection.close();
 	    out.write("<p><i>Go to your JBoss EAP server console or server log to see the result of messages processing.</i></p>");
 	} catch (JMSException e) {
-	    e.printStackTrace();
+	    throw new RuntimeException(e);
 	} finally {
 	    if (out != null) {
 		out.close();
