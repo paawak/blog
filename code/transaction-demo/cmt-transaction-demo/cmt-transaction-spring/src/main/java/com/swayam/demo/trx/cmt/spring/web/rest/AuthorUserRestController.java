@@ -1,41 +1,52 @@
 package com.swayam.demo.trx.cmt.spring.web.rest;
 
-import java.util.List;
-import java.util.Map;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Queue;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.naming.NamingException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.swayam.demo.trx.cmt.spring.entity.Rating;
-import com.swayam.demo.trx.cmt.spring.service.AuthorRatingService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swayam.demo.trx.cmt.spring.web.dto.AuthorRatingRequest;
 
 @RestController
 @RequestMapping(path = "/rest")
 public class AuthorUserRestController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AuthorUserRestController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorUserRestController.class);
 
-	private final AuthorRatingService authorRatingService;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-	public AuthorUserRestController(AuthorRatingService authorRatingService) {
-		this.authorRatingService = authorRatingService;
-	}
+    private final ApplicationContext applicationContext;
+    private final Queue queue;
 
-	@GetMapping(path = "/rating")
-	public List<Rating> getAuthors() {
-		return authorRatingService.getRatings();
-	}
+    public AuthorUserRestController(ApplicationContext applicationContext, Queue queue) {
+	this.applicationContext = applicationContext;
+	this.queue = queue;
+    }
 
-	@PostMapping(path = "/author-rating", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Map<String, Long> save(AuthorRatingRequest authorRatingRequest) {
-		LOGGER.debug("authorRatingRequest: {}", authorRatingRequest);
-		return authorRatingService.addAuthorRating(authorRatingRequest);
-	}
+    @PostMapping(path = "/author-rating", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public void save(AuthorRatingRequest authorRatingRequest) throws JsonProcessingException, NamingException, JMSException {
+	LOGGER.debug("authorRatingRequest: {}", authorRatingRequest);
+	postMessageToJMS(objectMapper.writeValueAsString(authorRatingRequest));
+    }
+
+    private void postMessageToJMS(String message) throws NamingException, JMSException {
+	Session session = applicationContext.getBean(Session.class);
+	MessageProducer producer = session.createProducer(queue);
+	TextMessage textMessage = session.createTextMessage(message);
+	producer.send(textMessage);
+	LOGGER.info("sent message: {}", textMessage);
+    }
 
 }
