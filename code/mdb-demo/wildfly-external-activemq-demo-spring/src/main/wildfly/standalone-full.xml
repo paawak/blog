@@ -469,7 +469,7 @@
                     <config-property name="ServerUrl">tcp://localhost:61616?jms.rmIdFromConnectionId=true</config-property>  
                     <connection-definitions>  
                         <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" 
-                        	jndi-name="java:jboss/exported/ActiveMQConnectionFactory" enabled="true" pool-name="ActiveMQConnectionFactory">  
+                        	jndi-name="java:/ActiveMQConnectionFactory" enabled="true" pool-name="ActiveMQConnectionFactory">  
                             <xa-pool>  
                                 <min-pool-size>1</min-pool-size>  
                                 <max-pool-size>20</max-pool-size>  
@@ -480,7 +480,7 @@
                     </connection-definitions>
                     <admin-objects>  
                         <admin-object class-name="org.apache.activemq.command.ActiveMQQueue" 
-                        	jndi-name="java:jboss/exported/queue/HELLOWORLDMDBQueue" 
+                        	jndi-name="java:/queue/HELLOWORLDMDBQueue" 
                         	use-java-context="true" pool-name="HELLOWORLDMDBQueue">  
                             <config-property name="PhysicalName">HELLOWORLDMDBQueue</config-property>  
                         </admin-object>  
