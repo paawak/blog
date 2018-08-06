@@ -39,6 +39,9 @@ The below command cleans and initializes the Postgres and Mysql schema with Flyw
 	
 ### Author
 	http://localhost:8080/cmt-transaction-spring/rest/author
+
+### Rating	
+	http://localhost:8080/cmt-transaction-spring/rest/rating
 	
 ### Save Author and Genre
 	http://localhost:8080/cmt-transaction-spring/rest/author-genre	
