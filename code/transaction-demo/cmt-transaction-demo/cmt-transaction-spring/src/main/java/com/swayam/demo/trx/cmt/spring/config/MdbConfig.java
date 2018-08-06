@@ -11,6 +11,7 @@ import javax.naming.NamingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -42,7 +43,7 @@ public class MdbConfig {
     }
 
     @Bean(destroyMethod = "close")
-    @Scope("prototype")
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public Connection jmsConnection(ConnectionFactory jmsConnectionFactory) throws JMSException {
 	Connection jmsConnection = jmsConnectionFactory.createConnection(environment.getProperty("WILDFLY_USER"), environment.getProperty("WILDFLY_PASSWORD"));
 	LOGGER.info("################################ created a jmsConnection");
@@ -50,7 +51,7 @@ public class MdbConfig {
     }
 
     @Bean(destroyMethod = "close")
-    @Scope("prototype")
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public Session jmsSession(Connection jmsConnection) throws JMSException {
 	Session jmsSession = jmsConnection.createSession(true, QueueSession.AUTO_ACKNOWLEDGE);
 	LOGGER.info("################################ created a jmsSession");
