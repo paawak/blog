@@ -7,6 +7,10 @@ This demoes a simple web-application, and how transaction works in a Container M
 The below command cleans and initializes the Postgres and Mysql schema with Flyway and builds the war
 
 	mvn clean install -P db-migration
+	
+# ActiveMQ Web Console
+	
+	http://localhost:8161/admin/ 	
 
 # Accessing the API
 
