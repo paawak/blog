@@ -1,5 +1,7 @@
 package com.swayam.demo.trx.cmt.spring.web.rest;
 
+import java.util.List;
+
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
@@ -11,12 +13,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.swayam.demo.trx.cmt.spring.entity.Rating;
+import com.swayam.demo.trx.cmt.spring.service.AuthorRatingService;
 import com.swayam.demo.trx.cmt.spring.web.dto.AuthorRatingRequest;
 
 @RestController
@@ -28,9 +33,16 @@ public abstract class AuthorUserRestController {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     private final Queue queue;
+    private final AuthorRatingService authorRatingService;
 
-    public AuthorUserRestController(Queue queue) {
+    public AuthorUserRestController(Queue queue, AuthorRatingService authorRatingService) {
 	this.queue = queue;
+	this.authorRatingService = authorRatingService;
+    }
+
+    @GetMapping(path = "/rating")
+    public List<Rating> getRatings() {
+	return authorRatingService.getRatings();
     }
 
     @PostMapping(path = "/author-rating", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
