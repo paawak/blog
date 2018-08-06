@@ -9,7 +9,7 @@ import javax.naming.NamingException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,17 +21,15 @@ import com.swayam.demo.trx.cmt.spring.web.dto.AuthorRatingRequest;
 
 @RestController
 @RequestMapping(path = "/rest")
-public class AuthorUserRestController {
+public abstract class AuthorUserRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorUserRestController.class);
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private final ApplicationContext applicationContext;
     private final Queue queue;
 
-    public AuthorUserRestController(ApplicationContext applicationContext, Queue queue) {
-	this.applicationContext = applicationContext;
+    public AuthorUserRestController(Queue queue) {
 	this.queue = queue;
     }
 
@@ -41,8 +39,11 @@ public class AuthorUserRestController {
 	postMessageToJMS(objectMapper.writeValueAsString(authorRatingRequest));
     }
 
+    @Lookup
+    protected abstract Session getJmsSession();
+
     private void postMessageToJMS(String message) throws NamingException, JMSException {
-	Session session = applicationContext.getBean(Session.class);
+	Session session = getJmsSession();
 	MessageProducer producer = session.createProducer(queue);
 	TextMessage textMessage = session.createTextMessage(message);
 	producer.send(textMessage);
