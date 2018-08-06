@@ -21,9 +21,9 @@ import com.swayam.demo.trx.cmt.spring.dao.AuthorDao;
 	activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "HELLOWORLDMDBQueue"),
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
-public class HelloWorldQueueMDB implements MessageListener {
+public class AuthorRatingListenerMDB implements MessageListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorldQueueMDB.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorRatingListenerMDB.class);
 
     private AuthorDao authorDao;
 
