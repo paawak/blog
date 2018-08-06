@@ -1,4 +1,4 @@
-package com.swayam.demo.mdb.config;
+package com.swayam.demo.mdb.artemis.config;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.swayam.demo.mdb")
+@ComponentScan("com.swayam.demo.mdb.artemis")
 public class WebConfig implements WebMvcConfigurer {
 
     @Override

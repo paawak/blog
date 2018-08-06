@@ -1,4 +1,4 @@
-package com.swayam.demo.mdb.config;
+package com.swayam.demo.mdb.artemis.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
