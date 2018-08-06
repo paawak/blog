@@ -5,7 +5,7 @@
 	<datasource jndi-name="java:/MySqlDSNonXA"
 		pool-name="MySqlDSNonXA">
 		<connection-url>jdbc:mysql://localhost:3306/transaction_demo</connection-url>
-		<driver-class>com.mysql.jdbc.Driver</driver-class>
+		<driver-class>com.mysql.cj.jdbc.Driver</driver-class>
 		<driver>mysql</driver>
 		<security>
 			<user-name>root</user-name>
