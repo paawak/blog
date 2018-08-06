@@ -1,5 +1,7 @@
 package com.swayam.demo.trx.cmt.spring.mdb;
 
+import java.io.IOException;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
@@ -14,8 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swayam.demo.trx.cmt.spring.config.WebappInitializer;
-import com.swayam.demo.trx.cmt.spring.dao.AuthorDao;
+import com.swayam.demo.trx.cmt.spring.service.AuthorRatingService;
+import com.swayam.demo.trx.cmt.spring.web.dto.AuthorRatingRequest;
 
 @MessageDriven(name = "HelloWorldQueueMDB",
 	activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "HELLOWORLDMDBQueue"),
@@ -25,7 +29,7 @@ public class AuthorRatingListenerMDB implements MessageListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorRatingListenerMDB.class);
 
-    private AuthorDao authorDao;
+    private AuthorRatingService authorRatingService;
 
     @PostConstruct
     @Inject
@@ -37,7 +41,7 @@ public class AuthorRatingListenerMDB implements MessageListener {
 
 	LOGGER.debug("***************** applicationContext: {}", applicationContext);
 
-	authorDao = applicationContext.getBean(AuthorDao.class);
+	authorRatingService = applicationContext.getBean(AuthorRatingService.class);
     }
 
     @Override
@@ -48,10 +52,13 @@ public class AuthorRatingListenerMDB implements MessageListener {
 	}
 
 	if (message instanceof TextMessage) {
-	    TextMessage textMessage = (TextMessage) message;
 	    try {
-		LOGGER.debug("Text message received: {}", textMessage.getText());
-	    } catch (JMSException e) {
+		String textMessage = ((TextMessage) message).getText();
+		LOGGER.debug("Text message received: {}", textMessage);
+		AuthorRatingRequest authorRatingRequest = new ObjectMapper().readValue(textMessage, AuthorRatingRequest.class);
+		LOGGER.debug("authorRatingRequest: {}", authorRatingRequest);
+		authorRatingService.addAuthorRating(authorRatingRequest);
+	    } catch (JMSException | IOException e) {
 		LOGGER.error("exception reading messsage", e);
 	    }
 	}
