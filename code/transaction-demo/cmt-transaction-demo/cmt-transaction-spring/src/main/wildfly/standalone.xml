@@ -450,6 +450,7 @@
             <resource-adapters>  
                 <resource-adapter id="activemq-rar.rar">  
 	                <module slot="main" id="org.apache.activemq.ra" />   
+	                <!-- possible values of transaction-support: NoTransaction, XATransaction, LocalTransaction -->
                     <transaction-support>XATransaction</transaction-support>  
                     <config-property name="UseInboundSession">false</config-property>  
                     <config-property name="Password">admin</config-property>  
