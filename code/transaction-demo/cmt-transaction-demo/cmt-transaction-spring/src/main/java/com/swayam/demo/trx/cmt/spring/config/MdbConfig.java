@@ -28,15 +28,7 @@ public class MdbConfig {
     private Environment environment;
 
     @Bean
-    public JndiTemplate jndiTemplate() throws NamingException {
-	JndiTemplate jndiTemplate = new JndiTemplate();
-	LOGGER.info("################################ got the initial-context");
-	return jndiTemplate;
-    }
-
-    @Bean
     public ConnectionFactory jmsConnectionFactory(JndiTemplate jndiTemplate) throws NamingException {
-	LOGGER.info("******************** looking for the jms connection factory");
 	ConnectionFactory factory = jndiTemplate.lookup(environment.getProperty("ACTIVEMQ_JMS_CONNECTION_FACTORY"), ConnectionFactory.class);
 	LOGGER.info("################################ got the jms connection factory");
 	return factory;
