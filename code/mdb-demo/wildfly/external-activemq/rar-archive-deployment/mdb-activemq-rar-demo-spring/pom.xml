@@ -15,6 +15,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jackson.version>2.9.6</jackson.version>
+		<activemq.version>5.15.4</activemq.version>
 		<slf4j.version>1.7.12</slf4j.version>
 	</properties>
 
@@ -99,6 +100,16 @@
 			<artifactId>javax.ejb-api</artifactId>
 			<version>3.2.2</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+			<version>${activemq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-ra</artifactId>
+			<version>${activemq.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
