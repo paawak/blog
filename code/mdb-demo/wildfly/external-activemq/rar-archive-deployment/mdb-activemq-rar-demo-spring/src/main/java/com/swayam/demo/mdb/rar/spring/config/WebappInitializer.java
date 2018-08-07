@@ -1,4 +1,4 @@
-package com.swayam.demo.mdb.spring.config;
+package com.swayam.demo.mdb.rar.spring.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;

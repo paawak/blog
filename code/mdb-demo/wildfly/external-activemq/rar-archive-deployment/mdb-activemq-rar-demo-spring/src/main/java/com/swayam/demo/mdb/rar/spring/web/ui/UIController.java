@@ -1,4 +1,4 @@
-package com.swayam.demo.mdb.spring.web.ui;
+package com.swayam.demo.mdb.rar.spring.web.ui;
 
 import java.util.HashMap;
 import java.util.Map;

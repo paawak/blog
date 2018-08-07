@@ -1,4 +1,4 @@
-package com.swayam.demo.mdb.spring.listener;
+package com.swayam.demo.mdb.rar.spring.listener;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;

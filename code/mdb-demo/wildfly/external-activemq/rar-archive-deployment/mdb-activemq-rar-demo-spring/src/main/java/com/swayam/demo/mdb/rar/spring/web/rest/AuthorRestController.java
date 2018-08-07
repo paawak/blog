@@ -1,4 +1,4 @@
-package com.swayam.demo.mdb.spring.web.rest;
+package com.swayam.demo.mdb.rar.spring.web.rest;
 
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.swayam.demo.mdb.spring.web.dto.AuthorRequest;
+import com.swayam.demo.mdb.rar.spring.web.dto.AuthorRequest;
 
 @RestController
 @RequestMapping(path = "/rest")

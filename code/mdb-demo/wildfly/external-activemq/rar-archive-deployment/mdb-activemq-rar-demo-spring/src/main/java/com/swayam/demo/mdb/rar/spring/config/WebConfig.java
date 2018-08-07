@@ -1,4 +1,4 @@
-package com.swayam.demo.mdb.spring.config;
+package com.swayam.demo.mdb.rar.spring.config;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.swayam.demo.mdb")
+@ComponentScan("com.swayam.demo.mdb.rar.spring")
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
