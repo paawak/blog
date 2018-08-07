@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module xmlns="urn:jboss:module:1.5"
+	name="org.apache.activemq.ra">
+	<resources>
+		<resource-root path="." />
+		<resource-root path="activemq-amqp-5.15.4.jar" />
+		<resource-root path="activemq-broker-5.15.4.jar" />
+		<resource-root path="activemq-client-5.15.4.jar" />
+		<resource-root path="activemq-jms-pool-5.15.4.jar" />
+		<resource-root path="activemq-kahadb-store-5.15.4.jar" />
+		<resource-root path="activemq-mqtt-5.15.4.jar" />
+		<resource-root
+			path="activemq-openwire-legacy-5.15.4.jar" />
+		<resource-root path="activemq-pool-5.15.4.jar" />
+		<resource-root path="activemq-protobuf-1.1.jar" />
+		<resource-root path="activemq-ra-5.15.4.jar" />
+		<resource-root path="activemq-spring-5.15.4.jar" />
+		<resource-root path="commons-net-3.6.jar" />
+		<resource-root path="commons-pool2-2.4.2.jar" />
+		<resource-root
+			path="geronimo-j2ee-management_1.1_spec-1.0.1.jar" />
+		<resource-root path="guava-18.0.jar" />
+		<resource-root path="hawtbuf-1.11.jar" />
+		<resource-root path="hawtdispatch-1.22.jar" />
+		<resource-root path="hawtdispatch-transport-1.22.jar" />
+		<resource-root path="jackson-annotations-2.9.4.jar" />
+		<resource-root path="jackson-core-2.9.4.jar" />
+		<resource-root path="jackson-databind-2.9.4.jar" />
+		<resource-root path="mqtt-client-1.14.jar" />
+		<resource-root path="proton-j-0.27.1.jar" />
+		<resource-root path="spring-aop-4.3.17.RELEASE.jar" />
+		<resource-root path="spring-beans-4.3.17.RELEASE.jar" />
+		<resource-root path="spring-context-4.3.17.RELEASE.jar" />
+		<resource-root path="spring-core-4.3.17.RELEASE.jar" />
+		<resource-root
+			path="spring-expression-4.3.17.RELEASE.jar" />
+		<resource-root path="xbean-spring-4.2.jar" />
+	</resources>
+	<exports>
+		<exclude path="org/springframework/**" />
+		<exclude path="org/apache/xbean/**" />
+		<exclude path="org/apache/commons/**" />
+		<exclude path="org/aopalliance/**" />
+		<exclude path="org/fusesource/**" />
+	</exports>
+	<dependencies>
+		<module name="javax.api" slot="main" />
+		<module name="javax.jms.api" slot="main" />
+		<module name="javax.management.j2ee.api" slot="main" />
+		<module name="javax.resource.api" slot="main" />
+		<module name="org.slf4j" />
+		<module name="org.slf4j.impl" />
+	</dependencies>
+</module>  
