@@ -19,6 +19,9 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 - Create a *Management User*
 - Create an *Application User* with name **user**, password **user123**. It should have a role **guest**
 
+## Deploying ActiveMQ RAR as archive
+Simply copy the *activemq-rar-5.15.4.rar* into the *standalone/deployments* directory
+
 ## Using external ActiveMQ
 - https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly
 - http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-activemq-on-jbosswildfly
