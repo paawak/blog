@@ -1,5 +1,6 @@
 package com.swayam.practice.algos.search.binarysearch;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -39,24 +40,44 @@ public class HelpFedoHackerEarth {
 
     public static void main(String[] args) {
 	Scanner s = new Scanner(System.in);
-	int arrayCount = Integer.parseInt(s.nextLine());
+	int arrayLength = Integer.parseInt(s.nextLine());
 
-	long product = Arrays.asList(s.nextLine().split("\\s")).parallelStream().mapToInt((String ele) -> {
-	    return Integer.valueOf(ele);
-	}).asLongStream().reduce((long left, long right) -> {
-	    return left * right;
-	}).getAsLong();
+	String[] numbers = s.nextLine().split("\\s");
+	BigInteger initialGuess = new BigInteger(numbers[0]);
 
-	double power = 1 / arrayCount;
+	BigInteger product = Arrays.stream(numbers).parallel().map((String token) -> {
+	    return new BigInteger(token);
+	}).reduce((BigInteger left, BigInteger right) -> {
+	    return left.multiply(right);
+	}).get();
 
-	int result = (int) Math.pow(product, power);
-
-	while (Math.pow(result, arrayCount) < product) {
-	    result++;
+	for (int i = 0; i < 10; i++) {
+	    System.out.println("********** iteration: " + i);
+	    BigInteger nextGuess = findNRoot(initialGuess, product, arrayLength);
+	    if (nextGuess.equals(initialGuess)) {
+		break;
+	    }
+	    initialGuess = nextGuess;
 	}
 
-	System.out.println(result);
+	// product.
+	//
+	// int result = (int) Math.pow(product, power);
+	//
+	// while (Math.pow(result, arrayCount) < product) {
+	// result++;
+	// }
 
+    }
+
+    private static BigInteger findNRoot(BigInteger initialGuess, BigInteger num, int power) {
+	BigInteger func = initialGuess.pow(power).subtract(num);
+	System.err.println("11111");
+	BigInteger derivative = initialGuess.multiply(initialGuess);
+	System.err.println("22222");
+	BigInteger nextGuess = initialGuess.subtract(func.divide(derivative));
+	System.err.println("33333");
+	return nextGuess;
     }
 
 }
