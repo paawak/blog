@@ -43,7 +43,11 @@ public class HelpFedoHackerEarth {
 	int arrayLength = Integer.parseInt(s.nextLine());
 
 	String[] numbers = s.nextLine().split("\\s");
-	BigInteger initialGuess = new BigInteger(numbers[0]);
+	BigInteger initialGuess = Arrays.stream(numbers).parallel().map((String token) -> {
+	    return new BigInteger(token);
+	}).reduce((BigInteger left, BigInteger right) -> {
+	    return left.add(right);
+	}).get().divide(new BigInteger(String.valueOf(arrayLength)));
 
 	BigInteger product = Arrays.stream(numbers).parallel().map((String token) -> {
 	    return new BigInteger(token);
@@ -51,8 +55,7 @@ public class HelpFedoHackerEarth {
 	    return left.multiply(right);
 	}).get();
 
-	for (int i = 0; i < 10; i++) {
-	    System.out.println("********** iteration: " + i);
+	for (int i = 0; i < 5; i++) {
 	    BigInteger nextGuess = findNRoot(initialGuess, product, arrayLength);
 	    if (nextGuess.equals(initialGuess)) {
 		break;
@@ -60,23 +63,18 @@ public class HelpFedoHackerEarth {
 	    initialGuess = nextGuess;
 	}
 
-	// product.
-	//
-	// int result = (int) Math.pow(product, power);
-	//
-	// while (Math.pow(result, arrayCount) < product) {
-	// result++;
-	// }
+	while (initialGuess.pow(arrayLength).compareTo(product) < 1) {
+	    initialGuess = initialGuess.add(BigInteger.ONE);
+	}
+
+	System.out.println(initialGuess);
 
     }
 
     private static BigInteger findNRoot(BigInteger initialGuess, BigInteger num, int power) {
 	BigInteger func = initialGuess.pow(power).subtract(num);
-	System.err.println("11111");
-	BigInteger derivative = initialGuess.multiply(initialGuess);
-	System.err.println("22222");
+	BigInteger derivative = initialGuess.pow(power - 1).multiply(new BigInteger(String.valueOf(power)));
 	BigInteger nextGuess = initialGuess.subtract(func.divide(derivative));
-	System.err.println("33333");
 	return nextGuess;
     }
 
