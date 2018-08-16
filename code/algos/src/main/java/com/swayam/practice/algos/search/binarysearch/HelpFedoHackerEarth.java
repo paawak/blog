@@ -41,14 +41,14 @@ public class HelpFedoHackerEarth {
         Scanner s = new Scanner(System.in);
         int arrayLength = Integer.parseInt(s.nextLine());
 
-        double log10Product = Arrays.stream(s.nextLine().split("\\s")).parallel().mapToDouble((String token) -> {
-            return Math.log10(Double.parseDouble(token));
+        double logProduct = Arrays.stream(s.nextLine().split("\\s")).parallel().mapToDouble((String token) -> {
+            return Math.log(Double.parseDouble(token));
         }).sum();
 
-        double log10Root = log10Product / arrayLength;
-        int root = (int) Math.pow(10, log10Root);
+        double logRoot = logProduct / arrayLength;
+        int root = (int) Math.exp(logRoot);
 
-        if (Math.log10(root) <= log10Product) {
+        if (Math.log(root) <= logProduct) {
             root++;
         }
 
