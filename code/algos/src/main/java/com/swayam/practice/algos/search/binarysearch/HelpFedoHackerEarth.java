@@ -1,5 +1,6 @@
 package com.swayam.practice.algos.search.binarysearch;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -42,40 +43,46 @@ public class HelpFedoHackerEarth {
 	Scanner s = new Scanner(System.in);
 	int arrayLength = Integer.parseInt(s.nextLine());
 
-	String[] numbers = s.nextLine().split("\\s");
-	BigInteger initialGuess = Arrays.stream(numbers).parallel().map((String token) -> {
-	    return new BigInteger(token);
-	}).reduce((BigInteger left, BigInteger right) -> {
-	    return left.add(right);
-	}).get().divide(new BigInteger(String.valueOf(arrayLength)));
-
-	BigInteger product = Arrays.stream(numbers).parallel().map((String token) -> {
+	BigInteger product = Arrays.stream(s.nextLine().split("\\s")).parallel().map((String token) -> {
 	    return new BigInteger(token);
 	}).reduce((BigInteger left, BigInteger right) -> {
 	    return left.multiply(right);
 	}).get();
 
-	for (int i = 0; i < 5; i++) {
-	    BigInteger nextGuess = findNRoot(initialGuess, product, arrayLength);
-	    if (nextGuess.equals(initialGuess)) {
-		break;
-	    }
-	    initialGuess = nextGuess;
-	}
+	double logRoot = findLog10(product) / arrayLength;
+	BigInteger root = findAntiLog10(logRoot);
 
-	while (initialGuess.pow(arrayLength).compareTo(product) < 1) {
-	    initialGuess = initialGuess.add(BigInteger.ONE);
-	}
-
-	System.out.println(initialGuess);
+	System.out.println(findMinRoot(product, root, arrayLength));
 
     }
 
-    private static BigInteger findNRoot(BigInteger initialGuess, BigInteger num, int power) {
-	BigInteger func = initialGuess.pow(power).subtract(num);
-	BigInteger derivative = initialGuess.pow(power - 1).multiply(new BigInteger(String.valueOf(power)));
-	BigInteger nextGuess = initialGuess.subtract(func.divide(derivative));
-	return nextGuess;
+    static BigInteger findMinRoot(BigInteger product, BigInteger root, int power) {
+
+	BigInteger newProduct = root.pow(power);
+
+	int compared = product.compareTo(newProduct);
+
+	if (compared >= 0) {
+	    return root.add(BigInteger.ONE);
+	} else {
+	    return root.subtract(BigInteger.ONE);
+	}
+
+    }
+
+    static double findLog10(BigInteger number) {
+	String decimalStringValue = number.toString(10);
+	int integralPart = decimalStringValue.length() - 1;
+	double decimalPart = Math.log10(new BigDecimal(number).divide(BigDecimal.TEN.pow(integralPart)).doubleValue());
+	return integralPart + decimalPart;
+    }
+
+    static BigInteger findAntiLog10(double log) {
+	int integralPart = (int) Math.floor(log);
+	double decimalPart = log - integralPart;
+	double decimalPartAntiLog = Math.pow(10, decimalPart);
+	BigDecimal antiLog = BigDecimal.TEN.pow(integralPart).multiply(new BigDecimal(decimalPartAntiLog));
+	return antiLog.setScale(1, BigDecimal.ROUND_HALF_UP).toBigInteger();
     }
 
 }
