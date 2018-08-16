@@ -50,7 +50,11 @@ public class HelpFedoHackerEarth {
 	});
 
 	double logRoot = logProduct / arrayLength;
-	BigInteger root = findAntiLog10(logRoot).add(BigInteger.ONE);
+	BigInteger root = findAntiLog10(logRoot);
+
+	if (findLog10(root) <= logProduct) {
+	    root = root.add(BigInteger.ONE);
+	}
 
 	System.out.println(root);
 
@@ -68,7 +72,7 @@ public class HelpFedoHackerEarth {
 	double decimalPart = log - integralPart;
 	double decimalPartAntiLog = Math.pow(10, decimalPart);
 	BigDecimal antiLog = BigDecimal.TEN.pow(integralPart).multiply(new BigDecimal(decimalPartAntiLog));
-	return antiLog.setScale(1, BigDecimal.ROUND_HALF_UP).toBigInteger();
+	return antiLog.setScale(1, BigDecimal.ROUND_FLOOR).toBigInteger();
     }
 
 }
