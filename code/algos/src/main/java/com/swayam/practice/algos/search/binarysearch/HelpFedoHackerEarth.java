@@ -1,7 +1,5 @@
 package com.swayam.practice.algos.search.binarysearch;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -40,39 +38,22 @@ import java.util.Scanner;
 public class HelpFedoHackerEarth {
 
     public static void main(String[] args) {
-	Scanner s = new Scanner(System.in);
-	int arrayLength = Integer.parseInt(s.nextLine());
+        Scanner s = new Scanner(System.in);
+        int arrayLength = Integer.parseInt(s.nextLine());
 
-	double logProduct = Arrays.stream(s.nextLine().split("\\s")).parallel().reduce(0d, (Double initial, String nextToken) -> {
-	    return initial + findLog10(new BigInteger(nextToken));
-	}, (Double right, Double left) -> {
-	    return right + left;
-	});
+        double log10Product = Arrays.stream(s.nextLine().split("\\s")).parallel().mapToDouble((String token) -> {
+            return Math.log10(Double.parseDouble(token));
+        }).sum();
 
-	double logRoot = logProduct / arrayLength;
-	BigInteger root = findAntiLog10(logRoot);
+        double log10Root = log10Product / arrayLength;
+        int root = (int) Math.pow(10, log10Root);
 
-	if (findLog10(root) <= logProduct) {
-	    root = root.add(BigInteger.ONE);
-	}
+        if (Math.log10(root) <= log10Product) {
+            root++;
+        }
 
-	System.out.println(root);
+        System.out.println(root);
 
-    }
-
-    static double findLog10(BigInteger number) {
-	String decimalStringValue = number.toString(10);
-	int integralPart = decimalStringValue.length() - 1;
-	double decimalPart = Math.log10(new BigDecimal(number).divide(BigDecimal.TEN.pow(integralPart)).doubleValue());
-	return integralPart + decimalPart;
-    }
-
-    static BigInteger findAntiLog10(double log) {
-	int integralPart = (int) Math.floor(log);
-	double decimalPart = log - integralPart;
-	double decimalPartAntiLog = Math.pow(10, decimalPart);
-	BigDecimal antiLog = BigDecimal.TEN.pow(integralPart).multiply(new BigDecimal(decimalPartAntiLog));
-	return antiLog.setScale(1, BigDecimal.ROUND_FLOOR).toBigInteger();
     }
 
 }
