@@ -43,30 +43,16 @@ public class HelpFedoHackerEarth {
 	Scanner s = new Scanner(System.in);
 	int arrayLength = Integer.parseInt(s.nextLine());
 
-	BigInteger product = Arrays.stream(s.nextLine().split("\\s")).parallel().map((String token) -> {
-	    return new BigInteger(token);
-	}).reduce((BigInteger left, BigInteger right) -> {
-	    return left.multiply(right);
-	}).get();
+	double logProduct = Arrays.stream(s.nextLine().split("\\s")).parallel().reduce(0d, (Double initial, String nextToken) -> {
+	    return initial + findLog10(new BigInteger(nextToken));
+	}, (Double right, Double left) -> {
+	    return right + left;
+	});
 
-	double logRoot = findLog10(product) / arrayLength;
-	BigInteger root = findAntiLog10(logRoot);
+	double logRoot = logProduct / arrayLength;
+	BigInteger root = findAntiLog10(logRoot).add(BigInteger.ONE);
 
-	System.out.println(findMinRoot(product, root, arrayLength));
-
-    }
-
-    static BigInteger findMinRoot(BigInteger product, BigInteger root, int power) {
-
-	BigInteger newProduct = root.pow(power);
-
-	int compared = product.compareTo(newProduct);
-
-	if (compared >= 0) {
-	    return root.add(BigInteger.ONE);
-	} else {
-	    return root.subtract(BigInteger.ONE);
-	}
+	System.out.println(root);
 
     }
 

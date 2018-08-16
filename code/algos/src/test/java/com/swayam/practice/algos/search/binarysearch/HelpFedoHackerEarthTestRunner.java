@@ -10,12 +10,11 @@ public class HelpFedoHackerEarthTestRunner {
 
     public static void main(String[] args) throws IOException {
 
-	String count = "10";
-	// for (int count = 1; count <= TEST_COUNT; count++) {
-	InputStream inputStream = HelpFedoHackerEarthTestRunner.class.getResourceAsStream(TEST_FILE_PATH_PREFIX + count + ".txt");
-	System.setIn(inputStream);
-	HelpFedoHackerEarth.main(null);
-	// }
+	for (int count = 1; count <= TEST_COUNT; count++) {
+	    InputStream inputStream = HelpFedoHackerEarthTestRunner.class.getResourceAsStream(TEST_FILE_PATH_PREFIX + count + ".txt");
+	    System.setIn(inputStream);
+	    HelpFedoHackerEarth.main(null);
+	}
 
     }
 
