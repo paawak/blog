@@ -1,0 +1,612 @@
+Application time: 4.0070940 seconds
+Total time for which application threads were stopped: 0.6843920 seconds
+Application time: 4.6933190 seconds
+2018-08-19T01:21:40.221+0530: 9.718: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 10212208  promoted: 0  overflow: falseAdaptiveSizeStart: 9.740 collection: 1 
+
+Desired survivor size 10813440 bytes, new threshold 7 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.002257 major_cost: 0.000000 mutator_cost: 0.997743 throughput_goal: 0.990000 live_space: 282419968 free_space: 130678784 old_promo_size: 65339392 old_eden_size: 65339392 desired_promo_size: 65339392 desired_eden_size: 65339392
+AdaptiveSizeStop: collection: 1 
+ 63808K->9972K(244352K), 0.0218970 secs]
+Total time for which application threads were stopped: 0.0220210 seconds
+Application time: 0.0719370 seconds
+2018-08-19T01:21:40.315+0530: 9.812: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 10784736  promoted: 1458176  overflow: trueAdaptiveSizeStart: 9.816 collection: 2 
+
+Desired survivor size 10813440 bytes, new threshold 7 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.028953 major_cost: 0.000000 mutator_cost: 0.971047 throughput_goal: 0.990000 live_space: 282708064 free_space: 130678784 old_promo_size: 65339392 old_eden_size: 65339392 desired_promo_size: 65339392 desired_eden_size: 130678784
+AdaptiveSizePolicy::survivor space sizes: collection: 2 (10813440, 10813440) -> (10813440, 10813440) 
+AdaptiveSizeStop: collection: 2 
+ 73780K->11955K(244352K), 0.0043510 secs]
+Total time for which application threads were stopped: 0.0044570 seconds
+Application time: 0.0708710 seconds
+2018-08-19T01:21:40.390+0530: 9.887: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 10785120  promoted: 2121744  overflow: trueAdaptiveSizeStart: 9.890 collection: 3 
+
+Desired survivor size 10813440 bytes, new threshold 7 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.033064 major_cost: 0.000000 mutator_cost: 0.966936 throughput_goal: 0.990000 live_space: 282803296 free_space: 196018176 old_promo_size: 65339392 old_eden_size: 130678784 desired_promo_size: 65339392 desired_eden_size: 130678784
+AdaptiveSizePolicy::survivor space sizes: collection: 3 (10813440, 10813440) -> (10813440, 10813440) 
+AdaptiveSizeStop: collection: 3 
+ 75763K->14028K(244352K), 0.0031050 secs]
+Total time for which application threads were stopped: 0.0032110 seconds
+Application time: 0.0721850 seconds
+2018-08-19T01:21:40.466+0530: 9.963: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 10791088  promoted: 24576  overflow: trueAdaptiveSizeStart: 9.966 collection: 4 
+
+Desired survivor size 10813440 bytes, new threshold 7 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.035237 major_cost: 0.000000 mutator_cost: 0.964763 throughput_goal: 0.990000 live_space: 282853120 free_space: 196018176 old_promo_size: 65339392 old_eden_size: 130678784 desired_promo_size: 65339392 desired_eden_size: 130678784
+AdaptiveSizePolicy::survivor space sizes: collection: 4 (10813440, 10813440) -> (10813440, 10813440) 
+AdaptiveSizeStop: collection: 4 
+ 77821K->14058K(308160K), 0.0032000 secs]
+Total time for which application threads were stopped: 0.0033310 seconds
+Application time: 0.1519970 seconds
+2018-08-19T01:21:40.621+0530: 10.118: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 10784544  promoted: 24576  overflow: trueAdaptiveSizeStart: 10.121 collection: 5 
+  avg_survived_padded_avg: 13460238.000000  avg_promoted_padded_avg: 2659830.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 6  target_size: 13500416
+Desired survivor size 13500416 bytes, new threshold 6 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.031288 major_cost: 0.000000 mutator_cost: 0.968712 throughput_goal: 0.990000 live_space: 282881728 free_space: 196018176 old_promo_size: 65339392 old_eden_size: 130678784 desired_promo_size: 65339392 desired_eden_size: 261357568
+AdaptiveSizePolicy::survivor space sizes: collection: 5 (10813440, 10813440) -> (10813440, 13500416) 
+AdaptiveSizeStop: collection: 5 
+ 141663K->14075K(308160K), 0.0032050 secs]
+Total time for which application threads were stopped: 0.0033360 seconds
+Application time: 0.1433610 seconds
+2018-08-19T01:21:40.768+0530: 10.265: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 10841936  promoted: 0  overflow: falseAdaptiveSizeStart: 10.268 collection: 6 
+  avg_survived_padded_avg: 13263901.000000  avg_promoted_padded_avg: 2544145.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 5  target_size: 13303808
+Desired survivor size 13303808 bytes, new threshold 5 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.028730 major_cost: 0.000000 mutator_cost: 0.971270 throughput_goal: 0.990000 live_space: 282909184 free_space: 326696960 old_promo_size: 65339392 old_eden_size: 261357568 desired_promo_size: 65339392 desired_eden_size: 261357568
+AdaptiveSizePolicy::survivor space sizes: collection: 6 (13107200, 10813440) -> (13107200, 13303808) 
+AdaptiveSizeStop: collection: 6 
+ 141670K->14131K(438016K), 0.0031790 secs]
+Total time for which application threads were stopped: 0.0032760 seconds
+Application time: 0.3044500 seconds
+2018-08-19T01:21:41.075+0530: 10.572: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 104560  promoted: 10722432  overflow: falseAdaptiveSizeStart: 10.576 collection: 7 
+  avg_survived_padded_avg: 15467433.000000  avg_promoted_padded_avg: 7342675.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 4  target_size: 15532032
+Desired survivor size 15532032 bytes, new threshold 4 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.024217 major_cost: 0.000000 mutator_cost: 0.975783 throughput_goal: 0.990000 live_space: 281426144 free_space: 326696960 old_promo_size: 65339392 old_eden_size: 261357568 desired_promo_size: 65339392 desired_eden_size: 522715136
+AdaptiveSizePolicy::survivor space sizes: collection: 7 (13303808, 13107200) -> (13303808, 15532032) 
+AdaptiveSizeStop: collection: 7 
+ 269316K->14117K(438208K), 0.0035510 secs]
+Total time for which application threads were stopped: 0.0036410 seconds
+Application time: 0.2807590 seconds
+2018-08-19T01:21:41.360+0530: 10.857: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 116048  promoted: 0  overflow: falseAdaptiveSizeStart: 10.857 collection: 8 
+  avg_survived_padded_avg: 16673348.000000  avg_promoted_padded_avg: 7099860.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 3  target_size: 16711680
+Desired survivor size 16711680 bytes, new threshold 3 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.018524 major_cost: 0.000000 mutator_cost: 0.981476 throughput_goal: 0.990000 live_space: 280334304 free_space: 588054528 old_promo_size: 65339392 old_eden_size: 522715136 desired_promo_size: 65339392 desired_eden_size: 522715136
+AdaptiveSizePolicy::survivor space sizes: collection: 8 (15532032, 13303808) -> (15532032, 16711680) 
+AdaptiveSizeStop: collection: 8 
+ 269349K->14128K(694464K), 0.0004610 secs]
+Total time for which application threads were stopped: 0.0005670 seconds
+Application time: 0.6152400 seconds
+2018-08-19T01:21:41.976+0530: 11.473: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 135192  promoted: 0  overflow: falseAdaptiveSizeStart: 11.473 collection: 9 
+  avg_survived_padded_avg: 17335252.000000  avg_promoted_padded_avg: 6903989.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 2  target_size: 17367040
+Desired survivor size 17367040 bytes, new threshold 2 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.014045 major_cost: 0.000000 mutator_cost: 0.985955 throughput_goal: 0.990000 live_space: 279455648 free_space: 588054528 old_promo_size: 65339392 old_eden_size: 522715136 desired_promo_size: 65339392 desired_eden_size: 834469888
+AdaptiveSizePolicy::survivor space sizes: collection: 9 (16711680, 15532032) -> (16711680, 17367040) 
+AdaptiveSizeStop: collection: 9 
+ 523440K->14147K(695616K), 0.0006560 secs]
+Total time for which application threads were stopped: 0.0007470 seconds
+Application time: 0.5557890 seconds
+2018-08-19T01:21:42.532+0530: 12.029: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 151272  promoted: 0  overflow: falseAdaptiveSizeStart: 12.029 collection: 10 
+  avg_survived_padded_avg: 17642508.000000  avg_promoted_padded_avg: 6745512.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 17694720
+Desired survivor size 17694720 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.010675 major_cost: 0.000000 mutator_cost: 0.989325 throughput_goal: 0.990000 live_space: 278746336 free_space: 899809280 old_promo_size: 65339392 old_eden_size: 834469888 desired_promo_size: 65339392 desired_eden_size: 834469888
+AdaptiveSizePolicy::survivor space sizes: collection: 10 (17367040, 16711680) -> (17367040, 17694720) 
+AdaptiveSizeStop: collection: 10 
+ 523459K->14162K(1001536K), 0.0003730 secs]
+Total time for which application threads were stopped: 0.0004760 seconds
+Application time: 0.9655920 seconds
+2018-08-19T01:21:43.498+0530: 12.995: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 173272  promoted: 0  overflow: falseAdaptiveSizeStart: 12.996 collection: 11 
+  avg_survived_padded_avg: 17712730.000000  avg_promoted_padded_avg: 6602883.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 17760256
+Desired survivor size 17760256 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.008253 major_cost: 0.000000 mutator_cost: 0.991747 throughput_goal: 0.990000 live_space: 278110176 free_space: 899809280 old_promo_size: 65339392 old_eden_size: 834469888 desired_promo_size: 65339392 desired_eden_size: 795475968
+AdaptiveSizePolicy::survivor space sizes: collection: 11 (17694720, 65536) -> (196608, 17563648) 
+AdaptiveSizeStop: collection: 11 
+ 828754K->14184K(947008K), 0.0010180 secs]
+Total time for which application threads were stopped: 0.0011260 seconds
+Application time: 0.8508980 seconds
+2018-08-19T01:21:44.350+0530: 13.847: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 191440  promoted: 0  overflow: falseAdaptiveSizeStart: 13.848 collection: 12 
+  avg_survived_padded_avg: 17591128.000000  avg_promoted_padded_avg: 6474516.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 17629184
+Desired survivor size 17629184 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.006488 major_cost: 0.000000 mutator_cost: 0.993512 throughput_goal: 0.990000 live_space: 277539456 free_space: 860815360 old_promo_size: 65339392 old_eden_size: 795475968 desired_promo_size: 65339392 desired_eden_size: 758775808
+AdaptiveSizePolicy::survivor space sizes: collection: 12 (196608, 196608) -> (196608, 17629184) 
+AdaptiveSizeStop: collection: 12 
+ 791016K->14202K(911168K), 0.0010990 secs]
+Total time for which application threads were stopped: 0.0012010 seconds
+Application time: 0.8106890 seconds
+2018-08-19T01:21:45.162+0530: 14.659: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 206976  promoted: 0  overflow: falseAdaptiveSizeStart: 14.660 collection: 13 
+  avg_survived_padded_avg: 17315990.000000  avg_promoted_padded_avg: 6358986.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 17367040
+Desired survivor size 17367040 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.005111 major_cost: 0.000000 mutator_cost: 0.994889 throughput_goal: 0.990000 live_space: 277027328 free_space: 824115200 old_promo_size: 65339392 old_eden_size: 758775808 desired_promo_size: 65339392 desired_eden_size: 723845120
+AdaptiveSizePolicy::survivor space sizes: collection: 13 (17629184, 65536) -> (17629184, 17367040) 
+AdaptiveSizeStop: collection: 13 
+ 755194K->14217K(894080K), 0.0008860 secs]
+Total time for which application threads were stopped: 0.0009800 seconds
+Application time: 0.7713830 seconds
+2018-08-19T01:21:45.934+0530: 15.432: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 220608  promoted: 0  overflow: falseAdaptiveSizeStart: 15.432 collection: 14 
+  avg_survived_padded_avg: 16919724.000000  avg_promoted_padded_avg: 6255009.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 16973824
+Desired survivor size 16973824 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004074 major_cost: 0.000000 mutator_cost: 0.995926 throughput_goal: 0.990000 live_space: 276567808 free_space: 789184512 old_promo_size: 65339392 old_eden_size: 723845120 desired_promo_size: 65339392 desired_eden_size: 690683904
+AdaptiveSizePolicy::survivor space sizes: collection: 14 (262144, 17629184) -> (262144, 16973824) 
+AdaptiveSizeStop: collection: 14 
+ 721097K->14230K(844736K), 0.0012510 secs]
+Total time for which application threads were stopped: 0.0013520 seconds
+Application time: 0.7377640 seconds
+2018-08-19T01:21:46.674+0530: 16.171: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 232752  promoted: 0  overflow: falseAdaptiveSizeStart: 16.172 collection: 15 
+  avg_survived_padded_avg: 16429691.000000  avg_promoted_padded_avg: 6161430.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 16449536
+Desired survivor size 16449536 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.003374 major_cost: 0.000000 mutator_cost: 0.996626 throughput_goal: 0.990000 live_space: 276155456 free_space: 756023296 old_promo_size: 65339392 old_eden_size: 690683904 desired_promo_size: 65339392 desired_eden_size: 659161088
+AdaptiveSizePolicy::survivor space sizes: collection: 15 (16973824, 65536) -> (16973824, 16449536) 
+AdaptiveSizeStop: collection: 15 
+ 688726K->14242K(830272K), 0.0010010 secs]
+Total time for which application threads were stopped: 0.0011200 seconds
+Application time: 0.7023620 seconds
+2018-08-19T01:21:47.377+0530: 16.874: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 243680  promoted: 0  overflow: falseAdaptiveSizeStart: 16.875 collection: 16 
+  avg_survived_padded_avg: 15868936.000000  avg_promoted_padded_avg: 6077209.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 15925248
+Desired survivor size 15925248 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.002660 major_cost: 0.000000 mutator_cost: 0.997340 throughput_goal: 0.990000 live_space: 275785440 free_space: 724500480 old_promo_size: 65339392 old_eden_size: 659161088 desired_promo_size: 65339392 desired_eden_size: 629211136
+AdaptiveSizePolicy::survivor space sizes: collection: 16 (262144, 16973824) -> (262144, 15925248) 
+AdaptiveSizeStop: collection: 16 
+ 657954K->14253K(784704K), 0.0008790 secs]
+Total time for which application threads were stopped: 0.0009670 seconds
+Application time: 0.6741360 seconds
+2018-08-19T01:21:48.052+0530: 17.549: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 253600  promoted: 0  overflow: falseAdaptiveSizeStart: 17.550 collection: 17 
+  avg_survived_padded_avg: 15256788.000000  avg_promoted_padded_avg: 6001410.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 15269888
+Desired survivor size 15269888 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.002121 major_cost: 0.000000 mutator_cost: 0.997879 throughput_goal: 0.990000 live_space: 275453408 free_space: 694550528 old_promo_size: 65339392 old_eden_size: 629211136 desired_promo_size: 65339392 desired_eden_size: 600768512
+AdaptiveSizePolicy::survivor space sizes: collection: 17 (15925248, 65536) -> (15925248, 15269888) 
+AdaptiveSizeStop: collection: 17 
+ 628717K->14262K(772224K), 0.0004310 secs]
+Total time for which application threads were stopped: 0.0005110 seconds
+Application time: 0.6481710 seconds
+2018-08-19T01:21:48.701+0530: 18.198: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 262688  promoted: 0  overflow: falseAdaptiveSizeStart: 18.198 collection: 18 
+  avg_survived_padded_avg: 14609370.000000  avg_promoted_padded_avg: 5933191.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 14614528
+Desired survivor size 14614528 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001719 major_cost: 0.000000 mutator_cost: 0.998281 throughput_goal: 0.990000 live_space: 275155456 free_space: 666107904 old_promo_size: 65339392 old_eden_size: 600768512 desired_promo_size: 65339392 desired_eden_size: 573702144
+AdaptiveSizePolicy::survivor space sizes: collection: 18 (327680, 15925248) -> (327680, 14614528) 
+AdaptiveSizeStop: collection: 18 
+ 600950K->14271K(730560K), 0.0008140 secs]
+Total time for which application threads were stopped: 0.0009010 seconds
+Application time: 0.6220110 seconds
+2018-08-19T01:21:49.324+0530: 18.821: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 271040  promoted: 0  overflow: falseAdaptiveSizeStart: 18.822 collection: 19 
+  avg_survived_padded_avg: 13940076.000000  avg_promoted_padded_avg: 5871793.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 13959168
+Desired survivor size 13959168 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001673 major_cost: 0.000000 mutator_cost: 0.998327 throughput_goal: 0.990000 live_space: 274888160 free_space: 639041536 old_promo_size: 65339392 old_eden_size: 573702144 desired_promo_size: 65339392 desired_eden_size: 548012032
+AdaptiveSizePolicy::survivor space sizes: collection: 19 (14614528, 65536) -> (14614528, 13959168) 
+AdaptiveSizeStop: collection: 19 
+ 574500K->14279K(719424K), 0.0010390 secs]
+Total time for which application threads were stopped: 0.0011830 seconds
+Application time: 0.5948250 seconds
+2018-08-19T01:21:49.920+0530: 19.417: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 278744  promoted: 0  overflow: falseAdaptiveSizeStart: 19.418 collection: 20 
+  avg_survived_padded_avg: 13259946.000000  avg_promoted_padded_avg: 5816536.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 13303808
+Desired survivor size 13303808 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001694 major_cost: 0.000000 mutator_cost: 0.998306 throughput_goal: 0.990000 live_space: 274648352 free_space: 613351424 old_promo_size: 65339392 old_eden_size: 548012032 desired_promo_size: 65339392 desired_eden_size: 523567104
+AdaptiveSizePolicy::survivor space sizes: collection: 20 (327680, 14614528) -> (327680, 13303808) 
+AdaptiveSizeStop: collection: 20 
+ 549447K->14287K(681600K), 0.0014840 secs]
+Total time for which application threads were stopped: 0.0015660 seconds
+Application time: 0.5738190 seconds
+2018-08-19T01:21:50.495+0530: 19.992: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 285896  promoted: 0  overflow: falseAdaptiveSizeStart: 19.993 collection: 21 
+  avg_survived_padded_avg: 12578014.000000  avg_promoted_padded_avg: 5766804.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 12582912
+Desired survivor size 12582912 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001614 major_cost: 0.000000 mutator_cost: 0.998386 throughput_goal: 0.990000 live_space: 274433216 free_space: 588906496 old_promo_size: 65339392 old_eden_size: 523567104 desired_promo_size: 65339392 desired_eden_size: 500301824
+AdaptiveSizePolicy::survivor space sizes: collection: 21 (13303808, 65536) -> (13303808, 12582912) 
+AdaptiveSizeStop: collection: 21 
+ 525583K->14294K(671552K), 0.0008910 secs]
+Total time for which application threads were stopped: 0.0009790 seconds
+Application time: 0.5576300 seconds
+2018-08-19T01:21:51.054+0530: 20.551: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 292560  promoted: 0  overflow: falseAdaptiveSizeStart: 20.552 collection: 22 
+  avg_survived_padded_avg: 11901595.000000  avg_promoted_padded_avg: 5722045.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 11927552
+Desired survivor size 11927552 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001606 major_cost: 0.000000 mutator_cost: 0.998394 throughput_goal: 0.990000 live_space: 274240288 free_space: 565641216 old_promo_size: 65339392 old_eden_size: 500301824 desired_promo_size: 65339392 desired_eden_size: 478216192
+AdaptiveSizePolicy::survivor space sizes: collection: 22 (327680, 13303808) -> (327680, 11927552) 
+AdaptiveSizeStop: collection: 22 
+ 502670K->14300K(637312K), 0.0012830 secs]
+Total time for which application threads were stopped: 0.0013900 seconds
+Application time: 0.5247810 seconds
+2018-08-19T01:21:51.580+0530: 21.077: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 298752  promoted: 0  overflow: falseAdaptiveSizeStart: 21.078 collection: 23 
+  avg_survived_padded_avg: 11236554.000000  avg_promoted_padded_avg: 5681763.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 11272192
+Desired survivor size 11272192 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001644 major_cost: 0.000000 mutator_cost: 0.998356 throughput_goal: 0.990000 live_space: 274067264 free_space: 543555584 old_promo_size: 65339392 old_eden_size: 478216192 desired_promo_size: 65339392 desired_eden_size: 457244672
+AdaptiveSizePolicy::survivor space sizes: collection: 23 (11927552, 65536) -> (11927552, 11272192) 
+AdaptiveSizeStop: collection: 23 
+ 481169K->14306K(628160K), 0.0010150 secs]
+Total time for which application threads were stopped: 0.0011120 seconds
+Application time: 0.5101150 seconds
+2018-08-19T01:21:52.091+0530: 21.588: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 304568  promoted: 0  overflow: falseAdaptiveSizeStart: 21.589 collection: 24 
+  avg_survived_padded_avg: 10587502.000000  avg_promoted_padded_avg: 5645508.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 10616832
+Desired survivor size 10616832 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001670 major_cost: 0.000000 mutator_cost: 0.998330 throughput_goal: 0.990000 live_space: 273912128 free_space: 522584064 old_promo_size: 65339392 old_eden_size: 457244672 desired_promo_size: 65339392 desired_eden_size: 437256192
+AdaptiveSizePolicy::survivor space sizes: collection: 24 (327680, 11927552) -> (327680, 10616832) 
+AdaptiveSizeStop: collection: 24 
+ 460789K->14312K(597312K), 0.0012620 secs]
+Total time for which application threads were stopped: 0.0013510 seconds
+Application time: 0.4888140 seconds
+2018-08-19T01:21:52.581+0530: 22.078: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 310016  promoted: 0  overflow: falseAdaptiveSizeStart: 22.079 collection: 25 
+  avg_survived_padded_avg: 9958014.000000  avg_promoted_padded_avg: 5612879.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 9961472
+Desired survivor size 9961472 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001400 major_cost: 0.000000 mutator_cost: 0.998600 throughput_goal: 0.990000 live_space: 273773056 free_space: 502595584 old_promo_size: 65339392 old_eden_size: 437256192 desired_promo_size: 65339392 desired_eden_size: 418250752
+AdaptiveSizePolicy::survivor space sizes: collection: 25 (10616832, 65536) -> (10616832, 9961472) 
+AdaptiveSizeStop: collection: 25 
+ 441320K->14317K(588800K), 0.0003890 secs]
+Total time for which application threads were stopped: 0.0004710 seconds
+Application time: 0.4737210 seconds
+2018-08-19T01:21:53.056+0530: 22.553: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 315144  promoted: 0  overflow: falseAdaptiveSizeStart: 22.553 collection: 26 
+  avg_survived_padded_avg: 9350778.000000  avg_promoted_padded_avg: 5583513.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 9371648
+Desired survivor size 9371648 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001208 major_cost: 0.000000 mutator_cost: 0.998792 throughput_goal: 0.990000 live_space: 273648384 free_space: 483590144 old_promo_size: 65339392 old_eden_size: 418250752 desired_promo_size: 65339392 desired_eden_size: 400228352
+AdaptiveSizePolicy::survivor space sizes: collection: 26 (327680, 10616832) -> (327680, 9371648) 
+AdaptiveSizeStop: collection: 26 
+ 422511K->14322K(561152K), 0.0006240 secs]
+Total time for which application threads were stopped: 0.0007200 seconds
+Application time: 0.4539990 seconds
+2018-08-19T01:21:53.510+0530: 23.007: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 319960  promoted: 0  overflow: falseAdaptiveSizeStart: 23.008 collection: 27 
+  avg_survived_padded_avg: 8767742.000000  avg_promoted_padded_avg: 5557083.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 8781824
+Desired survivor size 8781824 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001411 major_cost: 0.000000 mutator_cost: 0.998589 throughput_goal: 0.990000 live_space: 273536672 free_space: 465567744 old_promo_size: 65339392 old_eden_size: 400228352 desired_promo_size: 65339392 desired_eden_size: 383057920
+AdaptiveSizePolicy::survivor space sizes: collection: 27 (9371648, 65536) -> (9371648, 8781824) 
+AdaptiveSizeStop: collection: 27 
+ 405124K->14327K(553216K), 0.0010020 secs]
+Total time for which application threads were stopped: 0.0010940 seconds
+Application time: 0.4350760 seconds
+2018-08-19T01:21:53.947+0530: 23.444: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 324504  promoted: 0  overflow: falseAdaptiveSizeStart: 23.445 collection: 28 
+  avg_survived_padded_avg: 8210231.500000  avg_promoted_padded_avg: 5533297.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 8257536
+Desired survivor size 8257536 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001907 major_cost: 0.000000 mutator_cost: 0.998093 throughput_goal: 0.990000 live_space: 273436576 free_space: 448397312 old_promo_size: 65339392 old_eden_size: 383057920 desired_promo_size: 65339392 desired_eden_size: 366739456
+AdaptiveSizePolicy::survivor space sizes: collection: 28 (327680, 9371648) -> (327680, 8257536) 
+AdaptiveSizeStop: collection: 28 
+ 388344K->14332K(528448K), 0.0017930 secs]
+Total time for which application threads were stopped: 0.0018990 seconds
+Application time: 0.4165170 seconds
+2018-08-19T01:21:54.365+0530: 23.862: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 328776  promoted: 0  overflow: falseAdaptiveSizeStart: 23.862 collection: 29 
+  avg_survived_padded_avg: 7679065.000000  avg_promoted_padded_avg: 5511889.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 7733248
+Desired survivor size 7733248 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001644 major_cost: 0.000000 mutator_cost: 0.998356 throughput_goal: 0.990000 live_space: 273346944 free_space: 432078848 old_promo_size: 65339392 old_eden_size: 366739456 desired_promo_size: 65339392 desired_eden_size: 351207424
+AdaptiveSizePolicy::survivor space sizes: collection: 29 (8257536, 65536) -> (8257536, 7733248) 
+AdaptiveSizeStop: collection: 29 
+ 372256K->14336K(521024K), 0.0004760 secs]
+Total time for which application threads were stopped: 0.0005890 seconds
+Application time: 0.3999240 seconds
+2018-08-19T01:21:54.766+0530: 24.263: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 332832  promoted: 0  overflow: falseAdaptiveSizeStart: 24.264 collection: 30 
+  avg_survived_padded_avg: 7174628.000000  avg_promoted_padded_avg: 5492622.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 7208960
+Desired survivor size 7208960 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001829 major_cost: 0.000000 mutator_cost: 0.998171 throughput_goal: 0.990000 live_space: 273266656 free_space: 416546816 old_promo_size: 65339392 old_eden_size: 351207424 desired_promo_size: 65339392 desired_eden_size: 336461824
+AdaptiveSizePolicy::survivor space sizes: collection: 30 (393216, 8257536) -> (393216, 7208960) 
+AdaptiveSizeStop: collection: 30 
+ 357167K->14340K(498944K), 0.0012480 secs]
+Total time for which application threads were stopped: 0.0013560 seconds
+Application time: 0.3842370 seconds
+2018-08-19T01:21:55.151+0530: 24.648: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 336648  promoted: 0  overflow: falseAdaptiveSizeStart: 24.649 collection: 31 
+  avg_survived_padded_avg: 6696967.000000  avg_promoted_padded_avg: 5475281.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 6750208
+Desired survivor size 6750208 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.002028 major_cost: 0.000000 mutator_cost: 0.997972 throughput_goal: 0.990000 live_space: 273194784 free_space: 401801216 old_promo_size: 65339392 old_eden_size: 336461824 desired_promo_size: 65339392 desired_eden_size: 322437120
+AdaptiveSizePolicy::survivor space sizes: collection: 31 (7208960, 65536) -> (7208960, 6750208) 
+AdaptiveSizeStop: collection: 31 
+ 342795K->14343K(491904K), 0.0010750 secs]
+Total time for which application threads were stopped: 0.0011580 seconds
+Application time: 0.3659350 seconds
+2018-08-19T01:21:55.518+0530: 25.015: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 340248  promoted: 0  overflow: falseAdaptiveSizeStart: 25.016 collection: 32 
+  avg_survived_padded_avg: 6245846.500000  avg_promoted_padded_avg: 5459675.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 6291456
+Desired survivor size 6291456 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001748 major_cost: 0.000000 mutator_cost: 0.998252 throughput_goal: 0.990000 live_space: 273130464 free_space: 387776512 old_promo_size: 65339392 old_eden_size: 322437120 desired_promo_size: 65339392 desired_eden_size: 309067776
+AdaptiveSizePolicy::survivor space sizes: collection: 32 (393216, 7208960) -> (393216, 6291456) 
+AdaptiveSizeStop: collection: 32 
+ 328948K->14347K(472192K), 0.0005810 secs]
+Total time for which application threads were stopped: 0.0006660 seconds
+Application time: 0.3516820 seconds
+2018-08-19T01:21:55.871+0530: 25.368: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 343688  promoted: 0  overflow: falseAdaptiveSizeStart: 25.368 collection: 33 
+  avg_survived_padded_avg: 5820798.000000  avg_promoted_padded_avg: 5445629.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 5832704
+Desired survivor size 5832704 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001477 major_cost: 0.000000 mutator_cost: 0.998523 throughput_goal: 0.990000 live_space: 273072896 free_space: 374407168 old_promo_size: 65339392 old_eden_size: 309067776 desired_promo_size: 65339392 desired_eden_size: 296353792
+AdaptiveSizePolicy::survivor space sizes: collection: 33 (6291456, 65536) -> (6291456, 5832704) 
+AdaptiveSizeStop: collection: 33 
+ 316027K->14350K(465536K), 0.0003150 secs]
+Total time for which application threads were stopped: 0.0003950 seconds
+Application time: 0.3361240 seconds
+2018-08-19T01:21:56.207+0530: 25.704: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 346928  promoted: 0  overflow: falseAdaptiveSizeStart: 25.705 collection: 34 
+  avg_survived_padded_avg: 5421187.000000  avg_promoted_padded_avg: 5432988.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 5439488
+Desired survivor size 5439488 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001755 major_cost: 0.000000 mutator_cost: 0.998245 throughput_goal: 0.990000 live_space: 273021440 free_space: 361693184 old_promo_size: 65339392 old_eden_size: 296353792 desired_promo_size: 65339392 desired_eden_size: 284229632
+AdaptiveSizePolicy::survivor space sizes: collection: 34 (393216, 6291456) -> (393216, 5439488) 
+AdaptiveSizeStop: collection: 34 
+ 303599K->14353K(447936K), 0.0011070 secs]
+Total time for which application threads were stopped: 0.0011950 seconds
+Application time: 0.3243020 seconds
+2018-08-19T01:21:56.533+0530: 26.030: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 350008  promoted: 0  overflow: falseAdaptiveSizeStart: 26.030 collection: 35 
+  avg_survived_padded_avg: 5046236.000000  avg_promoted_padded_avg: 5421611.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 5046272
+Desired survivor size 5046272 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001519 major_cost: 0.000000 mutator_cost: 0.998481 throughput_goal: 0.990000 live_space: 272975424 free_space: 349569024 old_promo_size: 65339392 old_eden_size: 284229632 desired_promo_size: 65339392 desired_eden_size: 272695296
+AdaptiveSizePolicy::survivor space sizes: collection: 35 (5439488, 65536) -> (5439488, 5046272) 
+AdaptiveSizeStop: collection: 35 
+ 291717K->14356K(441600K), 0.0003510 secs]
+Total time for which application threads were stopped: 0.0004210 seconds
+Application time: 0.3102390 seconds
+2018-08-19T01:21:56.843+0530: 26.340: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 352936  promoted: 0  overflow: falseAdaptiveSizeStart: 26.341 collection: 36 
+  avg_survived_padded_avg: 4695066.000000  avg_promoted_padded_avg: 5411372.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 4718592
+Desired survivor size 4718592 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.001935 major_cost: 0.000000 mutator_cost: 0.998065 throughput_goal: 0.990000 live_space: 272934304 free_space: 338034688 old_promo_size: 65339392 old_eden_size: 272695296 desired_promo_size: 65339392 desired_eden_size: 261750784
+AdaptiveSizePolicy::survivor space sizes: collection: 36 (393216, 5439488) -> (393216, 4718592) 
+AdaptiveSizeStop: collection: 36 
+ 280640K->14359K(425984K), 0.0011960 secs]
+Total time for which application threads were stopped: 0.0012840 seconds
+Application time: 0.2984080 seconds
+2018-08-19T01:21:57.143+0530: 26.640: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 355728  promoted: 0  overflow: falseAdaptiveSizeStart: 26.641 collection: 37 
+  avg_survived_padded_avg: 4366721.500000  avg_promoted_padded_avg: 5402156.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 4390912
+Desired survivor size 4390912 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.002184 major_cost: 0.000000 mutator_cost: 0.997816 throughput_goal: 0.990000 live_space: 272897568 free_space: 327090176 old_promo_size: 65339392 old_eden_size: 261750784 desired_promo_size: 65339392 desired_eden_size: 251330560
+AdaptiveSizePolicy::survivor space sizes: collection: 37 (4718592, 65536) -> (4718592, 4390912) 
+AdaptiveSizeStop: collection: 37 
+ 269803K->14362K(420032K), 0.0009640 secs]
+Total time for which application threads were stopped: 0.0010590 seconds
+Application time: 0.2863810 seconds
+2018-08-19T01:21:57.430+0530: 26.927: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 358392  promoted: 0  overflow: falseAdaptiveSizeStart: 26.928 collection: 38 
+  avg_survived_padded_avg: 4060200.250000  avg_promoted_padded_avg: 5393863.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 4063232
+Desired survivor size 4063232 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.002465 major_cost: 0.000000 mutator_cost: 0.997535 throughput_goal: 0.990000 live_space: 272864800 free_space: 316669952 old_promo_size: 65339392 old_eden_size: 251330560 desired_promo_size: 65339392 desired_eden_size: 241369088
+AdaptiveSizePolicy::survivor space sizes: collection: 38 (393216, 4718592) -> (393216, 4063232) 
+AdaptiveSizeStop: collection: 38 
+ 259633K->14365K(406080K), 0.0011530 secs]
+Total time for which application threads were stopped: 0.0012590 seconds
+Application time: 0.2761640 seconds
+2018-08-19T01:21:57.708+0530: 27.205: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 360912  promoted: 0  overflow: falseAdaptiveSizeStart: 27.206 collection: 39 
+  avg_survived_padded_avg: 3774471.250000  avg_promoted_padded_avg: 5386398.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 3801088
+Desired survivor size 3801088 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.002767 major_cost: 0.000000 mutator_cost: 0.997233 throughput_goal: 0.990000 live_space: 272835520 free_space: 306708480 old_promo_size: 65339392 old_eden_size: 241369088 desired_promo_size: 65339392 desired_eden_size: 231931904
+AdaptiveSizePolicy::survivor space sizes: collection: 39 (4063232, 65536) -> (393216, 3801088) 
+AdaptiveSizeStop: collection: 39 
+ 249760K->14367K(396864K), 0.0011140 secs]
+Total time for which application threads were stopped: 0.0011920 seconds
+Application time: 0.2643490 seconds
+2018-08-19T01:21:57.973+0530: 27.470: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 363320  promoted: 0  overflow: falseAdaptiveSizeStart: 27.471 collection: 40 
+  avg_survived_padded_avg: 3508486.000000  avg_promoted_padded_avg: 5379680.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 3538944
+Desired survivor size 3538944 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.002871 major_cost: 0.000000 mutator_cost: 0.997129 throughput_goal: 0.990000 live_space: 272809440 free_space: 297271296 old_promo_size: 65339392 old_eden_size: 231931904 desired_promo_size: 65339392 desired_eden_size: 222887936
+AdaptiveSizePolicy::survivor space sizes: collection: 40 (393216, 393216) -> (393216, 3538944) 
+AdaptiveSizeStop: collection: 40 
+ 240598K->14369K(388032K), 0.0010360 secs]
+Total time for which application threads were stopped: 0.0011200 seconds
+Application time: 0.2541550 seconds
+2018-08-19T01:21:58.229+0530: 27.726: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 365624  promoted: 0  overflow: falseAdaptiveSizeStart: 27.726 collection: 41 
+  avg_survived_padded_avg: 3261194.500000  avg_promoted_padded_avg: 5373634.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 3276800
+Desired survivor size 3276800 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.002527 major_cost: 0.000000 mutator_cost: 0.997473 throughput_goal: 0.990000 live_space: 272786176 free_space: 288227328 old_promo_size: 65339392 old_eden_size: 222887936 desired_promo_size: 65339392 desired_eden_size: 214302720
+AdaptiveSizePolicy::survivor space sizes: collection: 41 (3538944, 65536) -> (393216, 3276800) 
+AdaptiveSizeStop: collection: 41 
+ 231840K->14372K(379648K), 0.0004870 secs]
+Total time for which application threads were stopped: 0.0005650 seconds
+Application time: 0.2439590 seconds
+2018-08-19T01:21:58.473+0530: 27.970: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 367816  promoted: 0  overflow: falseAdaptiveSizeStart: 27.971 collection: 42 
+  avg_survived_padded_avg: 3031559.750000  avg_promoted_padded_avg: 5368192.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 3080192
+Desired survivor size 3080192 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.002726 major_cost: 0.000000 mutator_cost: 0.997274 throughput_goal: 0.990000 live_space: 272765472 free_space: 279642112 old_promo_size: 65339392 old_eden_size: 214302720 desired_promo_size: 65339392 desired_eden_size: 206110720
+AdaptiveSizePolicy::survivor space sizes: collection: 42 (393216, 393216) -> (393216, 3080192) 
+AdaptiveSizeStop: collection: 42 
+ 223528K->14374K(371648K), 0.0009580 secs]
+Total time for which application threads were stopped: 0.0010440 seconds
+Application time: 0.2340950 seconds
+2018-08-19T01:21:58.708+0530: 28.205: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 369904  promoted: 0  overflow: falseAdaptiveSizeStart: 28.206 collection: 43 
+  avg_survived_padded_avg: 2818563.500000  avg_promoted_padded_avg: 5363295.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 2883584
+Desired survivor size 2883584 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.003033 major_cost: 0.000000 mutator_cost: 0.996967 throughput_goal: 0.990000 live_space: 272747040 free_space: 271450112 old_promo_size: 65339392 old_eden_size: 206110720 desired_promo_size: 65339392 desired_eden_size: 198311936
+AdaptiveSizePolicy::survivor space sizes: collection: 43 (3080192, 65536) -> (393216, 2883584) 
+AdaptiveSizeStop: collection: 43 
+ 215348K->14376K(364032K), 0.0010120 secs]
+Total time for which application threads were stopped: 0.0011120 seconds
+Application time: 0.2256160 seconds
+2018-08-19T01:21:58.935+0530: 28.432: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 371904  promoted: 0  overflow: falseAdaptiveSizeStart: 28.433 collection: 44 
+  avg_survived_padded_avg: 2621210.000000  avg_promoted_padded_avg: 5358887.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 2621440
+Desired survivor size 2621440 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.003324 major_cost: 0.000000 mutator_cost: 0.996676 throughput_goal: 0.990000 live_space: 272730656 free_space: 263651328 old_promo_size: 65339392 old_eden_size: 198311936 desired_promo_size: 65339392 desired_eden_size: 190906368
+AdaptiveSizePolicy::survivor space sizes: collection: 44 (393216, 393216) -> (393216, 2621440) 
+AdaptiveSizeStop: collection: 44 
+ 207981K->14378K(356800K), 0.0011180 secs]
+Total time for which application threads were stopped: 0.0011970 seconds
+Application time: 0.2182060 seconds
+2018-08-19T01:21:59.155+0530: 28.652: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 373832  promoted: 0  overflow: falseAdaptiveSizeStart: 28.653 collection: 45 
+  avg_survived_padded_avg: 2438533.000000  avg_promoted_padded_avg: 5354920.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 2490368
+Desired survivor size 2490368 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.003573 major_cost: 0.000000 mutator_cost: 0.996427 throughput_goal: 0.990000 live_space: 272716128 free_space: 256245760 old_promo_size: 65339392 old_eden_size: 190906368 desired_promo_size: 65339392 desired_eden_size: 183828480
+AdaptiveSizePolicy::survivor space sizes: collection: 45 (2621440, 65536) -> (393216, 2490368) 
+AdaptiveSizeStop: collection: 45 
+ 200796K->14380K(349888K), 0.0010490 secs]
+Total time for which application threads were stopped: 0.0011270 seconds
+Application time: 0.2105490 seconds
+2018-08-19T01:21:59.366+0530: 28.863: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 375680  promoted: 0  overflow: falseAdaptiveSizeStart: 28.864 collection: 46 
+  avg_survived_padded_avg: 2269603.250000  avg_promoted_padded_avg: 5351350.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 2293760
+Desired survivor size 2293760 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.003737 major_cost: 0.000000 mutator_cost: 0.996263 throughput_goal: 0.990000 live_space: 272703200 free_space: 249167872 old_promo_size: 65339392 old_eden_size: 183828480 desired_promo_size: 65339392 desired_eden_size: 177078272
+AdaptiveSizePolicy::survivor space sizes: collection: 46 (393216, 393216) -> (393216, 2293760) 
+AdaptiveSizeStop: collection: 46 
+ 193813K->14382K(343296K), 0.0010540 secs]
+Total time for which application threads were stopped: 0.0011470 seconds
+Application time: 0.2037080 seconds
+2018-08-19T01:21:59.571+0530: 29.068: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 377448  promoted: 0  overflow: falseAdaptiveSizeStart: 29.069 collection: 47 
+  avg_survived_padded_avg: 2113530.250000  avg_promoted_padded_avg: 5348137.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 2162688
+Desired survivor size 2162688 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004140 major_cost: 0.000000 mutator_cost: 0.995860 throughput_goal: 0.990000 live_space: 272691744 free_space: 242417664 old_promo_size: 65339392 old_eden_size: 177078272 desired_promo_size: 65339392 desired_eden_size: 170655744
+AdaptiveSizePolicy::survivor space sizes: collection: 47 (2293760, 65536) -> (393216, 2162688) 
+AdaptiveSizeStop: collection: 47 
+ 187039K->14383K(337024K), 0.0011970 secs]
+Total time for which application threads were stopped: 0.0012740 seconds
+Application time: 0.1944830 seconds
+2018-08-19T01:21:59.767+0530: 29.264: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 379128  promoted: 0  overflow: falseAdaptiveSizeStart: 29.265 collection: 48 
+  avg_survived_padded_avg: 1969464.875000  avg_promoted_padded_avg: 5345245.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 2031616
+Desired survivor size 2031616 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004225 major_cost: 0.000000 mutator_cost: 0.995775 throughput_goal: 0.990000 live_space: 272681632 free_space: 235995136 old_promo_size: 65339392 old_eden_size: 170655744 desired_promo_size: 65339392 desired_eden_size: 164495360
+AdaptiveSizePolicy::survivor space sizes: collection: 48 (393216, 393216) -> (393216, 2031616) 
+AdaptiveSizeStop: collection: 48 
+ 180813K->14385K(331008K), 0.0010150 secs]
+Total time for which application threads were stopped: 0.0010940 seconds
+Application time: 0.1879760 seconds
+2018-08-19T01:21:59.956+0530: 29.453: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 380744  promoted: 0  overflow: falseAdaptiveSizeStart: 29.454 collection: 49 
+  avg_survived_padded_avg: 1836593.875000  avg_promoted_padded_avg: 5342642.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 1900544
+Desired survivor size 1900544 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004326 major_cost: 0.000000 mutator_cost: 0.995674 throughput_goal: 0.990000 live_space: 272672672 free_space: 229834752 old_promo_size: 65339392 old_eden_size: 164495360 desired_promo_size: 65339392 desired_eden_size: 158662656
+AdaptiveSizePolicy::survivor space sizes: collection: 49 (2031616, 65536) -> (393216, 1900544) 
+AdaptiveSizeStop: collection: 49 
+ 174827K->14386K(325312K), 0.0009650 secs]
+Total time for which application threads were stopped: 0.0010690 seconds
+Application time: 0.1832080 seconds
+2018-08-19T01:22:00.140+0530: 29.637: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 382312  promoted: 0  overflow: falseAdaptiveSizeStart: 29.638 collection: 50 
+  avg_survived_padded_avg: 1714143.250000  avg_promoted_padded_avg: 5340300.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 1769472
+Desired survivor size 1769472 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004333 major_cost: 0.000000 mutator_cost: 0.995667 throughput_goal: 0.990000 live_space: 272664768 free_space: 224002048 old_promo_size: 65339392 old_eden_size: 158662656 desired_promo_size: 65339392 desired_eden_size: 153092096
+AdaptiveSizePolicy::survivor space sizes: collection: 50 (393216, 393216) -> (393216, 1769472) 
+AdaptiveSizeStop: collection: 50 
+ 169090K->14388K(319872K), 0.0009390 secs]
+Total time for which application threads were stopped: 0.0010140 seconds
+Application time: 0.1775950 seconds
+2018-08-19T01:22:00.319+0530: 29.816: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 383800  promoted: 0  overflow: falseAdaptiveSizeStart: 29.816 collection: 51 
+  avg_survived_padded_avg: 1601386.875000  avg_promoted_padded_avg: 5338191.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 1638400
+Desired survivor size 1638400 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.003860 major_cost: 0.000000 mutator_cost: 0.996140 throughput_goal: 0.990000 live_space: 272657792 free_space: 218431488 old_promo_size: 65339392 old_eden_size: 153092096 desired_promo_size: 65339392 desired_eden_size: 147783680
+AdaptiveSizePolicy::survivor space sizes: collection: 51 (1769472, 65536) -> (393216, 1638400) 
+AdaptiveSizeStop: collection: 51 
+ 163606K->14389K(314688K), 0.0005220 secs]
+Total time for which application threads were stopped: 0.0006040 seconds
+Application time: 0.1692930 seconds
+2018-08-19T01:22:00.489+0530: 29.986: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 385248  promoted: 0  overflow: falseAdaptiveSizeStart: 29.987 collection: 52 
+  avg_survived_padded_avg: 1497632.375000  avg_promoted_padded_avg: 5336294.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 1507328
+Desired survivor size 1507328 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004284 major_cost: 0.000000 mutator_cost: 0.995716 throughput_goal: 0.990000 live_space: 272651680 free_space: 213123072 old_promo_size: 65339392 old_eden_size: 147783680 desired_promo_size: 65339392 desired_eden_size: 142671872
+AdaptiveSizePolicy::survivor space sizes: collection: 52 (393216, 393216) -> (393216, 1507328) 
+AdaptiveSizeStop: collection: 52 
+ 158391K->14391K(309696K), 0.0010790 secs]
+Total time for which application threads were stopped: 0.0011780 seconds
+Application time: 0.1634900 seconds
+2018-08-19T01:22:00.653+0530: 30.150: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 386632  promoted: 0  overflow: falseAdaptiveSizeStart: 30.151 collection: 53 
+  avg_survived_padded_avg: 1402232.000000  avg_promoted_padded_avg: 5334586.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 1441792
+Desired survivor size 1441792 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.003751 major_cost: 0.000000 mutator_cost: 0.996249 throughput_goal: 0.990000 live_space: 272646304 free_space: 208011264 old_promo_size: 65339392 old_eden_size: 142671872 desired_promo_size: 65339392 desired_eden_size: 137822208
+AdaptiveSizePolicy::survivor space sizes: collection: 53 (1507328, 65536) -> (393216, 1441792) 
+AdaptiveSizeStop: collection: 53 
+ 153454K->14392K(304960K), 0.0004510 secs]
+Total time for which application threads were stopped: 0.0005440 seconds
+Application time: 0.1579750 seconds
+2018-08-19T01:22:00.812+0530: 30.309: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 387968  promoted: 0  overflow: falseAdaptiveSizeStart: 30.310 collection: 54 
+  avg_survived_padded_avg: 1314574.750000  avg_promoted_padded_avg: 5333050.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 1376256
+Desired survivor size 1376256 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004104 major_cost: 0.000000 mutator_cost: 0.995896 throughput_goal: 0.990000 live_space: 272641600 free_space: 203161600 old_promo_size: 65339392 old_eden_size: 137822208 desired_promo_size: 65339392 desired_eden_size: 133169152
+AdaptiveSizePolicy::survivor space sizes: collection: 54 (393216, 393216) -> (393216, 1376256) 
+AdaptiveSizeStop: collection: 54 
+ 148791K->14394K(300416K), 0.0009310 secs]
+Total time for which application threads were stopped: 0.0010110 seconds
+Application time: 0.1553500 seconds
+2018-08-19T01:22:00.968+0530: 30.465: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 389248  promoted: 0  overflow: falseAdaptiveSizeStart: 30.466 collection: 55 
+  avg_survived_padded_avg: 1234088.500000  avg_promoted_padded_avg: 5331666.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 1245184
+Desired survivor size 1245184 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.003492 major_cost: 0.000000 mutator_cost: 0.996508 throughput_goal: 0.990000 live_space: 272637472 free_space: 198508544 old_promo_size: 65339392 old_eden_size: 133169152 desired_promo_size: 65339392 desired_eden_size: 128712704
+AdaptiveSizePolicy::survivor space sizes: collection: 55 (1376256, 65536) -> (393216, 1245184) 
+AdaptiveSizeStop: collection: 55 
+ 144423K->14395K(296064K), 0.0003320 secs]
+Total time for which application threads were stopped: 0.0004410 seconds
+Application time: 0.1485950 seconds
+2018-08-19T01:22:01.117+0530: 30.614: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 390488  promoted: 0  overflow: falseAdaptiveSizeStart: 30.615 collection: 56 
+  avg_survived_padded_avg: 1160235.500000  avg_promoted_padded_avg: 5330422.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 1179648
+Desired survivor size 1179648 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004023 major_cost: 0.000000 mutator_cost: 0.995977 throughput_goal: 0.990000 live_space: 272633920 free_space: 194052096 old_promo_size: 65339392 old_eden_size: 128712704 desired_promo_size: 65339392 desired_eden_size: 124452864
+AdaptiveSizePolicy::survivor space sizes: collection: 56 (393216, 393216) -> (393216, 1179648) 
+AdaptiveSizeStop: collection: 56 
+ 139999K->14396K(291904K), 0.0009190 secs]
+Total time for which application threads were stopped: 0.0010120 seconds
+Application time: 0.1425050 seconds
+2018-08-19T01:22:01.261+0530: 30.758: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 391680  promoted: 0  overflow: falseAdaptiveSizeStart: 30.759 collection: 57 
+  avg_survived_padded_avg: 1092514.375000  avg_promoted_padded_avg: 5329301.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 1114112
+Desired survivor size 1114112 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004629 major_cost: 0.000000 mutator_cost: 0.995371 throughput_goal: 0.990000 live_space: 272630816 free_space: 189792256 old_promo_size: 65339392 old_eden_size: 124452864 desired_promo_size: 65339392 desired_eden_size: 120389632
+AdaptiveSizePolicy::survivor space sizes: collection: 57 (1179648, 65536) -> (393216, 1114112) 
+AdaptiveSizeStop: collection: 57 
+ 135875K->14397K(287936K), 0.0010100 secs]
+Total time for which application threads were stopped: 0.0011040 seconds
+Application time: 0.1377000 seconds
+2018-08-19T01:22:01.400+0530: 30.897: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 392824  promoted: 0  overflow: falseAdaptiveSizeStart: 30.898 collection: 58 
+  avg_survived_padded_avg: 1030457.500000  avg_promoted_padded_avg: 5328293.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 1048576
+Desired survivor size 1048576 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.005182 major_cost: 0.000000 mutator_cost: 0.994818 throughput_goal: 0.990000 live_space: 272628160 free_space: 185729024 old_promo_size: 65339392 old_eden_size: 120389632 desired_promo_size: 65339392 desired_eden_size: 116523008
+AdaptiveSizePolicy::survivor space sizes: collection: 58 (393216, 393216) -> (393216, 1048576) 
+AdaptiveSizeStop: collection: 58 
+ 131707K->14398K(284160K), 0.0010770 secs]
+Total time for which application threads were stopped: 0.0011630 seconds
+Application time: 0.1359350 seconds
+2018-08-19T01:22:01.537+0530: 31.034: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 393936  promoted: 0  overflow: falseAdaptiveSizeStart: 31.034 collection: 59 
+  avg_survived_padded_avg: 973626.062500  avg_promoted_padded_avg: 5327385.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 983040
+Desired survivor size 983040 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004341 major_cost: 0.000000 mutator_cost: 0.995659 throughput_goal: 0.990000 live_space: 272625856 free_space: 181862400 old_promo_size: 65339392 old_eden_size: 116523008 desired_promo_size: 65339392 desired_eden_size: 112852992
+AdaptiveSizePolicy::survivor space sizes: collection: 59 (1048576, 65536) -> (458752, 983040) 
+AdaptiveSizeStop: collection: 59 
+ 127848K->14399K(280640K), 0.0003380 secs]
+Total time for which application threads were stopped: 0.0004420 seconds
+Application time: 0.1293660 seconds
+2018-08-19T01:22:01.667+0530: 31.164: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 395008  promoted: 0  overflow: falseAdaptiveSizeStart: 31.165 collection: 60 
+  avg_survived_padded_avg: 921613.500000  avg_promoted_padded_avg: 5326569.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 983040
+Desired survivor size 983040 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004765 major_cost: 0.000000 mutator_cost: 0.995235 throughput_goal: 0.990000 live_space: 272623904 free_space: 178192384 old_promo_size: 65339392 old_eden_size: 112852992 desired_promo_size: 65339392 desired_eden_size: 109314048
+AdaptiveSizePolicy::survivor space sizes: collection: 60 (458752, 458752) -> (458752, 983040) 
+AdaptiveSizeStop: collection: 60 
+ 124306K->14400K(277184K), 0.0009270 secs]
+Total time for which application threads were stopped: 0.0010260 seconds
+Application time: 0.1251520 seconds
+2018-08-19T01:22:01.793+0530: 31.290: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 396040  promoted: 0  overflow: falseAdaptiveSizeStart: 31.291 collection: 61 
+  avg_survived_padded_avg: 874041.750000  avg_promoted_padded_avg: 5325833.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 917504
+Desired survivor size 917504 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.005336 major_cost: 0.000000 mutator_cost: 0.994664 throughput_goal: 0.990000 live_space: 272622240 free_space: 174653440 old_promo_size: 65339392 old_eden_size: 109314048 desired_promo_size: 65339392 desired_eden_size: 105906176
+AdaptiveSizePolicy::survivor space sizes: collection: 61 (983040, 65536) -> (458752, 917504) 
+AdaptiveSizeStop: collection: 61 
+ 121081K->14401K(273856K), 0.0009790 secs]
+Total time for which application threads were stopped: 0.0010860 seconds
+Application time: 0.1214860 seconds
+2018-08-19T01:22:01.915+0530: 31.412: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 397048  promoted: 0  overflow: falseAdaptiveSizeStart: 31.413 collection: 62 
+  avg_survived_padded_avg: 830557.312500  avg_promoted_padded_avg: 5325172.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 851968
+Desired survivor size 851968 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.004656 major_cost: 0.000000 mutator_cost: 0.995344 throughput_goal: 0.990000 live_space: 272620864 free_space: 171245568 old_promo_size: 65339392 old_eden_size: 105906176 desired_promo_size: 65339392 desired_eden_size: 102694912
+AdaptiveSizePolicy::survivor space sizes: collection: 62 (458752, 458752) -> (458752, 851968) 
+AdaptiveSizeStop: collection: 62 
+ 117471K->14402K(270720K), 0.0004100 secs]
+Total time for which application threads were stopped: 0.0005040 seconds
+Application time: 0.1173910 seconds
+2018-08-19T01:22:02.033+0530: 31.530: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 398000  promoted: 0  overflow: falseAdaptiveSizeStart: 31.531 collection: 63 
+  avg_survived_padded_avg: 790837.937500  avg_promoted_padded_avg: 5324576.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 851968
+Desired survivor size 851968 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.005365 major_cost: 0.000000 mutator_cost: 0.994635 throughput_goal: 0.990000 live_space: 272619712 free_space: 168034304 old_promo_size: 65339392 old_eden_size: 102694912 desired_promo_size: 65339392 desired_eden_size: 99614720
+AdaptiveSizePolicy::survivor space sizes: collection: 63 (851968, 65536) -> (458752, 851968) 
+AdaptiveSizeStop: collection: 63 
+ 114543K->14403K(267712K), 0.0009680 secs]
+Total time for which application threads were stopped: 0.0010640 seconds
+Application time: 0.1141960 seconds
+2018-08-19T01:22:02.149+0530: 31.646: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 398936  promoted: 0  overflow: falseAdaptiveSizeStart: 31.647 collection: 64 
+  avg_survived_padded_avg: 754577.750000  avg_promoted_padded_avg: 5324041.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 786432
+Desired survivor size 786432 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.006010 major_cost: 0.000000 mutator_cost: 0.993990 throughput_goal: 0.990000 live_space: 272618752 free_space: 164954112 old_promo_size: 65339392 old_eden_size: 99614720 desired_promo_size: 65339392 desired_eden_size: 96665600
+AdaptiveSizePolicy::survivor space sizes: collection: 64 (458752, 458752) -> (458752, 786432) 
+AdaptiveSizeStop: collection: 64 
+ 111587K->14404K(264832K), 0.0009780 secs]
+Total time for which application threads were stopped: 0.0010570 seconds
+Application time: 0.1105500 seconds
+2018-08-19T01:22:02.260+0530: 31.757: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 399832  promoted: 0  overflow: falseAdaptiveSizeStart: 31.758 collection: 65 
+  avg_survived_padded_avg: 721498.250000  avg_promoted_padded_avg: 5323558.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 786432
+Desired survivor size 786432 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.006766 major_cost: 0.000000 mutator_cost: 0.993234 throughput_goal: 0.990000 live_space: 272617984 free_space: 162004992 old_promo_size: 65339392 old_eden_size: 96665600 desired_promo_size: 65339392 desired_eden_size: 93782016
+AdaptiveSizePolicy::survivor space sizes: collection: 65 (786432, 65536) -> (458752, 720896) 
+AdaptiveSizeStop: collection: 65 
+ 108607K->14405K(262016K), 0.0011060 secs]
+Total time for which application threads were stopped: 0.0011920 seconds
+Application time: 0.1083160 seconds
+2018-08-19T01:22:02.370+0530: 31.867: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 400712  promoted: 0  overflow: falseAdaptiveSizeStart: 31.868 collection: 66 
+  avg_survived_padded_avg: 691337.625000  avg_promoted_padded_avg: 5323124.500000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 720896
+Desired survivor size 720896 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.007190 major_cost: 0.000000 mutator_cost: 0.992810 throughput_goal: 0.990000 live_space: 272617408 free_space: 159121408 old_promo_size: 65339392 old_eden_size: 93782016 desired_promo_size: 65339392 desired_eden_size: 91029504
+AdaptiveSizePolicy::survivor space sizes: collection: 66 (458752, 458752) -> (458752, 720896) 
+AdaptiveSizeStop: collection: 66 
+ 105965K->14406K(259328K), 0.0010090 secs]
+Total time for which application threads were stopped: 0.0011030 seconds
+Application time: 0.1048490 seconds
+2018-08-19T01:22:02.476+0530: 31.973: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 401560  promoted: 0  overflow: falseAdaptiveSizeStart: 31.974 collection: 67 
+  avg_survived_padded_avg: 663857.125000  avg_promoted_padded_avg: 5322734.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 720896
+Desired survivor size 720896 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.007769 major_cost: 0.000000 mutator_cost: 0.992231 throughput_goal: 0.990000 live_space: 272616928 free_space: 156368896 old_promo_size: 65339392 old_eden_size: 91029504 desired_promo_size: 65339392 desired_eden_size: 88408064
+AdaptiveSizePolicy::survivor space sizes: collection: 67 (720896, 65536) -> (458752, 589824) 
+AdaptiveSizeStop: collection: 67 
+ 102943K->14407K(256768K), 0.0010730 secs]
+Total time for which application threads were stopped: 0.0011930 seconds
+Application time: 416.6332190 seconds
+2018-08-19T01:28:59.110+0530: 448.607: [GCAdaptiveSizePolicy::compute_survivor_space_size_and_thresh:  survived: 402216  promoted: 6280160  overflow: falseAdaptiveSizeStart: 448.610 collection: 68 
+  avg_survived_padded_avg: 638863.375000  avg_promoted_padded_avg: 7113171.000000  avg_pretenured_padded_avg: 0.000000  tenuring_thresh: 1  target_size: 655360
+Desired survivor size 655360 bytes, new threshold 1 (max 15)
+PSAdaptiveSizePolicy::compute_generation_free_space: costs minor_time: 0.005829 major_cost: 0.000000 mutator_cost: 0.994171 throughput_goal: 0.990000 live_space: 272616608 free_space: 153747456 old_promo_size: 65339392 old_eden_size: 88408064 desired_promo_size: 65339392 desired_eden_size: 85917696
+AdaptiveSizePolicy::survivor space sizes: collection: 68 (458752, 458752) -> (458752, 655360) 
+AdaptiveSizeStop: collection: 68 
+ 97948K->20540K(254336K), 0.0033300 secs]
