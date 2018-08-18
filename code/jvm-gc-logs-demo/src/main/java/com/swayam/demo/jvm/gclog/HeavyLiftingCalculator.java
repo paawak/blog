@@ -30,8 +30,10 @@ public class HeavyLiftingCalculator {
     public static void main(String[] args) {
 
         for (int count = 1; count <= TEST_COUNT; count++) {
+            System.out.println("************************************* START File " + count);
             InputStream inputStream = HeavyLiftingCalculator.class.getResourceAsStream(TEST_FILE_PATH_PREFIX + count + ".txt");
             doWork(inputStream);
+            System.out.println("************************************* END File " + count);
         }
 
     }
