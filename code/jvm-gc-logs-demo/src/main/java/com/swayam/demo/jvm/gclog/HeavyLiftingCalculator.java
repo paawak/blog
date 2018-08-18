@@ -2,7 +2,6 @@ package com.swayam.demo.jvm.gclog;
 
 import java.io.InputStream;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -39,25 +38,25 @@ public class HeavyLiftingCalculator {
     }
 
     private static void doWork(InputStream is) {
-        try (Scanner s = new Scanner(is);) {
-            int arrayLength = Integer.parseInt(s.nextLine());
+        @SuppressWarnings("resource")
+        Scanner s = new Scanner(is);
+        int arrayLength = Integer.parseInt(s.nextLine());
 
-            String[] numbers = s.nextLine().split("\\s");
-            BigInteger initialGuess = new BigInteger(numbers[0]);
+        String[] numbers = s.nextLine().split("\\s");
+        BigInteger initialGuess = new BigInteger(numbers[0]);
 
-            BigInteger product = Arrays.stream(numbers).parallel().map((String token) -> {
-                return new BigInteger(token);
-            }).reduce((BigInteger left, BigInteger right) -> {
-                return left.multiply(right);
-            }).get();
+        BigInteger product = BigInteger.ONE;
 
-            for (int i = 0; i < 10; i++) {
-                BigInteger nextGuess = findNRoot(initialGuess, product, arrayLength);
-                if (nextGuess.equals(initialGuess)) {
-                    break;
-                }
-                initialGuess = nextGuess;
+        for (String num : numbers) {
+            product = product.multiply(new BigInteger(num));
+        }
+
+        for (int i = 0; i < 10; i++) {
+            BigInteger nextGuess = findNRoot(initialGuess, product, arrayLength);
+            if (nextGuess.equals(initialGuess)) {
+                break;
             }
+            initialGuess = nextGuess;
         }
     }
 
