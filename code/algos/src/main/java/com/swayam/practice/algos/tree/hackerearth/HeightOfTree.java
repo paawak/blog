@@ -5,6 +5,62 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Tree-Values
+ * 
+ * You are given a tree consisting of nodes. The tree is rooted at node . Now,
+ * for each node of this tree where , you need to find the maximum distance
+ * between nodes lying in subtree of node
+ * 
+ * .
+ * 
+ * We call the distance between
+ * 
+ * nodes to be the number of edges lying on the unique path between them.
+ * 
+ * Input Format:
+ * 
+ * The first line contains a single integer denoting the number of nodes in tree
+ * . Each of the next lines contains space separated integers and , denoting an
+ * edge between nodes and in tree
+ * 
+ * .
+ * 
+ * It is guaranteed the given input edges form a valid tree.
+ * 
+ * Output Format:
+ * 
+ * Print space separated integers, where the integer denotes the answer for node
+ * 
+ * .
+ * 
+ * Constraints:
+ * 
+ * Sample Input
+ * 
+ * 4<br>
+ * 1 2<br>
+ * 1 3<br>
+ * 2 4
+ * 
+ * Sample Output
+ * 
+ * 3 1 0 0
+ * 
+ * Explanation
+ * 
+ * For the node , the path from node to is largest in its subtree. For node the
+ * path from node to
+ * 
+ * is largest in its subtree. For the other nodes this length is zero as there
+ * are no edges in the subtrees of those nodes. Note: Your code should be able
+ * to convert the sample input into the sample output. However, this is not
+ * enough to pass the challenge, because the code will be run on multiple test
+ * cases. Therefore, your code must solve this problem statement.
+ * 
+ * @author paawak
+ *
+ */
 public class HeightOfTree {
 
     private static final String TEST_FILE_PATH = "/com/swayam/practice/algos/tree/hackerearth/height_of_tree/1.txt";
