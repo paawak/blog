@@ -41,14 +41,7 @@ public class HeightOfTree {
 
             Node childNode = new Node(child);
 
-            // first fill the left node, then right node
-            if (parentNode.getLeft() == null) {
-                parentNode.setLeft(childNode);
-            } else if (parentNode.getRight() == null) {
-                parentNode.setRight(childNode);
-            } else {
-                throw new IllegalArgumentException("could not add a child as both left and right nodes are full");
-            }
+            parentNode.addChild(childNode);
 
             nodeMap.put(child, childNode);
 
@@ -66,39 +59,33 @@ public class HeightOfTree {
             return parentNode;
         }
 
-        if (parentNode.getLeft() != null) {
-            Node fromLeft = getSubTree(parentNode.getLeft(), searchKey);
-            if (fromLeft != null) {
-                return fromLeft;
+        for (Node child : parentNode.children.values()) {
+            Node matchingNode = getSubTree(child, searchKey);
+            if (matchingNode != null) {
+                return matchingNode;
             }
         }
 
-        if (parentNode.getRight() != null) {
-            Node fromRight = getSubTree(parentNode.getRight(), searchKey);
-            if (fromRight != null) {
-                return fromRight;
-            }
-        }
-
-        throw new IllegalArgumentException("could not find the key: " + searchKey + " in the Tree");
+        return null;
 
     }
 
     private static int getMaxDistanceBetweenEdges(Node parentNode, Map<Integer, Integer> heightMap) {
 
-        int heightOfLeftChildSubTree = 0;
-
-        if (parentNode.getLeft() != null) {
-            heightOfLeftChildSubTree = getMaxHeight(parentNode.getLeft(), heightMap) + 1;
+        if (parentNode.getChildren().isEmpty()) {
+            return 0;
         }
 
-        int heightOfRightChildSubTree = 0;
+        int height = parentNode.children.values().stream().mapToInt((Node node) -> {
 
-        if (parentNode.getRight() != null) {
-            heightOfRightChildSubTree = getMaxHeight(parentNode.getRight(), heightMap) + 1;
-        }
+            int heightOfChild = getMaxHeight(node, heightMap);
+            if (heightOfChild >= 0) {
+                heightOfChild++;
+            }
+            return heightOfChild;
+        }).sum();
 
-        return heightOfLeftChildSubTree + heightOfRightChildSubTree;
+        return height;
 
     }
 
@@ -108,25 +95,15 @@ public class HeightOfTree {
             return heightMap.get(parentNode.getValue());
         }
 
-        // do a pre-order traversal
-        if ((parentNode.getLeft() == null) && (parentNode.getRight() == null)) {
+        if (parentNode.children.isEmpty()) {
             heightMap.put(parentNode.getValue(), 0);
             return 0;
         }
 
-        int heightOfLeftChildSubTree = 0;
+        int height = parentNode.children.values().stream().mapToInt((Node node) -> {
+            return getMaxHeight(node, heightMap);
+        }).max().getAsInt() + 1;
 
-        if (parentNode.getLeft() != null) {
-            heightOfLeftChildSubTree = getMaxHeight(parentNode.getLeft(), heightMap);
-        }
-
-        int heightOfRightChildSubTree = 0;
-
-        if (parentNode.getRight() != null) {
-            heightOfRightChildSubTree = getMaxHeight(parentNode.getRight(), heightMap);
-        }
-
-        int height = Math.max(heightOfLeftChildSubTree, heightOfRightChildSubTree) + 1;
         heightMap.put(parentNode.getValue(), height);
         return height;
 
@@ -135,27 +112,18 @@ public class HeightOfTree {
     static class Node {
 
         private final int value;
-        private Node left;
-        private Node right;
+        private final Map<Integer, Node> children = new LinkedHashMap<>();
 
         public Node(int value) {
             this.value = value;
         }
 
-        public Node getLeft() {
-            return left;
+        public void addChild(Node child) {
+            children.put(children.size() + 1, child);
         }
 
-        public void setLeft(Node left) {
-            this.left = left;
-        }
-
-        public Node getRight() {
-            return right;
-        }
-
-        public void setRight(Node right) {
-            this.right = right;
+        public Map<Integer, Node> getChildren() {
+            return children;
         }
 
         public int getValue() {
