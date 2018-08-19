@@ -1,6 +1,7 @@
 package com.swayam.practice.algos.tree.hackerearth;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -17,7 +18,8 @@ public class HeightOfTree {
 
         int totalNodes = Integer.parseInt(scanner.nextLine());
 
-        Map<Integer, Node> nodeMap = new HashMap<>();
+        Map<Integer, Node> nodeMap = new LinkedHashMap<>();
+        Map<Integer, Integer> heightMap = new HashMap<>();
 
         // according to the problem statement, 1 is always the root
         Node rootNode = new Node(1);
@@ -52,6 +54,10 @@ public class HeightOfTree {
 
         }
 
+        nodeMap.forEach((Integer nodeValue, Node node) -> {
+            System.out.print(getMaxHeight(node, heightMap) + " ");
+        });
+
     }
 
     private static Node getSubTree(Node parentNode, int searchKey) {
@@ -75,6 +81,36 @@ public class HeightOfTree {
         }
 
         throw new IllegalArgumentException("could not find the key: " + searchKey + " in the Tree");
+
+    }
+
+    private static int getMaxHeight(Node parentNode, Map<Integer, Integer> heightMap) {
+
+        if (heightMap.containsKey(parentNode.getValue())) {
+            return heightMap.get(parentNode.getValue());
+        }
+
+        // do a pre-order traversal
+        if ((parentNode.getLeft() == null) && (parentNode.getRight() == null)) {
+            heightMap.put(parentNode.getValue(), 0);
+            return 0;
+        }
+
+        int heightOfLeftChildSubTree = 0;
+
+        if (parentNode.getLeft() != null) {
+            heightOfLeftChildSubTree = getMaxHeight(parentNode.getLeft(), heightMap);
+        }
+
+        int heightOfRightChildSubTree = 0;
+
+        if (parentNode.getRight() != null) {
+            heightOfRightChildSubTree = getMaxHeight(parentNode.getRight(), heightMap);
+        }
+
+        int height = Math.max(heightOfLeftChildSubTree, heightOfRightChildSubTree) + 1;
+        heightMap.put(parentNode.getValue(), height);
+        return height;
 
     }
 
