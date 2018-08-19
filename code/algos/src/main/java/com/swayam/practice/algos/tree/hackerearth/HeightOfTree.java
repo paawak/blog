@@ -55,7 +55,7 @@ public class HeightOfTree {
         }
 
         nodeMap.forEach((Integer nodeValue, Node node) -> {
-            System.out.print(getMaxHeight(node, heightMap) + " ");
+            System.out.print(getMaxDistanceBetweenEdges(node, heightMap) + " ");
         });
 
     }
@@ -81,6 +81,24 @@ public class HeightOfTree {
         }
 
         throw new IllegalArgumentException("could not find the key: " + searchKey + " in the Tree");
+
+    }
+
+    private static int getMaxDistanceBetweenEdges(Node parentNode, Map<Integer, Integer> heightMap) {
+
+        int heightOfLeftChildSubTree = 0;
+
+        if (parentNode.getLeft() != null) {
+            heightOfLeftChildSubTree = getMaxHeight(parentNode.getLeft(), heightMap) + 1;
+        }
+
+        int heightOfRightChildSubTree = 0;
+
+        if (parentNode.getRight() != null) {
+            heightOfRightChildSubTree = getMaxHeight(parentNode.getRight(), heightMap) + 1;
+        }
+
+        return heightOfLeftChildSubTree + heightOfRightChildSubTree;
 
     }
 
