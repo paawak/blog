@@ -1,6 +1,5 @@
 package com.swayam.practice.algos.tree.hackerearth;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -75,7 +74,6 @@ public class HeightOfTree {
         int totalNodes = Integer.parseInt(scanner.nextLine());
 
         Map<Integer, Node> nodeMap = new LinkedHashMap<>();
-        Map<Integer, Integer> heightMap = new HashMap<>();
 
         // according to the problem statement, 1 is always the root
         Node rootNode = new Node(1);
@@ -104,7 +102,7 @@ public class HeightOfTree {
         }
 
         nodeMap.forEach((Integer nodeValue, Node node) -> {
-            System.out.print(getMaxDistanceBetweenEdges(node, heightMap) + " ");
+            System.out.print(getMaxDistanceBetweenEdges(node) + " ");
         });
 
     }
@@ -126,7 +124,7 @@ public class HeightOfTree {
 
     }
 
-    private static int getMaxDistanceBetweenEdges(Node parentNode, Map<Integer, Integer> heightMap) {
+    private static int getMaxDistanceBetweenEdges(Node parentNode) {
 
         if (parentNode.getChildren().isEmpty()) {
             return 0;
@@ -134,7 +132,7 @@ public class HeightOfTree {
 
         int height = parentNode.children.values().stream().mapToInt((Node node) -> {
 
-            int heightOfChild = getMaxHeight(node, heightMap);
+            int heightOfChild = getMaxHeight(node);
             if (heightOfChild >= 0) {
                 heightOfChild++;
             }
@@ -145,22 +143,16 @@ public class HeightOfTree {
 
     }
 
-    private static int getMaxHeight(Node parentNode, Map<Integer, Integer> heightMap) {
-
-        if (heightMap.containsKey(parentNode.getValue())) {
-            return heightMap.get(parentNode.getValue());
-        }
+    private static int getMaxHeight(Node parentNode) {
 
         if (parentNode.children.isEmpty()) {
-            heightMap.put(parentNode.getValue(), 0);
             return 0;
         }
 
         int height = parentNode.children.values().stream().mapToInt((Node node) -> {
-            return getMaxHeight(node, heightMap);
+            return getMaxHeight(node);
         }).max().getAsInt() + 1;
 
-        heightMap.put(parentNode.getValue(), height);
         return height;
 
     }
