@@ -18,7 +18,7 @@ public class RandomWordDao {
         try {
 
             PreparedStatement lock = con.prepareStatement("LOCK TABLES random_word WRITE");
-            lock.execute();
+            // lock.execute();
 
             PreparedStatement pStat = con.prepareStatement(sql);
             ResultSet res = pStat.executeQuery();
@@ -33,7 +33,7 @@ public class RandomWordDao {
         } finally {
             try {
                 PreparedStatement unlock = con.prepareStatement("UNLOCK TABLES");
-                unlock.execute();
+                // unlock.execute();
                 con.close();
             } catch (SQLException e) {
                 LOGGER.warn("could not close connection for cleanup", e);
@@ -57,11 +57,11 @@ public class RandomWordDao {
             pStat.close();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.warn("could not insert: {}", e.getMessage());
         } finally {
             try {
                 PreparedStatement unlock = con.prepareStatement("UNLOCK TABLES");
-                unlock.execute();
+                // unlock.execute();
                 con.close();
             } catch (SQLException e) {
                 LOGGER.warn("could not close connection for cleanup", e);
