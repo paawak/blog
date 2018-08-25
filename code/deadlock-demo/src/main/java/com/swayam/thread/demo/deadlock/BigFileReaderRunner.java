@@ -8,7 +8,9 @@ import java.nio.file.Paths;
 public class BigFileReaderRunner {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
-        new BigFileReader().readFile(Paths.get(BigFileReaderRunner.class.getResource("/log4j2.xml").toURI()));
+        new BigFileReader((String text) -> {
+            System.out.println("`" + text + "`");
+        }).readFile(Paths.get(BigFileReaderRunner.class.getResource("/log4j2.xml").toURI()));
 
     }
 
