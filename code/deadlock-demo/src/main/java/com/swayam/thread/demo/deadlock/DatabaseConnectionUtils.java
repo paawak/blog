@@ -27,7 +27,7 @@ public class DatabaseConnectionUtils {
 
     private DataSource newDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/deadlock_demo?useUnicode=yes&characterEncoding=utf-8&autoReconnect=true");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/deadlock_demo");
         dataSource.setUsername("root");
         dataSource.setPassword("root123");
         dataSource.setMaxActive(100);
