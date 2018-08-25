@@ -16,6 +16,10 @@ public class RandomWordDao {
         String sql = "SELECT COUNT(*) FROM random_word";
         Connection con = DatabaseConnectionUtils.INSTANCE.getConnection();
         try {
+
+            PreparedStatement lock = con.prepareStatement("LOCK TABLES random_word WRITE");
+            lock.execute();
+
             PreparedStatement pStat = con.prepareStatement(sql);
             ResultSet res = pStat.executeQuery();
             if (res.next()) {
@@ -28,6 +32,8 @@ public class RandomWordDao {
             throw new RuntimeException(e);
         } finally {
             try {
+                PreparedStatement unlock = con.prepareStatement("UNLOCK TABLES");
+                unlock.execute();
                 con.close();
             } catch (SQLException e) {
                 LOGGER.warn("could not close connection for cleanup", e);
@@ -41,6 +47,8 @@ public class RandomWordDao {
         String sql = "INSERT INTO random_word (id, word) VALUES (?, ?)";
         Connection con = DatabaseConnectionUtils.INSTANCE.getConnection();
         try {
+            PreparedStatement lock = con.prepareStatement("LOCK TABLES random_word WRITE");
+            lock.execute();
             PreparedStatement pStat = con.prepareStatement(sql);
             pStat.setInt(1, id);
             pStat.setString(2, word);
@@ -52,6 +60,8 @@ public class RandomWordDao {
             throw new RuntimeException(e);
         } finally {
             try {
+                PreparedStatement unlock = con.prepareStatement("UNLOCK TABLES");
+                unlock.execute();
                 con.close();
             } catch (SQLException e) {
                 LOGGER.warn("could not close connection for cleanup", e);
