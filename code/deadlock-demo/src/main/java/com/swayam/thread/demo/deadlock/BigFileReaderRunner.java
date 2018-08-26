@@ -20,7 +20,7 @@ public class BigFileReaderRunner {
     public static void main(String[] args) throws IOException, URISyntaxException {
 
         ExecutorService executorService = Executors.newFixedThreadPool(100);
-        RandomWordDao randomWordDao = new RandomWordDaoImpl();
+        RandomWordDao randomWordDao = new RandomWordDaoWithDBLock();
         FileReaderCallback fileReaderCallback = new WordProcessor(executorService, randomWordDao);
 
         Path path = Paths.get(FILE_PATH);
