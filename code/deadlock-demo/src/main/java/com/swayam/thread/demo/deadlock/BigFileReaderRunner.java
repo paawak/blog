@@ -15,11 +15,13 @@ public class BigFileReaderRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BigFileReaderRunner.class);
 
+    private static final int THREAD_POOL_SIZE = 4;
+
     private static final String FILE_PATH = "/kaaj/source/blog/code/deadlock-demo/src/main/resources/data/bangla_dictionary.sql";
 
     public static void main(String[] args) throws IOException, URISyntaxException {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(100);
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         RandomWordDao randomWordDao = new RandomWordDaoWithJavaLock();
         FileReaderCallback fileReaderCallback = new WordProcessor(executorService, randomWordDao);
 
