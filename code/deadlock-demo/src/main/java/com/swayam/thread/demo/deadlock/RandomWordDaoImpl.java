@@ -1,5 +1,8 @@
 package com.swayam.thread.demo.deadlock;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +30,8 @@ public class RandomWordDaoImpl implements RandomWordDao {
             res.close();
             query.close();
 
+            exec();
+
             PreparedStatement insert = con.prepareStatement("INSERT INTO random_word (id, word) VALUES (?, ?)");
             insert.setInt(1, id);
             insert.setString(2, word);
@@ -47,6 +52,37 @@ public class RandomWordDaoImpl implements RandomWordDao {
             }
         }
 
+    }
+
+    private void exec() {
+        Process p;
+        try {
+            p = Runtime.getRuntime().exec(
+                    "curl -v -X POST -H \"content-type:multipart/form-data\" -F image=@/kaaj/source/porua/tesseract-ocr-docker/sample-images/bangla.jpg -F language=ben http://localhost:8080/rest/ocr");
+            p.waitFor();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+        StringBuilder sb = new StringBuilder();
+
+        while (true) {
+            String line;
+            try {
+                line = reader.readLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (line == null) {
+                break;
+            }
+            sb.append(line).append("\n");
+        }
+        sb.setLength(sb.length() - 1);
+        String output = sb.toString();
+        LOGGER.debug("output from curl: {}", output);
     }
 
 }
