@@ -17,6 +17,7 @@ public class RandomWordDao {
         try {
             PreparedStatement lock = con.prepareStatement("LOCK TABLES random_word WRITE");
             lock.execute();
+            lock.close();
 
             PreparedStatement query = con.prepareStatement("SELECT COUNT(*) FROM random_word");
             ResultSet res = query.executeQuery();
@@ -32,10 +33,8 @@ public class RandomWordDao {
             LOGGER.info("inserted {} rows", rowsInserted);
             insert.close();
 
-            lock.close();
-
         } catch (SQLException e) {
-            LOGGER.warn("could not insert: {}", e.getMessage());
+            LOGGER.error("could not insert row", e);
         } finally {
             try {
                 PreparedStatement unlock = con.prepareStatement("UNLOCK TABLES");
