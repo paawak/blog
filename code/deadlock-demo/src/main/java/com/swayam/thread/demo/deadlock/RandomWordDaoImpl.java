@@ -17,7 +17,7 @@ public class RandomWordDaoImpl implements RandomWordDao {
 
     @Override
     public void insert(String word) {
-        exec();
+        startLongRunningProcess();
         Connection con = DatabaseConnectionUtils.INSTANCE.getConnection();
         try {
             PreparedStatement lock = con.prepareStatement("LOCK TABLES random_word WRITE");
@@ -53,7 +53,7 @@ public class RandomWordDaoImpl implements RandomWordDao {
 
     }
 
-    private void exec() {
+    private void startLongRunningProcess() {
         Process p;
         try {
             p = Runtime.getRuntime().exec(
