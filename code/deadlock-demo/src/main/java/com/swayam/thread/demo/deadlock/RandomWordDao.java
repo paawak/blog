@@ -12,56 +12,35 @@ public class RandomWordDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RandomWordDao.class);
 
-    public int getNextId() {
-        String sql = "SELECT COUNT(*) FROM random_word";
-        Connection con = DatabaseConnectionUtils.INSTANCE.getConnection();
-        try {
-
-            PreparedStatement lock = con.prepareStatement("LOCK TABLES random_word WRITE");
-            // lock.execute();
-
-            PreparedStatement pStat = con.prepareStatement(sql);
-            ResultSet res = pStat.executeQuery();
-            if (res.next()) {
-                return res.getInt(1) + 1;
-            }
-            res.close();
-            pStat.close();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                PreparedStatement unlock = con.prepareStatement("UNLOCK TABLES");
-                // unlock.execute();
-                con.close();
-            } catch (SQLException e) {
-                LOGGER.warn("could not close connection for cleanup", e);
-            }
-        }
-
-        return -1;
-    }
-
-    public void insert(int id, String word) {
-        String sql = "INSERT INTO random_word (id, word) VALUES (?, ?)";
+    public void insert(String word) {
         Connection con = DatabaseConnectionUtils.INSTANCE.getConnection();
         try {
             PreparedStatement lock = con.prepareStatement("LOCK TABLES random_word WRITE");
             lock.execute();
-            PreparedStatement pStat = con.prepareStatement(sql);
-            pStat.setInt(1, id);
-            pStat.setString(2, word);
-            int rowsInserted = pStat.executeUpdate();
+
+            PreparedStatement query = con.prepareStatement("SELECT COUNT(*) FROM random_word");
+            ResultSet res = query.executeQuery();
+            res.next();
+            int id = res.getInt(1) + 1;
+            res.close();
+            query.close();
+
+            PreparedStatement insert = con.prepareStatement("INSERT INTO random_word (id, word) VALUES (?, ?)");
+            insert.setInt(1, id);
+            insert.setString(2, word);
+            int rowsInserted = insert.executeUpdate();
             LOGGER.info("inserted {} rows", rowsInserted);
-            pStat.close();
+            insert.close();
+
+            lock.close();
 
         } catch (SQLException e) {
             LOGGER.warn("could not insert: {}", e.getMessage());
         } finally {
             try {
                 PreparedStatement unlock = con.prepareStatement("UNLOCK TABLES");
-                // unlock.execute();
+                unlock.execute();
+                unlock.close();
                 con.close();
             } catch (SQLException e) {
                 LOGGER.warn("could not close connection for cleanup", e);

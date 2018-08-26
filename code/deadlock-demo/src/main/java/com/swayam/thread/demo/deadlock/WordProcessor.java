@@ -15,7 +15,7 @@ public class WordProcessor implements FileReaderCallback {
     @Override
     public void charactersRead(String text) {
         executorService.execute(() -> {
-            randomWordDao.insert(randomWordDao.getNextId(), text);
+            randomWordDao.insert(text);
         });
     }
 
