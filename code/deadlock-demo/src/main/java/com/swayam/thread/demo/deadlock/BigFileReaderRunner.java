@@ -19,7 +19,7 @@ public class BigFileReaderRunner {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(8);
+        ExecutorService executorService = Executors.newFixedThreadPool(100);
         RandomWordDao randomWordDao = new RandomWordDao();
         FileReaderCallback fileReaderCallback = new WordProcessor(executorService, randomWordDao);
 
