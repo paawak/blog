@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RandomWordDao {
+public class RandomWordDaoImpl {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RandomWordDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RandomWordDaoImpl.class);
 
     public void insert(String word) {
         Connection con = DatabaseConnectionUtils.INSTANCE.getConnection();

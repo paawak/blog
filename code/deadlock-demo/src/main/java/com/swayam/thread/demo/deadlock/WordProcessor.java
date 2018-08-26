@@ -5,9 +5,9 @@ import java.util.concurrent.ExecutorService;
 public class WordProcessor implements FileReaderCallback {
 
     private final ExecutorService executorService;
-    private final RandomWordDao randomWordDao;
+    private final RandomWordDaoImpl randomWordDao;
 
-    public WordProcessor(ExecutorService executorService, RandomWordDao randomWordDao) {
+    public WordProcessor(ExecutorService executorService, RandomWordDaoImpl randomWordDao) {
         this.executorService = executorService;
         this.randomWordDao = randomWordDao;
     }
