@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RandomWordDaoWithJavaLock implements RandomWordDao {
+public class RandomWordDaoWithSyncBlock implements RandomWordDao {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RandomWordDaoWithJavaLock.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RandomWordDaoWithSyncBlock.class);
 
     private final Object lock = new Object();
 
