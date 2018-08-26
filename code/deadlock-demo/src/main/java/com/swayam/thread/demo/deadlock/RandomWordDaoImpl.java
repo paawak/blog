@@ -79,7 +79,9 @@ public class RandomWordDaoImpl implements RandomWordDao {
             }
             sb.append(line).append("\n");
         }
-        sb.setLength(sb.length() - 1);
+        if (sb.length() > 1) {
+            sb.setLength(sb.length() - 1);
+        }
         String output = sb.toString();
         LOGGER.debug("output from curl: {}", output);
     }
