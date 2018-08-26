@@ -1,0 +1,1748 @@
+2018-08-26 20:39:33
+Full thread dump OpenJDK 64-Bit Server VM (10.0.1+10 mixed mode):
+
+Threads class SMR info:
+_java_thread_list=0x00007f4e780079a0, length=111, elements={
+0x00007f4ed81cf000, 0x00007f4ed81d1000, 0x00007f4ed81e4000, 0x00007f4ed81e6000,
+0x00007f4ed81e8000, 0x00007f4ed81ea000, 0x00007f4ed81ec000, 0x00007f4ed8260000,
+0x00007f4ed8279000, 0x00007f4ed8649800, 0x00007f4ed864b800, 0x00007f4ed864d000,
+0x00007f4ed864e800, 0x00007f4ed8650800, 0x00007f4ed8652000, 0x00007f4ed8654000,
+0x00007f4ed8655800, 0x00007f4ed8657800, 0x00007f4ed8659000, 0x00007f4ed865a800,
+0x00007f4ed865c800, 0x00007f4ed865e000, 0x00007f4ed8660000, 0x00007f4ed8661800,
+0x00007f4ed8663800, 0x00007f4ed8665000, 0x00007f4ed8667000, 0x00007f4ed8669000,
+0x00007f4ed866a800, 0x00007f4ed866c000, 0x00007f4ed866e000, 0x00007f4ed866f800,
+0x00007f4ed8671800, 0x00007f4ed8673000, 0x00007f4ed8674800, 0x00007f4ed8676800,
+0x00007f4ed8678000, 0x00007f4ed867a000, 0x00007f4ed867b800, 0x00007f4ed867d800,
+0x00007f4ed867f000, 0x00007f4ed8681000, 0x00007f4ed8683000, 0x00007f4ed8685000,
+0x00007f4ed8687000, 0x00007f4ed8689000, 0x00007f4ed868b000, 0x00007f4ed868d000,
+0x00007f4ed868f000, 0x00007f4ed8691800, 0x00007f4ed8693800, 0x00007f4ed8695800,
+0x00007f4ed8697800, 0x00007f4ed8699800, 0x00007f4ed869b800, 0x00007f4ed869d000,
+0x00007f4ed869f800, 0x00007f4ed86a1000, 0x00007f4ed86a3000, 0x00007f4ed86a5000,
+0x00007f4ed86a7000, 0x00007f4ed86a8800, 0x00007f4ed86ab000, 0x00007f4ed86ac800,
+0x00007f4ed86b1800, 0x00007f4ed86b3800, 0x00007f4ed86b6000, 0x00007f4ed86b8000,
+0x00007f4ed86ba000, 0x00007f4ed86bb800, 0x00007f4ed86bd800, 0x00007f4ed86bf000,
+0x00007f4ed86c1000, 0x00007f4ed86c3000, 0x00007f4ed86c5000, 0x00007f4ed86c6800,
+0x00007f4ed86c8800, 0x00007f4ed86ca000, 0x00007f4ed86cb800, 0x00007f4ed86cd800,
+0x00007f4ed86cf000, 0x00007f4ed86d1000, 0x00007f4ed86d2800, 0x00007f4ed86d4800,
+0x00007f4ed86d6800, 0x00007f4ed86d8800, 0x00007f4ed86da800, 0x00007f4ed86dc800,
+0x00007f4ed86de000, 0x00007f4ed86e0000, 0x00007f4ed86e2000, 0x00007f4ed86e4000,
+0x00007f4ed86e6000, 0x00007f4ed86e8000, 0x00007f4ed86ea000, 0x00007f4ed86eb800,
+0x00007f4ed86ed800, 0x00007f4ed86ef800, 0x00007f4ed86f1800, 0x00007f4ed86f3800,
+0x00007f4ed86f5800, 0x00007f4ed86f7800, 0x00007f4ed86f9800, 0x00007f4ed8704000,
+0x00007f4ed8705800, 0x00007f4ed8707800, 0x00007f4ed8709000, 0x00007f4ed870b000,
+0x00007f4ed870d000, 0x00007f4ed8011000, 0x00007f4e78002000
+}
+
+"Reference Handler" #2 daemon prio=10 os_prio=0 tid=0x00007f4ed81cf000 nid=0x4259 waiting on condition  [0x00007f4ea41be000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.ref.Reference.waitForReferencePendingList(java.base@10.0.1/Native Method)
+	at java.lang.ref.Reference.processPendingReferences(java.base@10.0.1/Reference.java:174)
+	at java.lang.ref.Reference.access$000(java.base@10.0.1/Reference.java:44)
+	at java.lang.ref.Reference$ReferenceHandler.run(java.base@10.0.1/Reference.java:138)
+
+   Locked ownable synchronizers:
+	- None
+
+"Finalizer" #3 daemon prio=8 os_prio=0 tid=0x00007f4ed81d1000 nid=0x425a in Object.wait()  [0x00007f4e9d7fe000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c718d100> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@10.0.1/ReferenceQueue.java:151)
+	- waiting to re-lock in wait() <0x00000006c718d100> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@10.0.1/ReferenceQueue.java:172)
+	at java.lang.ref.Finalizer$FinalizerThread.run(java.base@10.0.1/Finalizer.java:216)
+
+   Locked ownable synchronizers:
+	- None
+
+"Signal Dispatcher" #4 daemon prio=9 os_prio=0 tid=0x00007f4ed81e4000 nid=0x425b runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"C2 CompilerThread0" #5 daemon prio=9 os_prio=0 tid=0x00007f4ed81e6000 nid=0x425c waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+   Locked ownable synchronizers:
+	- None
+
+"C2 CompilerThread1" #6 daemon prio=9 os_prio=0 tid=0x00007f4ed81e8000 nid=0x425d waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+   Locked ownable synchronizers:
+	- None
+
+"C1 CompilerThread2" #7 daemon prio=9 os_prio=0 tid=0x00007f4ed81ea000 nid=0x425e waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+   Locked ownable synchronizers:
+	- None
+
+"Sweeper thread" #8 daemon prio=9 os_prio=0 tid=0x00007f4ed81ec000 nid=0x425f runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"Service Thread" #9 daemon prio=9 os_prio=0 tid=0x00007f4ed8260000 nid=0x4260 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"Common-Cleaner" #10 daemon prio=8 os_prio=0 tid=0x00007f4ed8279000 nid=0x4262 in Object.wait()  [0x00007f4e9cc6f000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c718dbe0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(java.base@10.0.1/ReferenceQueue.java:151)
+	- waiting to re-lock in wait() <0x00000006c718dbe0> (a java.lang.ref.ReferenceQueue$Lock)
+	at jdk.internal.ref.CleanerImpl.run(java.base@10.0.1/CleanerImpl.java:148)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+	at jdk.internal.misc.InnocuousThread.run(java.base@10.0.1/InnocuousThread.java:134)
+
+   Locked ownable synchronizers:
+	- None
+
+"pool-2-thread-1" #13 prio=5 os_prio=0 tid=0x00007f4ed8649800 nid=0x4263 in Object.wait()  [0x00007f4e9c13d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed2c78> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-2" #14 prio=5 os_prio=0 tid=0x00007f4ed864b800 nid=0x4264 in Object.wait()  [0x00007f4e5bbfe000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f002c0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-3" #15 prio=5 os_prio=0 tid=0x00007f4ed864d000 nid=0x4265 in Object.wait()  [0x00007f4e5bafd000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f004c8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-4" #16 prio=5 os_prio=0 tid=0x00007f4ed864e800 nid=0x4266 in Object.wait()  [0x00007f4e5b9fc000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed2ef8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-5" #17 prio=5 os_prio=0 tid=0x00007f4ed8650800 nid=0x4267 in Object.wait()  [0x00007f4e5b8fb000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f006d0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-6" #18 prio=5 os_prio=0 tid=0x00007f4ed8652000 nid=0x4268 in Object.wait()  [0x00007f4e5b7fa000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed3100> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-7" #19 prio=5 os_prio=0 tid=0x00007f4ed8654000 nid=0x4269 in Object.wait()  [0x00007f4e5b6f9000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed3308> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-8" #20 prio=5 os_prio=0 tid=0x00007f4ed8655800 nid=0x4270 in Object.wait()  [0x00007f4e5b5f8000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f008d8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-9" #21 prio=5 os_prio=0 tid=0x00007f4ed8657800 nid=0x4272 in Object.wait()  [0x00007f4e5b4f7000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed3510> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-10" #22 prio=5 os_prio=0 tid=0x00007f4ed8659000 nid=0x4276 in Object.wait()  [0x00007f4e5b3f6000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f00ae0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-11" #23 prio=5 os_prio=0 tid=0x00007f4ed865a800 nid=0x4277 in Object.wait()  [0x00007f4e5b2f5000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed3718> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-12" #24 prio=5 os_prio=0 tid=0x00007f4ed865c800 nid=0x4279 in Object.wait()  [0x00007f4e5b1f4000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f00ce8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-13" #25 prio=5 os_prio=0 tid=0x00007f4ed865e000 nid=0x427b in Object.wait()  [0x00007f4e5b0f3000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed3900> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-14" #26 prio=5 os_prio=0 tid=0x00007f4ed8660000 nid=0x4283 in Object.wait()  [0x00007f4e5aff2000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f00ef0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-15" #27 prio=5 os_prio=0 tid=0x00007f4ed8661800 nid=0x4287 in Object.wait()  [0x00007f4e5aef1000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed3b08> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-16" #28 prio=5 os_prio=0 tid=0x00007f4ed8663800 nid=0x428a in Object.wait()  [0x00007f4e5adf0000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed3d10> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-17" #29 prio=5 os_prio=0 tid=0x00007f4ed8665000 nid=0x428f in Object.wait()  [0x00007f4e5acef000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f010f8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-18" #30 prio=5 os_prio=0 tid=0x00007f4ed8667000 nid=0x4290 in Object.wait()  [0x00007f4e5abee000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed3f18> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-19" #31 prio=5 os_prio=0 tid=0x00007f4ed8669000 nid=0x4292 in Object.wait()  [0x00007f4e5aaed000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f01300> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-20" #32 prio=5 os_prio=0 tid=0x00007f4ed866a800 nid=0x4295 in Object.wait()  [0x00007f4e5a9ec000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed4120> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-21" #33 prio=5 os_prio=0 tid=0x00007f4ed866c000 nid=0x429d in Object.wait()  [0x00007f4e5a8eb000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f01508> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-22" #34 prio=5 os_prio=0 tid=0x00007f4ed866e000 nid=0x429f in Object.wait()  [0x00007f4e5a7ea000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f01710> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-23" #35 prio=5 os_prio=0 tid=0x00007f4ed866f800 nid=0x42a1 in Object.wait()  [0x00007f4e5a6e9000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed4328> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-24" #36 prio=5 os_prio=0 tid=0x00007f4ed8671800 nid=0x42a6 in Object.wait()  [0x00007f4e5a5e8000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f01918> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-25" #37 prio=5 os_prio=0 tid=0x00007f4ed8673000 nid=0x42ac in Object.wait()  [0x00007f4e5a4e7000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed4530> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-26" #38 prio=5 os_prio=0 tid=0x00007f4ed8674800 nid=0x42b1 in Object.wait()  [0x00007f4e5a3e6000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f01b20> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-27" #39 prio=5 os_prio=0 tid=0x00007f4ed8676800 nid=0x42b5 in Object.wait()  [0x00007f4e5a2e5000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed4738> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-28" #40 prio=5 os_prio=0 tid=0x00007f4ed8678000 nid=0x42b6 in Object.wait()  [0x00007f4e5a1e4000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f01d28> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-29" #41 prio=5 os_prio=0 tid=0x00007f4ed867a000 nid=0x42bc in Object.wait()  [0x00007f4e5a0e3000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed4940> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-30" #42 prio=5 os_prio=0 tid=0x00007f4ed867b800 nid=0x42c1 in Object.wait()  [0x00007f4e59fe2000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f01f30> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-31" #43 prio=5 os_prio=0 tid=0x00007f4ed867d800 nid=0x42c3 in Object.wait()  [0x00007f4e59ee1000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed4b48> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-32" #44 prio=5 os_prio=0 tid=0x00007f4ed867f000 nid=0x42c5 in Object.wait()  [0x00007f4e59de0000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f02138> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-33" #45 prio=5 os_prio=0 tid=0x00007f4ed8681000 nid=0x42c8 in Object.wait()  [0x00007f4e59cdf000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed4d50> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-34" #46 prio=5 os_prio=0 tid=0x00007f4ed8683000 nid=0x42cb in Object.wait()  [0x00007f4e59bde000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f02340> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-35" #47 prio=5 os_prio=0 tid=0x00007f4ed8685000 nid=0x42cd in Object.wait()  [0x00007f4e59add000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f6e5e8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-36" #53 prio=5 os_prio=0 tid=0x00007f4ed8687000 nid=0x42d3 in Object.wait()  [0x00007f4e599dc000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed4f58> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-37" #73 prio=5 os_prio=0 tid=0x00007f4ed8689000 nid=0x42da in Object.wait()  [0x00007f4e598db000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed5160> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-38" #80 prio=5 os_prio=0 tid=0x00007f4ed868b000 nid=0x4306 in Object.wait()  [0x00007f4e59510000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f037f8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-39" #87 prio=5 os_prio=0 tid=0x00007f4ed868d000 nid=0x4307 in Object.wait()  [0x00007f4e5940f000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f6f7f8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-40" #88 prio=5 os_prio=0 tid=0x00007f4ed868f000 nid=0x4308 in Object.wait()  [0x00007f4e5930e000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed6538> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-41" #89 prio=5 os_prio=0 tid=0x00007f4ed8691800 nid=0x4318 in Object.wait()  [0x00007f4e5911f000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f6ff58> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-42" #91 prio=5 os_prio=0 tid=0x00007f4ed8693800 nid=0x431a in Object.wait()  [0x00007f4e5901e000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f70160> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-43" #92 prio=5 os_prio=0 tid=0x00007f4ed8695800 nid=0x431b in Object.wait()  [0x00007f4e58f1d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f70368> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-44" #97 prio=5 os_prio=0 tid=0x00007f4ed8697800 nid=0x4323 in Object.wait()  [0x00007f4e58db6000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f70ac8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-45" #98 prio=5 os_prio=0 tid=0x00007f4ed8699800 nid=0x4324 in Object.wait()  [0x00007f4e58cb5000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f70cd0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-46" #99 prio=5 os_prio=0 tid=0x00007f4ed869b800 nid=0x4326 in Object.wait()  [0x00007f4e58bb4000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f70ed8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-47" #100 prio=5 os_prio=0 tid=0x00007f4ed869d000 nid=0x4328 in Object.wait()  [0x00007f4e58ab3000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f710e0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-48" #101 prio=5 os_prio=0 tid=0x00007f4ed869f800 nid=0x432a in Object.wait()  [0x00007f4e589b2000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f712e8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-49" #102 prio=5 os_prio=0 tid=0x00007f4ed86a1000 nid=0x432d in Object.wait()  [0x00007f4e588b1000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f714f0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-50" #103 prio=5 os_prio=0 tid=0x00007f4ed86a3000 nid=0x432f in Object.wait()  [0x00007f4e587b0000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f716f8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-51" #104 prio=5 os_prio=0 tid=0x00007f4ed86a5000 nid=0x4330 in Object.wait()  [0x00007f4e586af000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f71900> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-52" #107 prio=5 os_prio=0 tid=0x00007f4ed86a7000 nid=0x4336 in Object.wait()  [0x00007f4e585ae000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f71b08> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-53" #108 prio=5 os_prio=0 tid=0x00007f4ed86a8800 nid=0x4338 in Object.wait()  [0x00007f4e584ad000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f71d10> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-54" #109 prio=5 os_prio=0 tid=0x00007f4ed86ab000 nid=0x433c in Object.wait()  [0x00007f4e583ac000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f71f18> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-55" #110 prio=5 os_prio=0 tid=0x00007f4ed86ac800 nid=0x4353 in Object.wait()  [0x00007f4e58157000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed6e60> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-56" #122 prio=5 os_prio=0 tid=0x00007f4ed86b1800 nid=0x435e in Object.wait()  [0x00007f4e37d76000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f04840> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-57" #124 prio=5 os_prio=0 tid=0x00007f4ed86b3800 nid=0x4363 in Object.wait()  [0x00007f4e37c75000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed75c0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-58" #125 prio=5 os_prio=0 tid=0x00007f4ed86b6000 nid=0x4365 in Object.wait()  [0x00007f4e37b74000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed77c8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-59" #127 prio=5 os_prio=0 tid=0x00007f4ed86b8000 nid=0x4368 in Object.wait()  [0x00007f4e37a73000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f04a48> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-60" #128 prio=5 os_prio=0 tid=0x00007f4ed86ba000 nid=0x4369 in Object.wait()  [0x00007f4e37972000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed79d0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-61" #129 prio=5 os_prio=0 tid=0x00007f4ed86bb800 nid=0x436c in Object.wait()  [0x00007f4e37871000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f04c50> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-62" #130 prio=5 os_prio=0 tid=0x00007f4ed86bd800 nid=0x436d in Object.wait()  [0x00007f4e37770000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed7bd8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-63" #131 prio=5 os_prio=0 tid=0x00007f4ed86bf000 nid=0x436f in Object.wait()  [0x00007f4e3766f000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f04e58> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-64" #132 prio=5 os_prio=0 tid=0x00007f4ed86c1000 nid=0x4372 in Object.wait()  [0x00007f4e3756e000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed7de0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-65" #135 prio=5 os_prio=0 tid=0x00007f4ed86c3000 nid=0x4377 in Object.wait()  [0x00007f4e3746d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f05060> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-66" #138 prio=5 os_prio=0 tid=0x00007f4ed86c5000 nid=0x4379 in Object.wait()  [0x00007f4e3736c000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed7fe8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-67" #140 prio=5 os_prio=0 tid=0x00007f4ed86c6800 nid=0x437b in Object.wait()  [0x00007f4e3726b000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f05268> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-68" #141 prio=5 os_prio=0 tid=0x00007f4ed86c8800 nid=0x437e in Object.wait()  [0x00007f4e3716a000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed81f0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-69" #143 prio=5 os_prio=0 tid=0x00007f4ed86ca000 nid=0x4380 in Object.wait()  [0x00007f4e37069000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f05470> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-70" #148 prio=5 os_prio=0 tid=0x00007f4ed86cb800 nid=0x4384 in Object.wait()  [0x00007f4e36f68000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed83f8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-71" #150 prio=5 os_prio=0 tid=0x00007f4ed86cd800 nid=0x438b in Object.wait()  [0x00007f4e36e67000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f05678> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-72" #151 prio=5 os_prio=0 tid=0x00007f4ed86cf000 nid=0x438d in Object.wait()  [0x00007f4e36d66000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed8600> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-73" #154 prio=5 os_prio=0 tid=0x00007f4ed86d1000 nid=0x4394 in Object.wait()  [0x00007f4e36c65000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f05880> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-74" #155 prio=5 os_prio=0 tid=0x00007f4ed86d2800 nid=0x4396 in Object.wait()  [0x00007f4e36b64000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed8808> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-75" #156 prio=5 os_prio=0 tid=0x00007f4ed86d4800 nid=0x4399 in Object.wait()  [0x00007f4e36a63000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f05a88> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-76" #157 prio=5 os_prio=0 tid=0x00007f4ed86d6800 nid=0x439a in Object.wait()  [0x00007f4e36962000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed8a10> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-77" #158 prio=5 os_prio=0 tid=0x00007f4ed86d8800 nid=0x439c in Object.wait()  [0x00007f4e36861000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f05c90> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-78" #160 prio=5 os_prio=0 tid=0x00007f4ed86da800 nid=0x439e in Object.wait()  [0x00007f4e36760000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed8c18> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-79" #163 prio=5 os_prio=0 tid=0x00007f4ed86dc800 nid=0x43af in Object.wait()  [0x00007f4e365f9000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed8fe8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-80" #169 prio=5 os_prio=0 tid=0x00007f4ed86de000 nid=0x43b2 in Object.wait()  [0x00007f4e364f8000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f72a08> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-81" #170 prio=5 os_prio=0 tid=0x00007f4ed86e0000 nid=0x43cb in Object.wait()  [0x00007f4e36193000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f06cd8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-82" #173 prio=5 os_prio=0 tid=0x00007f4ed86e2000 nid=0x43cd in Object.wait()  [0x00007f4e36092000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f734f8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-83" #174 prio=5 os_prio=0 tid=0x00007f4ed86e4000 nid=0x43ce in Object.wait()  [0x00007f4e35f91000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7ed9e68> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-84" #175 prio=5 os_prio=0 tid=0x00007f4ed86e6000 nid=0x43d0 in Object.wait()  [0x00007f4e35e90000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f06ee0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-85" #176 prio=5 os_prio=0 tid=0x00007f4ed86e8000 nid=0x43d2 in Object.wait()  [0x00007f4e35d8f000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f73700> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-86" #177 prio=5 os_prio=0 tid=0x00007f4ed86ea000 nid=0x43d3 in Object.wait()  [0x00007f4e35c8e000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7eda070> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-87" #180 prio=5 os_prio=0 tid=0x00007f4ed86eb800 nid=0x43dc in Object.wait()  [0x00007f4e35b27000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f072b0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-88" #184 prio=5 os_prio=0 tid=0x00007f4ed86ed800 nid=0x43de in Object.wait()  [0x00007f4e35a26000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f73ad0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-89" #185 prio=5 os_prio=0 tid=0x00007f4ed86ef800 nid=0x43e0 in Object.wait()  [0x00007f4e35925000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7eda440> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-90" #186 prio=5 os_prio=0 tid=0x00007f4ed86f1800 nid=0x43e2 in Object.wait()  [0x00007f4e35824000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f074b8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-91" #187 prio=5 os_prio=0 tid=0x00007f4ed86f3800 nid=0x43e4 in Object.wait()  [0x00007f4e35723000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f73cd8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-92" #188 prio=5 os_prio=0 tid=0x00007f4ed86f5800 nid=0x43e7 in Object.wait()  [0x00007f4e35622000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7eda648> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-93" #189 prio=5 os_prio=0 tid=0x00007f4ed86f7800 nid=0x43e9 in Object.wait()  [0x00007f4e35521000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7eda850> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-94" #190 prio=5 os_prio=0 tid=0x00007f4ed86f9800 nid=0x43ec in Object.wait()  [0x00007f4e35420000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f73ee0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-95" #194 prio=5 os_prio=0 tid=0x00007f4ed8704000 nid=0x43ef in Object.wait()  [0x00007f4e3531f000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f076c0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-96" #197 prio=5 os_prio=0 tid=0x00007f4ed8705800 nid=0x43f2 in Object.wait()  [0x00007f4e3521e000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7edaa58> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-97" #198 prio=5 os_prio=0 tid=0x00007f4ed8707800 nid=0x43f5 in Object.wait()  [0x00007f4e3511d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f740e8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-98" #199 prio=5 os_prio=0 tid=0x00007f4ed8709000 nid=0x43fb in Object.wait()  [0x00007f4e3501c000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f078c8> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-99" #203 prio=5 os_prio=0 tid=0x00007f4ed870b000 nid=0x43ff in Object.wait()  [0x00007f4e34f1b000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f742f0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"pool-2-thread-100" #208 prio=5 os_prio=0 tid=0x00007f4ed870d000 nid=0x440d in Object.wait()  [0x00007f4e34d92000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@10.0.1/Native Method)
+	- waiting on <0x00000006c7ed38c0> (a java.lang.Object)
+	at java.lang.Object.wait(java.base@10.0.1/Object.java:328)
+	at com.swayam.thread.demo.deadlock.RandomWordDaoWithJavaLock.insert(RandomWordDaoWithJavaLock.java:23)
+	- waiting to re-lock in wait() <0x00000006c7ed38c0> (a java.lang.Object)
+	at com.swayam.thread.demo.deadlock.WordProcessor.lambda$charactersRead$0(WordProcessor.java:18)
+	at com.swayam.thread.demo.deadlock.WordProcessor$$Lambda$89/504053874.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@10.0.1/ThreadPoolExecutor.java:1135)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@10.0.1/ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(java.base@10.0.1/Thread.java:844)
+
+   Locked ownable synchronizers:
+	- <0x00000006c7f746c0> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"DestroyJavaVM" #212 prio=5 os_prio=0 tid=0x00007f4ed8011000 nid=0x424c waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"Attach Listener" #213 daemon prio=9 os_prio=0 tid=0x00007f4e78002000 nid=0x44ef waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"VM Thread" os_prio=0 tid=0x00007f4ed81c5800 nid=0x4258 runnable  
+
+"GC Thread#0" os_prio=0 tid=0x00007f4ed8027800 nid=0x424d runnable  
+
+"GC Thread#1" os_prio=0 tid=0x00007f4ed8029000 nid=0x424e runnable  
+
+"GC Thread#2" os_prio=0 tid=0x00007f4ed802b000 nid=0x424f runnable  
+
+"GC Thread#3" os_prio=0 tid=0x00007f4ed802c800 nid=0x4250 runnable  
+
+"G1 Main Marker" os_prio=0 tid=0x00007f4ed807b000 nid=0x4251 runnable  
+
+"G1 Conc#0" os_prio=0 tid=0x00007f4ed807c800 nid=0x4252 runnable  
+
+"G1 Refine#0" os_prio=0 tid=0x00007f4ed815b800 nid=0x4253 runnable  
+
+"G1 Refine#1" os_prio=0 tid=0x00007f4ed815d000 nid=0x4254 runnable  
+
+"G1 Refine#2" os_prio=0 tid=0x00007f4ed815f000 nid=0x4255 runnable  
+
+"G1 Refine#3" os_prio=0 tid=0x00007f4ed8160800 nid=0x4256 runnable  
+
+"G1 Young RemSet Sampling" os_prio=0 tid=0x00007f4ed8162800 nid=0x4257 runnable  
+"VM Periodic Task Thread" os_prio=0 tid=0x00007f4ed8262800 nid=0x4261 waiting on condition  
+
+JNI global references: 11
+
