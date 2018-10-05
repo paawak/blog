@@ -1,63 +1,59 @@
 package com.swayam.thread.demo.future;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpClient.Version;
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublisher;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.file.Paths;
-import java.util.Scanner;
+import java.time.Duration;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.fluent.Executor;
-import org.apache.http.client.fluent.Request;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
 public class BlockingTask {
 
     public String invokeLongRunningTask() {
-        HttpEntity multipartEntity = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE).addTextBody("language", "ben")
-                .addBinaryBody("image", Paths.get("/kaaj/source/porua/tesseract-ocr-docker/sample-images/bangla.jpg").toFile()).build();
 
-        Request request = Request.Post("http://localhost:8080/rest/ocr").body(multipartEntity);
+        HttpClient client = HttpClient.newBuilder().version(Version.HTTP_1_1).connectTimeout(Duration.ofSeconds(20)).build();
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        Executor executor = Executor.newInstance(httpClient);
-
-        HttpResponse response;
-
+        HttpRequest request = HttpRequest.newBuilder().header("content-type", ContentType.MULTIPART_FORM_DATA.getMimeType())
+                .uri(URI.create("http://localhost:8080/rest/ocr")).POST(getMultipartFormData()).build();
+        HttpResponse<String> response;
         try {
-            response = executor.execute(request).returnResponse();
+            response = client.send(request, BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        int status = response.statusCode();
+
+        if (status != 200) {
+            throw new RuntimeException("Error in Http Response, got a HTTP code of: " + status);
+        }
+
+        return response.body();
+
+    }
+
+    private BodyPublisher getMultipartFormData() {
+        HttpEntity multipartEntity = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+                .addTextBody("language", "ben", ContentType.DEFAULT_BINARY).addBinaryBody("image",
+                        Paths.get("/kaaj/source/porua/tesseract-ocr-docker/sample-images/bangla.jpg").toFile(), ContentType.DEFAULT_BINARY, "bangla.jpg")
+                .build();
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        try {
+            multipartEntity.writeTo(bao);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        int responseCode = response.getStatusLine().getStatusCode();
-
-        InputStream responseStream;
-
-        try {
-            responseStream = response.getEntity().getContent();
-        } catch (UnsupportedOperationException | IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        StringBuilder responseAsString = new StringBuilder();
-
-        try (Scanner scanner = new Scanner(responseStream)) {
-            while (scanner.hasNextLine()) {
-                responseAsString.append(scanner.nextLine()).append("\n");
-            }
-        }
-
-        if (responseCode != 200) {
-            throw new RuntimeException("Error in Http Response, got a HTTP code of: " + responseCode + "\n Details: " + responseAsString.toString());
-        }
-
-        return responseAsString.toString();
-
+        return BodyPublishers.ofByteArray(bao.toByteArray());
     }
 
 }
