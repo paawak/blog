@@ -21,6 +21,8 @@ public class CompletableFutureDemo {
 
         });
 
+        System.out.println("Non blocking call ended");
+
     }
 
 }
