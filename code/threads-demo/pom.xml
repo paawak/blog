@@ -77,6 +77,23 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- START: apache-http-client -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<!-- END: apache-http-client -->
 		<!-- START: logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -110,6 +127,7 @@
 	<properties>
 		<log4j.version>2.3</log4j.version>
 		<slf4j.version>1.7.12</slf4j.version>
+		<httpclient.version>4.5.3</httpclient.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
