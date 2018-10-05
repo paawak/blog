@@ -4,11 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.swayam.thread.demo</groupId>
-	<artifactId>deadlock-demo</artifactId>
+	<artifactId>threads-demo</artifactId>
 	<version>1.1</version>
 	<packaging>jar</packaging>
 
-	<name>algos</name>
 	<url>http://palashray.com</url>
 
 	<build>
@@ -22,10 +21,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<release>10</release>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.ow2.asm</groupId>
+						<artifactId>asm</artifactId>
+						<version>6.2.1</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
