@@ -1,4 +1,4 @@
-package com.swayam.thread.demo.deadlock.lock;
+package com.swayam.thread.demo.lock.highlevel;
 
 import java.util.ArrayList;
 import java.util.List;

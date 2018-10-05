@@ -1,4 +1,4 @@
-package com.swayam.thread.demo.deadlock.intrinsic;
+package com.swayam.thread.demo.lock.intrinsic;
 
 import java.util.ArrayList;
 import java.util.List;
