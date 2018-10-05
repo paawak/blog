@@ -9,7 +9,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -18,13 +17,10 @@ import org.apache.http.impl.client.HttpClients;
 public class BlockingTask {
 
     public String invokeLongRunningTask() {
-        HttpEntity multipartEntity = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
-                .addTextBody("language", "ben", ContentType.DEFAULT_BINARY).addBinaryBody("image",
-                        Paths.get("/kaaj/source/porua/tesseract-ocr-docker/sample-images/bangla.jpg").toFile(), ContentType.DEFAULT_BINARY, "bangla.jpg")
-                .build();
+        HttpEntity multipartEntity = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE).addTextBody("language", "ben")
+                .addBinaryBody("image", Paths.get("/kaaj/source/porua/tesseract-ocr-docker/sample-images/bangla.jpg").toFile()).build();
 
-        Request request =
-                Request.Post("http://localhost:8080/rest/ocr").addHeader("content-type", ContentType.MULTIPART_FORM_DATA.getMimeType()).body(multipartEntity);
+        Request request = Request.Post("http://localhost:8080/rest/ocr").body(multipartEntity);
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
