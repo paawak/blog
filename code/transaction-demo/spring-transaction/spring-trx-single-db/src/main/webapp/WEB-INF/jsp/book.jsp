@@ -11,6 +11,9 @@
 	<form action="rest/author-genre" method="post" enctype="application/x-www-form-urlencoded"> 
 		<div>
 			<div align="left">
+				Run in transaction mode: <input type="checkbox" name="transactional" value="true">
+			</div>		
+			<div align="left">
 				Author Id: <input name="authorId" type="text" />
 			</div>
 			<div align="left">

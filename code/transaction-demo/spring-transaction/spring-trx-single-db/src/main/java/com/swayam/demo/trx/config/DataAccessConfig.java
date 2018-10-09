@@ -31,7 +31,13 @@ public class DataAccessConfig {
         dataSource.setMaxActive(100);
         dataSource.setMaxWait(1000);
         dataSource.setPoolPreparedStatements(true);
-        dataSource.setDefaultAutoCommit(false);
+
+        /*
+         * FIXME: BAD PRACTICE: auto-commit is true just for this demo, normally
+         * auto-commit should ALWAYS be false
+         */
+        dataSource.setDefaultAutoCommit(true);
+
         dataSource.setValidationQuery(environment.getProperty("jdbc.postgres.validationQuery"));
         dataSource.setTestOnBorrow(true);
         return dataSource;
