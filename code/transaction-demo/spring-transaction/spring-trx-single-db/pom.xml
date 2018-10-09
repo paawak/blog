@@ -194,7 +194,7 @@
 						<executions>
 							<execution>
 								<id>postgres-migrate</id>
-								<phase>install</phase>
+								<phase>package</phase>
 								<goals>
 									<goal>clean</goal>
 									<goal>migrate</goal>

@@ -6,7 +6,7 @@ This demoes a simple web-application, and how transaction works for a Spring Man
 
 The below command cleans and initializes the Postgres schema with Flyway and builds the war
 
-	mvn clean intsall -P db-migration
+	mvn clean package -P db-migration
 
 # How to run with Jetty
 
