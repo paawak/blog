@@ -23,6 +23,7 @@ The below command cleans and initializes the Postgres schema with Flyway and bui
 - The **author** table already contains data with Primary Keys ranging from *1* to *10*
 - To simulate transaction failure (unique constraint violation), the user can enter values from *1* to *10* in the *Author Id* field
 - For successful insertion the user should enter values above *10* in the *Author Id* field
+- Click on the "Run in transaction mode" checkbox to see Transaction rollback in action: for successful Transaction rollback, you can see nothing is inserted into the table **genre**, though its key is printed out on the console
 
 
 ## REST
