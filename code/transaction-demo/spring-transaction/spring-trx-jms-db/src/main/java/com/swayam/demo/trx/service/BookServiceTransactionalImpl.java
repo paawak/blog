@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.swayam.demo.trx.dao.AuthorDao;
 import com.swayam.demo.trx.dao.GenreDao;
-import com.swayam.demo.trx.web.dto.AuthorRequest;
+import com.swayam.demo.trx.dto.AuthorRequest;
 
 @Service
 public class BookServiceTransactionalImpl extends BookServiceNonTransactionalImpl {

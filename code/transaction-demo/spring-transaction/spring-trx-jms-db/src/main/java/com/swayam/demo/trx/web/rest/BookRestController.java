@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.swayam.demo.trx.dto.AuthorRequest;
 import com.swayam.demo.trx.entity.Author;
 import com.swayam.demo.trx.entity.Genre;
 import com.swayam.demo.trx.service.BookService;
-import com.swayam.demo.trx.web.dto.AuthorRequest;
 
 @RestController
 @RequestMapping(path = "/rest")

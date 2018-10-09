@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.swayam.demo.trx.dao.AuthorDao;
 import com.swayam.demo.trx.dao.GenreDao;
+import com.swayam.demo.trx.dto.AuthorRequest;
 import com.swayam.demo.trx.entity.Author;
 import com.swayam.demo.trx.entity.Genre;
-import com.swayam.demo.trx.web.dto.AuthorRequest;
 
 @Service
 public class BookServiceNonTransactionalImpl implements BookService {

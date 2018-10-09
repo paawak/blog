@@ -3,9 +3,9 @@ package com.swayam.demo.trx.service;
 import java.util.List;
 import java.util.Map;
 
+import com.swayam.demo.trx.dto.AuthorRequest;
 import com.swayam.demo.trx.entity.Author;
 import com.swayam.demo.trx.entity.Genre;
-import com.swayam.demo.trx.web.dto.AuthorRequest;
 
 public interface BookService {
 

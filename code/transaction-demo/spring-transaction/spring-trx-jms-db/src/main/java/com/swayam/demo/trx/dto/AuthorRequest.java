@@ -1,4 +1,4 @@
-package com.swayam.demo.trx.web.dto;
+package com.swayam.demo.trx.dto;
 
 public class AuthorRequest {
 

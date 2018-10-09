@@ -2,6 +2,17 @@
 
 This demoes a simple web-application, and how transaction works for a Spring Managed Transaction across disparate systems like a Database and a JMS Broker
 
+# Running the RabbitMQ
+
+The below command does the job:
+
+	docker run -it -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin123 rabbitmq:3.7.8-management-alpine
+	
+We use the management plugin, so that we can use its admin console here:
+	
+	http://localhost:15672/
+	
+
 # How to build
 
 The below command cleans and initializes the Postgres schema with Flyway and builds the war
