@@ -22,7 +22,7 @@ import com.swayam.demo.trx.mq.QueuePublisher;
 
 @Configuration
 @PropertySource("classpath:rabbit-mq.properties")
-public class RabbitMQAmqpConfig {
+public class RabbitMQJmsConfig {
 
     @Autowired
     private Environment environment;
