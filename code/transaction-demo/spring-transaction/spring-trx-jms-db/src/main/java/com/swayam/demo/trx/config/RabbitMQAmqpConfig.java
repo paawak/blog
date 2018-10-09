@@ -1,18 +1,23 @@
 package com.swayam.demo.trx.config;
 
-import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.core.MessageListener;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import javax.jms.ConnectionFactory;
+import javax.jms.MessageListener;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.listener.DefaultMessageListenerContainer;
+import org.springframework.jms.listener.MessageListenerContainer;
+import org.springframework.jms.support.destination.DestinationResolver;
+import org.springframework.jms.support.destination.DynamicDestinationResolver;
 
-import com.swayam.demo.trx.mq.AmqpMessageConsumer;
-import com.swayam.demo.trx.mq.AmqpQueuePublisher;
+import com.rabbitmq.jms.admin.RMQConnectionFactory;
+import com.swayam.demo.trx.mq.JmsMessageConsumer;
+import com.swayam.demo.trx.mq.JmsQueuePublisher;
 import com.swayam.demo.trx.mq.QueuePublisher;
 
 @Configuration
@@ -23,28 +28,53 @@ public class RabbitMQAmqpConfig {
     private Environment environment;
 
     @Bean
+    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory, DestinationResolver destinationResolver) {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setDestinationResolver(destinationResolver);
+        factory.setConcurrency("3-10");
+        return factory;
+    }
+
+    @Bean
+    public DestinationResolver destinationResolver() {
+        return new DynamicDestinationResolver();
+    }
+
+    @Bean
+    public MessageListenerContainer defaultMessageListenerContainer(ConnectionFactory connectionFactory, MessageListener messageListener) {
+        DefaultMessageListenerContainer defaultMessageListenerContainer = new DefaultMessageListenerContainer();
+        defaultMessageListenerContainer.setConnectionFactory(connectionFactory);
+        defaultMessageListenerContainer.setDestinationName(environment.getProperty("mq.rabbit.queue.author"));
+        defaultMessageListenerContainer.setMessageListener(messageListener);
+        return defaultMessageListenerContainer;
+    }
+
+    @Bean
+    public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
+        JmsTemplate jmsTemplate = new JmsTemplate();
+        jmsTemplate.setConnectionFactory(connectionFactory);
+        return jmsTemplate;
+    }
+
+    @Bean
     public MessageListener messageListener() {
-        return new AmqpMessageConsumer();
+        return new JmsMessageConsumer();
     }
 
     @Bean
-    public QueuePublisher amqpQueuePublisher(AmqpTemplate amqpTemplate) {
-        return new AmqpQueuePublisher(environment.getProperty("mq.rabbit.queue.author"), amqpTemplate);
-    }
-
-    @Bean
-    public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-        return new RabbitTemplate(connectionFactory);
+    public QueuePublisher jmsQueuePublisher(JmsTemplate jmsTemplate) {
+        return new JmsQueuePublisher(environment.getProperty("mq.rabbit.queue.author"), jmsTemplate);
     }
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        com.rabbitmq.client.ConnectionFactory rabbitConnectionFactory = new com.rabbitmq.client.ConnectionFactory();
-        rabbitConnectionFactory.setHost(environment.getProperty("mq.rabbit.host"));
-        rabbitConnectionFactory.setPort(Integer.parseInt(environment.getProperty("mq.rabbit.port")));
-        rabbitConnectionFactory.setUsername(environment.getProperty("mq.rabbit.user"));
-        rabbitConnectionFactory.setPassword(environment.getProperty("mq.rabbit.password"));
-        return new CachingConnectionFactory(rabbitConnectionFactory);
+        RMQConnectionFactory connectionFactory = new RMQConnectionFactory();
+        connectionFactory.setHost(environment.getProperty("mq.rabbit.host"));
+        connectionFactory.setPort(Integer.parseInt(environment.getProperty("mq.rabbit.port")));
+        connectionFactory.setUsername(environment.getProperty("mq.rabbit.username"));
+        connectionFactory.setPassword(environment.getProperty("mq.rabbit.password"));
+        return connectionFactory;
     }
 
 }
