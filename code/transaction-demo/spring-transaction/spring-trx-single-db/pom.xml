@@ -3,12 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.swayam.demo</groupId>
-	<artifactId>spring-transaction-demo</artifactId>
+	<artifactId>spring-trx-single-db</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>spring-transaction-demo</name>
 	<description>
-		This demoes a simple web-application, and how transaction works for a Spring Managed Transaction
+		This demoes a simple web-application, and how transaction works for a Spring Managed Transaction within a single DB, across multiple tables
 	</description>
 	<url>http://palashray.com</url>
 
@@ -131,14 +130,10 @@
 			<version>2.3.0</version>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.11</version>
-		</dependency>
-		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.3.jre7</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -197,24 +192,6 @@
 						<artifactId>flyway-maven-plugin</artifactId>
 						<version>5.1.4</version>
 						<executions>
-							<execution>
-								<id>mysql-migrate</id>
-								<phase>install</phase>
-								<goals>
-									<goal>clean</goal>
-									<goal>migrate</goal>
-								</goals>
-								<configuration>
-									<configFile>${project.basedir}/src/main/sql/mysql/flyway-mysql.conf</configFile>
-									<locations>
-										<location>filesystem:${project.basedir}/src/main/sql/mysql</location>
-									</locations>
-									<sqlMigrationSeparator>__</sqlMigrationSeparator>
-									<sqlMigrationSuffixes>
-										<sqlMigrationSuffix>.sql</sqlMigrationSuffix>
-									</sqlMigrationSuffixes>
-								</configuration>
-							</execution>
 							<execution>
 								<id>postgres-migrate</id>
 								<phase>install</phase>

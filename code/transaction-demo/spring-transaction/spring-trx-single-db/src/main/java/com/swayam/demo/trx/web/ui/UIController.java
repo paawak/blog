@@ -10,21 +10,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UIController {
 
-	@GetMapping(path = { "/", "/index.jsp", "/welcome.jsp", "/index.html", "/welcome.html" })
-	public ModelAndView handleLandingPage() {
-		Map<String, Object> userObjects = new HashMap<>();
-		userObjects.put("user", System.getProperty("user.name"));
-		return new ModelAndView("welcome", userObjects);
-	}
+    @GetMapping(path = { "/", "/index.jsp", "/welcome.jsp", "/index.html", "/welcome.html" })
+    public ModelAndView handleLandingPage() {
+        Map<String, Object> userObjects = new HashMap<>();
+        userObjects.put("user", System.getProperty("user.name"));
+        return new ModelAndView("welcome", userObjects);
+    }
 
-	@GetMapping(path = { "/book.html" })
-	public ModelAndView showAddAuthorGenrePage() {
-		return new ModelAndView("book");
-	}
-
-	@GetMapping(path = { "/rating.html" })
-	public ModelAndView showAddPersonPage() {
-		return new ModelAndView("rating");
-	}
+    @GetMapping(path = { "/book.html" })
+    public ModelAndView showAddAuthorGenrePage() {
+        return new ModelAndView("book");
+    }
 
 }
