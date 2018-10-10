@@ -14,13 +14,13 @@ import com.swayam.demo.trx.mq.QueuePublisher;
 public class BookServiceTransactionalImpl extends BookServiceNonTransactionalImpl {
 
     public BookServiceTransactionalImpl(AuthorDao authorDao, GenreDao genreDao, QueuePublisher queuePublisher) {
-        super(authorDao, genreDao, queuePublisher);
+	super(authorDao, genreDao, queuePublisher);
     }
 
-    @Transactional
+    @Transactional(transactionManager = "jmsTxManager")
     @Override
     public Map<String, Long> addAuthorWithGenre(AuthorRequest authorRequest) {
-        return super.addAuthorWithGenre(authorRequest);
+	return super.addAuthorWithGenre(authorRequest);
     }
 
 }
