@@ -28,6 +28,9 @@ The below command cleans and initializes the Postgres schema with Flyway and bui
 ## UI
 
 ### book.html (http://localhost:8090/spring-trx-jms-db/book.html)
+
+This POSTs the data into a JMS Queue. It is then picked up by a JmsQueueConsumer, which does the following:
+
 - Saves data in 2 different tables within the same Postgres schema: **genre** and **author**
 - The table **genre** has an auto-increment primary key. 
 - The table **author** expects an unique primary key id every time from the user

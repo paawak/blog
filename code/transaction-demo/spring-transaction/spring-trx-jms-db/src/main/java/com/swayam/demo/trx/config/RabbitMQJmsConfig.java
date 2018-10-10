@@ -2,6 +2,7 @@ package com.swayam.demo.trx.config;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.MessageListener;
+import javax.jms.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.connection.JmsTransactionManager;
+import org.springframework.jms.core.JmsOperations;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import org.springframework.jms.listener.MessageListenerContainer;
@@ -17,9 +19,8 @@ import org.springframework.jms.support.destination.DestinationResolver;
 import org.springframework.jms.support.destination.DynamicDestinationResolver;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.jms.admin.RMQConnectionFactory;
-import com.swayam.demo.trx.mq.JmsQueuePublisher;
-import com.swayam.demo.trx.mq.QueuePublisher;
 
 @Configuration
 @PropertySource("classpath:rabbit-mq.properties")
@@ -52,15 +53,11 @@ public class RabbitMQJmsConfig {
     }
 
     @Bean
-    public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
+    public JmsOperations jmsTemplate(ConnectionFactory connectionFactory) {
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setConnectionFactory(connectionFactory);
+        jmsTemplate.setSessionAcknowledgeMode(Session.AUTO_ACKNOWLEDGE);
         return jmsTemplate;
-    }
-
-    @Bean
-    public QueuePublisher jmsQueuePublisher(JmsTemplate jmsTemplate) {
-        return new JmsQueuePublisher(environment.getProperty("mq.rabbit.queue.author"), jmsTemplate);
     }
 
     @Bean
@@ -76,6 +73,11 @@ public class RabbitMQJmsConfig {
     @Bean
     public PlatformTransactionManager jmsTxManager(ConnectionFactory connectionFactory) {
         return new JmsTransactionManager(connectionFactory);
+    }
+
+    @Bean
+    public ObjectMapper mapper() {
+        return new ObjectMapper();
     }
 
 }
