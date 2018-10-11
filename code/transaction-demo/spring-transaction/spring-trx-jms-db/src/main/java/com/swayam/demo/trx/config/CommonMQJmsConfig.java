@@ -2,7 +2,6 @@ package com.swayam.demo.trx.config;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.MessageListener;
-import javax.jms.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -47,7 +46,7 @@ public class CommonMQJmsConfig {
         DefaultMessageListenerContainer defaultMessageListenerContainer = new DefaultMessageListenerContainer();
         defaultMessageListenerContainer.setConnectionFactory(connectionFactory);
         defaultMessageListenerContainer.setDestinationName(environment.getProperty(AUTHOR_QUEUE_NAME));
-        defaultMessageListenerContainer.setSessionAcknowledgeMode(Session.SESSION_TRANSACTED);
+        // defaultMessageListenerContainer.setSessionAcknowledgeMode(Session.SESSION_TRANSACTED);
         defaultMessageListenerContainer.setMessageListener(messageListener);
         return defaultMessageListenerContainer;
     }
@@ -56,6 +55,7 @@ public class CommonMQJmsConfig {
     public JmsOperations jmsTemplate(ConnectionFactory connectionFactory) {
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setConnectionFactory(connectionFactory);
+        // jmsTemplate.setSessionAcknowledgeMode(Session.SESSION_TRANSACTED);
         return jmsTemplate;
     }
 
