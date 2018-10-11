@@ -15,14 +15,14 @@ import com.swayam.demo.trx.entity.Author;
 import com.swayam.demo.trx.entity.Genre;
 
 @Service
-public class BookServiceNonTransactionalImpl implements BookService {
+public class BookServiceImpl implements BookService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BookServiceNonTransactionalImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BookServiceImpl.class);
 
     private final AuthorDao authorDao;
     private final GenreDao genreDao;
 
-    public BookServiceNonTransactionalImpl(AuthorDao authorDao, GenreDao genreDao) {
+    public BookServiceImpl(AuthorDao authorDao, GenreDao genreDao) {
         this.authorDao = authorDao;
         this.genreDao = genreDao;
     }

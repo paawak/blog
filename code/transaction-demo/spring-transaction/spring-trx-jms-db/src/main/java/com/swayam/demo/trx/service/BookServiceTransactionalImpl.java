@@ -10,7 +10,7 @@ import com.swayam.demo.trx.dao.GenreDao;
 import com.swayam.demo.trx.dto.AuthorRequest;
 
 @Service
-public class BookServiceTransactionalImpl extends BookServiceNonTransactionalImpl {
+public class BookServiceTransactionalImpl extends BookServiceImpl {
 
     public BookServiceTransactionalImpl(AuthorDao authorDao, GenreDao genreDao) {
         super(authorDao, genreDao);
