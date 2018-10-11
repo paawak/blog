@@ -11,7 +11,10 @@ The below command does the job:
 We use the management plugin, so that we can use its admin console here:
 	
 	http://localhost:15672/
-	
+
+# Active MQ Console
+
+	http://localhost:8161/admin/	
 
 # How to build
 
