@@ -1,6 +1,7 @@
 package com.swayam.demo.trx.config;
 
 import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
 import javax.jms.MessageListener;
 import javax.jms.Session;
 
@@ -21,10 +22,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.jms.admin.RMQConnectionFactory;
+import com.rabbitmq.jms.admin.RMQDestination;
 
 @Configuration
 @PropertySource("classpath:rabbit-mq.properties")
 public class RabbitMQJmsConfig {
+
+    private static final String AUTHOR_QUEUE_NAME = "mq.rabbit.queue.author";
 
     @Autowired
     private Environment environment;
@@ -47,7 +51,7 @@ public class RabbitMQJmsConfig {
     public MessageListenerContainer defaultMessageListenerContainer(ConnectionFactory connectionFactory, MessageListener messageListener) {
         DefaultMessageListenerContainer defaultMessageListenerContainer = new DefaultMessageListenerContainer();
         defaultMessageListenerContainer.setConnectionFactory(connectionFactory);
-        defaultMessageListenerContainer.setDestinationName(environment.getProperty("mq.rabbit.queue.author"));
+        defaultMessageListenerContainer.setDestinationName(environment.getProperty(AUTHOR_QUEUE_NAME));
         defaultMessageListenerContainer.setMessageListener(messageListener);
         return defaultMessageListenerContainer;
     }
@@ -68,6 +72,11 @@ public class RabbitMQJmsConfig {
         connectionFactory.setUsername(environment.getProperty("mq.rabbit.username"));
         connectionFactory.setPassword(environment.getProperty("mq.rabbit.password"));
         return connectionFactory;
+    }
+
+    @Bean
+    public Destination authorQueue() {
+        return new RMQDestination(environment.getProperty(AUTHOR_QUEUE_NAME), true, false);
     }
 
     @Bean

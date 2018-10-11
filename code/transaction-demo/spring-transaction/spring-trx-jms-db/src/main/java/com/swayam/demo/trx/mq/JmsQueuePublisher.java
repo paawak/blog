@@ -1,10 +1,10 @@
 package com.swayam.demo.trx.mq;
 
+import javax.jms.Destination;
 import javax.jms.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsOperations;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
@@ -19,12 +19,12 @@ public class JmsQueuePublisher implements QueuePublisher {
     private static final Logger LOGGER = LoggerFactory.getLogger(JmsQueuePublisher.class);
 
     private final ObjectMapper mapper;
-    private final String queueName;
+    private final Destination authorQueue;
     private final JmsOperations jmsTemplate;
 
-    public JmsQueuePublisher(ObjectMapper mapper, @Value("${mq.rabbit.queue.author}") String queueName, JmsOperations jmsTemplate) {
+    public JmsQueuePublisher(ObjectMapper mapper, Destination authorQueue, JmsOperations jmsTemplate) {
         this.mapper = mapper;
-        this.queueName = queueName;
+        this.authorQueue = authorQueue;
         this.jmsTemplate = jmsTemplate;
     }
 
@@ -40,7 +40,7 @@ public class JmsQueuePublisher implements QueuePublisher {
             }
         };
 
-        jmsTemplate.send(queueName, messageCreator);
+        jmsTemplate.send(authorQueue, messageCreator);
     }
 
 }
