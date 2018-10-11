@@ -13,7 +13,6 @@ import com.swayam.demo.trx.dao.GenreDao;
 import com.swayam.demo.trx.dto.AuthorRequest;
 import com.swayam.demo.trx.entity.Author;
 import com.swayam.demo.trx.entity.Genre;
-import com.swayam.demo.trx.mq.QueuePublisher;
 
 @Service
 public class BookServiceNonTransactionalImpl implements BookService {
@@ -22,12 +21,10 @@ public class BookServiceNonTransactionalImpl implements BookService {
 
     private final AuthorDao authorDao;
     private final GenreDao genreDao;
-    private final QueuePublisher queuePublisher;
 
-    public BookServiceNonTransactionalImpl(AuthorDao authorDao, GenreDao genreDao, QueuePublisher queuePublisher) {
+    public BookServiceNonTransactionalImpl(AuthorDao authorDao, GenreDao genreDao) {
         this.authorDao = authorDao;
         this.genreDao = genreDao;
-        this.queuePublisher = queuePublisher;
     }
 
     @Override
@@ -42,8 +39,6 @@ public class BookServiceNonTransactionalImpl implements BookService {
 
     @Override
     public Map<String, Long> addAuthorWithGenre(AuthorRequest authorRequest) {
-
-        queuePublisher.publish(authorRequest);
 
         Map<String, Long> map = new HashMap<>();
         // save genre

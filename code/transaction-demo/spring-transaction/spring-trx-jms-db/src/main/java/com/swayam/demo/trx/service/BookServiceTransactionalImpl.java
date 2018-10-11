@@ -8,19 +8,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.swayam.demo.trx.dao.AuthorDao;
 import com.swayam.demo.trx.dao.GenreDao;
 import com.swayam.demo.trx.dto.AuthorRequest;
-import com.swayam.demo.trx.mq.QueuePublisher;
 
 @Service
 public class BookServiceTransactionalImpl extends BookServiceNonTransactionalImpl {
 
-    public BookServiceTransactionalImpl(AuthorDao authorDao, GenreDao genreDao, QueuePublisher queuePublisher) {
-	super(authorDao, genreDao, queuePublisher);
+    public BookServiceTransactionalImpl(AuthorDao authorDao, GenreDao genreDao) {
+        super(authorDao, genreDao);
     }
 
     @Transactional(transactionManager = "jmsTxManager")
     @Override
     public Map<String, Long> addAuthorWithGenre(AuthorRequest authorRequest) {
-	return super.addAuthorWithGenre(authorRequest);
+        return super.addAuthorWithGenre(authorRequest);
     }
 
 }
