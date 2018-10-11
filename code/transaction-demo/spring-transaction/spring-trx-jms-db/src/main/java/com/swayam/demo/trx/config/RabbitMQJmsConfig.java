@@ -52,6 +52,7 @@ public class RabbitMQJmsConfig {
         DefaultMessageListenerContainer defaultMessageListenerContainer = new DefaultMessageListenerContainer();
         defaultMessageListenerContainer.setConnectionFactory(connectionFactory);
         defaultMessageListenerContainer.setDestinationName(environment.getProperty(AUTHOR_QUEUE_NAME));
+        defaultMessageListenerContainer.setSessionAcknowledgeMode(Session.SESSION_TRANSACTED);
         defaultMessageListenerContainer.setMessageListener(messageListener);
         return defaultMessageListenerContainer;
     }
@@ -60,7 +61,6 @@ public class RabbitMQJmsConfig {
     public JmsOperations jmsTemplate(ConnectionFactory connectionFactory) {
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setConnectionFactory(connectionFactory);
-        jmsTemplate.setSessionAcknowledgeMode(Session.AUTO_ACKNOWLEDGE);
         return jmsTemplate;
     }
 
