@@ -21,7 +21,14 @@ The below command cleans and initializes the Postgres schema with Flyway and bui
 
 # How to run with Jetty
 
-	 mvn jetty:run
+## Run with Rabbit MQ
+	 
+	 mvn jetty:run -Dspring.profiles.active=rabbitmq
+	 
+## Run with Active MQ
+	 
+	 mvn jetty:run -Dspring.profiles.active=activemq
+	 
 
 # Accessing the API
 

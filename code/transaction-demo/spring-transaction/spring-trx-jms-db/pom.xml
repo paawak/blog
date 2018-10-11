@@ -129,6 +129,16 @@
 			<artifactId>rabbitmq-jms</artifactId>
 			<version>1.9.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-broker</artifactId>
+			<version>5.15.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-pool</artifactId>
+			<version>5.15.3</version>
+		</dependency>
 		<!-- END JMS -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
