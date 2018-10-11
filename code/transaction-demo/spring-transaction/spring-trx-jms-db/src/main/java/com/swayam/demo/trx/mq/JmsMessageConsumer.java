@@ -10,7 +10,6 @@ import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,14 +22,11 @@ public class JmsMessageConsumer implements MessageListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(JmsMessageConsumer.class);
 
     private final ObjectMapper mapper;
-    private final BookService bookServiceNonTransactional;
-    private final BookService bookServiceTransactional;
+    private final BookService bookService;
 
-    public JmsMessageConsumer(ObjectMapper mapper, @Qualifier("bookServiceNonTransactionalImpl") BookService bookServiceNonTransactional,
-            @Qualifier("bookServiceTransactionalImpl") BookService bookServiceTransactional) {
+    public JmsMessageConsumer(ObjectMapper mapper, BookService bookService) {
         this.mapper = mapper;
-        this.bookServiceNonTransactional = bookServiceNonTransactional;
-        this.bookServiceTransactional = bookServiceTransactional;
+        this.bookService = bookService;
     }
 
     @Override
@@ -44,13 +40,7 @@ public class JmsMessageConsumer implements MessageListener {
 
         LOGGER.info("+++++++++++++++++ recieved message: {}", authorRequest);
 
-        Map<String, Long> result;
-
-        if (authorRequest.isTransactional()) {
-            result = bookServiceTransactional.addAuthorWithGenre(authorRequest);
-        } else {
-            result = bookServiceNonTransactional.addAuthorWithGenre(authorRequest);
-        }
+        Map<String, Long> result = bookService.addAuthorWithGenre(authorRequest);
 
         LOGGER.info("save result: {}", result);
 

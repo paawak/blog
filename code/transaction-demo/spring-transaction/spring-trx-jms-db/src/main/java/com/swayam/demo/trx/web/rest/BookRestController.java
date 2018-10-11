@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,22 +22,22 @@ public class BookRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BookRestController.class);
 
-    private final BookService bookServiceNonTransactional;
+    private final BookService bookService;
     private final QueuePublisher queuePublisher;
 
-    public BookRestController(@Qualifier("bookServiceNonTransactionalImpl") BookService bookServiceNonTransactional, QueuePublisher queuePublisher) {
-        this.bookServiceNonTransactional = bookServiceNonTransactional;
+    public BookRestController(BookService bookService, QueuePublisher queuePublisher) {
+        this.bookService = bookService;
         this.queuePublisher = queuePublisher;
     }
 
     @GetMapping(path = "/author")
     public List<Author> getAuthors() {
-        return bookServiceNonTransactional.getAuthors();
+        return bookService.getAuthors();
     }
 
     @GetMapping(path = "/genre")
     public List<Genre> getGenre() {
-        return bookServiceNonTransactional.getGenres();
+        return bookService.getGenres();
     }
 
     @PostMapping(path = "/author-genre", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
