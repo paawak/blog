@@ -4,6 +4,7 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.pool.PooledConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class ActiveMQJmsConfig {
     public ConnectionFactory connectionFactory() {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
         connectionFactory.setBrokerURL(environment.getProperty("mq.active.url"));
+        RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();
+        redeliveryPolicy.setRedeliveryDelay(3_000);
+        redeliveryPolicy.setMaximumRedeliveries(3);
+        connectionFactory.setRedeliveryPolicy(redeliveryPolicy);
         PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory();
         pooledConnectionFactory.setConnectionFactory(connectionFactory);
         return pooledConnectionFactory;
