@@ -27,8 +27,8 @@ public class ActiveMQJmsConfig {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
         connectionFactory.setBrokerURL(environment.getProperty("mq.active.url"));
         RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();
-        redeliveryPolicy.setRedeliveryDelay(3_000);
-        redeliveryPolicy.setMaximumRedeliveries(3);
+        redeliveryPolicy.setRedeliveryDelay(Integer.parseInt(environment.getProperty("mq.redelivery.redeliveryDelay")));
+        redeliveryPolicy.setMaximumRedeliveries(Integer.parseInt(environment.getProperty("mq.redelivery.maxRedeliveryAttempt")));
         connectionFactory.setRedeliveryPolicy(redeliveryPolicy);
         PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory();
         pooledConnectionFactory.setConnectionFactory(connectionFactory);
