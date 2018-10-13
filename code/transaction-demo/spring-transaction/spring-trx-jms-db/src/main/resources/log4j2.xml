@@ -16,7 +16,7 @@
 				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="10 MB" />
 			</Policies>
-			<DefaultRolloverStrategy max="20" />
+			<DefaultRolloverStrategy max="1" />
 		</RollingRandomAccessFile>
 	</Appenders>
 
@@ -27,7 +27,7 @@
 		</root>
 
 		<Logger name="org.springframework" level="info" />
-
+		<Logger name="org.apache.activemq" level="info" />
 		<Logger name="org.eclipse.jetty" level="INFO" />
 
 	</Loggers>
