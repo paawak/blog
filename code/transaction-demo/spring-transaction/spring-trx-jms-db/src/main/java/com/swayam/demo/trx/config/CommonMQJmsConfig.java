@@ -2,9 +2,9 @@ package com.swayam.demo.trx.config;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.MessageListener;
-import javax.jms.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -26,12 +26,13 @@ public class CommonMQJmsConfig {
     private Environment environment;
 
     @Bean
-    public MessageListenerContainer defaultMessageListenerContainer(ConnectionFactory connectionFactory, MessageListener messageListener) {
+    public MessageListenerContainer defaultMessageListenerContainer(ConnectionFactory connectionFactory, MessageListener messageListener,
+            @Qualifier("jmsTxManager") PlatformTransactionManager transactionManager) {
         DefaultMessageListenerContainer defaultMessageListenerContainer = new DefaultMessageListenerContainer();
         defaultMessageListenerContainer.setConnectionFactory(connectionFactory);
         defaultMessageListenerContainer.setDestinationName(environment.getProperty(AUTHOR_QUEUE_NAME));
-        defaultMessageListenerContainer.setSessionAcknowledgeMode(Session.CLIENT_ACKNOWLEDGE);
         defaultMessageListenerContainer.setMessageListener(messageListener);
+        defaultMessageListenerContainer.setTransactionManager(transactionManager);
         return defaultMessageListenerContainer;
     }
 

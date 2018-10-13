@@ -11,7 +11,6 @@ import javax.jms.TextMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swayam.demo.trx.dto.AuthorRequest;
@@ -30,7 +29,6 @@ public class JmsMessageConsumer implements MessageListener {
         this.bookService = bookService;
     }
 
-    @Transactional(transactionManager = "jmsTxManager")
     @Override
     public void onMessage(Message message) {
         AuthorRequest authorRequest;
