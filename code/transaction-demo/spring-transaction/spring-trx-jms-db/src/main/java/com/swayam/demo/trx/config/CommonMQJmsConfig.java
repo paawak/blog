@@ -8,20 +8,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.jms.annotation.EnableJms;
-import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.connection.JmsTransactionManager;
 import org.springframework.jms.core.JmsOperations;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import org.springframework.jms.listener.MessageListenerContainer;
-import org.springframework.jms.support.destination.DestinationResolver;
-import org.springframework.jms.support.destination.DynamicDestinationResolver;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@EnableJms
 @Configuration
 public class CommonMQJmsConfig {
 
@@ -31,22 +26,6 @@ public class CommonMQJmsConfig {
     private Environment environment;
 
     @Bean
-    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory connectionFactory, DestinationResolver destinationResolver,
-            @Qualifier("jmsTxManager") PlatformTransactionManager transactionManager) {
-        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory);
-        factory.setDestinationResolver(destinationResolver);
-        factory.setConcurrency("3-10");
-        factory.setTransactionManager(transactionManager);
-        return factory;
-    }
-
-    @Bean
-    public DestinationResolver destinationResolver() {
-        return new DynamicDestinationResolver();
-    }
-
-    // @Bean
     public MessageListenerContainer defaultMessageListenerContainer(ConnectionFactory connectionFactory, MessageListener messageListener,
             @Qualifier("jmsTxManager") PlatformTransactionManager transactionManager) {
         DefaultMessageListenerContainer defaultMessageListenerContainer = new DefaultMessageListenerContainer();

@@ -10,19 +10,21 @@ import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swayam.demo.trx.dto.AuthorRequest;
 import com.swayam.demo.trx.service.BookService;
 
-public class JmsMessageConsumer implements MessageListener {
+@Service
+public class AuthorQueueConsumer implements MessageListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JmsMessageConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorQueueConsumer.class);
 
     private final ObjectMapper mapper;
     private final BookService bookService;
 
-    public JmsMessageConsumer(ObjectMapper mapper, BookService bookService) {
+    public AuthorQueueConsumer(ObjectMapper mapper, BookService bookService) {
         this.mapper = mapper;
         this.bookService = bookService;
     }
