@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.swayam.demo.trx.dao.AuthorDao;
 import com.swayam.demo.trx.dao.GenreDao;
@@ -37,6 +38,7 @@ public class BookServiceImpl implements BookService {
         return authorDao.getAuthors();
     }
 
+    @Transactional("postgresTxManager")
     @Override
     public Map<String, Long> addAuthorWithGenre(AuthorRequest authorRequest) {
 
