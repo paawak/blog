@@ -3,36 +3,34 @@ package com.swayam.demo.trx.mq;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.TextMessage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swayam.demo.trx.dto.AuthorRequest;
 import com.swayam.demo.trx.service.BookService;
 
-public class JmsMessageConsumer implements MessageListener {
+@Service
+public class AuthorQueueListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JmsMessageConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorQueueListener.class);
 
     private final ObjectMapper mapper;
     private final BookService bookService;
 
-    public JmsMessageConsumer(ObjectMapper mapper, BookService bookService) {
+    public AuthorQueueListener(ObjectMapper mapper, BookService bookService) {
         this.mapper = mapper;
         this.bookService = bookService;
     }
 
-    @Override
-    public void onMessage(Message message) {
+    @JmsListener(destination = "AUTHOR_REQUEST")
+    public void processAuthorRequest(String message) {
         AuthorRequest authorRequest;
         try {
-            authorRequest = mapper.readValue(((TextMessage) message).getText(), AuthorRequest.class);
-        } catch (IOException | JMSException e) {
+            authorRequest = mapper.readValue(message, AuthorRequest.class);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
