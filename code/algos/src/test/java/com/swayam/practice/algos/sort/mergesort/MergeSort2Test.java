@@ -7,6 +7,19 @@ import org.junit.Test;
 public class MergeSort2Test {
 
     @Test
+    public void testSort_length_1() {
+        // given
+        int[] input = new int[] { 40 };
+        MergeSort2 testClass = new MergeSort2();
+
+        // when
+        int[] result = testClass.sort(input);
+
+        // then
+        assertArrayEquals(new int[] { 40 }, result);
+    }
+
+    @Test
     public void testSort_even_length() {
         // given
         int[] input = new int[] { 40, 2, 54, 1, 8, 11, 95, 10 };
