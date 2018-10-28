@@ -4,7 +4,7 @@ public class MergeSort2 {
 
     public int[] sort(int[] input) {
 
-        if (input.length < 1) {
+        if (input.length <= 1) {
             return input;
         }
 
