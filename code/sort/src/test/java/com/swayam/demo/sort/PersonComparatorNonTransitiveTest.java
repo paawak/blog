@@ -15,99 +15,99 @@ public class PersonComparatorNonTransitiveTest {
 
     @Test
     public void testCompare_exception() {
-	thrown.expect(IllegalArgumentException.class);
-	thrown.expectMessage("Comparison method violates its general contract!");
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Comparison method violates its general contract!");
 
-	List<Person> persons = getDataSetForTimSortException();
+        List<Person> persons = getDataSetForTimSortException();
 
-	// I want the exception trace to be printed out
-	try {
-	    Collections.sort(persons, new PersonComparatorNonTransitive());
-	} catch (IllegalArgumentException e) {
-	    e.printStackTrace();
-	    throw e;
-	}
+        // I want the exception trace to be printed out
+        try {
+            Collections.sort(persons, new PersonComparatorNonTransitive());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @Test
     public void testCompare_no_exception() {
-	List<Person> persons = getDataSetForNoException();
-	Collections.sort(persons, new PersonComparatorNonTransitive());
-	printPersons(persons);
+        List<Person> persons = getDataSetForNoException();
+        Collections.sort(persons, new PersonComparatorNonTransitive());
+        printPersons(persons);
     }
 
     private void printPersons(List<Person> persons) {
-	persons.forEach((Person person) -> {
-	    System.out.println(person.getId());
-	});
+        persons.forEach((Person person) -> {
+            System.out.println(person.getId());
+        });
     }
 
-    private List<Person> getDataSetForTimSortException() {
-	List<Person> persons = new ArrayList<>();
-	persons.add(new Person("TestName", 3));
-	persons.add(new Person("TestName", 290));
-	persons.add(new Person("TestName", 1));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", 1));
-	persons.add(new Person("TestName", 398));
-	persons.add(new Person("TestName", 46));
-	persons.add(new Person("TestName", 45));
-	persons.add(new Person("TestName", 0));
-	persons.add(new Person("TestName", 3));
-	persons.add(new Person("TestName", 45));
-	persons.add(new Person("TestName", 130));
-	persons.add(new Person("TestName", 33));
-	persons.add(new Person("TestName", 56));
-	return persons;
+    static List<Person> getDataSetForTimSortException() {
+        List<Person> persons = new ArrayList<>();
+        persons.add(new Person("TestName", 3));
+        persons.add(new Person("TestName", 290));
+        persons.add(new Person("TestName", 1));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", 1));
+        persons.add(new Person("TestName", 398));
+        persons.add(new Person("TestName", 46));
+        persons.add(new Person("TestName", 45));
+        persons.add(new Person("TestName", 0));
+        persons.add(new Person("TestName", 3));
+        persons.add(new Person("TestName", 45));
+        persons.add(new Person("TestName", 130));
+        persons.add(new Person("TestName", 33));
+        persons.add(new Person("TestName", 56));
+        return persons;
     }
 
     private List<Person> getDataSetForNoException() {
-	List<Person> persons = new ArrayList<>();
-	persons.add(new Person("TestName", 3));
-	persons.add(new Person("TestName", 290));
-	persons.add(new Person("TestName", 1));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", null));
-	persons.add(new Person("TestName", 1));
-	persons.add(new Person("TestName", 398));
-	persons.add(new Person("TestName", 46));
-	persons.add(new Person("TestName", 45));
-	persons.add(new Person("TestName", 0));
-	persons.add(new Person("TestName", 3));
-	persons.add(new Person("TestName", 45));
-	persons.add(new Person("TestName", 130));
-	persons.add(new Person("TestName", 33));
-	persons.add(new Person("TestName", 56));
-	return persons;
+        List<Person> persons = new ArrayList<>();
+        persons.add(new Person("TestName", 3));
+        persons.add(new Person("TestName", 290));
+        persons.add(new Person("TestName", 1));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", null));
+        persons.add(new Person("TestName", 1));
+        persons.add(new Person("TestName", 398));
+        persons.add(new Person("TestName", 46));
+        persons.add(new Person("TestName", 45));
+        persons.add(new Person("TestName", 0));
+        persons.add(new Person("TestName", 3));
+        persons.add(new Person("TestName", 45));
+        persons.add(new Person("TestName", 130));
+        persons.add(new Person("TestName", 33));
+        persons.add(new Person("TestName", 56));
+        return persons;
     }
 
 }
