@@ -1,9 +1,12 @@
 package com.swayam.practice.algos.sort.mergesort;
 
+/**
+ * This program does not actually split the given array, but uses indices, in
+ * the split phase.
+ */
 public class MergeSort2 {
 
     public int[] sort(int[] input) {
-
         return splitAndMerge(input, 0, input.length);
     }
 

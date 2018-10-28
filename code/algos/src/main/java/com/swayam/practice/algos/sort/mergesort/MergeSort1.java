@@ -1,5 +1,9 @@
 package com.swayam.practice.algos.sort.mergesort;
 
+/**
+ * This program actually splits the given array into 2 halves using
+ * {@link System#arraycopy(Object, int, Object, int, int)} in the split phase.
+ */
 public class MergeSort1 {
 
     public int[] sort(int[] input) {
