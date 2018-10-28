@@ -1,41 +1,23 @@
 package com.swayam.practice.algos.sort.mergesort;
 
-import java.util.Stack;
-
 public class MergeSort1 {
 
-    private final Stack<Integer> splitstack = new Stack<>();
-
     public int[] sort(int[] input) {
-
-        if (input.length < 2) {
-            return input;
-        }
-
-        System.out.println("__________________");
-        split(input);
-        System.out.println(splitstack);
-
-        int[] merged = new int[] { splitstack.pop() };
-
-        while (!splitstack.empty()) {
-            merged = merge(new int[] { splitstack.pop() }, merged);
-        }
-
-        return merged;
+        return splitAndMerge(input);
     }
 
-    private void split(int[] input) {
+    private int[] splitAndMerge(int[] input) {
         if (input.length == 1) {
-            splitstack.push(input[0]);
+            return new int[] { input[0] };
         } else {
             int midPoint = input.length / 2;
-            int[] upper = new int[midPoint];
-            System.arraycopy(input, 0, upper, 0, midPoint);
-            split(upper);
-            int[] lower = new int[input.length - midPoint];
-            System.arraycopy(input, midPoint, lower, 0, input.length - midPoint);
-            split(lower);
+            int[] upperSubArray = new int[midPoint];
+            System.arraycopy(input, 0, upperSubArray, 0, midPoint);
+            upperSubArray = splitAndMerge(upperSubArray);
+            int[] lowerSubArray = new int[input.length - midPoint];
+            System.arraycopy(input, midPoint, lowerSubArray, 0, input.length - midPoint);
+            lowerSubArray = splitAndMerge(lowerSubArray);
+            return merge(upperSubArray, lowerSubArray);
         }
     }
 
