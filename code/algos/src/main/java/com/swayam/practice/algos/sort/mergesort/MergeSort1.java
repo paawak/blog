@@ -1,8 +1,8 @@
-package com.swayam.practice.algos.sort;
+package com.swayam.practice.algos.sort.mergesort;
 
 import java.util.Stack;
 
-public class MergeSort {
+public class MergeSort1 {
 
     private final Stack<Integer> splitstack = new Stack<>();
 
