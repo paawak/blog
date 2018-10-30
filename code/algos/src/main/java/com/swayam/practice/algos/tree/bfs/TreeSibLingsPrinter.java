@@ -1,5 +1,8 @@
 package com.swayam.practice.algos.tree.bfs;
 
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+
 /**
  * Given the below Binary Tree structure:
  * 
@@ -28,6 +31,29 @@ package com.swayam.practice.algos.tree.bfs;
 public class TreeSibLingsPrinter {
 
     public void printSiblings(TreeNode root) {
+        Queue<String> queue = new ArrayBlockingQueue<>(100);
+        queue.add(root.getText());
+        traverse(queue, root);
+        System.out.println(queue);
+    }
+
+    private void traverse(Queue<String> queue, TreeNode node) {
+
+        if (node.getLeft() != null) {
+            queue.add(node.getLeft().getText());
+        }
+
+        if (node.getRight() != null) {
+            queue.add(node.getRight().getText());
+        }
+
+        if (node.getLeft() != null) {
+            traverse(queue, node.getLeft());
+        }
+
+        if (node.getRight() != null) {
+            traverse(queue, node.getRight());
+        }
 
     }
 
