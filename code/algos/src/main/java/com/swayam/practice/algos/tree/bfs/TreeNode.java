@@ -1,16 +1,17 @@
 package com.swayam.practice.algos.tree.bfs;
 
 class TreeNode {
-    private String text;
+
+    private final String text;
     private TreeNode left;
     private TreeNode right;
 
-    public String getText() {
-        return text;
+    public TreeNode(String text) {
+        this.text = text;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public String getText() {
+        return text;
     }
 
     public TreeNode getLeft() {

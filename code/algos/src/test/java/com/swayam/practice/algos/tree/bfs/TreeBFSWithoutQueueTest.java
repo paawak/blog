@@ -7,26 +7,19 @@ public class TreeBFSWithoutQueueTest {
     @Test
     public void testPrintSiblings() {
 
-        TreeNode nodeA = new TreeNode();
-        nodeA.setText("A");
-        TreeNode nodeB = new TreeNode();
-        nodeB.setText("B");
-        TreeNode nodeC = new TreeNode();
-        nodeC.setText("C");
+        TreeNode nodeA = new TreeNode("A");
+        TreeNode nodeB = new TreeNode("B");
+        TreeNode nodeC = new TreeNode("C");
         nodeA.setLeft(nodeB);
         nodeA.setRight(nodeC);
 
-        TreeNode nodeD = new TreeNode();
-        nodeD.setText("D");
-        TreeNode nodeE = new TreeNode();
-        nodeE.setText("E");
+        TreeNode nodeD = new TreeNode("D");
+        TreeNode nodeE = new TreeNode("E");
         nodeB.setLeft(nodeD);
         nodeB.setRight(nodeE);
 
-        TreeNode nodeF = new TreeNode();
-        nodeF.setText("F");
-        TreeNode nodeG = new TreeNode();
-        nodeG.setText("G");
+        TreeNode nodeF = new TreeNode("F");
+        TreeNode nodeG = new TreeNode("G");
         nodeC.setLeft(nodeF);
         nodeC.setRight(nodeG);
 
