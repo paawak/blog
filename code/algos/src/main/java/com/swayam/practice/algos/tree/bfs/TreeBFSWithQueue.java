@@ -20,9 +20,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * Print the below sequence:
  * 
  * <pre>
- *      A 
- *      B       C 
- *      D       E       F       G
+ *      A       B       C       D       E       F       G
  * </pre>
  * 
  * @author paawak
@@ -38,7 +36,7 @@ public class TreeBFSWithQueue {
 
         while (node != null) {
 
-            System.out.println(node.getText());
+            System.out.print(node.getText() + "\t");
 
             if (node.getLeft() != null) {
                 queue.add(node.getLeft());
