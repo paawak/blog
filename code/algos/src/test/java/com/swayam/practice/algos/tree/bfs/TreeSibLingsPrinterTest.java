@@ -2,7 +2,7 @@ package com.swayam.practice.algos.tree.bfs;
 
 import org.junit.Test;
 
-import com.swayam.practice.algos.tree.bfs.TreeSibLingsPrinter.TreeNode;
+import com.swayam.practice.algos.tree.bfs.TreeBFSWithoutQueue.TreeNode;
 
 public class TreeSibLingsPrinterTest {
 
@@ -32,7 +32,7 @@ public class TreeSibLingsPrinterTest {
         nodeC.setLeft(nodeF);
         nodeC.setRight(nodeG);
 
-        TreeSibLingsPrinter testClass = new TreeSibLingsPrinter();
+        TreeBFSWithoutQueue testClass = new TreeBFSWithoutQueue();
 
         testClass.printSiblings(nodeA);
 

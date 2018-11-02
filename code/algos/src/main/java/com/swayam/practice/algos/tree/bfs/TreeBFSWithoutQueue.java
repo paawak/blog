@@ -25,7 +25,7 @@ package com.swayam.practice.algos.tree.bfs;
  * @author paawak
  *
  */
-public class TreeSibLingsPrinter {
+public class TreeBFSWithoutQueue {
 
     public void printSiblings(TreeNode root) {
 
