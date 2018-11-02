@@ -45,7 +45,7 @@ public class TreeSibLingsPrinter {
         }
 
         if (depth == 1) {
-            System.out.print(node.text);
+            System.out.print(node.text + "\t");
         }
 
         if (depth > 1) {
