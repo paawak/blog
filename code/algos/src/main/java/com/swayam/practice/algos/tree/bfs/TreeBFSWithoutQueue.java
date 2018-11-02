@@ -45,7 +45,7 @@ public class TreeBFSWithoutQueue {
         }
 
         if (depth == 1) {
-            System.out.print(node.text + "\t");
+            System.out.print(node.getText() + "\t");
         }
 
         if (depth > 1) {
@@ -66,50 +66,10 @@ public class TreeBFSWithoutQueue {
 
         if (node == null) {
             return 0;
-        } else if (node.left == null && node.right == null) {
+        } else if (node.getLeft() == null && node.getRight() == null) {
             return 1;
         } else {
-            return 1 + Math.max(getHeight(node.left), getHeight(node.right));
-        }
-
-    }
-
-    static class TreeNode {
-        private String text;
-        private TreeNode left;
-        private TreeNode right;
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-        public TreeNode getLeft() {
-            return left;
-        }
-
-        public void setLeft(TreeNode left) {
-            this.left = left;
-        }
-
-        public TreeNode getRight() {
-            return right;
-        }
-
-        public void setRight(TreeNode right) {
-            this.right = right;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder builder = new StringBuilder();
-            builder.append("TreeNode [text=");
-            builder.append(text);
-            builder.append("]");
-            return builder.toString();
+            return 1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight()));
         }
 
     }

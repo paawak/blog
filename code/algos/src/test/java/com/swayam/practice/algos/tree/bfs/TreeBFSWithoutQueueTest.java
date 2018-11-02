@@ -2,9 +2,7 @@ package com.swayam.practice.algos.tree.bfs;
 
 import org.junit.Test;
 
-import com.swayam.practice.algos.tree.bfs.TreeBFSWithoutQueue.TreeNode;
-
-public class TreeSibLingsPrinterTest {
+public class TreeBFSWithoutQueueTest {
 
     @Test
     public void testPrintSiblings() {
