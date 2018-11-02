@@ -1,8 +1,5 @@
 package com.swayam.practice.algos.tree.bfs;
 
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
-
 /**
  * Given the below Binary Tree structure:
  * 
@@ -31,28 +28,48 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class TreeSibLingsPrinter {
 
     public void printSiblings(TreeNode root) {
-        Queue<String> queue = new ArrayBlockingQueue<>(100);
-        queue.add(root.getText());
-        traverse(queue, root);
-        System.out.println(queue);
+
+        int height = getHeight(root);
+
+        for (int depth = 1; depth <= height; depth++) {
+            printSiblings(root, depth);
+            System.out.println();
+        }
+
     }
 
-    private void traverse(Queue<String> queue, TreeNode node) {
+    private void printSiblings(TreeNode node, int depth) {
 
-        if (node.getLeft() != null) {
-            queue.add(node.getLeft().getText());
+        if (node == null) {
+            return;
         }
 
-        if (node.getRight() != null) {
-            queue.add(node.getRight().getText());
+        if (depth == 1) {
+            System.out.print(node.text);
         }
 
-        if (node.getLeft() != null) {
-            traverse(queue, node.getLeft());
+        if (depth > 1) {
+
+            if (node.getLeft() != null) {
+                printSiblings(node.getLeft(), depth - 1);
+            }
+
+            if (node.getRight() != null) {
+                printSiblings(node.getRight(), depth - 1);
+            }
+
         }
 
-        if (node.getRight() != null) {
-            traverse(queue, node.getRight());
+    }
+
+    private int getHeight(TreeNode node) {
+
+        if (node == null) {
+            return 0;
+        } else if (node.left == null && node.right == null) {
+            return 1;
+        } else {
+            return 1 + Math.max(getHeight(node.left), getHeight(node.right));
         }
 
     }
@@ -85,6 +102,16 @@ public class TreeSibLingsPrinter {
         public void setRight(TreeNode right) {
             this.right = right;
         }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("TreeNode [text=");
+            builder.append(text);
+            builder.append("]");
+            return builder.toString();
+        }
+
     }
 
 }
