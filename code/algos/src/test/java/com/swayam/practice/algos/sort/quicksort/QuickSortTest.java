@@ -13,10 +13,10 @@ public class QuickSortTest {
         QuickSort testClass = new QuickSort();
 
         // when
-        int[] result = testClass.sort(input);
+        testClass.sort(input);
 
         // then
-        assertArrayEquals(new int[] { 40 }, result);
+        assertArrayEquals(new int[] { 40 }, input);
     }
 
     @Test
@@ -26,10 +26,10 @@ public class QuickSortTest {
         QuickSort testClass = new QuickSort();
 
         // when
-        int[] result = testClass.sort(input);
+        testClass.sort(input);
 
         // then
-        assertArrayEquals(new int[] { 1, 2, 8, 10, 11, 40, 54, 95 }, result);
+        assertArrayEquals(new int[] { 1, 2, 8, 10, 11, 40, 54, 95 }, input);
     }
 
     @Test
@@ -39,10 +39,10 @@ public class QuickSortTest {
         QuickSort testClass = new QuickSort();
 
         // when
-        int[] result = testClass.sort(input);
+        testClass.sort(input);
 
         // then
-        assertArrayEquals(new int[] { 1, 2, 8, 10, 11, 40, 54, 57, 95 }, result);
+        assertArrayEquals(new int[] { 1, 2, 8, 10, 11, 40, 54, 57, 95 }, input);
     }
 
 }

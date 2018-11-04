@@ -2,9 +2,8 @@ package com.swayam.practice.algos.sort.quicksort;
 
 public class QuickSort {
 
-    public int[] sort(int[] input) {
+    public void sort(int[] input) {
         quickSort(input, 0, input.length - 1);
-        return input;
     }
 
     private void quickSort(int[] input, int startIndex, int endIndex) {
