@@ -21,7 +21,7 @@ public class QuickSort {
 
     private int partition(int[] input, int startIndex, int endIndex) {
 
-        int pivotIndex = (endIndex - startIndex) / 2;
+        int pivotIndex = (endIndex + startIndex) / 2;
 
         swap(input, pivotIndex, endIndex);
 
