@@ -64,7 +64,7 @@ public class Tree implements GenericTree<Integer> {
 
     }
 
-    public static class Node {
+    static class Node {
         private final int value;
         private Node left;
         private Node right;
