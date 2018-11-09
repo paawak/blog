@@ -21,7 +21,7 @@ import java.util.List;
  * 
  * @author paawak
  */
-public interface BinarySearchTree<E extends Comparable<E>> extends Tree<E> {
+public interface BinarySearchTree<E extends Comparable<E>> extends GenericTree<E> {
 
     void remove(E element);
 

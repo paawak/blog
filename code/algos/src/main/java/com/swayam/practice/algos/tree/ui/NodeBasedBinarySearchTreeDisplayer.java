@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.swayam.practice.algos.tree.NodeBasedBinarySearchTree;
-import com.swayam.practice.algos.tree.Tree;
+import com.swayam.practice.algos.tree.GenericTree;
 
 /**
  * 
@@ -55,7 +55,7 @@ public class NodeBasedBinarySearchTreeDisplayer {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Tree<Integer> tree = new NodeBasedBinarySearchTree<>();
+                GenericTree<Integer> tree = new NodeBasedBinarySearchTree<>();
 
                 tree.add(6);
                 tree.add(11);

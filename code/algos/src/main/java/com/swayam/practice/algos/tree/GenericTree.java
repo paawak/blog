@@ -21,7 +21,7 @@ import javax.swing.tree.TreeNode;
  * 
  * @author paawak
  */
-public interface Tree<E extends Comparable<E>> {
+public interface GenericTree<E extends Comparable<E>> {
 
     void add(E element);
 

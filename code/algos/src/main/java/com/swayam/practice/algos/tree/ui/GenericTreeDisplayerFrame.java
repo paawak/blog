@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.swayam.practice.algos.tree.BinarySearchTree;
-import com.swayam.practice.algos.tree.Tree;
+import com.swayam.practice.algos.tree.GenericTree;
 
 /**
  *
@@ -27,12 +27,12 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericTreeDisplayerFrame.class);
 
-    private final Tree<Integer> tree;
+    private final GenericTree<Integer> tree;
 
     /**
      * Creates new form TreeDisplayer
      */
-    public GenericTreeDisplayerFrame(Tree<Integer> tree) {
+    public GenericTreeDisplayerFrame(GenericTree<Integer> tree) {
         this.tree = tree;
         initComponents();
     }

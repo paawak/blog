@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.swayam.practice.algos.heap.BinaryHeapBackedByFixedArray;
-import com.swayam.practice.algos.tree.Tree;
+import com.swayam.practice.algos.tree.GenericTree;
 import com.swayam.practice.algos.tree.ui.GenericTreeDisplayerFrame;
 
 /**
@@ -56,7 +56,7 @@ public class BinaryHeapDisplayer {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Tree<Integer> tree = new BinaryHeapBackedByFixedArray<>(100);
+                GenericTree<Integer> tree = new BinaryHeapBackedByFixedArray<>(100);
 
                 // tree.add(552);
                 // tree.add(12);
