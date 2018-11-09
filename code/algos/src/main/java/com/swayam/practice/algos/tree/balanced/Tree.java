@@ -1,8 +1,70 @@
 package com.swayam.practice.algos.tree.balanced;
 
-public class Tree {
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 
-    static class Node {
+import com.swayam.practice.algos.tree.GenericTree;
+
+public class Tree implements GenericTree<Integer> {
+
+    private final Node root;
+
+    public Tree(Node root) {
+        this.root = root;
+    }
+
+    @Override
+    public void add(Integer element) {
+        add(root, element);
+    }
+
+    @Override
+    public Integer remove() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TreeNode getElementsAsTreeNode() {
+        return getAsTreeNode(root);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return (root.getLeft() == null) && (root.getRight() == null);
+    }
+
+    private DefaultMutableTreeNode getAsTreeNode(Node node) {
+        DefaultMutableTreeNode swingNode = new DefaultMutableTreeNode(node.getValue());
+        if (node.getRight() != null) {
+            DefaultMutableTreeNode right = getAsTreeNode(node.getRight());
+            swingNode.add(right);
+        } else if (node.getLeft() != null) {
+            DefaultMutableTreeNode left = getAsTreeNode(node.getLeft());
+            swingNode.add(left);
+        }
+
+        return swingNode;
+    }
+
+    private void add(Node node, Integer element) {
+
+        if (node.getValue() < element) {
+            if (node.getLeft() == null) {
+                node.setLeft(new Node(element));
+            } else {
+                add(node.getLeft(), element);
+            }
+        } else {
+            if (node.getRight() == null) {
+                node.setRight(new Node(element));
+            } else {
+                add(node.getRight(), element);
+            }
+        }
+
+    }
+
+    public static class Node {
         private final int value;
         private Node left;
         private Node right;
