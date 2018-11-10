@@ -42,7 +42,13 @@ public class Tree implements GenericTree<Integer> {
 
     private DefaultMutableTreeNode getAsTreeNode(Node node) {
         DefaultMutableTreeNode swingNode = new DefaultMutableTreeNode(node.getValue());
-        if (node.getRight() != null) {
+        if ((node.getRight() != null) && (node.getLeft() != null)) {
+            DefaultMutableTreeNode left = getAsTreeNode(node.getLeft());
+            swingNode.add(left);
+            DefaultMutableTreeNode right = getAsTreeNode(node.getRight());
+            swingNode.add(right);
+
+        } else if (node.getRight() != null) {
             DefaultMutableTreeNode right = getAsTreeNode(node.getRight());
             swingNode.add(right);
         } else if (node.getLeft() != null) {
@@ -55,7 +61,7 @@ public class Tree implements GenericTree<Integer> {
 
     private void add(Node node, Integer element) {
 
-        if (node.getValue() < element) {
+        if (element < node.getValue()) {
             if (node.getLeft() == null) {
                 node.setLeft(new Node(element));
             } else {
