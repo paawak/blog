@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import com.swayam.practice.algos.tree.balanced.BinaryTree;
 import com.swayam.practice.algos.tree.balanced.BreadthFirstTreeWalker;
+import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker;
 
 public class BinaryTreeImageGenerator {
 
@@ -44,6 +45,15 @@ public class BinaryTreeImageGenerator {
                 int gap = NODE_DIA + NODE_GAP;
                 nodeStartY += gap;
                 nodeStartX = midPointX - gap;
+            }
+        });
+
+        binaryTree.preOrderTreeWalker(new PreOrderTreeWalker() {
+
+            @Override
+            public void treeNode(int value, NodeType nodeType, boolean hasLeftChild, boolean hasRightChild) {
+                // TODO Auto-generated method stub
+
             }
         });
 

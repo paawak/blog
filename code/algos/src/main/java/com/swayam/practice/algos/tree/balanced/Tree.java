@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker.NodeType;
+
 public class Tree implements BinaryTree<Integer> {
 
     private Node root;
@@ -56,6 +58,11 @@ public class Tree implements BinaryTree<Integer> {
     }
 
     @Override
+    public void preOrderTreeWalker(PreOrderTreeWalker preOrderTreeWalker) {
+        preOrderTreeWalker(root, NodeType.ROOT, preOrderTreeWalker);
+    }
+
+    @Override
     public boolean isEmpty() {
         return (root.getLeft() == null) && (root.getRight() == null);
     }
@@ -88,6 +95,20 @@ public class Tree implements BinaryTree<Integer> {
         }
 
         return rootNode;
+    }
+
+    private void preOrderTreeWalker(Node node, NodeType nodeType, PreOrderTreeWalker preOrderTreeWalker) {
+
+        if (node == null) {
+            return;
+        }
+
+        preOrderTreeWalker.treeNode(node.getValue(), nodeType, node.getLeft() != null, node.getRight() != null);
+
+        preOrderTreeWalker(node.getLeft(), NodeType.LEFT_CHILD, preOrderTreeWalker);
+
+        preOrderTreeWalker(node.getRight(), NodeType.RIGHT_CHILD, preOrderTreeWalker);
+
     }
 
     private void breadthFirstTreeWalk(Node node, int depth, BreadthFirstTreeWalker breadthFirstTreeWalker) {

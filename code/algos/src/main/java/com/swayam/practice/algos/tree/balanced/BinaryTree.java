@@ -35,4 +35,6 @@ public interface BinaryTree<E extends Comparable<E>> {
 
     void breadthFirstWalker(BreadthFirstTreeWalker breadthFirstTreeWalker);
 
+    void preOrderTreeWalker(PreOrderTreeWalker preOrderTreeWalker);
+
 }
