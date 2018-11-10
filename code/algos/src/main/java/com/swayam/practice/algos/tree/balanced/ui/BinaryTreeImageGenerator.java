@@ -1,5 +1,6 @@
 package com.swayam.practice.algos.tree.balanced.ui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -23,10 +24,13 @@ public class BinaryTreeImageGenerator {
         int imageHeight = treeHeight * NODE_DIA + (treeHeight + 1) * NODE_GAP + 2 * TREE_GAP;
         BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
 
-        nodeStartX = imageWidth / 2 - NODE_DIA;
+        int midPointX = imageWidth / 2 - NODE_DIA;
+
+        nodeStartX = midPointX;
         nodeStartY = TREE_GAP - NODE_DIA;
 
         Graphics g = image.getGraphics();
+        g.fillRect(0, 0, imageWidth, imageHeight);
 
         binaryTree.breadthFirstWalker(new BreadthFirstTreeWalker() {
 
@@ -37,8 +41,9 @@ public class BinaryTreeImageGenerator {
 
             @Override
             public void depthChange(int depth) {
-                nodeStartY += NODE_DIA + NODE_GAP;
-                nodeStartX = imageWidth / 2 - NODE_DIA;
+                int gap = NODE_DIA + NODE_GAP;
+                nodeStartY += gap;
+                nodeStartX = midPointX - gap;
             }
         });
 
@@ -47,7 +52,9 @@ public class BinaryTreeImageGenerator {
 
     private int paintNode(Graphics g, Point start, Integer value) {
 
-        g.drawOval(start.x, start.y, NODE_DIA, NODE_DIA);
+        g.setColor(Color.BLUE);
+        g.fillOval(start.x, start.y, NODE_DIA, NODE_DIA);
+        g.setColor(Color.BLACK);
         g.drawString(Integer.toString(value), start.x + NODE_DIA / 2, start.y + NODE_DIA / 2);
 
         return start.x + NODE_DIA + NODE_GAP;
