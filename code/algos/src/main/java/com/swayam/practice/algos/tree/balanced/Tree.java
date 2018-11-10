@@ -45,6 +45,17 @@ public class Tree implements BinaryTree<Integer> {
     }
 
     @Override
+    public void breadthFirstWalker(BreadthFirstTreeWalker breadthFirstTreeWalker) {
+        int height = getHeight();
+
+        for (int depth = 1; depth <= height; depth++) {
+            breadthFirstTreeWalker.depthChange(depth);
+            breadthFirstTreeWalk(root, depth, breadthFirstTreeWalker);
+        }
+
+    }
+
+    @Override
     public boolean isEmpty() {
         return (root.getLeft() == null) && (root.getRight() == null);
     }
@@ -77,6 +88,27 @@ public class Tree implements BinaryTree<Integer> {
         }
 
         return rootNode;
+    }
+
+    private void breadthFirstTreeWalk(Node node, int depth, BreadthFirstTreeWalker breadthFirstTreeWalker) {
+
+        if (node == null) {
+            return;
+        }
+
+        if (depth == 1) {
+            breadthFirstTreeWalker.newElement(node.getValue());
+            return;
+        }
+
+        if (node.getLeft() != null) {
+            breadthFirstTreeWalk(node.getLeft(), depth - 1, breadthFirstTreeWalker);
+        }
+
+        if (node.getRight() != null) {
+            breadthFirstTreeWalk(node.getRight(), depth - 1, breadthFirstTreeWalker);
+        }
+
     }
 
     private int getHeight(Node node) {

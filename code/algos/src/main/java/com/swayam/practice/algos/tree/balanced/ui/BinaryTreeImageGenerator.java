@@ -4,15 +4,17 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import com.swayam.practice.algos.tree.balanced.BinaryTree;
+import com.swayam.practice.algos.tree.balanced.BreadthFirstTreeWalker;
 
 public class BinaryTreeImageGenerator {
 
     private static final int TREE_GAP = 100;
     private static final int NODE_DIA = 30;
     private static final int NODE_GAP = 30;
+
+    private int nodeStartX;
+    private int nodeStartY;
 
     public BufferedImage getImage(BinaryTree<Integer> binaryTree) {
         int treeHeight = binaryTree.getHeight();
@@ -21,33 +23,32 @@ public class BinaryTreeImageGenerator {
         int imageHeight = treeHeight * NODE_DIA + (treeHeight + 1) * NODE_GAP + 2 * TREE_GAP;
         BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
 
-        int nodeStartX = imageWidth / 2 - NODE_DIA;
-        int nodeStartY = TREE_GAP - NODE_DIA;
-
-        DefaultMutableTreeNode swingRootNode = binaryTree.getSwingTree();
+        nodeStartX = imageWidth / 2 - NODE_DIA;
+        nodeStartY = TREE_GAP - NODE_DIA;
 
         Graphics g = image.getGraphics();
 
-        // draw root
-        nodeStartX = paintNode(g, new Point(nodeStartX, nodeStartY), swingRootNode);
+        binaryTree.breadthFirstWalker(new BreadthFirstTreeWalker() {
 
-        // draw its children
-        for (int depth = 0; depth < swingRootNode.getChildCount(); depth++) {
-            DefaultMutableTreeNode swingSameDepthParentNode = (DefaultMutableTreeNode) swingRootNode.getChildAt(depth);
-            nodeStartY += NODE_DIA + NODE_GAP;
-
-            for (int childIndex = 0; childIndex < swingSameDepthParentNode.getChildCount(); childIndex++) {
-                nodeStartX = paintNode(g, new Point(nodeStartX, nodeStartY), (DefaultMutableTreeNode) swingSameDepthParentNode.getChildAt(childIndex));
+            @Override
+            public void newElement(int value) {
+                nodeStartX = paintNode(g, new Point(nodeStartX, nodeStartY), value);
             }
-        }
+
+            @Override
+            public void depthChange(int depth) {
+                nodeStartY += NODE_DIA + NODE_GAP;
+                nodeStartX = imageWidth / 2 - NODE_DIA;
+            }
+        });
 
         return image;
     }
 
-    private int paintNode(Graphics g, Point start, DefaultMutableTreeNode node) {
+    private int paintNode(Graphics g, Point start, Integer value) {
 
         g.drawOval(start.x, start.y, NODE_DIA, NODE_DIA);
-        g.drawString(node.getUserObject().toString(), start.x + NODE_DIA / 2, start.y + NODE_DIA / 2);
+        g.drawString(Integer.toString(value), start.x + NODE_DIA / 2, start.y + NODE_DIA / 2);
 
         return start.x + NODE_DIA + NODE_GAP;
 

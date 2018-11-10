@@ -33,4 +33,6 @@ public interface BinaryTree<E extends Comparable<E>> {
 
     DefaultMutableTreeNode getSwingTree();
 
+    void breadthFirstWalker(BreadthFirstTreeWalker breadthFirstTreeWalker);
+
 }
