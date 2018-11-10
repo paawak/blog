@@ -78,7 +78,7 @@ public class Tree implements BinaryTree<Integer> {
         }
 
         if (depth == 1) {
-            return siblingCount++;
+            return siblingCount + 1;
         }
 
         int leftSiblingCount = 0;
