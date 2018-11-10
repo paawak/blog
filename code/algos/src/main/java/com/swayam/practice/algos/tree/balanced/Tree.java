@@ -64,9 +64,13 @@ public class Tree implements BinaryTree<Integer> {
             List<Integer> siblings = new ArrayList<>();
             listSiblings(root, depth, siblings);
 
+            DefaultMutableTreeNode node = new DefaultMutableTreeNode();
+
             if (depth > 1) {
-                siblings.forEach(value -> rootNode.add(new DefaultMutableTreeNode(value)));
+                siblings.forEach(value -> node.add(new DefaultMutableTreeNode(value)));
             }
+
+            rootNode.add(node);
 
             siblings.clear();
 

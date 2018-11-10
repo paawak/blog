@@ -12,7 +12,7 @@ public class BinaryTreeImageGenerator {
 
     private static final int TREE_GAP = 100;
     private static final int NODE_DIA = 30;
-    private static final int NODE_GAP = 100;
+    private static final int NODE_GAP = 30;
 
     public BufferedImage getImage(BinaryTree<Integer> binaryTree) {
         int treeHeight = binaryTree.getHeight();
@@ -32,10 +32,13 @@ public class BinaryTreeImageGenerator {
         nodeStartX = paintNode(g, new Point(nodeStartX, nodeStartY), swingRootNode);
 
         // draw its children
-        for (int i = 0; i < swingRootNode.getChildCount(); i++) {
-            DefaultMutableTreeNode swingNode = (DefaultMutableTreeNode) swingRootNode.getChildAt(i);
+        for (int depth = 0; depth < swingRootNode.getChildCount(); depth++) {
+            DefaultMutableTreeNode swingSameDepthParentNode = (DefaultMutableTreeNode) swingRootNode.getChildAt(depth);
             nodeStartY += NODE_DIA + NODE_GAP;
-            nodeStartX = paintNode(g, new Point(nodeStartX, nodeStartY), swingNode);
+
+            for (int childIndex = 0; childIndex < swingSameDepthParentNode.getChildCount(); childIndex++) {
+                nodeStartX = paintNode(g, new Point(nodeStartX, nodeStartY), (DefaultMutableTreeNode) swingSameDepthParentNode.getChildAt(childIndex));
+            }
         }
 
         return image;
