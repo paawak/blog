@@ -11,8 +11,8 @@ import com.swayam.practice.algos.tree.balanced.BreadthFirstTreeWalker;
 public class BinaryTreeImageGenerator {
 
     private static final int TREE_GAP = 100;
-    private static final int NODE_DIA = 30;
-    private static final int NODE_GAP = 30;
+    private static final int NODE_DIA = 100;
+    private static final int NODE_GAP = 70;
 
     private int nodeStartX;
     private int nodeStartY;
