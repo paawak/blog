@@ -28,8 +28,33 @@ public class Tree implements BinaryTree<Integer> {
         return getAsTreeNode(root);
     }
 
+    @Override
     public int getHeight() {
         return getHeight(root);
+    }
+
+    @Override
+    public int getBreadth() {
+        int height = getHeight();
+
+        if (height == 0) {
+            return 0;
+        }
+
+        int maxBreadth = 0;
+
+        for (int depth = 1; depth <= height; depth++) {
+            int siblingCount = getSiblingCount(root, depth, 0);
+            maxBreadth = Math.max(maxBreadth, siblingCount);
+        }
+
+        return maxBreadth;
+
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return (root.getLeft() == null) && (root.getRight() == null);
     }
 
     private int getHeight(Node node) {
@@ -46,9 +71,29 @@ public class Tree implements BinaryTree<Integer> {
 
     }
 
-    @Override
-    public boolean isEmpty() {
-        return (root.getLeft() == null) && (root.getRight() == null);
+    private int getSiblingCount(Node node, int depth, int siblingCount) {
+
+        if (node == null) {
+            return 0;
+        }
+
+        if (depth == 1) {
+            return siblingCount++;
+        }
+
+        int leftSiblingCount = 0;
+        int rightSiblingCount = 0;
+
+        if (node.getLeft() != null) {
+            leftSiblingCount = getSiblingCount(node.getLeft(), depth - 1, siblingCount);
+        }
+
+        if (node.getRight() != null) {
+            rightSiblingCount = getSiblingCount(node.getRight(), depth - 1, siblingCount);
+        }
+
+        return siblingCount + leftSiblingCount + rightSiblingCount;
+
     }
 
     private DefaultMutableTreeNode getAsTreeNode(Node node) {

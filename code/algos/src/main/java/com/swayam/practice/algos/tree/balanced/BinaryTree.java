@@ -25,8 +25,12 @@ public interface BinaryTree<E extends Comparable<E>> {
 
     void add(E element);
 
-    TreeNode getSwingTree();
+    int getHeight();
+
+    int getBreadth();
 
     boolean isEmpty();
+
+    TreeNode getSwingTree();
 
 }
