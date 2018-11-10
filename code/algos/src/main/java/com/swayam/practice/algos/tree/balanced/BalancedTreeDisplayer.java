@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.swayam.practice.algos.tree.GenericTree;
-import com.swayam.practice.algos.tree.balanced.Tree.Node;
 import com.swayam.practice.algos.tree.ui.GenericTreeDisplayerFrame;
 
 /**
@@ -55,7 +54,7 @@ public class BalancedTreeDisplayer {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                GenericTree<Integer> tree = new Tree(new Node(30));
+                GenericTree<Integer> tree = new Tree();
 
                 new GenericTreeDisplayerFrame(tree).setVisible(true);
             }

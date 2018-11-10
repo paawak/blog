@@ -51,7 +51,7 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
         pnlTitle = new javax.swing.JPanel();
         lbTitle = new javax.swing.JLabel();
         scrPnTree = new javax.swing.JScrollPane();
-        jTree = new JTree(new DefaultTreeModel(tree.getElementsAsTreeNode()));
+        jTree = new JTree(new DefaultTreeModel(tree.getSwingTree()));
         pnlBottom = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
@@ -104,7 +104,7 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
 
             LOGGER.info("Trying to add element {}...", inputInt);
             tree.add(inputInt);
-            jTree.setModel(new DefaultTreeModel(tree.getElementsAsTreeNode()));
+            jTree.setModel(new DefaultTreeModel(tree.getSwingTree()));
         }
 
     }// GEN-LAST:event_btnAddActionPerformed
@@ -132,7 +132,7 @@ public class GenericTreeDisplayerFrame extends javax.swing.JFrame {
             tree.remove();
         }
 
-        jTree.setModel(new DefaultTreeModel(tree.getElementsAsTreeNode()));
+        jTree.setModel(new DefaultTreeModel(tree.getSwingTree()));
     }// GEN-LAST:event_btnRemoveActionPerformed
 
     private Optional<Integer> getUserInputForInteger(String message, String title) {

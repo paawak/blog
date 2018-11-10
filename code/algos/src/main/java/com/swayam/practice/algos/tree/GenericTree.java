@@ -32,7 +32,7 @@ public interface GenericTree<E extends Comparable<E>> {
      */
     E remove();
 
-    TreeNode getElementsAsTreeNode();
+    TreeNode getSwingTree();
 
     boolean isEmpty();
 

@@ -164,7 +164,7 @@ public class NodeBasedBinarySearchTree<E extends Comparable<E>> implements Binar
     }
 
     @Override
-    public TreeNode getElementsAsTreeNode() {
+    public TreeNode getSwingTree() {
         return getAsTreeNode(rootNode);
     }
 

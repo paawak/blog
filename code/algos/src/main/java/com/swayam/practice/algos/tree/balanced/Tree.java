@@ -7,14 +7,16 @@ import com.swayam.practice.algos.tree.GenericTree;
 
 public class Tree implements GenericTree<Integer> {
 
-    private final Node root;
-
-    public Tree(Node root) {
-        this.root = root;
-    }
+    private Node root;
 
     @Override
     public void add(Integer element) {
+
+        if (root == null) {
+            root = new Node(element);
+            return;
+        }
+
         add(root, element);
     }
 
@@ -24,7 +26,12 @@ public class Tree implements GenericTree<Integer> {
     }
 
     @Override
-    public TreeNode getElementsAsTreeNode() {
+    public TreeNode getSwingTree() {
+
+        if (root == null) {
+            return new DefaultMutableTreeNode();
+        }
+
         return getAsTreeNode(root);
     }
 
@@ -64,7 +71,7 @@ public class Tree implements GenericTree<Integer> {
 
     }
 
-    static class Node {
+    private static class Node {
         private final int value;
         private Node left;
         private Node right;

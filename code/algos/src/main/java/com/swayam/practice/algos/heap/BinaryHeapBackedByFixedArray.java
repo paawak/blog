@@ -86,7 +86,7 @@ public class BinaryHeapBackedByFixedArray<E extends Comparable<E>> implements Pr
     }
 
     @Override
-    public TreeNode getElementsAsTreeNode() {
+    public TreeNode getSwingTree() {
         return getElementAsTreeNode(ROOT_INDEX);
     }
 
