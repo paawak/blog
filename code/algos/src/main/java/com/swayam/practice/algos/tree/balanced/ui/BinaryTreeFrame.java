@@ -92,7 +92,7 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
             Integer inputInt = input.get();
 
             binaryTree.add(inputInt);
-            lblTree.setIcon(new ImageIcon(new BinaryTreeImageGenerator().getImage(binaryTree)));
+            updateTreeImage();
         }
 
     }// GEN-LAST:event_btnAddActionPerformed
@@ -102,6 +102,10 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
         throw new UnsupportedOperationException();
 
     }// GEN-LAST:event_btnRemoveActionPerformed
+
+    private void updateTreeImage() {
+        lblTree.setIcon(new ImageIcon(new BinaryTreeImageGenerator().getImage(binaryTree)));
+    }
 
     private Optional<Integer> getUserInputForInteger(String message, String title) {
         String input = JOptionPane.showInputDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
@@ -152,7 +156,18 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new BinaryTreeFrame(new Tree()).setVisible(true);
+                Tree tree = new Tree();
+                tree.add(100);
+                tree.add(50);
+                tree.add(500);
+                tree.add(400);
+                tree.add(600);
+                tree.add(40);
+                tree.add(70);
+                BinaryTreeFrame frame = new BinaryTreeFrame(tree);
+                frame.updateTreeImage();
+                frame.setVisible(true);
+
             }
         });
     }
