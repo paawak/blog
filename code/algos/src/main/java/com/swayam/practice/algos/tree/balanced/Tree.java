@@ -1,7 +1,9 @@
 package com.swayam.practice.algos.tree.balanced;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
 
 public class Tree implements BinaryTree<Integer> {
 
@@ -48,13 +50,29 @@ public class Tree implements BinaryTree<Integer> {
     }
 
     @Override
-    public TreeNode getSwingTree() {
+    public DefaultMutableTreeNode getSwingTree() {
 
         if (root == null) {
             return new DefaultMutableTreeNode();
         }
 
-        return getAsTreeNode(root);
+        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(root.getValue());
+
+        int height = getHeight();
+
+        for (int depth = 1; depth <= height; depth++) {
+            List<Integer> siblings = new ArrayList<>();
+            listSiblings(root, depth, siblings);
+
+            if (depth > 1) {
+                siblings.forEach(value -> rootNode.add(new DefaultMutableTreeNode(value)));
+            }
+
+            siblings.clear();
+
+        }
+
+        return rootNode;
     }
 
     private int getHeight(Node node) {
@@ -96,23 +114,25 @@ public class Tree implements BinaryTree<Integer> {
 
     }
 
-    private DefaultMutableTreeNode getAsTreeNode(Node node) {
-        DefaultMutableTreeNode swingNode = new DefaultMutableTreeNode(node.getValue());
-        if ((node.getRight() != null) && (node.getLeft() != null)) {
-            DefaultMutableTreeNode left = getAsTreeNode(node.getLeft());
-            swingNode.add(left);
-            DefaultMutableTreeNode right = getAsTreeNode(node.getRight());
-            swingNode.add(right);
+    private void listSiblings(Node node, int depth, List<Integer> siblings) {
 
-        } else if (node.getRight() != null) {
-            DefaultMutableTreeNode right = getAsTreeNode(node.getRight());
-            swingNode.add(right);
-        } else if (node.getLeft() != null) {
-            DefaultMutableTreeNode left = getAsTreeNode(node.getLeft());
-            swingNode.add(left);
+        if (node == null) {
+            return;
         }
 
-        return swingNode;
+        if (depth == 1) {
+            siblings.add(node.getValue());
+            return;
+        }
+
+        if (node.getLeft() != null) {
+            listSiblings(node.getLeft(), depth - 1, siblings);
+        }
+
+        if (node.getRight() != null) {
+            listSiblings(node.getRight(), depth - 1, siblings);
+        }
+
     }
 
     private void add(Node node, Integer element) {

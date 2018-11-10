@@ -1,15 +1,53 @@
 package com.swayam.practice.algos.tree.balanced.ui;
 
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import javax.swing.tree.TreeNode;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import com.swayam.practice.algos.tree.balanced.BinaryTree;
 
 public class BinaryTreeImageGenerator {
 
-    public BufferedImage getImage(int width, int height, TreeNode node) {
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    private static final int TREE_GAP = 100;
+    private static final int NODE_DIA = 30;
+    private static final int NODE_GAP = 100;
+
+    public BufferedImage getImage(BinaryTree<Integer> binaryTree) {
+        int treeHeight = binaryTree.getHeight();
+        int treeBreadth = binaryTree.getBreadth();
+        int imageWidth = treeBreadth * NODE_DIA + (treeBreadth + 1) * NODE_GAP + 2 * TREE_GAP;
+        int imageHeight = treeHeight * NODE_DIA + (treeHeight + 1) * NODE_GAP + 2 * TREE_GAP;
+        BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+
+        int nodeStartX = imageWidth / 2 - NODE_DIA;
+        int nodeStartY = TREE_GAP - NODE_DIA;
+
+        DefaultMutableTreeNode swingRootNode = binaryTree.getSwingTree();
+
+        Graphics g = image.getGraphics();
+
+        // draw root
+        nodeStartX = paintNode(g, new Point(nodeStartX, nodeStartY), swingRootNode);
+
+        // draw its children
+        for (int i = 0; i < swingRootNode.getChildCount(); i++) {
+            DefaultMutableTreeNode swingNode = (DefaultMutableTreeNode) swingRootNode.getChildAt(i);
+            nodeStartY += NODE_DIA + NODE_GAP;
+            nodeStartX = paintNode(g, new Point(nodeStartX, nodeStartY), swingNode);
+        }
 
         return image;
+    }
+
+    private int paintNode(Graphics g, Point start, DefaultMutableTreeNode node) {
+
+        g.drawOval(start.x, start.y, NODE_DIA, NODE_DIA);
+        g.drawString(node.getUserObject().toString(), start.x + NODE_DIA / 2, start.y + NODE_DIA / 2);
+
+        return start.x + NODE_DIA + NODE_GAP;
+
     }
 
 }

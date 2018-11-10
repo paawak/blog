@@ -92,7 +92,7 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
             Integer inputInt = input.get();
 
             binaryTree.add(inputInt);
-            lblTree.setIcon(new ImageIcon(new BinaryTreeImageGenerator().getImage(500, 500, binaryTree.getSwingTree())));
+            lblTree.setIcon(new ImageIcon(new BinaryTreeImageGenerator().getImage(binaryTree)));
         }
 
     }// GEN-LAST:event_btnAddActionPerformed
