@@ -19,16 +19,6 @@ public class Tree implements BinaryTree<Integer> {
     }
 
     @Override
-    public TreeNode getSwingTree() {
-
-        if (root == null) {
-            return new DefaultMutableTreeNode();
-        }
-
-        return getAsTreeNode(root);
-    }
-
-    @Override
     public int getHeight() {
         return getHeight(root);
     }
@@ -55,6 +45,16 @@ public class Tree implements BinaryTree<Integer> {
     @Override
     public boolean isEmpty() {
         return (root.getLeft() == null) && (root.getRight() == null);
+    }
+
+    @Override
+    public TreeNode getSwingTree() {
+
+        if (root == null) {
+            return new DefaultMutableTreeNode();
+        }
+
+        return getAsTreeNode(root);
     }
 
     private int getHeight(Node node) {
