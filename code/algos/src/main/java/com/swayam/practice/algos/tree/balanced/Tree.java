@@ -3,9 +3,7 @@ package com.swayam.practice.algos.tree.balanced;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-import com.swayam.practice.algos.tree.GenericTree;
-
-public class Tree implements GenericTree<Integer> {
+public class Tree implements BinaryTree<Integer> {
 
     private Node root;
 
@@ -18,11 +16,6 @@ public class Tree implements GenericTree<Integer> {
         }
 
         add(root, element);
-    }
-
-    @Override
-    public Integer remove() {
-        throw new UnsupportedOperationException();
     }
 
     @Override
