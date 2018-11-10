@@ -28,6 +28,24 @@ public class Tree implements BinaryTree<Integer> {
         return getAsTreeNode(root);
     }
 
+    public int getHeight() {
+        return getHeight(root);
+    }
+
+    private int getHeight(Node node) {
+
+        if (node == null) {
+            return 0;
+        }
+
+        if (node.getLeft() == null && node.getRight() == null) {
+            return 1;
+        }
+
+        return Math.max(getHeight(node.getLeft()), getHeight(node.getRight())) + 1;
+
+    }
+
     @Override
     public boolean isEmpty() {
         return (root.getLeft() == null) && (root.getRight() == null);
