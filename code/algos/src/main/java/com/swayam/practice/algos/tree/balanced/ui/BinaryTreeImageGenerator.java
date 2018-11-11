@@ -56,9 +56,9 @@ public class BinaryTreeImageGenerator {
         paintNode(g, new Point(nodeStartX, nodeStartY), node.getValue());
 
         int childNodeGap = 0;
-        // if (heightOfNode > 1) {
-        // childNodeGap = getNodeGap(heightOfNode, maxTreeBreadth);
-        // }
+        if (heightOfNode < treeHeight - 1) {
+            childNodeGap = getNodeGap(treeHeight - heightOfNode, maxTreeBreadth);
+        }
 
         Point lowerMidPointOfNode = new Point(nodeStartX + NODE_DIA / 2, nodeStartY + NODE_DIA);
 
