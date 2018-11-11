@@ -5,10 +5,14 @@
  */
 package com.swayam.practice.algos.tree.balanced.ui;
 
+import java.awt.BorderLayout;
+import java.awt.image.BufferedImage;
 import java.util.Optional;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import com.swayam.practice.algos.tree.balanced.Tree;
 
@@ -41,7 +45,6 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
 
         lblTitle = new javax.swing.JLabel();
         scrPnlTree = new javax.swing.JScrollPane();
-        lblTree = new javax.swing.JLabel();
         pnlButtons = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
@@ -52,9 +55,8 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
         lblTitle.setText("Binary Tree");
         getContentPane().add(lblTitle, java.awt.BorderLayout.NORTH);
 
-        lblTree.setMinimumSize(new java.awt.Dimension(500, 500));
-        lblTree.setPreferredSize(new java.awt.Dimension(500, 500));
-        scrPnlTree.setViewportView(lblTree);
+        scrPnlTree.setMinimumSize(new java.awt.Dimension(500, 500));
+        scrPnlTree.setPreferredSize(new java.awt.Dimension(500, 500));
 
         getContentPane().add(scrPnlTree, java.awt.BorderLayout.CENTER);
 
@@ -103,7 +105,13 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
     }// GEN-LAST:event_btnRemoveActionPerformed
 
     private void updateTreeImage() {
-        lblTree.setIcon(new ImageIcon(new BinaryTreeImageGenerator().getImage(binaryTree)));
+        BufferedImage image = new BinaryTreeImageGenerator().getImage(binaryTree);
+        JPanel pnlTree = new JPanel();
+        pnlTree.setLayout(new BorderLayout());
+        pnlTree.setSize(image.getWidth(), image.getHeight());
+        pnlTree.removeAll();
+        pnlTree.add(new JLabel(new ImageIcon(image)), BorderLayout.CENTER);
+        scrPnlTree.setViewportView(pnlTree);
     }
 
     private Optional<Integer> getUserInputForInteger(String message, String title) {
@@ -175,7 +183,6 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemove;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JLabel lblTree;
     private javax.swing.JPanel pnlButtons;
     private javax.swing.JScrollPane scrPnlTree;
     // End of variables declaration//GEN-END:variables
