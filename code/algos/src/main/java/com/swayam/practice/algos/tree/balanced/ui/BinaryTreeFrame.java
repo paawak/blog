@@ -10,7 +10,6 @@ import java.util.Optional;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import com.swayam.practice.algos.tree.balanced.BinaryTree;
 import com.swayam.practice.algos.tree.balanced.Tree;
 
 /**
@@ -21,12 +20,12 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private final BinaryTree<Integer> binaryTree;
+    private final Tree binaryTree;
 
     /**
      * Creates new form BinaryTreeFrame
      */
-    public BinaryTreeFrame(BinaryTree<Integer> binaryTree) {
+    public BinaryTreeFrame(Tree binaryTree) {
         this.binaryTree = binaryTree;
         initComponents();
     }

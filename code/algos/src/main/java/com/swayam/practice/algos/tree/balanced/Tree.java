@@ -97,6 +97,10 @@ public class Tree implements BinaryTree<Integer> {
         return rootNode;
     }
 
+    public Node getRoot() {
+        return root;
+    }
+
     private void preOrderTreeWalker(Node node, NodeType nodeType, PreOrderTreeWalker preOrderTreeWalker) {
 
         if (node == null) {
@@ -132,7 +136,7 @@ public class Tree implements BinaryTree<Integer> {
 
     }
 
-    private int getHeight(Node node) {
+    public int getHeight(Node node) {
 
         if (node == null) {
             return 0;
@@ -210,7 +214,7 @@ public class Tree implements BinaryTree<Integer> {
 
     }
 
-    static class Node {
+    public static class Node {
         private final int value;
         private Node left;
         private Node right;
