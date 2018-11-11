@@ -51,7 +51,7 @@ public class BinaryTreeImageGenerator {
             int endX = lowerMidPointOfNode.x - (NODE_GAP + NODE_DIA / 2);
             g.drawLine(lowerMidPointOfNode.x, lowerMidPointOfNode.y, endX, lowerMidPointOfNode.y + NODE_GAP);
             g.setColor(Color.BLUE);
-            paintNode(g, binaryTree, node.getLeft(), treeHeight, endX);
+            paintNode(g, binaryTree, node.getLeft(), treeHeight, endX - NODE_DIA);
         }
 
         if (node.getRight() != null) {
