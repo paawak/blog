@@ -21,11 +21,9 @@ public class BinaryTreeImageGenerator {
 
     public BufferedImage getImage(Tree binaryTree) {
         int treeHeight = binaryTree.getHeight();
-        int maxTreeBreadth = 2 * TREE_GAP + getMaxNodes(treeHeight) * (NODE_DIA + NODE_GAP);
+        int maxTreeBreadth = 2 * TREE_GAP + getMaxNodes(treeHeight) * NODE_DIA + (getMaxNodes(treeHeight) - 1) * NODE_GAP;
         int imageHeight = treeHeight * NODE_DIA + (treeHeight + 1) * NODE_GAP + 2 * TREE_GAP;
         BufferedImage image = new BufferedImage(maxTreeBreadth, imageHeight, BufferedImage.TYPE_INT_ARGB);
-
-        int midPointX = maxTreeBreadth / 2 - NODE_DIA;
 
         Graphics g = image.getGraphics();
         g.fillRect(0, 0, maxTreeBreadth, imageHeight);
@@ -33,7 +31,7 @@ public class BinaryTreeImageGenerator {
         // start from root
         g.setColor(Color.RED);
 
-        paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight, midPointX);
+        paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight, maxTreeBreadth, maxTreeBreadth / 2 - NODE_DIA / 2);
 
         return image;
     }
@@ -42,7 +40,12 @@ public class BinaryTreeImageGenerator {
         return (int) Math.ceil(Math.pow(2, nodeHeight - 1));
     }
 
-    private void paintNode(Graphics g, Tree binaryTree, Node node, int treeHeight, int nodeStartX) {
+    private int getNodeGap(int nodeHeight, int maxTreeBreadth) {
+        LOGGER.debug("nodeHeight: {}", nodeHeight);
+        return (maxTreeBreadth - (2 * TREE_GAP + getMaxNodes(nodeHeight) * NODE_DIA)) / (getMaxNodes(nodeHeight) - 1);
+    }
+
+    private void paintNode(Graphics g, Tree binaryTree, Node node, int treeHeight, int maxTreeBreadth, int nodeStartX) {
         if (node == null) {
             return;
         }
@@ -52,22 +55,27 @@ public class BinaryTreeImageGenerator {
 
         paintNode(g, new Point(nodeStartX, nodeStartY), node.getValue());
 
+        int childNodeGap = 0;
+        // if (heightOfNode > 1) {
+        // childNodeGap = getNodeGap(heightOfNode, maxTreeBreadth);
+        // }
+
         Point lowerMidPointOfNode = new Point(nodeStartX + NODE_DIA / 2, nodeStartY + NODE_DIA);
 
         if (node.getLeft() != null) {
             g.setColor(Color.BLACK);
-            int endX = lowerMidPointOfNode.x - (NODE_GAP + NODE_DIA / 2);
+            int endX = lowerMidPointOfNode.x - (NODE_GAP + NODE_DIA / 2 + childNodeGap);
             g.drawLine(lowerMidPointOfNode.x, lowerMidPointOfNode.y, endX, lowerMidPointOfNode.y + NODE_GAP);
             g.setColor(Color.BLUE);
-            paintNode(g, binaryTree, node.getLeft(), treeHeight, endX - NODE_DIA);
+            paintNode(g, binaryTree, node.getLeft(), treeHeight, maxTreeBreadth, endX - NODE_DIA);
         }
 
         if (node.getRight() != null) {
             g.setColor(Color.BLACK);
-            int endX = lowerMidPointOfNode.x + (NODE_GAP + NODE_DIA / 2);
+            int endX = lowerMidPointOfNode.x + (NODE_GAP + NODE_DIA / 2 + childNodeGap);
             g.drawLine(lowerMidPointOfNode.x, lowerMidPointOfNode.y, endX, lowerMidPointOfNode.y + NODE_GAP);
             g.setColor(Color.GREEN);
-            paintNode(g, binaryTree, node.getRight(), treeHeight, endX);
+            paintNode(g, binaryTree, node.getRight(), treeHeight, maxTreeBreadth, endX);
         }
 
     }
