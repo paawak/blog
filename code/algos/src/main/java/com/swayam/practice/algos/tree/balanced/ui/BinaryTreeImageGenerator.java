@@ -70,6 +70,8 @@ public class BinaryTreeImageGenerator {
         g.setColor(Color.BLACK);
         g.drawString(Integer.toString(value), start.x + NODE_DIA / 2, start.y + NODE_DIA / 2);
 
+        System.out.println("painted: -----> " + value);
+
     }
 
 }
