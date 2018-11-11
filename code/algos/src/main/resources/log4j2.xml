@@ -2,7 +2,7 @@
 <Configuration>
 	<Appenders>
 		<Console name="CONSOLE" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d{ISO8601} %p [%t] %c{36}.%M(%L) | %m%n" />
+			<PatternLayout pattern="%p %c{10}.%M(%L) | %m%n" />
 		</Console>
 
 		<RollingRandomAccessFile name="FILE"

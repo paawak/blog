@@ -5,10 +5,15 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.swayam.practice.algos.tree.balanced.Tree;
 import com.swayam.practice.algos.tree.balanced.Tree.Node;
 
 public class BinaryTreeImageGenerator {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BinaryTreeImageGenerator.class);
 
     private static final int TREE_GAP = 100;
     private static final int NODE_DIA = 100;
@@ -70,7 +75,7 @@ public class BinaryTreeImageGenerator {
         g.setColor(Color.BLACK);
         g.drawString(Integer.toString(value), start.x + NODE_DIA / 2, start.y + NODE_DIA / 2);
 
-        System.out.println("painted: -----> " + value);
+        LOGGER.info("Printed node {} at ({}, {})", value, start.x, start.y);
 
     }
 
