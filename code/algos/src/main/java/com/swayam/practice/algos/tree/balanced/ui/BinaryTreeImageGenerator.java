@@ -21,15 +21,14 @@ public class BinaryTreeImageGenerator {
 
     public BufferedImage getImage(Tree binaryTree) {
         int treeHeight = binaryTree.getHeight();
-        int treeBreadth = binaryTree.getBreadth();
-        int imageWidth = treeBreadth * NODE_DIA + (treeBreadth + 1) * NODE_GAP + 2 * TREE_GAP;
+        int maxTreeBreadth = 2 * TREE_GAP + getMaxNodes(treeHeight) * (NODE_DIA + NODE_GAP);
         int imageHeight = treeHeight * NODE_DIA + (treeHeight + 1) * NODE_GAP + 2 * TREE_GAP;
-        BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(maxTreeBreadth, imageHeight, BufferedImage.TYPE_INT_ARGB);
 
-        int midPointX = imageWidth / 2 - NODE_DIA;
+        int midPointX = maxTreeBreadth / 2 - NODE_DIA;
 
         Graphics g = image.getGraphics();
-        g.fillRect(0, 0, imageWidth, imageHeight);
+        g.fillRect(0, 0, maxTreeBreadth, imageHeight);
 
         // start from root
         g.setColor(Color.RED);
@@ -37,6 +36,10 @@ public class BinaryTreeImageGenerator {
         paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight, midPointX);
 
         return image;
+    }
+
+    private int getMaxNodes(int nodeHeight) {
+        return (int) Math.ceil(Math.pow(2, nodeHeight - 1));
     }
 
     private void paintNode(Graphics g, Tree binaryTree, Node node, int treeHeight, int nodeStartX) {
