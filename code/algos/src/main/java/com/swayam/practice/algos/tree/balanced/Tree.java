@@ -103,7 +103,7 @@ public class Tree implements BinaryTree<Integer> {
             return;
         }
 
-        preOrderTreeWalker.treeNode(node.getValue(), nodeType, node.getLeft() != null, node.getRight() != null);
+        preOrderTreeWalker.treeNode(node.getValue(), nodeType, node.getLeft() != null, node.getRight() != null, getHeight(node));
 
         preOrderTreeWalker(node.getLeft(), NodeType.LEFT_CHILD, preOrderTreeWalker);
 
@@ -210,7 +210,7 @@ public class Tree implements BinaryTree<Integer> {
 
     }
 
-    private static class Node {
+    static class Node {
         private final int value;
         private Node left;
         private Node right;

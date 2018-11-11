@@ -6,7 +6,6 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import com.swayam.practice.algos.tree.balanced.BinaryTree;
-import com.swayam.practice.algos.tree.balanced.BreadthFirstTreeWalker;
 import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker;
 
 public class BinaryTreeImageGenerator {
@@ -16,7 +15,6 @@ public class BinaryTreeImageGenerator {
     private static final int NODE_GAP = 70;
 
     private int nodeStartX;
-    private int nodeStartY;
 
     public BufferedImage getImage(BinaryTree<Integer> binaryTree) {
         int treeHeight = binaryTree.getHeight();
@@ -28,31 +26,46 @@ public class BinaryTreeImageGenerator {
         int midPointX = imageWidth / 2 - NODE_DIA;
 
         nodeStartX = midPointX;
-        nodeStartY = TREE_GAP - NODE_DIA;
 
         Graphics g = image.getGraphics();
         g.fillRect(0, 0, imageWidth, imageHeight);
 
-        binaryTree.breadthFirstWalker(new BreadthFirstTreeWalker() {
-
-            @Override
-            public void newElement(int value) {
-                nodeStartX = paintNode(g, new Point(nodeStartX, nodeStartY), value);
-            }
-
-            @Override
-            public void depthChange(int depth) {
-                int gap = NODE_DIA + NODE_GAP;
-                nodeStartY += gap;
-                nodeStartX = midPointX - gap;
-            }
-        });
-
         binaryTree.preOrderTreeWalker(new PreOrderTreeWalker() {
 
             @Override
-            public void treeNode(int value, NodeType nodeType, boolean hasLeftChild, boolean hasRightChild) {
-                // TODO Auto-generated method stub
+            public void treeNode(int value, NodeType nodeType, boolean hasLeftChild, boolean hasRightChild, int heightOfNode) {
+
+                int nodeStartY = TREE_GAP + NODE_DIA + (treeHeight - heightOfNode) * (NODE_DIA + NODE_GAP);
+
+                if (nodeType == NodeType.ROOT) {
+                    g.setColor(Color.RED);
+                } else if (nodeType == NodeType.LEFT_CHILD) {
+                    g.setColor(Color.BLUE);
+                } else if (nodeType == NodeType.RIGHT_CHILD) {
+                    g.setColor(Color.GREEN);
+                }
+
+                paintNode(g, new Point(nodeStartX, nodeStartY), value);
+
+                g.setColor(Color.BLACK);
+
+                Point lowerMidPointOfNode = new Point(nodeStartX + NODE_DIA / 2, nodeStartY + NODE_DIA);
+
+                if (hasLeftChild) {
+                    g.drawLine(lowerMidPointOfNode.x, lowerMidPointOfNode.y, lowerMidPointOfNode.x - (NODE_GAP + NODE_DIA / 2),
+                            lowerMidPointOfNode.y + NODE_GAP);
+                }
+
+                if (hasRightChild) {
+                    g.drawLine(lowerMidPointOfNode.x, lowerMidPointOfNode.y, lowerMidPointOfNode.x + (NODE_GAP + NODE_DIA / 2),
+                            lowerMidPointOfNode.y + NODE_GAP);
+                }
+
+                if (nodeType == NodeType.LEFT_CHILD) {
+                    nodeStartX = nodeStartX - (NODE_DIA + NODE_GAP);
+                } else if (nodeType == NodeType.RIGHT_CHILD) {
+                    nodeStartX = nodeStartX + (NODE_DIA + NODE_GAP);
+                }
 
             }
         });
@@ -60,14 +73,11 @@ public class BinaryTreeImageGenerator {
         return image;
     }
 
-    private int paintNode(Graphics g, Point start, Integer value) {
+    private void paintNode(Graphics g, Point start, Integer value) {
 
-        g.setColor(Color.BLUE);
         g.fillOval(start.x, start.y, NODE_DIA, NODE_DIA);
         g.setColor(Color.BLACK);
         g.drawString(Integer.toString(value), start.x + NODE_DIA / 2, start.y + NODE_DIA / 2);
-
-        return start.x + NODE_DIA + NODE_GAP;
 
     }
 
