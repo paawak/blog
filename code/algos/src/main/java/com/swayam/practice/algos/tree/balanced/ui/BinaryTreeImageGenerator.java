@@ -16,8 +16,8 @@ public class BinaryTreeImageGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(BinaryTreeImageGenerator.class);
 
     private static final int TREE_GAP = 100;
-    private static final int NODE_DIA = 30;
-    private static final int NODE_GAP = 30;
+    private static final int NODE_DIA = 40;
+    private static final int NODE_GAP = 20;
 
     public BufferedImage getImage(Tree binaryTree) {
         int treeHeight = binaryTree.getHeight();
@@ -35,7 +35,7 @@ public class BinaryTreeImageGenerator {
         // start from root
         g.setColor(Color.RED);
 
-        paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight, new Point(imageWidth / 2 - NODE_DIA / 2, TREE_GAP + NODE_DIA / 2));
+        paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight, new Point(imageWidth / 2 - NODE_DIA / 2, TREE_GAP - NODE_DIA / 2));
 
         return image;
     }
