@@ -17,7 +17,7 @@ public class BinaryTreeImageGenerator {
 
     private static final int TREE_GAP = 100;
     private static final int NODE_DIA = 40;
-    private static final int NODE_GAP = 20;
+    private static final int NODE_GAP = 40;
 
     public BufferedImage getImage(Tree binaryTree) {
         int treeHeight = binaryTree.getHeight();
@@ -79,7 +79,7 @@ public class BinaryTreeImageGenerator {
     }
 
     private int calculateTreeHeight(int baseWidth) {
-        return (int) Math.ceil(baseWidth * Math.tan(60 * Math.PI / 180));
+        return (int) Math.ceil(baseWidth * Math.tan(30 * Math.PI / 180));
     }
 
     private void paintNode(Graphics g, Point start, int value) {
