@@ -78,10 +78,6 @@ public class BinaryTreeImageGenerator {
 
     }
 
-    private int calculateTreeHeight(int baseWidth) {
-        return (int) Math.ceil(baseWidth * Math.tan(30 * Math.PI / 180));
-    }
-
     private void paintNode(Graphics g, Point start, int value) {
 
         g.fillOval(start.x, start.y, NODE_DIA, NODE_DIA);
@@ -90,6 +86,10 @@ public class BinaryTreeImageGenerator {
 
         LOGGER.info("Printed node {} at ({}, {})", value, start.x, start.y);
 
+    }
+
+    private int calculateTreeHeight(int baseWidth) {
+        return (int) Math.ceil(baseWidth * Math.tan(30 * Math.PI / 180));
     }
 
     private int getMaxNodes(int nodeHeight, int treeHeight) {
