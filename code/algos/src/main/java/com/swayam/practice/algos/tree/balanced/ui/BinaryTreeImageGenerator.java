@@ -16,8 +16,8 @@ public class BinaryTreeImageGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(BinaryTreeImageGenerator.class);
 
     private static final int TREE_GAP = 100;
-    private static final int NODE_DIA = 100;
-    private static final int NODE_GAP = 70;
+    private static final int NODE_DIA = 30;
+    private static final int NODE_GAP = 30;
 
     public BufferedImage getImage(Tree binaryTree) {
         int treeHeight = binaryTree.getHeight();
@@ -99,7 +99,7 @@ public class BinaryTreeImageGenerator {
 
     private int getBaseWidth(int nodeHeight, int treeHeight) {
         int maxNodes = getMaxNodes(nodeHeight, treeHeight);
-        return (maxNodes - 1) * (NODE_GAP + NODE_DIA);
+        return (maxNodes - 1) * (NODE_GAP + NODE_DIA) / 2;
     }
 
 }
