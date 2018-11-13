@@ -18,6 +18,8 @@ public class BinaryTreeImageGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BinaryTreeImageGenerator.class);
 
+    private static final int INCLINE_ANGLE_IN_DEGREES = 60;
+
     private static final int TREE_GAP = 100;
     private static final int NODE_DIA = 40;
     private static final int NODE_GAP = 40;
@@ -104,7 +106,7 @@ public class BinaryTreeImageGenerator {
     }
 
     private int calculateHeight(int width) {
-        return (int) Math.ceil(width * Math.tan(60 * Math.PI / 180));
+        return (int) Math.ceil(width * Math.tan(INCLINE_ANGLE_IN_DEGREES * Math.PI / 180));
     }
 
     private int getMaxNodes(int oneBasedNodeDepth) {
