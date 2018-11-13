@@ -5,9 +5,14 @@ import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker.NodeType;
 
 public class Tree implements BinaryTree<Integer> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Tree.class);
 
     private Node root;
 
@@ -197,6 +202,11 @@ public class Tree implements BinaryTree<Integer> {
     }
 
     private void add(Node node, Integer element) {
+
+        if (element == node.getValue()) {
+            LOGGER.warn("the value {} already exists, ignoring!", element);
+            return;
+        }
 
         if (element < node.getValue()) {
             if (node.getLeft() == null) {
