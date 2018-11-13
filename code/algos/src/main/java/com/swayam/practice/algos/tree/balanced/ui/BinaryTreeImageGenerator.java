@@ -21,9 +21,9 @@ public class BinaryTreeImageGenerator {
 
     public BufferedImage getImage(Tree binaryTree) {
         int treeHeight = binaryTree.getHeight();
-        int maxBaseWidth = getBaseWidth(1, treeHeight);
-        int imageWidth = 2 * (TREE_GAP + maxBaseWidth) + NODE_DIA;
-        int imageHeight = calculateTreeHeight(maxBaseWidth) + 2 * TREE_GAP;
+        int maxBaseWidth = getMaxSiblingsWidth(1, treeHeight);
+        int imageWidth = 2 * TREE_GAP + maxBaseWidth + NODE_DIA;
+        int imageHeight = calculateHeight(maxBaseWidth / 2) + 2 * TREE_GAP + NODE_DIA;
 
         LOGGER.info("imageWidth: {}, imageHeight: {}", imageWidth, imageHeight);
 
@@ -35,7 +35,7 @@ public class BinaryTreeImageGenerator {
         // start from root
         g.setColor(Color.RED);
 
-        paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight, new Point(imageWidth / 2 - NODE_DIA / 2, TREE_GAP - NODE_DIA / 2));
+        paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight, new Point(imageWidth / 2, TREE_GAP));
 
         return image;
     }
@@ -55,8 +55,8 @@ public class BinaryTreeImageGenerator {
             return;
         }
 
-        int nextDeltaX = getBaseWidth(heightOfNode - 1, treeHeight);
-        int nextDeltaY = calculateTreeHeight(nextDeltaX);
+        int nextDeltaX = NODE_GAP + NODE_DIA;
+        int nextDeltaY = calculateHeight(nextDeltaX);
 
         LOGGER.debug("nextDeltaX: {}, nextDeltaY: {}", nextDeltaX, nextDeltaY);
 
@@ -88,8 +88,8 @@ public class BinaryTreeImageGenerator {
 
     }
 
-    private int calculateTreeHeight(int baseWidth) {
-        return (int) Math.ceil(baseWidth * Math.tan(30 * Math.PI / 180));
+    private int calculateHeight(int width) {
+        return (int) Math.ceil(width * Math.tan(60 * Math.PI / 180));
     }
 
     private int getMaxNodes(int nodeHeight, int treeHeight) {
@@ -97,9 +97,9 @@ public class BinaryTreeImageGenerator {
         return (int) Math.pow(2, nodeDepth);
     }
 
-    private int getBaseWidth(int nodeHeight, int treeHeight) {
+    private int getMaxSiblingsWidth(int nodeHeight, int treeHeight) {
         int maxNodes = getMaxNodes(nodeHeight, treeHeight);
-        return (maxNodes - 1) * (NODE_GAP + NODE_DIA) / 2;
+        return (maxNodes - 1) * (NODE_GAP + NODE_DIA);
     }
 
 }
