@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.swayam.practice.algos.tree.balanced.BreadthFirstTreeWalker;
 import com.swayam.practice.algos.tree.balanced.Tree;
 import com.swayam.practice.algos.tree.balanced.Tree.Node;
 
@@ -19,11 +22,33 @@ public class BinaryTreeImageGenerator {
     private static final int NODE_DIA = 40;
     private static final int NODE_GAP = 40;
 
+    private final Map<Integer, Point> valueToDepthMap = new HashMap<>();
+
     public BufferedImage getImage(Tree binaryTree) {
+
         int treeHeight = binaryTree.getHeight();
-        int maxBaseWidth = getMaxSiblingsWidth(1, treeHeight);
+        int maxBaseWidth = getMaxSiblingsWidth(treeHeight);
         int imageWidth = 2 * TREE_GAP + maxBaseWidth + NODE_DIA;
         int imageHeight = calculateHeight(maxBaseWidth / 2) + 2 * TREE_GAP + NODE_DIA;
+
+        binaryTree.breadthFirstWalker(new BreadthFirstTreeWalker() {
+
+            private int currentX = -1;
+            private int currentY = -1;
+
+            @Override
+            public void newElement(int value) {
+                valueToDepthMap.put(value, new Point(currentX, currentY));
+                currentX += NODE_GAP + NODE_DIA;
+            }
+
+            @Override
+            public void depthChange(int depth) {
+                int halfWidth = getMaxSiblingsWidth(depth) / 2;
+                currentY = TREE_GAP + calculateHeight(halfWidth);
+                currentX = imageWidth / 2 - halfWidth;
+            }
+        });
 
         LOGGER.info("imageWidth: {}, imageHeight: {}", imageWidth, imageHeight);
 
@@ -35,45 +60,34 @@ public class BinaryTreeImageGenerator {
         // start from root
         g.setColor(Color.RED);
 
-        paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight, new Point(imageWidth / 2, TREE_GAP));
+        paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight);
 
         return image;
     }
 
-    private void paintNode(Graphics g, Tree binaryTree, Node node, int treeHeight, Point start) {
+    private void paintNode(Graphics g, Tree binaryTree, Node node, int treeHeight) {
         if (node == null) {
             return;
         }
 
-        int heightOfNode = binaryTree.getHeight(node);
+        paintNode(g, valueToDepthMap.get(node.getValue()), node.getValue());
 
-        LOGGER.debug("heightOfNode: {}", heightOfNode);
-
-        paintNode(g, start, node.getValue());
-
-        if (heightOfNode == 1) {
-            return;
-        }
-
-        int nextDeltaX = NODE_GAP + NODE_DIA;
+        int nextDeltaX = 0;// getMaxSiblingsWidth(valueToDepthMap.get(node.getValue())
+                           // + 1) / 2;
         int nextDeltaY = calculateHeight(nextDeltaX);
 
         LOGGER.debug("nextDeltaX: {}, nextDeltaY: {}", nextDeltaX, nextDeltaY);
 
         if (node.getLeft() != null) {
             g.setColor(Color.BLACK);
-            Point nextStart = new Point(start.x - nextDeltaX, start.y + nextDeltaY);
-            g.drawLine(start.x, start.y, nextStart.x, nextStart.y);
             g.setColor(Color.BLUE);
-            paintNode(g, binaryTree, node.getLeft(), treeHeight, nextStart);
+            paintNode(g, binaryTree, node.getLeft(), treeHeight);
         }
 
         if (node.getRight() != null) {
             g.setColor(Color.BLACK);
-            Point nextStart = new Point(start.x + nextDeltaX, start.y + nextDeltaY);
-            g.drawLine(start.x, start.y, nextStart.x, nextStart.y);
             g.setColor(Color.GREEN);
-            paintNode(g, binaryTree, node.getRight(), treeHeight, nextStart);
+            paintNode(g, binaryTree, node.getRight(), treeHeight);
         }
 
     }
@@ -92,13 +106,12 @@ public class BinaryTreeImageGenerator {
         return (int) Math.ceil(width * Math.tan(60 * Math.PI / 180));
     }
 
-    private int getMaxNodes(int nodeHeight, int treeHeight) {
-        int nodeDepth = treeHeight - nodeHeight;
-        return (int) Math.pow(2, nodeDepth);
+    private int getMaxNodes(int oneBasedNodeDepth) {
+        return (int) Math.pow(2, oneBasedNodeDepth - 1);
     }
 
-    private int getMaxSiblingsWidth(int nodeHeight, int treeHeight) {
-        int maxNodes = getMaxNodes(nodeHeight, treeHeight);
+    private int getMaxSiblingsWidth(int oneBasedNodeDepth) {
+        int maxNodes = getMaxNodes(oneBasedNodeDepth);
         return (maxNodes - 1) * (NODE_GAP + NODE_DIA);
     }
 
