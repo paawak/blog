@@ -58,7 +58,7 @@ public class BinaryTreeImageGenerator {
         g.fillRect(0, 0, imageWidth, imageHeight);
 
         // start from root
-        g.setColor(Color.RED);
+        g.setColor(Color.YELLOW);
 
         paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight);
 
@@ -75,31 +75,32 @@ public class BinaryTreeImageGenerator {
         paintNode(g, start, node.getValue());
 
         if (node.getLeft() != null) {
-            g.setColor(Color.BLACK);
             Point arrowEnd = valueToDepthMap.get(node.getLeft().getValue());
-            g.drawLine(start.x + NODE_DIA / 2, start.y + NODE_DIA, arrowEnd.x + NODE_DIA / 2, arrowEnd.y + NODE_DIA / 2);
-            g.setColor(Color.BLUE);
+            drawArrow(g, start, arrowEnd);
+            g.setColor(Color.CYAN);
             paintNode(g, binaryTree, node.getLeft(), treeHeight);
         }
 
         if (node.getRight() != null) {
-            g.setColor(Color.BLACK);
             Point arrowEnd = valueToDepthMap.get(node.getRight().getValue());
-            g.drawLine(start.x + NODE_DIA / 2, start.y + NODE_DIA, arrowEnd.x + NODE_DIA / 2, arrowEnd.y + NODE_DIA / 2);
-            g.setColor(Color.GREEN);
+            drawArrow(g, start, arrowEnd);
+            g.setColor(Color.LIGHT_GRAY);
             paintNode(g, binaryTree, node.getRight(), treeHeight);
         }
 
     }
 
-    private void paintNode(Graphics g, Point start, int value) {
+    private void drawArrow(Graphics g, Point arrowStart, Point arrowEnd) {
+        g.setColor(Color.BLACK);
+        g.drawLine(arrowStart.x + NODE_DIA / 2, arrowStart.y + NODE_DIA, arrowEnd.x + NODE_DIA / 2, arrowEnd.y + NODE_DIA / 2);
+    }
 
+    private void paintNode(Graphics g, Point start, int value) {
         g.fillOval(start.x, start.y, NODE_DIA, NODE_DIA);
         g.setColor(Color.BLACK);
         g.drawString(Integer.toString(value), start.x + NODE_DIA / 2, start.y + NODE_DIA / 2);
 
         LOGGER.info("Printed node {} at ({}, {})", value, start.x, start.y);
-
     }
 
     private int calculateHeight(int width) {
