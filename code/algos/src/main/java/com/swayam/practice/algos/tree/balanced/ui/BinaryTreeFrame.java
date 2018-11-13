@@ -171,6 +171,10 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
                 tree.add(600);
                 tree.add(40);
                 tree.add(70);
+                tree.add(45);
+                tree.add(35);
+                tree.add(47);
+                tree.add(42);
                 BinaryTreeFrame frame = new BinaryTreeFrame(tree);
                 frame.updateTreeImage();
                 frame.setVisible(true);
