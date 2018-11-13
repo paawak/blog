@@ -18,11 +18,11 @@ public class BinaryTreeImageGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BinaryTreeImageGenerator.class);
 
-    private static final int INCLINE_ANGLE_IN_DEGREES = 60;
+    private static final int INCLINE_ANGLE_IN_DEGREES = 45;
 
-    private static final int TREE_GAP = 100;
-    private static final int NODE_DIA = 40;
+    private static final int TREE_GAP = 50;
     private static final int NODE_GAP = 40;
+    private static final int NODE_DIA = 40;
 
     private final Map<Integer, Point> valueToDepthMap = new HashMap<>();
 
@@ -60,7 +60,7 @@ public class BinaryTreeImageGenerator {
         g.fillRect(0, 0, imageWidth, imageHeight);
 
         // start from root
-        g.setColor(Color.YELLOW);
+        g.setColor(Color.CYAN);
 
         paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight);
 
@@ -79,14 +79,14 @@ public class BinaryTreeImageGenerator {
         if (node.getLeft() != null) {
             Point arrowEnd = valueToDepthMap.get(node.getLeft().getValue());
             drawArrow(g, start, arrowEnd);
-            g.setColor(Color.CYAN);
+            g.setColor(Color.GREEN);
             paintNode(g, binaryTree, node.getLeft(), treeHeight);
         }
 
         if (node.getRight() != null) {
             Point arrowEnd = valueToDepthMap.get(node.getRight().getValue());
             drawArrow(g, start, arrowEnd);
-            g.setColor(Color.LIGHT_GRAY);
+            g.setColor(Color.YELLOW);
             paintNode(g, binaryTree, node.getRight(), treeHeight);
         }
 
