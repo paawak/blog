@@ -77,7 +77,7 @@ public class BinaryTreeImageGenerator {
         if (node.getLeft() != null) {
             g.setColor(Color.BLACK);
             Point arrowEnd = valueToDepthMap.get(node.getLeft().getValue());
-            g.drawLine(start.x + NODE_DIA / 2, start.y + NODE_DIA / 2, arrowEnd.x + NODE_DIA / 2, arrowEnd.y + NODE_DIA / 2);
+            g.drawLine(start.x + NODE_DIA / 2, start.y + NODE_DIA, arrowEnd.x + NODE_DIA / 2, arrowEnd.y + NODE_DIA / 2);
             g.setColor(Color.BLUE);
             paintNode(g, binaryTree, node.getLeft(), treeHeight);
         }
@@ -85,7 +85,7 @@ public class BinaryTreeImageGenerator {
         if (node.getRight() != null) {
             g.setColor(Color.BLACK);
             Point arrowEnd = valueToDepthMap.get(node.getRight().getValue());
-            g.drawLine(start.x + NODE_DIA / 2, start.y + NODE_DIA / 2, arrowEnd.x + NODE_DIA / 2, arrowEnd.y + NODE_DIA / 2);
+            g.drawLine(start.x + NODE_DIA / 2, start.y + NODE_DIA, arrowEnd.x + NODE_DIA / 2, arrowEnd.y + NODE_DIA / 2);
             g.setColor(Color.GREEN);
             paintNode(g, binaryTree, node.getRight(), treeHeight);
         }
