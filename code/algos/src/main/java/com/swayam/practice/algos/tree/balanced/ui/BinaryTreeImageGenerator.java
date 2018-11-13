@@ -72,12 +72,6 @@ public class BinaryTreeImageGenerator {
 
         paintNode(g, valueToDepthMap.get(node.getValue()), node.getValue());
 
-        int nextDeltaX = 0;// getMaxSiblingsWidth(valueToDepthMap.get(node.getValue())
-                           // + 1) / 2;
-        int nextDeltaY = calculateHeight(nextDeltaX);
-
-        LOGGER.debug("nextDeltaX: {}, nextDeltaY: {}", nextDeltaX, nextDeltaY);
-
         if (node.getLeft() != null) {
             g.setColor(Color.BLACK);
             g.setColor(Color.BLUE);
