@@ -24,14 +24,14 @@ public class BinaryTreeImageGenerator {
     private static final int NODE_GAP = 40;
     private static final int NODE_DIA = 40;
 
-    private final Map<Integer, Point> valueToDepthMap = new HashMap<>();
-
     public BufferedImage getImage(Tree binaryTree) {
 
         int treeHeight = binaryTree.getHeight();
         int maxBaseWidth = getMaxSiblingsWidth(treeHeight);
         int imageWidth = 2 * TREE_GAP + maxBaseWidth + NODE_DIA;
         int imageHeight = calculateHeight(maxBaseWidth / 2) + 2 * TREE_GAP + NODE_DIA;
+
+        Map<Integer, Point> nodeLocationMap = new HashMap<>();
 
         binaryTree.breadthFirstWalker(new BreadthFirstTreeWalker() {
 
@@ -40,7 +40,7 @@ public class BinaryTreeImageGenerator {
 
             @Override
             public void newElement(int value) {
-                valueToDepthMap.put(value, new Point(currentX, currentY));
+                nodeLocationMap.put(value, new Point(currentX, currentY));
                 currentX += NODE_GAP + NODE_DIA;
             }
 
@@ -62,32 +62,32 @@ public class BinaryTreeImageGenerator {
         // start from root
         g.setColor(Color.CYAN);
 
-        paintNode(g, binaryTree, binaryTree.getRoot(), treeHeight);
+        paintNode(g, binaryTree, nodeLocationMap, binaryTree.getRoot());
 
         return image;
     }
 
-    private void paintNode(Graphics g, Tree binaryTree, Node node, int treeHeight) {
+    private void paintNode(Graphics g, Tree binaryTree, Map<Integer, Point> nodeLocationMap, Node node) {
         if (node == null) {
             return;
         }
 
-        Point start = valueToDepthMap.get(node.getValue());
+        Point start = nodeLocationMap.get(node.getValue());
 
         paintNode(g, start, node.getValue());
 
         if (node.getLeft() != null) {
-            Point arrowEnd = valueToDepthMap.get(node.getLeft().getValue());
+            Point arrowEnd = nodeLocationMap.get(node.getLeft().getValue());
             drawArrow(g, start, arrowEnd);
             g.setColor(Color.GREEN);
-            paintNode(g, binaryTree, node.getLeft(), treeHeight);
+            paintNode(g, binaryTree, nodeLocationMap, node.getLeft());
         }
 
         if (node.getRight() != null) {
-            Point arrowEnd = valueToDepthMap.get(node.getRight().getValue());
+            Point arrowEnd = nodeLocationMap.get(node.getRight().getValue());
             drawArrow(g, start, arrowEnd);
             g.setColor(Color.YELLOW);
-            paintNode(g, binaryTree, node.getRight(), treeHeight);
+            paintNode(g, binaryTree, nodeLocationMap, node.getRight());
         }
 
     }
