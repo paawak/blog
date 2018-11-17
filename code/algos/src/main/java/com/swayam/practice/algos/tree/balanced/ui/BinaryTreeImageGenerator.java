@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.swayam.practice.algos.tree.balanced.BreadthFirstTreeWalker;
+import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker;
 import com.swayam.practice.algos.tree.balanced.Tree;
-import com.swayam.practice.algos.tree.balanced.Tree.Node;
 
 public class BinaryTreeImageGenerator {
 
@@ -59,34 +59,46 @@ public class BinaryTreeImageGenerator {
         Graphics g = image.getGraphics();
         g.fillRect(0, 0, imageWidth, imageHeight);
 
-        // start from root
-        g.setColor(Color.CYAN);
+        binaryTree.preOrderTreeWalker(new PreOrderTreeWalker<Integer>() {
 
-        paintNode(g, binaryTree, nodeLocationMap, binaryTree.getRoot());
+            @Override
+            public void treeNode(Integer value, NodeType nodeType, boolean hasLeftChild, boolean hasRightChild, Integer leftChildValue,
+                    Integer rightChildValue) {
+
+                switch (nodeType) {
+                case ROOT:
+                    g.setColor(Color.CYAN);
+                    break;
+
+                case LEFT_CHILD:
+                    g.setColor(Color.GREEN);
+                    break;
+                case RIGHT_CHILD:
+                    g.setColor(Color.YELLOW);
+                    break;
+
+                default:
+                    throw new UnsupportedOperationException();
+                }
+
+                Point start = nodeLocationMap.get(value);
+
+                paintNode(g, start, value);
+
+                if (hasLeftChild) {
+                    Point arrowEnd = nodeLocationMap.get(leftChildValue);
+                    drawArrow(g, start, arrowEnd);
+                }
+
+                if (hasRightChild) {
+                    Point arrowEnd = nodeLocationMap.get(rightChildValue);
+                    drawArrow(g, start, arrowEnd);
+                }
+
+            }
+        });
 
         return image;
-    }
-
-    private void paintNode(Graphics g, Tree binaryTree, Map<Integer, Point> nodeLocationMap, Node node) {
-
-        Point start = nodeLocationMap.get(node.getValue());
-
-        paintNode(g, start, node.getValue());
-
-        if (node.getLeft() != null) {
-            Point arrowEnd = nodeLocationMap.get(node.getLeft().getValue());
-            drawArrow(g, start, arrowEnd);
-            g.setColor(Color.GREEN);
-            paintNode(g, binaryTree, nodeLocationMap, node.getLeft());
-        }
-
-        if (node.getRight() != null) {
-            Point arrowEnd = nodeLocationMap.get(node.getRight().getValue());
-            drawArrow(g, start, arrowEnd);
-            g.setColor(Color.YELLOW);
-            paintNode(g, binaryTree, nodeLocationMap, node.getRight());
-        }
-
     }
 
     private void drawArrow(Graphics g, Point arrowStart, Point arrowEnd) {

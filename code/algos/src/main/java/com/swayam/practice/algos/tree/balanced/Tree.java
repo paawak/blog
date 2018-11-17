@@ -77,7 +77,8 @@ public class Tree implements BinaryTree<Integer> {
             return;
         }
 
-        preOrderTreeWalker.treeNode(node.getValue(), nodeType, node.getLeft() != null, node.getRight() != null, getHeight(node));
+        preOrderTreeWalker.treeNode(node.getValue(), nodeType, node.getLeft() != null, node.getRight() != null,
+                node.getLeft() == null ? null : node.getLeft().getValue(), node.getRight() == null ? null : node.getRight().getValue());
 
         preOrderTreeWalker(node.getLeft(), NodeType.LEFT_CHILD, preOrderTreeWalker);
 
