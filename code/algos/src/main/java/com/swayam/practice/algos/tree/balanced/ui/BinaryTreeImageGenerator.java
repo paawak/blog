@@ -10,9 +10,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.swayam.practice.algos.tree.balanced.BinaryTree;
 import com.swayam.practice.algos.tree.balanced.BreadthFirstTreeWalker;
 import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker;
-import com.swayam.practice.algos.tree.balanced.Tree;
 
 public class BinaryTreeImageGenerator {
 
@@ -24,7 +24,7 @@ public class BinaryTreeImageGenerator {
     private static final int NODE_GAP = 40;
     private static final int NODE_DIA = 40;
 
-    public BufferedImage getImage(Tree binaryTree) {
+    public BufferedImage getImage(BinaryTree<Integer> binaryTree) {
 
         int treeHeight = binaryTree.getHeight();
         int maxBaseWidth = getMaxSiblingsWidth(treeHeight);

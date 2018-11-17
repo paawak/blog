@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.swayam.practice.algos.tree.balanced.BinaryTree;
 import com.swayam.practice.algos.tree.balanced.Tree;
 
 /**
@@ -24,12 +25,12 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private final Tree binaryTree;
+    private final BinaryTree<Integer> binaryTree;
 
     /**
      * Creates new form BinaryTreeFrame
      */
-    public BinaryTreeFrame(Tree binaryTree) {
+    public BinaryTreeFrame(BinaryTree<Integer> binaryTree) {
         this.binaryTree = binaryTree;
         initComponents();
     }
@@ -109,7 +110,6 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
         JPanel pnlTree = new JPanel();
         pnlTree.setLayout(new BorderLayout());
         pnlTree.setSize(image.getWidth(), image.getHeight());
-        pnlTree.removeAll();
         pnlTree.add(new JLabel(new ImageIcon(image)), BorderLayout.CENTER);
         scrPnlTree.setViewportView(pnlTree);
     }
