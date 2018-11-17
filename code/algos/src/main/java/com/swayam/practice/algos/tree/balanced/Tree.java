@@ -1,10 +1,5 @@
 package com.swayam.practice.algos.tree.balanced;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +47,7 @@ public class Tree implements BinaryTree<Integer> {
     }
 
     @Override
-    public void breadthFirstWalker(BreadthFirstTreeWalker breadthFirstTreeWalker) {
+    public void breadthFirstWalker(BreadthFirstTreeWalker<Integer> breadthFirstTreeWalker) {
         int height = getHeight();
 
         for (int depth = 1; depth <= height; depth++) {
@@ -63,7 +58,7 @@ public class Tree implements BinaryTree<Integer> {
     }
 
     @Override
-    public void preOrderTreeWalker(PreOrderTreeWalker preOrderTreeWalker) {
+    public void preOrderTreeWalker(PreOrderTreeWalker<Integer> preOrderTreeWalker) {
         preOrderTreeWalker(root, NodeType.ROOT, preOrderTreeWalker);
     }
 
@@ -72,41 +67,11 @@ public class Tree implements BinaryTree<Integer> {
         return (root.getLeft() == null) && (root.getRight() == null);
     }
 
-    @Override
-    public DefaultMutableTreeNode getSwingTree() {
-
-        if (root == null) {
-            return new DefaultMutableTreeNode();
-        }
-
-        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(root.getValue());
-
-        int height = getHeight();
-
-        for (int depth = 1; depth <= height; depth++) {
-            List<Integer> siblings = new ArrayList<>();
-            listSiblings(root, depth, siblings);
-
-            DefaultMutableTreeNode node = new DefaultMutableTreeNode();
-
-            if (depth > 1) {
-                siblings.forEach(value -> node.add(new DefaultMutableTreeNode(value)));
-            }
-
-            rootNode.add(node);
-
-            siblings.clear();
-
-        }
-
-        return rootNode;
-    }
-
     public Node getRoot() {
         return root;
     }
 
-    private void preOrderTreeWalker(Node node, NodeType nodeType, PreOrderTreeWalker preOrderTreeWalker) {
+    private void preOrderTreeWalker(Node node, NodeType nodeType, PreOrderTreeWalker<Integer> preOrderTreeWalker) {
 
         if (node == null) {
             return;
@@ -120,7 +85,7 @@ public class Tree implements BinaryTree<Integer> {
 
     }
 
-    private void breadthFirstTreeWalk(Node node, int depth, BreadthFirstTreeWalker breadthFirstTreeWalker) {
+    private void breadthFirstTreeWalk(Node node, int depth, BreadthFirstTreeWalker<Integer> breadthFirstTreeWalker) {
 
         if (node == null) {
             return;
@@ -177,27 +142,6 @@ public class Tree implements BinaryTree<Integer> {
         }
 
         return siblingCount + leftSiblingCount + rightSiblingCount;
-
-    }
-
-    private void listSiblings(Node node, int depth, List<Integer> siblings) {
-
-        if (node == null) {
-            return;
-        }
-
-        if (depth == 1) {
-            siblings.add(node.getValue());
-            return;
-        }
-
-        if (node.getLeft() != null) {
-            listSiblings(node.getLeft(), depth - 1, siblings);
-        }
-
-        if (node.getRight() != null) {
-            listSiblings(node.getRight(), depth - 1, siblings);
-        }
 
     }
 

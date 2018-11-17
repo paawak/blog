@@ -33,13 +33,13 @@ public class BinaryTreeImageGenerator {
 
         Map<Integer, Point> nodeLocationMap = new HashMap<>();
 
-        binaryTree.breadthFirstWalker(new BreadthFirstTreeWalker() {
+        binaryTree.breadthFirstWalker(new BreadthFirstTreeWalker<Integer>() {
 
             private int currentX = -1;
             private int currentY = -1;
 
             @Override
-            public void newElement(int value) {
+            public void newElement(Integer value) {
                 nodeLocationMap.put(value, new Point(currentX, currentY));
                 currentX += NODE_GAP + NODE_DIA;
             }

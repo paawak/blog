@@ -15,8 +15,6 @@
 
 package com.swayam.practice.algos.tree.balanced;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 /**
  * 
  * @author paawak
@@ -31,10 +29,8 @@ public interface BinaryTree<E extends Comparable<E>> {
 
     boolean isEmpty();
 
-    DefaultMutableTreeNode getSwingTree();
+    void breadthFirstWalker(BreadthFirstTreeWalker<E> breadthFirstTreeWalker);
 
-    void breadthFirstWalker(BreadthFirstTreeWalker breadthFirstTreeWalker);
-
-    void preOrderTreeWalker(PreOrderTreeWalker preOrderTreeWalker);
+    void preOrderTreeWalker(PreOrderTreeWalker<E> preOrderTreeWalker);
 
 }
