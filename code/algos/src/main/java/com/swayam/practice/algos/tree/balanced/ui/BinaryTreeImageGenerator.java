@@ -68,9 +68,6 @@ public class BinaryTreeImageGenerator {
     }
 
     private void paintNode(Graphics g, Tree binaryTree, Map<Integer, Point> nodeLocationMap, Node node) {
-        if (node == null) {
-            return;
-        }
 
         Point start = nodeLocationMap.get(node.getValue());
 
