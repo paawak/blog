@@ -169,7 +169,7 @@ public class Tree implements BinaryTree<Integer> {
 
     }
 
-    public static class Node {
+    private static class Node {
         private final int value;
         private Node left;
         private Node right;
