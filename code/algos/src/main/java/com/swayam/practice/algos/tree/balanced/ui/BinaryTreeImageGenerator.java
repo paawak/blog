@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.swayam.practice.algos.tree.balanced.BinaryTree;
 import com.swayam.practice.algos.tree.balanced.BreadthFirstTreeWalker;
 import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker;
+import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker.NodeType;;
 
 public class BinaryTreeImageGenerator {
 
@@ -57,6 +58,7 @@ public class BinaryTreeImageGenerator {
         BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
 
         Graphics g = image.getGraphics();
+        g.setColor(Color.LIGHT_GRAY);
         g.fillRect(0, 0, imageWidth, imageHeight);
 
         binaryTree.preOrderTreeWalker(new PreOrderTreeWalker<Integer>() {
@@ -65,25 +67,9 @@ public class BinaryTreeImageGenerator {
             public void treeNode(Integer value, NodeType nodeType, boolean hasLeftChild, boolean hasRightChild, Integer leftChildValue,
                     Integer rightChildValue) {
 
-                switch (nodeType) {
-                case ROOT:
-                    g.setColor(Color.CYAN);
-                    break;
-
-                case LEFT_CHILD:
-                    g.setColor(Color.GREEN);
-                    break;
-                case RIGHT_CHILD:
-                    g.setColor(Color.YELLOW);
-                    break;
-
-                default:
-                    throw new UnsupportedOperationException();
-                }
-
                 Point start = nodeLocationMap.get(value);
 
-                paintNode(g, start, value);
+                paintNode(g, nodeType, start, value);
 
                 if (hasLeftChild) {
                     Point arrowEnd = nodeLocationMap.get(leftChildValue);
@@ -106,7 +92,26 @@ public class BinaryTreeImageGenerator {
         g.drawLine(arrowStart.x + NODE_DIA / 2, arrowStart.y + NODE_DIA, arrowEnd.x + NODE_DIA / 2, arrowEnd.y + NODE_DIA / 2);
     }
 
-    private void paintNode(Graphics g, Point start, int value) {
+    private void paintNode(Graphics g, NodeType nodeType, Point start, int value) {
+
+        // set the color of the node
+        switch (nodeType) {
+        case ROOT:
+            g.setColor(Color.CYAN);
+            break;
+
+        case LEFT_CHILD:
+            g.setColor(Color.GREEN);
+            break;
+
+        case RIGHT_CHILD:
+            g.setColor(Color.YELLOW);
+            break;
+
+        default:
+            throw new UnsupportedOperationException();
+        }
+
         g.fillOval(start.x, start.y, NODE_DIA, NODE_DIA);
         g.setColor(Color.BLACK);
         g.drawString(Integer.toString(value), start.x + NODE_DIA / 2, start.y + NODE_DIA / 2);

@@ -27,8 +27,6 @@ public interface BinaryTree<E extends Comparable<E>> {
 
     int getBreadth();
 
-    boolean isEmpty();
-
     void breadthFirstWalker(BreadthFirstTreeWalker<E> breadthFirstTreeWalker);
 
     void preOrderTreeWalker(PreOrderTreeWalker<E> preOrderTreeWalker);

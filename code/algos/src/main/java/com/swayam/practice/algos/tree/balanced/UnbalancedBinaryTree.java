@@ -62,15 +62,6 @@ public class UnbalancedBinaryTree implements BinaryTree<Integer> {
         preOrderTreeWalker(root, NodeType.ROOT, preOrderTreeWalker);
     }
 
-    @Override
-    public boolean isEmpty() {
-        return (root.getLeft() == null) && (root.getRight() == null);
-    }
-
-    public Node getRoot() {
-        return root;
-    }
-
     private void preOrderTreeWalker(Node node, NodeType nodeType, PreOrderTreeWalker<Integer> preOrderTreeWalker) {
 
         if (node == null) {
@@ -107,7 +98,7 @@ public class UnbalancedBinaryTree implements BinaryTree<Integer> {
 
     }
 
-    public int getHeight(Node node) {
+    private int getHeight(Node node) {
 
         if (node == null) {
             return 0;
