@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker.NodeType;
 
-public class Tree implements BinaryTree<Integer> {
+public class UnbalancedBinaryTree implements BinaryTree<Integer> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Tree.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UnbalancedBinaryTree.class);
 
     private Node root;
 

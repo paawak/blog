@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.swayam.practice.algos.tree.balanced.BinaryTree;
-import com.swayam.practice.algos.tree.balanced.Tree;
+import com.swayam.practice.algos.tree.balanced.UnbalancedBinaryTree;
 
 /**
  *
@@ -163,7 +163,7 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Tree tree = new Tree();
+                UnbalancedBinaryTree tree = new UnbalancedBinaryTree();
                 tree.add(100);
                 tree.add(50);
                 tree.add(500);
