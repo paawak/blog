@@ -170,7 +170,7 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
                 // 600, 40, 70, 45, 35, 47, 42);
                 List<Integer> dataSet2 = Arrays.asList(5, 4, 3, 2, 1);
 
-                UnbalancedBinaryTree tree = new UnbalancedBinaryTree();
+                BinaryTree<Integer> tree = new UnbalancedBinaryTree();
                 dataSet2.forEach(item -> tree.add(item));
                 BinaryTreeFrame frame = new BinaryTreeFrame(tree);
                 frame.updateTreeImage();
