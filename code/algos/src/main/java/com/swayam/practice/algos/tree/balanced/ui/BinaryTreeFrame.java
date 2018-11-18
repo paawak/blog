@@ -7,6 +7,8 @@ package com.swayam.practice.algos.tree.balanced.ui;
 
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import javax.swing.ImageIcon;
@@ -163,18 +165,13 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+
+                // List<Integer> dataSet1 = Arrays.asList(100, 50, 500, 400,
+                // 600, 40, 70, 45, 35, 47, 42);
+                List<Integer> dataSet2 = Arrays.asList(5, 4, 3, 2, 1);
+
                 UnbalancedBinaryTree tree = new UnbalancedBinaryTree();
-                tree.add(100);
-                tree.add(50);
-                tree.add(500);
-                tree.add(400);
-                tree.add(600);
-                tree.add(40);
-                tree.add(70);
-                tree.add(45);
-                tree.add(35);
-                tree.add(47);
-                tree.add(42);
+                dataSet2.forEach(item -> tree.add(item));
                 BinaryTreeFrame frame = new BinaryTreeFrame(tree);
                 frame.updateTreeImage();
                 frame.setVisible(true);
