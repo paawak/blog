@@ -1,5 +1,7 @@
 package com.swayam.practice.algos.tree.balanced;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,6 +62,32 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
     @Override
     public void preOrderTreeWalker(PreOrderTreeWalker<Integer> preOrderTreeWalker) {
         preOrderTreeWalker(root, NodeType.ROOT, preOrderTreeWalker);
+    }
+
+    private Optional<NodeRotationInfo> findUnBalancedNode(Node node) {
+        if (node == null) {
+            return Optional.empty();
+        }
+
+        int heightDiffInSubTrees = getHeight(node.getLeft()) - getHeight(node.getRight());
+
+        if (Math.abs(heightDiffInSubTrees) <= 1) {
+            Optional<NodeRotationInfo> leftSubtreeStatus = findUnBalancedNode(node.getLeft());
+
+            if (leftSubtreeStatus.isPresent()) {
+                return leftSubtreeStatus;
+            }
+
+            return findUnBalancedNode(node.getRight());
+
+        }
+
+        return Optional.of(new NodeRotationInfo(node, heightDiffInSubTrees > 0 ? NodeRotation.RIGHT : NodeRotation.LEFT));
+
+    }
+
+    private void rotateRight(Node node) {
+
     }
 
     private void preOrderTreeWalker(Node node, NodeType nodeType, PreOrderTreeWalker<Integer> preOrderTreeWalker) {
@@ -158,6 +186,20 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
             }
         }
 
+    }
+
+    private static class NodeRotationInfo {
+        private final Node node;
+        private final NodeRotation nodeRotation;
+
+        private NodeRotationInfo(Node node, NodeRotation nodeRotation) {
+            this.node = node;
+            this.nodeRotation = nodeRotation;
+        }
+    }
+
+    private static enum NodeRotation {
+        RIGHT, LEFT;
     }
 
     private static class Node {
