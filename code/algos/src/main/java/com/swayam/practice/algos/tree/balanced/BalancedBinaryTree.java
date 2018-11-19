@@ -20,6 +20,8 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
         }
 
         add(root, element);
+
+        balanceTree();
     }
 
     @Override
@@ -62,7 +64,27 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
         preOrderTreeWalker(root, NodeType.ROOT, preOrderTreeWalker);
     }
 
-    private Optional<NodeRotationInfo> findUnBalancedNode(Node node) {
+    private void balanceTree() {
+        Optional<NodeRotationInfo> nodeRotationInfoOpt = findUnBalancedNode(null, NodeType.ROOT, root);
+
+        if (!nodeRotationInfoOpt.isPresent()) {
+            LOGGER.info("This tree is balanced");
+            return;
+        }
+
+        NodeRotationInfo nodeRotationInfo = nodeRotationInfoOpt.get();
+
+        if (nodeRotationInfo.nodeRotation == NodeRotation.RIGHT) {
+            rotateRight(nodeRotationInfo.parent, nodeRotationInfo.nodeType, nodeRotationInfo.node);
+        } else if (nodeRotationInfo.nodeRotation == NodeRotation.LEFT) {
+            rotateLeft(nodeRotationInfo.parent, nodeRotationInfo.nodeType, nodeRotationInfo.node);
+        }
+
+        balanceTree();
+
+    }
+
+    private Optional<NodeRotationInfo> findUnBalancedNode(Node parent, NodeType nodeType, Node node) {
         if (node == null) {
             return Optional.empty();
         }
@@ -70,21 +92,55 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
         int heightDiffInSubTrees = getHeight(node.getLeft()) - getHeight(node.getRight());
 
         if (Math.abs(heightDiffInSubTrees) <= 1) {
-            Optional<NodeRotationInfo> leftSubtreeStatus = findUnBalancedNode(node.getLeft());
+            Optional<NodeRotationInfo> leftSubtreeStatus = findUnBalancedNode(parent, NodeType.LEFT_CHILD, node.getLeft());
 
             if (leftSubtreeStatus.isPresent()) {
                 return leftSubtreeStatus;
             }
 
-            return findUnBalancedNode(node.getRight());
+            return findUnBalancedNode(parent, NodeType.RIGHT_CHILD, node.getRight());
 
         }
 
-        return Optional.of(new NodeRotationInfo(node, heightDiffInSubTrees > 0 ? NodeRotation.RIGHT : NodeRotation.LEFT));
+        return Optional.of(new NodeRotationInfo(parent, nodeType, node, heightDiffInSubTrees > 0 ? NodeRotation.RIGHT : NodeRotation.LEFT));
 
     }
 
-    private void rotateRight(Node node) {
+    private void rotateRight(Node parent, NodeType nodeType, Node node) {
+
+        Node leftChild = node.getLeft();
+        Node lowerRight = leftChild.getRight();
+        node.setLeft(lowerRight);
+        leftChild.setRight(node);
+
+        if (parent == null) {
+            root = leftChild;
+        } else {
+            if (nodeType == NodeType.LEFT_CHILD) {
+                parent.setLeft(leftChild);
+            } else if (nodeType == NodeType.RIGHT_CHILD) {
+                parent.setRight(leftChild);
+            }
+        }
+
+    }
+
+    private void rotateLeft(Node parent, NodeType nodeType, Node node) {
+
+        Node rightChild = node.getLeft();
+        Node lowerLeft = rightChild.getLeft();
+        node.setRight(lowerLeft);
+        rightChild.setLeft(node);
+
+        if (parent == null) {
+            root = rightChild;
+        } else {
+            if (nodeType == NodeType.LEFT_CHILD) {
+                parent.setLeft(rightChild);
+            } else if (nodeType == NodeType.RIGHT_CHILD) {
+                parent.setRight(rightChild);
+            }
+        }
 
     }
 
@@ -187,13 +243,18 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
     }
 
     private static class NodeRotationInfo {
+        private final Node parent;
+        private final NodeType nodeType;
         private final Node node;
         private final NodeRotation nodeRotation;
 
-        private NodeRotationInfo(Node node, NodeRotation nodeRotation) {
+        public NodeRotationInfo(Node parent, NodeType nodeType, Node node, NodeRotation nodeRotation) {
+            this.parent = parent;
+            this.nodeType = nodeType;
             this.node = node;
             this.nodeRotation = nodeRotation;
         }
+
     }
 
     private static enum NodeRotation {
