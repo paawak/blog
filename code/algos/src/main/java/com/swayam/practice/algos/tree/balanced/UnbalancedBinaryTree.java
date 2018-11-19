@@ -3,8 +3,6 @@ package com.swayam.practice.algos.tree.balanced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker.NodeType;
-
 public class UnbalancedBinaryTree implements BinaryTree<Integer> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UnbalancedBinaryTree.class);

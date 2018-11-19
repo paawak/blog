@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import com.swayam.practice.algos.tree.balanced.BinaryTree;
 import com.swayam.practice.algos.tree.balanced.BreadthFirstTreeWalker;
-import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker;
-import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker.NodeType;;
+import com.swayam.practice.algos.tree.balanced.NodeType;
+import com.swayam.practice.algos.tree.balanced.PreOrderTreeWalker;;
 
 public class BinaryTreeImageGenerator {
 
