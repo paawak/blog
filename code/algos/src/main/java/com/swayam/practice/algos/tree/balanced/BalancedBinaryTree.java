@@ -118,15 +118,7 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
         node.setLeft(lowerRight);
         leftChild.setRight(node);
 
-        if (parent == null) {
-            root = leftChild;
-        } else {
-            if (nodeType == NodeType.LEFT_CHILD) {
-                parent.setLeft(leftChild);
-            } else if (nodeType == NodeType.RIGHT_CHILD) {
-                parent.setRight(leftChild);
-            }
-        }
+        setParentAfterRotation(parent, nodeType, leftChild);
 
     }
 
@@ -137,16 +129,20 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
         node.setRight(lowerLeft);
         rightChild.setLeft(node);
 
+        setParentAfterRotation(parent, nodeType, rightChild);
+
+    }
+
+    private void setParentAfterRotation(Node parent, NodeType nodeType, Node node) {
         if (parent == null) {
-            root = rightChild;
+            root = node;
         } else {
             if (nodeType == NodeType.LEFT_CHILD) {
-                parent.setLeft(rightChild);
+                parent.setLeft(node);
             } else if (nodeType == NodeType.RIGHT_CHILD) {
-                parent.setRight(rightChild);
+                parent.setRight(node);
             }
         }
-
     }
 
     private void preOrderTreeWalker(Node node, NodeType nodeType, PreOrderTreeWalker<Integer> preOrderTreeWalker) {
