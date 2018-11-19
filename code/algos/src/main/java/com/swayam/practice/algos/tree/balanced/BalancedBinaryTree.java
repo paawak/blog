@@ -98,19 +98,17 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
 
         int heightDiffInSubTrees = getHeight(node.getLeft()) - getHeight(node.getRight());
 
-        if (Math.abs(heightDiffInSubTrees) <= 1) {
-            Optional<NodeRotationInfo> leftSubtreeStatus = findUnBalancedNode(parent, NodeType.LEFT_CHILD, node.getLeft());
-
-            if (leftSubtreeStatus.isPresent()) {
-                return leftSubtreeStatus;
-            }
-
-            return findUnBalancedNode(parent, NodeType.RIGHT_CHILD, node.getRight());
-
+        if (Math.abs(heightDiffInSubTrees) > 1) {
+            return Optional.of(new NodeRotationInfo(parent, nodeType, node, heightDiffInSubTrees > 0 ? NodeRotation.RIGHT : NodeRotation.LEFT));
         }
 
-        return Optional.of(new NodeRotationInfo(parent, nodeType, node, heightDiffInSubTrees > 0 ? NodeRotation.RIGHT : NodeRotation.LEFT));
+        Optional<NodeRotationInfo> leftSubtreeStatus = findUnBalancedNode(node, NodeType.LEFT_CHILD, node.getLeft());
 
+        if (leftSubtreeStatus.isPresent()) {
+            return leftSubtreeStatus;
+        }
+
+        return findUnBalancedNode(node, NodeType.RIGHT_CHILD, node.getRight());
     }
 
     private void rotateRight(Node parent, NodeType nodeType, Node node) {
@@ -134,7 +132,7 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
 
     private void rotateLeft(Node parent, NodeType nodeType, Node node) {
 
-        Node rightChild = node.getLeft();
+        Node rightChild = node.getRight();
         Node lowerLeft = rightChild.getLeft();
         node.setRight(lowerLeft);
         rightChild.setLeft(node);
@@ -260,6 +258,21 @@ public class BalancedBinaryTree implements BinaryTree<Integer> {
             this.nodeType = nodeType;
             this.node = node;
             this.nodeRotation = nodeRotation;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("NodeRotationInfo [parent=");
+            builder.append(parent);
+            builder.append(", nodeType=");
+            builder.append(nodeType);
+            builder.append(", node=");
+            builder.append(node);
+            builder.append(", nodeRotation=");
+            builder.append(nodeRotation);
+            builder.append("]");
+            return builder.toString();
         }
 
     }

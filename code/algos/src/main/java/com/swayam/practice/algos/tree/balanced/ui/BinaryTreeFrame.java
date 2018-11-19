@@ -16,8 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.swayam.practice.algos.tree.balanced.BalancedBinaryTree;
 import com.swayam.practice.algos.tree.balanced.BinaryTree;
-import com.swayam.practice.algos.tree.balanced.UnBalancedBinaryTree;
 
 /**
  *
@@ -170,7 +170,7 @@ public class BinaryTreeFrame extends javax.swing.JFrame {
                 // 600, 40, 70, 45, 35, 47, 42);
                 List<Integer> dataSet2 = Arrays.asList(4, 3, 5, 2, 6, 1, 7);
 
-                BinaryTree<Integer> tree = new UnBalancedBinaryTree();
+                BinaryTree<Integer> tree = new BalancedBinaryTree();
                 dataSet2.forEach(item -> tree.add(item));
                 BinaryTreeFrame frame = new BinaryTreeFrame(tree);
                 frame.updateTreeImage();
