@@ -5,6 +5,13 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * For data sets, refer to: <a href=
+ * "https://www.geeksforgeeks.org/convert-normal-bst-balanced-bst/">https://www.geeksforgeeks.org/convert-normal-bst-balanced-bst/</a>
+ * 
+ * @author paawak
+ *
+ */
 public class BalancedBinaryTree implements BinaryTree<Integer> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BalancedBinaryTree.class);

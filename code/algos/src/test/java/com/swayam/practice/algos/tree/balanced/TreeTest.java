@@ -9,7 +9,7 @@ public class TreeTest {
     @Test
     public void testGetHeight_empty() {
         // given
-        UnbalancedBinaryTree tree = new UnbalancedBinaryTree();
+        UnBalancedBinaryTree tree = new UnBalancedBinaryTree();
 
         // when
         int result = tree.getHeight();
@@ -21,7 +21,7 @@ public class TreeTest {
     @Test
     public void testGetHeight_full() {
         // given
-        UnbalancedBinaryTree tree = new UnbalancedBinaryTree();
+        UnBalancedBinaryTree tree = new UnBalancedBinaryTree();
         tree.add(100);
         tree.add(50);
         tree.add(500);
@@ -40,7 +40,7 @@ public class TreeTest {
     @Test
     public void testGetBreadth_empty() {
         // given
-        UnbalancedBinaryTree tree = new UnbalancedBinaryTree();
+        UnBalancedBinaryTree tree = new UnBalancedBinaryTree();
 
         // when
         int result = tree.getBreadth();
@@ -52,7 +52,7 @@ public class TreeTest {
     @Test
     public void testGetBreadth_full() {
         // given
-        UnbalancedBinaryTree tree = new UnbalancedBinaryTree();
+        UnBalancedBinaryTree tree = new UnBalancedBinaryTree();
         tree.add(100);
         tree.add(50);
         tree.add(500);

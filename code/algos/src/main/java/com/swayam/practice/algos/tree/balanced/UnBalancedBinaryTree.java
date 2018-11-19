@@ -3,9 +3,9 @@ package com.swayam.practice.algos.tree.balanced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UnbalancedBinaryTree implements BinaryTree<Integer> {
+public class UnBalancedBinaryTree implements BinaryTree<Integer> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UnbalancedBinaryTree.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UnBalancedBinaryTree.class);
 
     private Node root;
 
