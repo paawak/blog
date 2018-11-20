@@ -6,6 +6,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * <p>
+ * <h1>Right Rotation</h2>
+ * 
+ * <pre>
+ *                      D                                       B
+ *                   /     \                                 /     \
+ *                  B       E        --->                   A       D
+ *               /     \                                         /     \
+ *              A       C                                       C       E
+ * 
+ * </pre>
+ * <p>
+ * 
  * For data sets, refer to: <a href=
  * "https://www.geeksforgeeks.org/convert-normal-bst-balanced-bst/">https://www.geeksforgeeks.org/convert-normal-bst-balanced-bst/</a>
  * 
