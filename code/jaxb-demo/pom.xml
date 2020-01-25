@@ -19,7 +19,7 @@
 		</resources>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<testResources>
-			<testResource>src/test/resources</testResource>
+			<testResource><directory>src/test/resources</directory></testResource>
 		</testResources>
 		<outputDirectory>target/classes</outputDirectory>
 		<plugins>
@@ -36,6 +36,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
 			<version>${spring.version}</version>
@@ -51,14 +56,9 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${logj2.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -71,6 +71,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j.version>1.7.7</slf4j.version>
+        <logj2.version>2.13.0</logj2.version>
 		<spring.version>4.1.4.RELEASE</spring.version>
 	</properties>
 
