@@ -21,7 +21,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -29,45 +30,46 @@ import org.apache.log4j.Logger;
  */
 class DateEditorSupport extends PropertyEditorSupport {
 
-    private static final Logger LOG = Logger.getLogger(DateEditorSupport.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DateEditorSupport.class);
 
-    private final Format formatter;
+	private final Format formatter;
 
-    DateEditorSupport(String dateFormat) {
-        formatter = new SimpleDateFormat(dateFormat);
-    }
+	DateEditorSupport(String dateFormat) {
+		formatter = new SimpleDateFormat(dateFormat);
+	}
 
-    public String getAsText() {
+	@Override
+	public String getAsText() {
 
-        String date = null;
+		String date = null;
 
-        Object value = getValue();
+		Object value = getValue();
 
-        if (value instanceof Date) {
+		if (value instanceof Date) {
 
-            date = formatter.format(value);
+			date = formatter.format(value);
 
-        } else {
-            throw new java.lang.IllegalArgumentException("Expecting a "
-                    + Date.class.getName() + " class, got "
-                    + value.getClass().getName());
-        }
+		} else {
+			throw new java.lang.IllegalArgumentException(
+					"Expecting a " + Date.class.getName() + " class, got " + value.getClass().getName());
+		}
 
-        return date;
+		return date;
 
-    }
+	}
 
-    public void setAsText(String text) {
+	@Override
+	public void setAsText(String text) {
 
-        try {
+		try {
 
-            Date date = (Date) formatter.parseObject(text);
-            setValue(date);
+			Date date = (Date) formatter.parseObject(text);
+			setValue(date);
 
-        } catch (ParseException e) {
-            LOG.fatal("error setting date for String: " + text, e);
-        }
+		} catch (ParseException e) {
+			LOG.error("error setting date for String: " + text, e);
+		}
 
-    }
+	}
 
 }
