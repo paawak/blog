@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -72,20 +75,36 @@ public class EulerCircuit {
 
     private static int testEuler(String verticesAndEdges, String edgeDetails) {
 
-	String[] verticesAndEdgesArray = verticesAndEdges.split("//s");
+	String[] verticesAndEdgesArray = verticesAndEdges.split("\\s");
 	int vertexCount = Integer.parseInt(verticesAndEdgesArray[0]);
 	int edgeCount = Integer.parseInt(verticesAndEdgesArray[1]);
 
-	String[] edgeDetailsArray = edgeDetails.split("//s");
+	String[] edgeDetailsArray = edgeDetails.split("\\s");
 
-	IntStream.range(0, edgeDetailsArray.length).filter(row -> row % 2 == 0)
-		.mapToObj(
-			row -> new Edge(row, Integer.parseInt(edgeDetailsArray[row]),
+	Map<Integer, List<Vertex>> vertexIdMap =
+		IntStream.range(0, edgeDetailsArray.length).filter(row -> row % 2 == 0)
+			.mapToObj(row -> new Edge(row, Integer.parseInt(edgeDetailsArray[row]),
 				Integer.parseInt(edgeDetailsArray[row + 1])))
-		.flatMap(edge -> Arrays.asList(new Vertex(edge.fromVertex, edge.edgeId),
-			new Vertex(edge.toVertex, edge.edgeId)).stream());
+			.flatMap(edge -> Arrays.asList(new Vertex(edge.fromVertex, edge.edgeId),
+				new Vertex(edge.toVertex, edge.edgeId)).stream())
+			.collect(Collectors.groupingBy(Vertex::getVertexId));
 
-	return -1;
+	Map<Integer, Integer> vertexDegreeMap = vertexIdMap.entrySet().stream()
+		.collect(Collectors.toMap(Entry::getKey, entry -> entry.getValue().size()));
+
+	int verticesWithEvenDegree =
+		(int) vertexDegreeMap.values().stream().filter(size -> size % 2 == 0).count();
+
+	boolean hasEulerianPath = verticesWithEvenDegree == vertexCount - 2;
+	boolean isEulerianGraph = verticesWithEvenDegree == vertexCount;
+
+	if (isEulerianGraph) {
+	    return 2;
+	} else if (hasEulerianPath) {
+	    return 1;
+	} else {
+	    return 0;
+	}
 
     }
 
