@@ -20,7 +20,7 @@
 			</ul>
 		</div>
 		</c:if>
-		<form:form commandName="command" method="post" action="checkout.htm">
+		<form:form modelAttribute="command" method="post" action="checkout.htm">
 			<div>
 				<table style="text-align: left; width: 100%;" border="0" cellpadding="2"
 				cellspacing="2">
