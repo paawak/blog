@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -61,16 +62,65 @@ public class EulerCircuit {
 
 	int totalTestCases = Integer.parseInt(lines.get(0));
 
-	IntStream.rangeClosed(1, totalTestCases).filter(row -> row % 2 != 0).forEach(row -> {
+	IntStream.rangeClosed(1, totalTestCases).filter(row -> row % 2 != 0).map(row -> {
 	    String verticesAndEdges = lines.get(row);
 	    String edgeDetails = lines.get(row + 1);
-	    printEuler(verticesAndEdges, edgeDetails);
-	});
+	    return testEuler(verticesAndEdges, edgeDetails);
+	}).forEach(System.out::println);
 
     }
 
-    private static void printEuler(String verticesAndEdges, String edgeDetails) {
-	System.out.println(verticesAndEdges + ", " + edgeDetails);
+    private static int testEuler(String verticesAndEdges, String edgeDetails) {
+
+	String[] verticesAndEdgesArray = verticesAndEdges.split("//s");
+	int vertexCount = Integer.parseInt(verticesAndEdgesArray[0]);
+	int edgeCount = Integer.parseInt(verticesAndEdgesArray[1]);
+
+	String[] edgeDetailsArray = edgeDetails.split("//s");
+
+	IntStream.range(0, edgeDetailsArray.length).filter(row -> row % 2 == 0)
+		.mapToObj(
+			row -> new Edge(row, Integer.parseInt(edgeDetailsArray[row]),
+				Integer.parseInt(edgeDetailsArray[row + 1])))
+		.flatMap(edge -> Arrays.asList(new Vertex(edge.fromVertex, edge.edgeId),
+			new Vertex(edge.toVertex, edge.edgeId)).stream());
+
+	return -1;
+
+    }
+
+    private static class Vertex {
+
+	private final int vertexId;
+	private final int edgeId;
+
+	public Vertex(int vertexId, int edgeId) {
+	    this.vertexId = vertexId;
+	    this.edgeId = edgeId;
+	}
+
+	public int getVertexId() {
+	    return vertexId;
+	}
+
+	public int getEdgeId() {
+	    return edgeId;
+	}
+
+    }
+
+    private static class Edge {
+
+	private final int edgeId;
+	private final int fromVertex;
+	private final int toVertex;
+
+	public Edge(int edgeId, int fromVertex, int toVertex) {
+	    this.edgeId = edgeId;
+	    this.fromVertex = fromVertex;
+	    this.toVertex = toVertex;
+	}
+
     }
 
 }
