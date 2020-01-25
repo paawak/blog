@@ -243,7 +243,7 @@
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
 		<hibernate.version>3.2.6.ga</hibernate.version>
 		<jpa.version>1.0</jpa.version>
-		<spring.version>3.0.0.RELEASE</spring.version>
+		<spring.version>5.2.3.RELEASE</spring.version>
 		<jstl.version>1.1.2</jstl.version>
 		<commons.beanutils.version>1.7.0</commons.beanutils.version>
 		<commons.collections.version>3.2</commons.collections.version>
