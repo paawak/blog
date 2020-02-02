@@ -12,7 +12,7 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 
 ## Running Wildfly
 
-	WILDFLY_HOME/bin/standalone.sh -c standalone.xml
+	WILDFLY_HOME/bin/standalone.sh -c standalone-with-mq.xml
 
 ## Adding users
 
