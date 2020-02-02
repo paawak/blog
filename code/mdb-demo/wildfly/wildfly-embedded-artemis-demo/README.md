@@ -11,12 +11,14 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 # Configuring Wildfly
 
 ## Running Wildfly
-	WILDFLY_HOME/bin/standalone.sh 
+
+	WILDFLY_HOME/bin/standalone.sh -c standalone.xml
 
 ## Adding users
 
 - Go to WILDFLY_HOME/bin/add-user
-- Create a *Management User*
+- When prompted, follow the steps to create below users
+- Create a *Management User* with name **myadmin**, password **myadmin123**.
 - Create an *Application User* with name **user**, password **user123**. It should have a role **guest**
 
 
