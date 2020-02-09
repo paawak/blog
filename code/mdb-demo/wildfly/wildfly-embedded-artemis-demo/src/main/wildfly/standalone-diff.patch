@@ -1,33 +1,27 @@
-diff --git a/code/mdb-demo/wildfly/wildfly-embedded-artemis-demo/src/main/wildfly/standalone.xml b/code/mdb-demo/wildfly/wildfly-embedded-artemis-demo/src/main/wildfly/standalone.xml
-index 740bdd0d..20ebefe6 100644
---- a/code/mdb-demo/wildfly/wildfly-embedded-artemis-demo/src/main/wildfly/standalone.xml
-+++ b/code/mdb-demo/wildfly/wildfly-embedded-artemis-demo/src/main/wildfly/standalone.xml
-@@ -1,4 +1,4 @@
--<?xml version='1.0' encoding='UTF-8'?>
-+<?xml version="1.0" ?>
- 
- <server xmlns="urn:jboss:domain:7.0">
-     <extensions>
-@@ -29,6 +29,7 @@
+diff --git a/code/mdb-demo/wildfly/wildfly-embedded-artemis-demo/src/main/wildfly/standalone-with-embedded-artemis-mq.xml b/code/mdb-demo/wildfly/wildfly-embedded-artemis-demo/src/main/wildfly/standalone-with-embedded-artemis-mq.xml
+index f220ba7e..5a3e4755 100644
+--- a/code/mdb-demo/wildfly/wildfly-embedded-artemis-demo/src/main/wildfly/standalone-with-embedded-artemis-mq.xml
++++ b/code/mdb-demo/wildfly/wildfly-embedded-artemis-demo/src/main/wildfly/standalone-with-embedded-artemis-mq.xml
+@@ -30,6 +30,7 @@
          <extension module="org.wildfly.extension.ee-security"/>
          <extension module="org.wildfly.extension.elytron"/>
          <extension module="org.wildfly.extension.io"/>
 +        <extension module="org.wildfly.extension.messaging-activemq"/>
-         <extension module="org.wildfly.extension.request-controller"/>
-         <extension module="org.wildfly.extension.security.manager"/>
-         <extension module="org.wildfly.extension.undertow"/>
-@@ -188,6 +189,10 @@
+         <extension module="org.wildfly.extension.microprofile.config-smallrye"/>
+         <extension module="org.wildfly.extension.microprofile.health-smallrye"/>
+         <extension module="org.wildfly.extension.microprofile.metrics-smallrye"/>
+@@ -203,6 +204,10 @@
                  <stateful default-access-timeout="5000" cache-ref="simple" passivation-disabled-cache-ref="simple"/>
                  <singleton default-access-timeout="5000"/>
              </session-bean>
 +            <mdb>
 +                <resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:activemq-ra.rar}"/>
 +                <bean-instance-pool-ref pool-name="mdb-strict-max-pool"/>
-+            </mdb>            
++            </mdb>                
              <pools>
                  <bean-instance-pools>
                      <strict-max-pool name="mdb-strict-max-pool" derive-size="from-cpu-count" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
-@@ -403,6 +408,34 @@
+@@ -414,6 +419,34 @@
                  <smtp-server outbound-socket-binding-ref="mail-smtp"/>
              </mail-session>
          </subsystem>
@@ -58,14 +52,7 @@ index 740bdd0d..20ebefe6 100644
 +                <connection-factory name="RemoteConnectionFactory" entries="java:/jms/RemoteConnectionFactory" connectors="http-connector"/>
 +                <pooled-connection-factory name="activemq-ra" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" connectors="in-vm" transaction="xa"/>
 +            </server>
-+        </subsystem>        
-         <subsystem xmlns="urn:jboss:domain:naming:2.0">
-             <remote-naming/>
-         </subsystem>
-@@ -511,4 +544,4 @@
-             <remote-destination host="localhost" port="25"/>
-         </outbound-socket-binding>
-     </socket-binding-group>
--</server>
-\ No newline at end of file
-+</server>
++        </subsystem>          
+         <subsystem xmlns="urn:wildfly:microprofile-config-smallrye:1.0"/>
+         <subsystem xmlns="urn:wildfly:microprofile-health-smallrye:2.0" security-enabled="false" empty-liveness-checks-status="${env.MP_HEALTH_EMPTY_LIVENESS_CHECKS_STATUS:UP}" empty-readiness-checks-status="${env.MP_HEALTH_EMPTY_READINESS_CHECKS_STATUS:UP}"/>
+         <subsystem xmlns="urn:wildfly:microprofile-metrics-smallrye:2.0" security-enabled="false" exposed-subsystems="*" prefix="${wildfly.metrics.prefix:wildfly}"/>
