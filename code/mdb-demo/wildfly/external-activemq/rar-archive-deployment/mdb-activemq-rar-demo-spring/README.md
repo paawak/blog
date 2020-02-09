@@ -33,6 +33,7 @@ Simply copy the *activemq-rar-5.15.4.rar* into the *standalone/deployments* dire
 **java.lang.ClassNotFoundException: org.slf4j.impl.Log4jLoggerAdapter**
 **Solution:**
 Add the below dependency:
+
 ``` xml
 		<dependency>
 	        <groupId>org.slf4j</groupId>
@@ -44,6 +45,7 @@ Add the below dependency:
 **java.lang.ClassNotFoundException: org.slf4j.impl.Slf4jLogger**
 **Solution:**
 Add the below dependency:
+
 ``` xml
 		<dependency>
 		    <groupId>org.jboss.slf4j</groupId>
@@ -52,19 +54,21 @@ Add the below dependency:
 		</dependency>
 ```
  
-** java.lang.NoClassDefFoundError: org/jboss/logmanager/Level**
+**java.lang.NoClassDefFoundError: org/jboss/logmanager/Level**
 **Solution:**
+
 ``` xml
 		<dependency>
 			<groupId>org.jboss.logmanager</groupId>
 		    <artifactId>jboss-logmanager</artifactId>
 			<version>2.1.4.Final</version>
 		</dependency>
-```	
+```
 
 **java.lang.ClassCastException: Cannot cast org.jboss.logmanager.Logger to org.jboss.logmanager.Logger**
 **Solution:**
 In the below subsystem,
+
 ``` xml
 <subsystem xmlns="urn:jboss:domain:logging:5.0">
 ```
