@@ -1,6 +1,6 @@
 # About
 
-This demoes a simple web-application containing a Message Driven Bean deployed with Wildfly. It uses the embedded Artemis message broker inside of Wildfly.
+This demoes a simple web-application containing a Message Driven Bean deployed with Wildfly. It uses the embedded Artemis message broker inside of Wildfly. To read about this, refer to [my blog entry](http://palashray.com/mdb-hello-world-with-wildfly-and-embedded-artemis-mq/).
 
 
 # To post a message to the queue:
@@ -12,7 +12,7 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 
 ## Running Wildfly
 
-	WILDFLY_HOME/bin/standalone.sh -c standalone-with-mq.xml
+	WILDFLY_HOME/bin/standalone.sh -c standalone-with-embedded-artemis-mq.xml
 
 ## Adding users
 
