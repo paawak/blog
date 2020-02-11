@@ -11,7 +11,8 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 # Configuring Wildfly
 
 ## Running Wildfly
-	WILDFLY_HOME/bin/standalone.sh 
+
+	WILDFLY_HOME/bin/standalone.sh -c standalone-with-external-activemq-rar-deployment.xml
 
 ## Adding users
 
@@ -21,6 +22,19 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 
 ## Deploying ActiveMQ RAR as archive
 Simply copy the *activemq-rar-5.15.4.rar* into the *standalone/deployments* directory
+
+## Apache ActiveMQ
+### Starting
+
+	bin/activemq start
+
+### Admin Console
+	
+	http://localhost:8161/admin/
+	
+User: admin
+
+Password: admin	
 
 ## Using external ActiveMQ
 - https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly
