@@ -9,10 +9,9 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 
 
 # Configuring Wildfly
+## Deploying ActiveMQ RAR as archive
 
-## Running Wildfly
-
-	WILDFLY_HOME/bin/standalone.sh -c standalone-with-external-activemq-rar-deployment.xml
+Simply copy the *src/main/wildfly/activemq-rar-5.15.4.rar* into the *standalone/deployments* directory
 
 ## Adding users
 
@@ -20,15 +19,17 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 - Create a *Management User*
 - Create an *Application User* with name **user**, password **user123**. It should have a role **guest**
 
-## Deploying ActiveMQ RAR as archive
-Simply copy the *activemq-rar-5.15.4.rar* into the *standalone/deployments* directory
 
-## Apache ActiveMQ
-### Starting
+## Running Wildfly
+
+	WILDFLY_HOME/bin/standalone.sh -c standalone-with-external-activemq-rar-deployment.xml
+
+# Apache ActiveMQ
+## Starting
 
 	bin/activemq start
 
-### Admin Console
+## Admin Console
 	
 	http://localhost:8161/admin/
 	
