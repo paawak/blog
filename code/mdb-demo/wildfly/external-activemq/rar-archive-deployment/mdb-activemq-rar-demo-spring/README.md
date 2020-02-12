@@ -25,11 +25,11 @@ Simply copy the *src/main/wildfly/activemq-rar-5.15.4.rar* into the *standalone/
 	WILDFLY_HOME/bin/standalone.sh -c standalone-with-external-activemq-rar-deployment.xml
 
 # Apache ActiveMQ
-## Starting
+## Starting ActiveMQ
 
 	bin/activemq start
 
-## Admin Console
+## ActiveMQ Admin Console
 	
 	http://localhost:8161/admin/
 	
@@ -37,7 +37,7 @@ User: admin
 
 Password: admin	
 
-## Using external ActiveMQ
+## Further Reading
 - <https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly>
 - <http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-activemq-on-jbosswildfly>
 - <http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-jboss-as7-openmq>
