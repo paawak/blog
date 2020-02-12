@@ -10,8 +10,11 @@ import javax.jms.TextMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-	@ActivationConfigProperty(propertyName = "destination", propertyValue = "jms/queue/mytest") })
+@MessageDriven(activationConfig = {
+	@ActivationConfigProperty(propertyName = "destinationType",
+		propertyValue = "javax.jms.Queue"),
+	@ActivationConfigProperty(propertyName = "destination",
+		propertyValue = "queue/HELLOWORLDMDBQueue") })
 public class AuthorRequestListenerBean implements MessageListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorRequestListenerBean.class);

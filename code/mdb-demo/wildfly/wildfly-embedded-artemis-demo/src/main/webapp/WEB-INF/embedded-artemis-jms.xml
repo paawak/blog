@@ -2,9 +2,9 @@
 <messaging-deployment xmlns="urn:jboss:messaging-activemq-deployment:1.0">
     <server>
         <jms-destinations>
-            <jms-queue name="myTestQueue">
-                <entry name="jms/queue/mytest"/>
-                <entry name="java:jboss/exported/jms/queue/mytest"/>
+            <jms-queue name="HELLOWORLDMDBQueue">
+                <entry name="queue/HELLOWORLDMDBQueue"/>
+                <entry name="java:jboss/exported/queue/HELLOWORLDMDBQueue"/>
             </jms-queue>
         </jms-destinations>
     </server>
