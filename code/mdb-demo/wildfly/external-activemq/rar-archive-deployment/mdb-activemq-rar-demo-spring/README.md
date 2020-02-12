@@ -38,6 +38,7 @@ User: admin
 Password: admin	
 
 ## Further Reading
+- <https://docs.oracle.com/javaee/6/tutorial/doc/gipgl.html>
 - <https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly>
 - <http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-activemq-on-jbosswildfly>
 - <http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-jboss-as7-openmq>
