@@ -19,7 +19,8 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 ### Extract the contents of *activemq-rar-5.15.4.rar* into it
 
 	cd WILDFLY_HOME/modules/system/layers/base/org/apache/activemq/ra/main
-	jar -xvf  activemq/rar/activemq-rar-5.15.4.rar 
+	cp src/main/wildfly/activemq-rar-5.15.4.rar .
+	jar -xvf  activemq-rar-5.15.4.rar 
 
 ### Copy the module.xml into it
 	
