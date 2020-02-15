@@ -68,21 +68,21 @@ Add the below dependency:
 Add the below dependency:
 
 ``` xml
-		<dependency>
-		    <groupId>org.jboss.slf4j</groupId>
-		    <artifactId>slf4j-jboss-logmanager</artifactId>
-		    <version>1.0.4.GA</version>
-		</dependency>
+        <dependency>
+            <groupId>org.jboss.slf4j</groupId>
+            <artifactId>slf4j-jboss-logmanager</artifactId>
+            <version>1.0.4.GA</version>
+        </dependency>
 ```
  
 ## java.lang.NoClassDefFoundError: org/jboss/logmanager/Level
 
 ``` xml
-		<dependency>
-			<groupId>org.jboss.logmanager</groupId>
-		    <artifactId>jboss-logmanager</artifactId>
-			<version>2.1.4.Final</version>
-		</dependency>
+        <dependency>
+            <groupId>org.jboss.logmanager</groupId>
+            <artifactId>jboss-logmanager</artifactId>
+            <version>2.1.4.Final</version>
+        </dependency>
 ```
 
 ## java.lang.ClassCastException: Cannot cast org.jboss.logmanager.Logger to org.jboss.logmanager.Logger
