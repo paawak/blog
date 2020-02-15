@@ -5,12 +5,13 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 
 # To post a message to the queue:
 
-	http://localhost:8080/wildfly-external-activemq-demo-spring/author.html
+	http://localhost:8080/mdb-activemq-module-demo-spring/author.html
 
 
 # Configuring Wildfly
 
 ## Running Wildfly
+
 	WILDFLY_HOME/bin/standalone.sh 
 
 ## Adding users
@@ -19,17 +20,12 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 - Create a *Management User*
 - Create an *Application User* with name **user**, password **user123**. It should have a role **guest**
 
-## Using external ActiveMQ
-- https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly
-- http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-activemq-on-jbosswildfly
-- http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-jboss-as7-openmq
-- https://github.com/wildfly/quickstart/compare/master...jmesnil:helloworld-mdb-activemq-ra
-- https://github.com/wildfly/quickstart/tree/master/helloworld-mdb
+# Common Problems And Their Solutions
 
-### Problems
-**java.lang.ClassNotFoundException: org.slf4j.impl.Log4jLoggerAdapter**
-**Solution:**
+## java.lang.ClassNotFoundException: org.slf4j.impl.Log4jLoggerAdapter
+
 Add the below dependency:
+
 ``` xml
 		<dependency>
 	        <groupId>org.slf4j</groupId>
@@ -38,9 +34,10 @@ Add the below dependency:
 	    </dependency>
 ```
 
-**java.lang.ClassNotFoundException: org.slf4j.impl.Slf4jLogger**
-**Solution:**
+## java.lang.ClassNotFoundException: org.slf4j.impl.Slf4jLogger
+
 Add the below dependency:
+
 ``` xml
 		<dependency>
 		    <groupId>org.jboss.slf4j</groupId>
@@ -49,19 +46,20 @@ Add the below dependency:
 		</dependency>
 ```
  
-** java.lang.NoClassDefFoundError: org/jboss/logmanager/Level**
-**Solution:**
+## java.lang.NoClassDefFoundError: org/jboss/logmanager/Level
+
 ``` xml
 		<dependency>
 			<groupId>org.jboss.logmanager</groupId>
 		    <artifactId>jboss-logmanager</artifactId>
 			<version>2.1.4.Final</version>
 		</dependency>
-```	
+```
 
-**java.lang.ClassCastException: Cannot cast org.jboss.logmanager.Logger to org.jboss.logmanager.Logger**
-**Solution:**
+## java.lang.ClassCastException: Cannot cast org.jboss.logmanager.Logger to org.jboss.logmanager.Logger
+
 In the below subsystem,
+
 ``` xml
 <subsystem xmlns="urn:jboss:domain:logging:5.0">
 ```
@@ -73,3 +71,10 @@ Put the below lines
             <use-deployment-logging-config value="true"/>
 ```
 
+# Further Reading
+
+- <https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly>
+- <http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-activemq-on-jbosswildfly>
+- <http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-jboss-as7-openmq>
+- <https://github.com/wildfly/quickstart/compare/master...jmesnil:helloworld-mdb-activemq-ra>
+- <https://github.com/wildfly/quickstart/tree/master/helloworld-mdb>

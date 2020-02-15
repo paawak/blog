@@ -1,6 +1,6 @@
 # About
 
-This demoes a simple web-application containing a Message Driven Bean deployed with Wildfly. It uses the embedded Artemis message broker inside of Wildfly.
+This demoes a simple web-application containing a Message Driven Bean deployed with Wildfly. It uses the embedded Artemis message broker inside of Wildfly. You can read about this in my blog: <http://palashray.com/mdb-hello-world-with-wildfly-and-activemq-with-rar-deployment/>
 
 
 # To post a message to the queue:
@@ -37,7 +37,7 @@ User: admin
 
 Password: admin	
 
-## Further Reading
+# Further Reading
 - <https://docs.oracle.com/javaee/6/tutorial/doc/gipgl.html>
 - <https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly>
 - <http://www.mastertheboss.com/jboss-frameworks/ironjacamar/configuring-a-resource-adapter-for-activemq-on-jbosswildfly>
