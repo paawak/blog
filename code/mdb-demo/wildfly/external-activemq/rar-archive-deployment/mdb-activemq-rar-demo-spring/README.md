@@ -25,6 +25,7 @@ Simply copy the *src/main/wildfly/activemq-rar-5.15.4.rar* into the *standalone/
 	WILDFLY_HOME/bin/standalone.sh -c standalone-with-external-activemq-rar-deployment.xml
 
 # Apache ActiveMQ
+
 ## Starting ActiveMQ
 
 	bin/activemq start
