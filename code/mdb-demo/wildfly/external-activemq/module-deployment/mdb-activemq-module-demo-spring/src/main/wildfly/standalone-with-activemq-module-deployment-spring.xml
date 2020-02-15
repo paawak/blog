@@ -205,9 +205,9 @@
                 <singleton default-access-timeout="5000"/>
             </session-bean>
             <mdb>
-                <resource-adapter-ref resource-adapter-name="activemq-rar-5.15.4.rar"/>
+                <resource-adapter-ref resource-adapter-name="activemq-rar"/>
                 <bean-instance-pool-ref pool-name="mdb-strict-max-pool"/>
-            </mdb>              
+            </mdb>      
             <pools>
                 <bean-instance-pools>
                     <strict-max-pool name="mdb-strict-max-pool" derive-size="from-cpu-count" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
@@ -446,7 +446,7 @@
                 <connection-factory name="RemoteConnectionFactory" entries="java:jboss/exported/jms/RemoteConnectionFactory" connectors="http-connector"/>
                 <pooled-connection-factory name="activemq-ra" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" connectors="in-vm" transaction="xa"/>
             </server>
-        </subsystem>              
+        </subsystem>                
         <subsystem xmlns="urn:wildfly:microprofile-config-smallrye:1.0"/>
         <subsystem xmlns="urn:wildfly:microprofile-health-smallrye:2.0" security-enabled="false" empty-liveness-checks-status="${env.MP_HEALTH_EMPTY_LIVENESS_CHECKS_STATUS:UP}" empty-readiness-checks-status="${env.MP_HEALTH_EMPTY_READINESS_CHECKS_STATUS:UP}"/>
         <subsystem xmlns="urn:wildfly:microprofile-metrics-smallrye:2.0" security-enabled="false" exposed-subsystems="*" prefix="${wildfly.metrics.prefix:wildfly}"/>
@@ -461,8 +461,8 @@
         <subsystem xmlns="urn:jboss:domain:request-controller:1.0"/>
         <subsystem xmlns="urn:jboss:domain:resource-adapters:5.0">
             <resource-adapters>  
-                <resource-adapter id="activemq-rar-5.15.4.rar">  
-                	<archive>activemq-rar-5.15.4.rar</archive>
+                <resource-adapter id="activemq-rar.rar">  
+	                <module slot="main" id="org.apache.activemq.ra" />   
                     <transaction-support>XATransaction</transaction-support>  
                     <config-property name="UseInboundSession">false</config-property>  
                     <config-property name="Password">admin</config-property>  
