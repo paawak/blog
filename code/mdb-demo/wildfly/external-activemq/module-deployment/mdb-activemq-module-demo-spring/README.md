@@ -56,7 +56,7 @@ Password: admin
 Add the below dependency:
 
 ``` xml
-		<dependency>
+        <dependency>
 	        <groupId>org.slf4j</groupId>
 	        <artifactId>slf4j-log4j12</artifactId>
 	        <version>${slf4j.version}</version>
