@@ -57,10 +57,10 @@ Add the below dependency:
 
 ``` xml
         <dependency>
-	        <groupId>org.slf4j</groupId>
-	        <artifactId>slf4j-log4j12</artifactId>
-	        <version>${slf4j.version}</version>
-	    </dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
 ```
 
 ## java.lang.ClassNotFoundException: org.slf4j.impl.Slf4jLogger
