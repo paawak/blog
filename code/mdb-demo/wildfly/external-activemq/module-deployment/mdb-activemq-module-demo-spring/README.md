@@ -1,6 +1,6 @@
 # About
 
-This demoes a simple web-application containing a Message Driven Bean deployed with Wildfly. It uses the embedded Artemis message broker inside of Wildfly.
+This demoes a simple web-application containing a Message Driven Bean deployed with Wildfly. It uses the embedded Artemis message broker inside of Wildfly. For details, refer to my blog: <http://palashray.com/mdb-hello-world-with-wildfly-and-activemq-rar-deployed-as-a-module/>
 
 
 # To post a message to the queue:
