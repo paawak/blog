@@ -48,57 +48,6 @@ User: admin
 
 Password: admin		
 
-# Common Problems And Their Solutions
-
-## java.lang.ClassNotFoundException: org.slf4j.impl.Log4jLoggerAdapter
-
-Add the below dependency:
-
-``` xml
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-```
-
-## java.lang.ClassNotFoundException: org.slf4j.impl.Slf4jLogger
-
-Add the below dependency:
-
-``` xml
-        <dependency>
-            <groupId>org.jboss.slf4j</groupId>
-            <artifactId>slf4j-jboss-logmanager</artifactId>
-            <version>1.0.4.GA</version>
-        </dependency>
-```
- 
-## java.lang.NoClassDefFoundError: org/jboss/logmanager/Level
-
-``` xml
-        <dependency>
-            <groupId>org.jboss.logmanager</groupId>
-            <artifactId>jboss-logmanager</artifactId>
-            <version>2.1.4.Final</version>
-        </dependency>
-```
-
-## java.lang.ClassCastException: Cannot cast org.jboss.logmanager.Logger to org.jboss.logmanager.Logger
-
-In the below subsystem,
-
-``` xml
-<subsystem xmlns="urn:jboss:domain:logging:5.0">
-```
-
-Put the below lines
-
-``` xml
-            <add-logging-api-dependencies value="false"/>
-            <use-deployment-logging-config value="true"/>
-```
-
 # Further Reading
 
 - <https://developer.jboss.org/wiki/HowToUseOutOfProcessActiveMQWithWildFly>
