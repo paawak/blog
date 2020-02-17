@@ -1,12 +1,10 @@
 # About
 
-This demoes a simple web-application containing a Message Driven Bean deployed with Wildfly. It uses the embedded Artemis message broker inside of Wildfly. For details, refer to my blog: <http://palashray.com/mdb-hello-world-with-wildfly-and-activemq-rar-deployed-as-a-module/>
-
+This demoes a simple web-application containing a Message Driven Bean deployed with Wildfly. It uses an externally running Apache ActiveMQ message broker. For details, refer to my blog: <http://palashray.com/mdb-hello-world-with-wildfly-and-activemq-rar-deployed-as-a-module/>
 
 # To post a message to the queue:
 
 	http://localhost:8080/mdb-activemq-module-demo-spring/author.html
-
 
 # Configuring Wildfly
 	
