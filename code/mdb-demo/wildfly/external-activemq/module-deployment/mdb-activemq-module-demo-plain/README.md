@@ -32,7 +32,7 @@ This demoes a simple web-application containing a Message Driven Bean deployed w
 
 ## Running Wildfly
 
-	WILDFLY_HOME/bin/standalone.sh -c standalone-with-activemq-module-deployment-spring.xml
+		WILDFLY_HOME/bin/standalone.sh -c standalone-with-activemq-module-deployment-plain.xml
 	
 # Apache ActiveMQ
 
