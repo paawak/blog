@@ -463,7 +463,14 @@
                                 <is-same-rm-override>false</is-same-rm-override>  
                             </xa-pool>  
                         </connection-definition>  
-                    </connection-definitions>                    
+                    </connection-definitions>    
+                    <admin-objects>  
+                    	<admin-object class-name="org.apache.activemq.command.ActiveMQQueue"
+                   		 jndi-name="java:/queue/HELLOWORLDMDBQueue"
+                   		 use-java-context="true" pool-name="HELLOWORLDMDBQueue">  
+                        	<config-property name="PhysicalName">HELLOWORLDMDBQueue</config-property>  
+                    	</admin-object>  
+                	</admin-objects>  
                 </resource-adapter>  
             </resource-adapters>          
         </subsystem>

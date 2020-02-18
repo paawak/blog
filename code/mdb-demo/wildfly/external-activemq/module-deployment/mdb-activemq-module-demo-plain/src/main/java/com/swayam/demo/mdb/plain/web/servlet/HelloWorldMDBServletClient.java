@@ -7,8 +7,6 @@ import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-import javax.jms.JMSDestinationDefinition;
-import javax.jms.JMSDestinationDefinitions;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
@@ -26,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swayam.demo.mdb.plain.web.dto.AuthorRequest;
 
-@JMSDestinationDefinitions(value = { @JMSDestinationDefinition(name = HelloWorldMDBServletClient.QUEUE_JNDI_NAME, interfaceName = "javax.jms.Queue", destinationName = "HELLOWORLDMDBQueue") })
 @WebServlet("/rest/author")
 public class HelloWorldMDBServletClient extends HttpServlet {
 
@@ -43,7 +40,8 @@ public class HelloWorldMDBServletClient extends HttpServlet {
     private Queue queue;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+	    throws ServletException, IOException {
 
 	AuthorRequest authorRequest = new AuthorRequest();
 	authorRequest.setAuthorId(Long.valueOf(req.getParameter("authorId")));
@@ -56,7 +54,8 @@ public class HelloWorldMDBServletClient extends HttpServlet {
 
 	resp.setContentType("text/html");
 	PrintWriter out = resp.getWriter();
-	out.write("<h1>Quickstart: Example demonstrates the use of <strong>JMS 2.0</strong> and <strong>EJB 3.2 Message-Driven Bean</strong> in JBoss EAP.</h1>");
+	out.write(
+		"<h1>Quickstart: Example demonstrates the use of <strong>JMS 2.0</strong> and <strong>EJB 3.2 Message-Driven Bean</strong> in JBoss EAP.</h1>");
 	try {
 
 	    Connection connection = connectionFactory.createConnection();
@@ -71,7 +70,8 @@ public class HelloWorldMDBServletClient extends HttpServlet {
 	    out.write("Message: " + text + "</br>");
 	    session.close();
 	    connection.close();
-	    out.write("<p><i>Go to your JBoss EAP server console or server log to see the result of messages processing.</i></p>");
+	    out.write(
+		    "<p><i>Go to your JBoss EAP server console or server log to see the result of messages processing.</i></p>");
 	} catch (JMSException e) {
 	    throw new RuntimeException(e);
 	} finally {
