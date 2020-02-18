@@ -6,7 +6,7 @@
 <title>Welcome to bare-bones Spring Rest</title>
 </head>
 <body>
-<h1>Hi, welcome ${user}! This is a test page.</h1>
+<h1>Hi there! This is a test page.</h1>
 <div>
 
 </div>
