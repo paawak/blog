@@ -31,12 +31,10 @@ public class HelloWorldMDBServletClient extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorldMDBServletClient.class);
 
-    public static final String QUEUE_JNDI_NAME = "java:/queue/HELLOWORLDMDBQueue";
-
     @Resource(mappedName = "java:/ActiveMQConnectionFactory")
     private ConnectionFactory connectionFactory;
 
-    @Resource(mappedName = HelloWorldMDBServletClient.QUEUE_JNDI_NAME)
+    @Resource(mappedName = "java:/queue/HELLOWORLDMDBQueue")
     private Queue queue;
 
     @Override
