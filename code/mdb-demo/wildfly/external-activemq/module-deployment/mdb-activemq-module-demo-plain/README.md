@@ -1,6 +1,6 @@
 # About
 
-This demoes a simple web-application containing a Message Driven Bean deployed with Wildfly. It uses an externally running Apache ActiveMQ message broker.
+This demoes a simple web-application containing a Message Driven Bean deployed with Wildfly. It uses an externally running Apache ActiveMQ message broker. For details, refer to my blog: <http://palashray.com/mdb-hello-world-using-jee-cdi-on-wildfly-with-activemq-rar-deployed-as-a-module/>.
 
 # To post a message to the queue:
 
