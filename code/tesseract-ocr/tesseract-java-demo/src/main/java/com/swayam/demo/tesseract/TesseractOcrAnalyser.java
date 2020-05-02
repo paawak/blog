@@ -31,23 +31,23 @@ public class TesseractOcrAnalyser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TesseractOcrAnalyser.class);
 
-    private static final String TESSDATA_DIRECTORY = "/kaaj/installs/tesseract/tessdata_best-4.0.0";
-
+    private final String tessDataDirectory;
     private final Path imagePath;
-    private final Language language;
+    private final String language;
 
-    public TesseractOcrAnalyser(Path imagePath, Language language) {
+    public TesseractOcrAnalyser(String tessDataDirectory, Path imagePath, String language) {
+	this.tessDataDirectory = tessDataDirectory;
 	this.imagePath = imagePath;
 	this.language = language;
     }
 
-    private List<OcrWord> extractLinesFromImage() {
+    public List<OcrWord> extractLinesFromImage() {
 
-	LOGGER.info("Analyzing image file for lines...");
+	LOGGER.info("Analyzing image file {} with language {} for lines...", imagePath, language);
 	List<OcrWord> lines;
 
 	try (TessBaseAPI api = new TessBaseAPI();) {
-	    int returnCode = api.Init(TESSDATA_DIRECTORY, language.code);
+	    int returnCode = api.Init(tessDataDirectory, language);
 	    if (returnCode != 0) {
 		throw new RuntimeException("could not initialize tesseract, error code: " + returnCode);
 	    }
@@ -88,13 +88,13 @@ public class TesseractOcrAnalyser {
 
     }
 
-    private List<OcrWord> extractWordsFromImage() {
-	LOGGER.info("Analyzing image file for words...");
+    public List<OcrWord> extractWordsFromImage() {
+	LOGGER.info("Analyzing image file {} with language {} for words...", imagePath, language);
 
 	List<OcrWord> words = new ArrayList<>();
 
 	try (TessBaseAPI api = new TessBaseAPI();) {
-	    int returnCode = api.Init(TESSDATA_DIRECTORY, language.code);
+	    int returnCode = api.Init(tessDataDirectory, language);
 	    if (returnCode != 0) {
 		throw new RuntimeException("could not initialize tesseract, error code: " + returnCode);
 	    }
