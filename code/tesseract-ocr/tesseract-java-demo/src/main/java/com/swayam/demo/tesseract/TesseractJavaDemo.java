@@ -12,7 +12,7 @@ public class TesseractJavaDemo {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TesseractJavaDemo.class);
 
-    private static final String TESSDATA_DIR = "/home/paawak/kaaj/installs/tesseract/tessdata_best-4.0.0";
+    private static final String TESSDATA_DIR = "/kaaj/installs/tesseract/tessdata_best-4.0.0";
     private static final String BENGALI = "ben";
     private static final String ENGLISH = "eng";
 
