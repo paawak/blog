@@ -1,0 +1,17 @@
+combine_tessdata -e /kaaj/installs/tesseract/tessdata_best-4.0.0/ben.traineddata ./ben.lstm
+
+tesseract -l ben ben.rajshekhar_mahabharat.exp0.jpg ben.rajshekhar_mahabharat.exp0 --psm 6 lstm.train
+
+echo "ben.rajshekhar_mahabharat.exp0.lstmf" >> ben.training_files.txt
+
+lstmtraining --model_output ./my_output \
+--continue_from ./ben.lstm \
+--traineddata /kaaj/installs/tesseract/tessdata_best-4.0.0/ben.traineddata \
+--train_listfile ./ben.training_files.txt \
+--max_iterations 400    
+
+lstmtraining --stop_training \
+--continue_from ./my_output_checkpoint \
+--traineddata /kaaj/installs/tesseract/tessdata_best-4.0.0/ben.traineddata \
+--model_output /kaaj/source/tessdata_best/ben.traineddata
+
