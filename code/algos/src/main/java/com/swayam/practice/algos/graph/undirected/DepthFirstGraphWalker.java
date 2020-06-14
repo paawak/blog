@@ -45,16 +45,16 @@ public class DepthFirstGraphWalker {
 
     }
 
-    private void traverse(int vertex) {
+    private void traverse(int currentVertex) {
 
-	if (traversed[vertex]) {
+	if (traversed[currentVertex]) {
 	    return;
 	}
 
-	traversed[vertex] = true;
+	traversed[currentVertex] = true;
 
-	graph.getAdjacentVertices(vertex).forEach(adjacentVertex -> {
-	    endVertices[adjacentVertex] = vertex;
+	graph.getAdjacentVertices(currentVertex).forEach(adjacentVertex -> {
+	    endVertices[adjacentVertex] = currentVertex;
 	    traverse(adjacentVertex);
 	});
 
