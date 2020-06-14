@@ -53,19 +53,19 @@ public class BreadthFirstGraphWalker {
 	Queue<Integer> queue = new ArrayBlockingQueue<>(graph.getVerticesCount());
 
 	queue.add(startVertex);
+	traversed[startVertex] = true;
 
 	while (!queue.isEmpty()) {
 
 	    int currentVertex = queue.remove();
 
-	    if (traversed[currentVertex]) {
-		continue;
-	    }
-
-	    traversed[currentVertex] = true;
-	    graph.getAdjacentVertices(currentVertex).forEach(childVertex -> {
-		endVertices[childVertex] = currentVertex;
-		queue.add(childVertex);
+	    graph.getAdjacentVertices(currentVertex).forEach(adjacentVertex -> {
+		if (traversed[adjacentVertex]) {
+		    return;
+		}
+		traversed[adjacentVertex] = true;
+		endVertices[adjacentVertex] = currentVertex;
+		queue.add(adjacentVertex);
 	    });
 
 	}
@@ -82,7 +82,7 @@ public class BreadthFirstGraphWalker {
 
     @Override
     public String toString() {
-	return "DepthFirstGraphWalker [traversed=" + Arrays.toString(traversed) + ", startVertices=" + Arrays.toString(endVertices) + "]";
+	return "BreadthFirstGraphWalker [startVertex=" + startVertex + ", traversed=" + Arrays.toString(traversed) + ", endVertices=" + Arrays.toString(endVertices) + "]";
     }
 
 }

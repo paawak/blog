@@ -1,6 +1,9 @@
 package com.swayam.practice.algos.graph.undirected;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +33,7 @@ class BreadthFirstGraphWalkerTest {
 	List<Integer> result = testClass.getPath(4);
 
 	// then
-	System.out.println(result);
+	assertEquals(Arrays.asList(4, 2, 0), result);
     }
 
 }

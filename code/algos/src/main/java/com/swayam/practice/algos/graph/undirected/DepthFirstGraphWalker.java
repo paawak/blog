@@ -70,7 +70,7 @@ public class DepthFirstGraphWalker {
 
     @Override
     public String toString() {
-	return "DepthFirstGraphWalker [traversed=" + Arrays.toString(traversed) + ", startVertices=" + Arrays.toString(endVertices) + "]";
+	return "DepthFirstGraphWalker [startVertex=" + startVertex + ", traversed=" + Arrays.toString(traversed) + ", endVertices=" + Arrays.toString(endVertices) + "]";
     }
 
 }
