@@ -50,6 +50,19 @@ class ConnectedComponentsGraphWalkerTest {
     }
 
     @Test
+    void testIsConnected_3() {
+	// given
+	ConnectedComponentsGraphWalker testClass = new ConnectedComponentsGraphWalker(graph);
+	LOG.info("BreadthFirstWalker:\n\n {}", testClass);
+
+	// when
+	boolean result = testClass.isConnected(0, 3);
+
+	// then
+	assertTrue(result);
+    }
+
+    @Test
     void testGetConnectedComponentCount() {
 	// given
 	ConnectedComponentsGraphWalker testClass = new ConnectedComponentsGraphWalker(graph);
