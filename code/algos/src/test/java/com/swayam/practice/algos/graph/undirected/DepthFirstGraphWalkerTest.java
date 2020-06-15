@@ -22,7 +22,7 @@ class DepthFirstGraphWalkerTest {
 
     @BeforeEach
     void setup() throws IOException, URISyntaxException {
-	graph = Graph.from(Paths.get(DepthFirstGraphWalkerTest.class.getResource("/com/swayam/practice/algos/graph/undirected/graph-dfs-1.txt").toURI()));
+	graph = Graph.from(Paths.get(DepthFirstGraphWalkerTest.class.getResource("/com/swayam/practice/algos/graph/undirected/graph-1.txt").toURI()));
 	LOG.info("Graph:\n\n {}", graph);
     }
 

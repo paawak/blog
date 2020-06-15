@@ -19,7 +19,7 @@ class BreadthFirstGraphWalkerTest {
 
     @BeforeEach
     void setUp() throws Exception {
-	graph = Graph.from(Paths.get(DepthFirstGraphWalkerTest.class.getResource("/com/swayam/practice/algos/graph/undirected/graph-bfs-1.txt").toURI()));
+	graph = Graph.from(Paths.get(DepthFirstGraphWalkerTest.class.getResource("/com/swayam/practice/algos/graph/undirected/graph-2.txt").toURI()));
 	LOG.info("Graph:\n\n {}", graph);
     }
 
