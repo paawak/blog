@@ -215,7 +215,7 @@
 		<hibernate.version>3.2.6.ga</hibernate.version>
 		<jpa.version>1.0</jpa.version>
 		<commons.beanutils.version>1.9.4</commons.beanutils.version>
-		<commons.collections.version>3.2</commons.collections.version>
+		<commons.collections.version>3.2.2</commons.collections.version>
 		<commons.io.version>1.3.2</commons.io.version>
 		<commons.lang.version>2.3</commons.lang.version>
 		<jdbc.groupId>ojdbc</jdbc.groupId>
