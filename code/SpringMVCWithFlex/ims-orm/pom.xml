@@ -169,7 +169,7 @@
 	</dependencies>
 
 	<properties>
-		<junit.version>4.4</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<commons.lang.version>2.3</commons.lang.version>
 		<spring.security.version>2.0.1</spring.security.version>
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
