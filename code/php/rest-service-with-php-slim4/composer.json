@@ -1,0 +1,13 @@
+{
+    "name": "paawak-blog/rest-service-with-php-slim4",
+    "description": "Eaxmple of a REST Service with PHP Slim4",
+    "license": "proprietary",
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.1",
+        "doctrine/orm": "^2.7",
+        "monolog/monolog": "^2.1",
+        "php-di/php-di": "^6.2",
+        "php-di/slim-bridge": "^3.0"
+    }
+}
