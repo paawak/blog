@@ -4,9 +4,7 @@ import Author from './Author';
 
 function App() {
   return (
-    <div className="App">
-      <Author/>
-    </div>
+    <Author />
   );
 }
 
