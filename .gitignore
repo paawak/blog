@@ -10,3 +10,9 @@
 **nbproject
 **dist
 **build
+nbactions.xml
+vendor
+composer.lock
+node_modules
+package-lock.json
+
