@@ -71,8 +71,12 @@ class Author implements \JsonSerializable {
 
     public static function fromJsonArray($authorAsArray) {
         $author = new Author();
-        foreach ($authorAsArray as $fieldName => $value) {
-            $author->{$fieldName} = $value;
+        foreach ($authorAsArray as $fieldName => $value) {            
+            if ($fieldName === 'address') {
+                $author->address = Address::fromJsonArray($value);
+            } else {
+                $author->{$fieldName} = $value;
+            }
         }
         return $author;
     }
