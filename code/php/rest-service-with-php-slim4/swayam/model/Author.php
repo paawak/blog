@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\Column;
 
 /**
  * @Entity
- * @Table(name="book")
+ * @Table(name="author")
  */
 class Author implements \JsonSerializable {
 
@@ -67,6 +67,14 @@ class Author implements \JsonSerializable {
 
     public function jsonSerialize() {
         return get_object_vars($this);
+    }
+
+    public static function fromJsonArray($authorAsArray) {
+        $author = new Author();
+        foreach ($authorAsArray as $fieldName => $value) {
+            $author->{$fieldName} = $value;
+        }
+        return $author;
     }
 
 }

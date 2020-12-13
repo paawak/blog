@@ -31,16 +31,6 @@ Example of a REST Service with PHP Slim4
 # Rest API
 ## Author
 
-        curl -v -X POST "http://localhost:8000/author" -H  "accept: application/json" -H  "Content-Type: application/json" -d '{/
-    "firstName": "Balaichand",/
-    "lastName": "Mukhopadhyay",/
-    "address": {/
-        "address": "Manihari Gram",/
-        "city": "Poornia",/
-        "state": "Bangla",/
-        "zipCode": "713876",/
-        "country": "India"/
-    }/
-}'
+        curl -v -X POST "http://localhost:8000/author" -H  "accept: application/json" -H  "Content-Type: application/json" -d @test/add_new_author.json
 
 
