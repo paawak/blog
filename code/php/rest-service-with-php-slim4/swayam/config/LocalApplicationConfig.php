@@ -4,11 +4,10 @@ return [
     'database.host' => 'localhost',
     'database.user' => 'root',
     'database.password' => 'root123',
-    'database.name' => 'porua',
+    'database.name' => 'rest_service_with_php_slim4',
     'database.driver' => 'pdo_mysql',
     'cors.allow-origin' => 'http://localhost:3000',
-    'ocr.imageStore' => '/kaaj/source/porua/tesseract-ocr-rest/images/',
-    'logger.fileName' => '/kaaj/source/porua-ocr/logs/ocr-correction-rest.log',
+    'logger.fileName' => '../logs/rest-service-with-php-slim4.log',
     'logger.maxFiles' => 10,
     'logger.console' => true
 ];

@@ -3,6 +3,7 @@
 namespace swayam\model;
 
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Embedded;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -27,6 +28,11 @@ class Author implements \JsonSerializable {
     /** @Column(name="last_name", type="string") */
     private $lastName;
 
+    /**
+     * @Embedded(class = "Address", columnPrefix=false) 
+     */
+    private $address;
+
     public function getId() {
         return $this->id;
     }
@@ -39,6 +45,10 @@ class Author implements \JsonSerializable {
         return $this->lastName;
     }
 
+    public function getAddress() {
+        return $this->address;
+    }
+
     public function setId($id): void {
         $this->id = $id;
     }
@@ -49,6 +59,10 @@ class Author implements \JsonSerializable {
 
     public function setLastName($lastName): void {
         $this->lastName = $lastName;
+    }
+
+    public function setAddress($address): void {
+        $this->address = $address;
     }
 
     public function jsonSerialize() {

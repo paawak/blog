@@ -1,8 +1,8 @@
--- database: one_to_many_example
-
-DROP TABLE IF EXISTS genre;
+-- database: rest_service_with_php_slim4
 
 DROP TABLE IF EXISTS book;
+
+DROP TABLE IF EXISTS genre;
 
 DROP TABLE IF EXISTS author;
 
@@ -16,7 +16,12 @@ CREATE TABLE genre (
 CREATE TABLE author (
 	id BIGINT(20) NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
 	first_name VARCHAR(200) NOT NULL,
-	last_name VARCHAR(200) NOT NULL
+	last_name VARCHAR(200) NOT NULL,
+        address VARCHAR(200) NOT NULL,
+        city VARCHAR(200) NOT NULL,
+        state VARCHAR(200) NOT NULL,
+        zip_code VARCHAR(50) NOT NULL,
+        country VARCHAR(200) NOT NULL
 );
 
 

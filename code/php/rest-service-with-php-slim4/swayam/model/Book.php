@@ -24,10 +24,49 @@ class Book implements \JsonSerializable {
     /** @Column(type="string") */
     private $title;
 
-    /** @Column(type="string") */
-    private $language;
+    /**
+     * @OneToOne(targetEntity="Author")
+     * @JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author;
 
-    
+    /**
+     * @OneToOne(targetEntity="Genre")
+     * @JoinColumn(name="genre_id", referencedColumnName="id")
+     */
+    private $genre;
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function getAuthor() {
+        return $this->author;
+    }
+
+    public function getGenre() {
+        return $this->genre;
+    }
+
+    public function setId($id): void {
+        $this->id = $id;
+    }
+
+    public function setTitle($title): void {
+        $this->title = $title;
+    }
+
+    public function setAuthor($author): void {
+        $this->author = $author;
+    }
+
+    public function setGenre($genre): void {
+        $this->genre = $genre;
+    }
 
     public function jsonSerialize() {
         return get_object_vars($this);

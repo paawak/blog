@@ -1,6 +1,6 @@
 {
     "name": "paawak-blog/rest-service-with-php-slim4",
-    "description": "Eaxmple of a REST Service with PHP Slim4",
+    "description": "Example of a REST Service with PHP Slim4",
     "license": "proprietary",
     "require": {
         "slim/slim": "4.*",
