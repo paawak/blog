@@ -38,6 +38,7 @@ $app->add($container->get(RequestInterceptingMiddleware::class));
 $app->get('/', [IndexController::class, 'get']);
 
 $app->get('/author', [AuthorController::class, 'getAllAuthors']);
+$app->get('/author/{authorId}', [AuthorController::class, 'getAuthorById']);
 $app->post('/author', [AuthorController::class, 'addNewAuthor']);
 
 $app->run();

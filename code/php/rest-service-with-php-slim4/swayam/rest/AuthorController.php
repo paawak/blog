@@ -21,11 +21,18 @@ class AuthorController {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
     }
-    
+
     public function getAllAuthors(Request $request, Response $response) {
         $authors = $this->entityManager->getRepository(Author::class)->findAll();
         $authorsAsJson = json_encode($authors, JSON_PRETTY_PRINT);
         $response->getBody()->write($authorsAsJson);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function getAuthorById(Request $request, Response $response, $authorId) {
+        $authors = $this->entityManager->getRepository(Author::class)->find($authorId);
+        $payload = json_encode($authors, JSON_PRETTY_PRINT);
+        $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
 
@@ -37,7 +44,7 @@ class AuthorController {
         }
 
         $authorEntity = Author::fromJsonArray($authorRequestAsArray);
-        
+
         $this->logger->info("Persisting Author:", $authorRequestAsArray);
 
         $this->entityManager->persist($authorEntity);
