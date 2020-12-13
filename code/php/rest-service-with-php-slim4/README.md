@@ -30,7 +30,11 @@ Example of a REST Service with PHP Slim4
 
 # Rest API
 ## Author
+### Add new Author
 
         curl -v -X POST "http://localhost:8000/author" -H  "accept: application/json" -H  "Content-Type: application/json" -d @test/add_new_author.json
 
+### Get all Authors
+
+        curl -v "http://localhost:8000/author" 
 

@@ -21,6 +21,13 @@ class AuthorController {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
     }
+    
+    public function getAllAuthors(Request $request, Response $response) {
+        $authors = $this->entityManager->getRepository(Author::class)->findAll();
+        $authorsAsJson = json_encode($authors, JSON_PRETTY_PRINT);
+        $response->getBody()->write($authorsAsJson);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 
     public function addNewAuthor(Request $request, Response $response) {
         $authorRequestAsArray = $request->getParsedBody();
