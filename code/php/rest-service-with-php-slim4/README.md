@@ -42,3 +42,7 @@ Example of a REST Service with PHP Slim4
 
         curl -v "http://localhost:8000/author/1" 
 
+### Search Author by Country
+
+        curl -v "http://localhost:8000/author/search?country=India" 
+

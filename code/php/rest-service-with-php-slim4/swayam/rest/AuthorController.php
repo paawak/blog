@@ -30,7 +30,20 @@ class AuthorController {
     }
 
     public function getAuthorById(Request $request, Response $response, $authorId) {
-        $authors = $this->entityManager->getRepository(Author::class)->find($authorId);
+        $author = $this->entityManager->getRepository(Author::class)->find($authorId);
+        $payload = json_encode($author, JSON_PRETTY_PRINT);
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+    
+    public function searchAuthorsByCountry(Request $request, Response $response) {
+        $country = $request->getQueryParams()["country"];
+        $authors = $this->entityManager->getRepository(Author::class)->findBy(
+                array(
+                    'address.country' => $country
+                ),
+                array('id' => 'DESC')
+        );
         $payload = json_encode($authors, JSON_PRETTY_PRINT);
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
