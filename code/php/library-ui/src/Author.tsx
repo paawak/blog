@@ -4,9 +4,20 @@ interface AuthorProps {
 }
 
 interface AuthorState {
+    firstName: string,
+    lastName: string,
+    address: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    country: string
 }
 
 class Author extends Component<AuthorProps, AuthorState> {
+
+    handleSubmit = () => {
+
+    }
 
     render() {
         return (
@@ -55,7 +66,7 @@ class Author extends Component<AuthorProps, AuthorState> {
                             <input type="text" className="form-control" id="country" />
                         </div>
                     </div>  
-                    <button type="button" className="btn btn-primary">Submit</button>                                                                                                                
+                    <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>                                                                                                                
                 </div>
             </div>
         );
