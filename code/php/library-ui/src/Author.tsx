@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { ChangeEvent, Component } from 'react'
 
 interface AuthorProps {
 }
@@ -16,7 +16,14 @@ interface AuthorState {
 class Author extends Component<AuthorProps, AuthorState> {
 
     handleSubmit = () => {
+        console.log('*****', this.state);
+    }
 
+    handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        console.log('*****', event.target.id, event.target.value);
+        this.setState({
+            firstName: event.target.value
+          });
     }
 
     render() {
@@ -27,7 +34,7 @@ class Author extends Component<AuthorProps, AuthorState> {
                     <div className="row align-items-start">
                         <div className="col form-group">
                             <label htmlFor="firstName">First name</label>
-                            <input type="text" className="form-control" id="firstName" />
+                            <input type="text" className="form-control" id="firstName" onChange={this.handleChange} />
                         </div>
                     </div>
                     <div className="row align-items-start">
