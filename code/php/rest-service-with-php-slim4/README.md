@@ -59,3 +59,15 @@ Example of a REST Service with PHP Slim4
 
         curl -v "http://localhost:8000/genre/1" 
 
+## Book
+### Add new Book
+
+        curl -v -X POST "http://localhost:8000/book" -H  "accept: application/json" -H  "Content-Type: application/json" -d @test/add_new_book.json
+
+### Get all Books
+
+        curl -v "http://localhost:8000/book" 
+
+### Get Book by ID
+
+        curl -v "http://localhost:8000/book/1" 

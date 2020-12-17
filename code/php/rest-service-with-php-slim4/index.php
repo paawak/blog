@@ -3,6 +3,7 @@
 require __DIR__ . '/swayam/rest/IndexController.php';
 require __DIR__ . '/swayam/rest/AuthorController.php';
 require __DIR__ . '/swayam/rest/GenreController.php';
+require __DIR__ . '/swayam/rest/BookController.php';
 require __DIR__ . '/swayam/rest/RequestInterceptingMiddleware.php';
 
 use DI\Bridge\Slim\Bridge;
@@ -12,6 +13,7 @@ use Psr\Log\LoggerInterface;
 use swayam\rest\IndexController;
 use swayam\rest\AuthorController;
 use swayam\rest\GenreController;
+use swayam\rest\BookController;
 use swayam\rest\RequestInterceptingMiddleware;
 
 $container = require __DIR__ . '/swayam/config/DIContainerBootstrap.php';
@@ -47,6 +49,10 @@ $app->post('/author', [AuthorController::class, 'addNewAuthor']);
 $app->get('/genre', [GenreController::class, 'getAllGenres']);
 $app->get('/genre/{genreId}', [GenreController::class, 'getGenreById']);
 $app->post('/genre', [GenreController::class, 'addNewGenre']);
+
+$app->get('/book', [BookController::class, 'getAllBooks']);
+$app->get('/book/{bookId}', [BookController::class, 'getBookById']);
+$app->post('/book', [BookController::class, 'addNewBook']);
 
 $app->run();
 ?>
