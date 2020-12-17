@@ -44,7 +44,7 @@ class BookController {
 
         $bookEntity = Book::fromJsonArray($bookRequestAsArray);
 
-        $this->logger->info("Persisting Genre:", array($bookEntity));
+        $this->logger->info("Persisting Book:", array($bookEntity));
 
         $this->entityManager->persist($bookEntity);
         $this->entityManager->flush();
