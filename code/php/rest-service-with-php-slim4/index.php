@@ -2,6 +2,7 @@
 
 require __DIR__ . '/swayam/rest/IndexController.php';
 require __DIR__ . '/swayam/rest/AuthorController.php';
+require __DIR__ . '/swayam/rest/GenreController.php';
 require __DIR__ . '/swayam/rest/RequestInterceptingMiddleware.php';
 
 use DI\Bridge\Slim\Bridge;
@@ -10,6 +11,7 @@ use Slim\Factory\ServerRequestCreatorFactory;
 use Psr\Log\LoggerInterface;
 use swayam\rest\IndexController;
 use swayam\rest\AuthorController;
+use swayam\rest\GenreController;
 use swayam\rest\RequestInterceptingMiddleware;
 
 $container = require __DIR__ . '/swayam/config/DIContainerBootstrap.php';
@@ -41,6 +43,10 @@ $app->get('/author/search', [AuthorController::class, 'searchAuthorsByCountry'])
 $app->get('/author', [AuthorController::class, 'getAllAuthors']);
 $app->get('/author/{authorId}', [AuthorController::class, 'getAuthorById']);
 $app->post('/author', [AuthorController::class, 'addNewAuthor']);
+
+$app->get('/genre', [GenreController::class, 'getAllGenres']);
+$app->get('/genre/{genreId}', [GenreController::class, 'getGenreById']);
+$app->post('/genre', [GenreController::class, 'addNewGenre']);
 
 $app->run();
 ?>
