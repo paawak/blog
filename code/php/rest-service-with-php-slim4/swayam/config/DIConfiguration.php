@@ -69,7 +69,7 @@ return [
     GenreRepository::class => function (EntityManager $entityManager) {
         return new GenreRepositoryImpl($entityManager);
     },
-    BookRepository::class => function (EntityManager $entityManager) {
-        return new BookRepositoryImpl($entityManager);
+    BookRepository::class => function (EntityManager $entityManager, AuthorRepository $authorRepository, GenreRepository $genreRepository) {
+        return new BookRepositoryImpl($entityManager, $authorRepository, $genreRepository);
     }
 ];
