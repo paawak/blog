@@ -10,6 +10,10 @@ use Monolog\Processor\IntrospectionProcessor;
 use Monolog\ErrorHandler;
 use Psr\Log\LoggerInterface;
 use Psr\Container\ContainerInterface;
+use swayam\repo\AuthorRepository;
+use swayam\repo\AuthorRepositoryImpl;
+
+require_once __DIR__ . '/../repo/AuthorRepositoryImpl.php';
 
 return [
     LoggerInterface::class => function (ContainerInterface $container) {
@@ -52,5 +56,8 @@ return [
 
         $entityManager = EntityManager::create($dbParams, $config);
         return $entityManager;
+    },
+    AuthorRepository::class => function (EntityManager $entityManager) {
+        return new AuthorRepositoryImpl($entityManager);
     }
 ];
