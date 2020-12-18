@@ -19,8 +19,8 @@ class BookRepositoryImpl implements BookRepository {
         $this->entityManager = $entityManager;
     }
 
-    public function addNewBook(Book $book): Book {
-        $this->entityManager->persist($book);
+    public function addNewBook(Book $book): Book {        
+        $this->entityManager->merge($book);
         $this->entityManager->flush();
         return $book;
     }
