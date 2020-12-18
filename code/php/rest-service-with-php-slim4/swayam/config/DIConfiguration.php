@@ -12,8 +12,11 @@ use Psr\Log\LoggerInterface;
 use Psr\Container\ContainerInterface;
 use swayam\repo\AuthorRepository;
 use swayam\repo\AuthorRepositoryImpl;
+use swayam\repo\GenreRepository;
+use swayam\repo\GenreRepositoryImpl;
 
 require_once __DIR__ . '/../repo/AuthorRepositoryImpl.php';
+require_once __DIR__ . '/../repo/GenreRepositoryImpl.php';
 
 return [
     LoggerInterface::class => function (ContainerInterface $container) {
@@ -59,5 +62,8 @@ return [
     },
     AuthorRepository::class => function (EntityManager $entityManager) {
         return new AuthorRepositoryImpl($entityManager);
+    },
+    GenreRepository::class => function (EntityManager $entityManager) {
+        return new GenreRepositoryImpl($entityManager);
     }
 ];

@@ -10,7 +10,7 @@ use swayam\model\Author;
  */
 interface AuthorRepository {
 
-    public function getAllAuthors();
+    public function getAllAuthors(): Array;
 
     public function getAuthorById(int $authorId): Author;
 

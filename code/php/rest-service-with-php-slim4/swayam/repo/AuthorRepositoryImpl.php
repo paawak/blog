@@ -25,7 +25,7 @@ class AuthorRepositoryImpl implements AuthorRepository {
         return $author;
     }
 
-    public function getAllAuthors() {
+    public function getAllAuthors(): Array {
         return $this->entityManager->getRepository(Author::class)->findAll();
     }
 

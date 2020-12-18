@@ -7,7 +7,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
 use swayam\model\Author;
-
 use swayam\repo\AuthorRepository;
 
 require_once __DIR__ . '/../model/Author.php';
