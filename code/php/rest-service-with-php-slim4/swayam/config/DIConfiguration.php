@@ -14,9 +14,12 @@ use swayam\repo\AuthorRepository;
 use swayam\repo\AuthorRepositoryImpl;
 use swayam\repo\GenreRepository;
 use swayam\repo\GenreRepositoryImpl;
+use swayam\repo\BookRepository;
+use swayam\repo\BookRepositoryImpl;
 
 require_once __DIR__ . '/../repo/AuthorRepositoryImpl.php';
 require_once __DIR__ . '/../repo/GenreRepositoryImpl.php';
+require_once __DIR__ . '/../repo/BookRepositoryImpl.php';
 
 return [
     LoggerInterface::class => function (ContainerInterface $container) {
@@ -65,5 +68,8 @@ return [
     },
     GenreRepository::class => function (EntityManager $entityManager) {
         return new GenreRepositoryImpl($entityManager);
+    },
+    BookRepository::class => function (EntityManager $entityManager) {
+        return new BookRepositoryImpl($entityManager);
     }
 ];
