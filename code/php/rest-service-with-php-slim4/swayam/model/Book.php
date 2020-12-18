@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @Entity
@@ -70,6 +72,20 @@ class Book implements \JsonSerializable {
 
     public function jsonSerialize() {
         return get_object_vars($this);
+    }
+
+    public static function fromJsonArray($bookAsArray) {
+        $book = new Book();
+        foreach ($bookAsArray as $fieldName => $value) {
+            if ($fieldName === 'author') {
+                $book->author = Author::fromJsonArray($value);
+            } else if ($fieldName === 'genre') {
+                $book->genre = Genre::fromJsonArray($value);
+            } else {
+                $book->{$fieldName} = $value;
+            }
+        }
+        return $book;
     }
 
 }

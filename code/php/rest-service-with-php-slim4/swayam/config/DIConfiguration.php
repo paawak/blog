@@ -10,6 +10,16 @@ use Monolog\Processor\IntrospectionProcessor;
 use Monolog\ErrorHandler;
 use Psr\Log\LoggerInterface;
 use Psr\Container\ContainerInterface;
+use swayam\repo\AuthorRepository;
+use swayam\repo\AuthorRepositoryImpl;
+use swayam\repo\GenreRepository;
+use swayam\repo\GenreRepositoryImpl;
+use swayam\repo\BookRepository;
+use swayam\repo\BookRepositoryImpl;
+
+require_once __DIR__ . '/../repo/AuthorRepositoryImpl.php';
+require_once __DIR__ . '/../repo/GenreRepositoryImpl.php';
+require_once __DIR__ . '/../repo/BookRepositoryImpl.php';
 
 return [
     LoggerInterface::class => function (ContainerInterface $container) {
@@ -52,5 +62,14 @@ return [
 
         $entityManager = EntityManager::create($dbParams, $config);
         return $entityManager;
+    },
+    AuthorRepository::class => function (EntityManager $entityManager) {
+        return new AuthorRepositoryImpl($entityManager);
+    },
+    GenreRepository::class => function (EntityManager $entityManager) {
+        return new GenreRepositoryImpl($entityManager);
+    },
+    BookRepository::class => function (EntityManager $entityManager, AuthorRepository $authorRepository, GenreRepository $genreRepository) {
+        return new BookRepositoryImpl($entityManager, $authorRepository, $genreRepository);
     }
 ];

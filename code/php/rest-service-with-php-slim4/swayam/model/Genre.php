@@ -54,5 +54,13 @@ class Genre implements \JsonSerializable {
     public function jsonSerialize() {
         return get_object_vars($this);
     }
+    
+    public static function fromJsonArray($genreAsArray) {
+        $genre = new Genre();
+        foreach ($genreAsArray as $fieldName => $value) {
+            $genre->{$fieldName} = $value;
+        }
+        return $genre;
+    }
 
 }
