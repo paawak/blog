@@ -16,33 +16,46 @@ class NavBar extends Component<NavBarProps, NavBarState> {
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a className="navbar-brand" href="#">Navbar</a>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#genreDropDown" aria-controls="genreDropDown" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#authorDropDown" aria-controls="authorDropDown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#bookDropDown" aria-controls="bookDropDown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>                
+                <div className="collapse navbar-collapse" id="genreDropDown">
                     <ul className="navbar-nav">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Features</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Pricing</a>
-                        </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown link
-        </a>
-                            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a className="dropdown-item" href="#">Action</a>
-                                <a className="dropdown-item" href="#">Another action</a>
-                                <a className="dropdown-item" href="#">Something else here</a>
+                            <a className="nav-link dropdown-toggle" href="#noLink" id="genreDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Genre
+                            </a>
+                            <div className="dropdown-menu" aria-labelledby="genreDropdownMenuLink">
+                                <a className="dropdown-item" href="#noLink">Show All</a>
+                                <a className="dropdown-item" href="#noLink">Add New</a>
                             </div>
                         </li>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#noLink" id="authorDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Author
+                            </a>
+                            <div className="dropdown-menu" aria-labelledby="authorDropdownMenuLink">
+                                <a className="dropdown-item" href="#noLink">Show All</a>
+                                <a className="dropdown-item" href="#noLink">Add New</a>
+                            </div>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#noLink" id="bookDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Book
+                            </a>
+                            <div className="dropdown-menu" aria-labelledby="bookDropdownMenuLink">
+                                <a className="dropdown-item" href="#noLink">Show All</a>
+                                <a className="dropdown-item" href="#noLink">Add New</a>
+                            </div>
+                        </li>                        
                     </ul>
-                </div>
+                </div>               
             </nav>
         );
     }
