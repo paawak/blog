@@ -15,7 +15,7 @@ function App() {
     setSelectedMenuItem(action);
   };
 
-  let componentToDisplay = <h1><span className="badge badge-pill badge-primary align-items-centre">Please select an item to display</span></h1>;
+  let componentToDisplay = <h1><span className="badge badge-pill badge-danger align-items-centre">Please select an item to display</span></h1>;
 
   if (selectedMenuItem === MenuAction.ADD_NEW_GENRE) {
     componentToDisplay = <Genre/>;
