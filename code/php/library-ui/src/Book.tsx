@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Alert } from './Alert';
+import AlertType from './AlertType';
 
 interface BookProps {
 }
@@ -101,7 +102,7 @@ class Book extends Component<BookProps, BookState> {
                     <div className="row align-items-start">
                         <div className="col form-group">
                             {this.state.noAuthorsFound &&
-                                <Alert message='No authors found: first add an Author' />
+                                <Alert type={AlertType.ERROR} message='No authors found: first add an Author' />
                             }
                             <label htmlFor="authorId">Author</label>
                             <select className="custom-select" id="authorId" onChange={(event) => { this.setState({ selectedAuthorId: event.target.value }); }} >
@@ -118,7 +119,7 @@ class Book extends Component<BookProps, BookState> {
                     <div className="row align-items-start">
                         <div className="col form-group">
                             {this.state.noGenresFound &&                                
-                                <Alert message='No genres found: first add a Genre' />
+                                <Alert type={AlertType.ERROR} message='No genres found: first add a Genre' />
                             }
                             <label htmlFor="genreId">Genre</label>
                             <select className="custom-select" id="genreId" onChange={(event) => { this.setState({ selectedGenreId: event.target.value }); }} >
