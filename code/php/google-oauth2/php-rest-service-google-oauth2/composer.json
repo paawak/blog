@@ -1,0 +1,13 @@
+{
+    "name": "paawak-blog/php-rest-service-google-oauth2",
+    "description": "Example of a REST Service with PHP Slim4 secured with Google OAuth2 authentication",
+    "license": "proprietary",
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.1",
+        "doctrine/orm": "^2.7",
+        "monolog/monolog": "^2.1",
+        "php-di/php-di": "^6.2",
+        "php-di/slim-bridge": "^3.0"
+    }
+}
