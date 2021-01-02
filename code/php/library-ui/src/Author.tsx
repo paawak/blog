@@ -1,4 +1,6 @@
-import React, { ChangeEvent, Component } from 'react'
+import React, { Component } from 'react'
+import { Alert } from './Alert';
+import AlertType from './AlertType';
 
 interface AuthorProps {
 }
@@ -10,7 +12,9 @@ interface AuthorState {
     city: string,
     state: string,
     zipCode: string,
-    country: string
+    country: string,
+    authorAddSuccess: boolean,
+    authorAddFailed: boolean
 }
 
 class Author extends Component<AuthorProps, AuthorState> {
@@ -22,7 +26,9 @@ class Author extends Component<AuthorProps, AuthorState> {
         city: '',
         state: '',
         zipCode: '',
-        country: ''
+        country: '',
+        authorAddSuccess: false,
+        authorAddFailed: false
     };
 
     handleSubmit = () => {
@@ -46,10 +52,9 @@ class Author extends Component<AuthorProps, AuthorState> {
             body: JSON.stringify(authorPayload)
         }).then(response => {
             if (response.ok) {
-                console.log('----', response)
+                this.setState({authorAddSuccess: true});
             } else {
-                // display error
-                console.error('Error', response);
+                this.setState({authorAddFailed: true});
             }
         });
     }
@@ -58,6 +63,14 @@ class Author extends Component<AuthorProps, AuthorState> {
         return (
             <div>
                 <h1><span className="badge badge-pill badge-primary align-items-centre">Add Author</span></h1>
+                {
+                    this.state.authorAddFailed &&
+                    <Alert type={AlertType.ERROR} message='Could not save the Author, please try again.'/>
+                }
+                {
+                    this.state.authorAddSuccess &&
+                    <Alert type={AlertType.SUCCESS} message='Author saved successfully.'/>
+                }                
                 <div className="container">
                     <div className="row align-items-start">
                         <div className="col form-group">
