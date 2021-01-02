@@ -8,7 +8,9 @@ interface BookState {
     selectedAuthorId: string,
     selectedGenreId: string,
     authors: ComboBoxItemValue[],
-    genres: ComboBoxItemValue[]
+    genres: ComboBoxItemValue[],
+    noAuthorsFound: boolean,
+    noGenresFound: boolean
 }
 
 interface ComboBoxItemValue {
@@ -23,7 +25,9 @@ class Book extends Component<BookProps, BookState> {
         selectedAuthorId: '',
         selectedGenreId: '',
         authors: [],
-        genres: []
+        genres: [],
+        noAuthorsFound: true,
+        noGenresFound: true
     };
 
     componentDidMount() {
@@ -121,7 +125,7 @@ class Book extends Component<BookProps, BookState> {
                             </select>
                         </div>
                     </div>
-                    <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
+                    <button type="button" disabled={this.state.selectedAuthorId === '' || this.state.selectedGenreId === ''} className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
                 </div>
             </div>
         );
