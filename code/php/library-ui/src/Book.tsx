@@ -38,8 +38,6 @@ class Book extends Component<BookProps, BookState> {
                 });
 
                 this.setState({ genres: genres });
-
-                console.log('11111111', genres);
             });
 
         fetch(`${process.env.REACT_APP_REST_API_BASE_NAME}/author`)
@@ -53,8 +51,6 @@ class Book extends Component<BookProps, BookState> {
                 });
 
                 this.setState({ authors: authors });
-
-                console.log('22222222222', authors);
             });
 
     }
@@ -100,13 +96,29 @@ class Book extends Component<BookProps, BookState> {
                     <div className="row align-items-start">
                         <div className="col form-group">
                             <label htmlFor="authorId">Author</label>
-                            <input type="text" className="form-control" id="authorId" value={this.state.selectedAuthorId} onChange={(event) => { this.setState({ selectedAuthorId: event.target.value }); }} />
+                            <select className="custom-select" id="authorId" onChange={(event) => { this.setState({ selectedAuthorId: event.target.value }); }} >
+                                {
+                                    this.state.authors.map((author: ComboBoxItemValue)=> {
+                                        return (
+                                            <option value={author.itemId} selected={this.state.selectedAuthorId === author.itemId}>{author.displayText}</option>
+                                        );                                         
+                                    })
+                                }
+                            </select>
                         </div>
                     </div>
                     <div className="row align-items-start">
                         <div className="col form-group">
                             <label htmlFor="genreId">Genre</label>
-                            <input type="text" className="form-control" id="genreId" value={this.state.selectedGenreId} onChange={(event) => { this.setState({ selectedGenreId: event.target.value }); }} />
+                            <select className="custom-select" id="genreId" onChange={(event) => { this.setState({ selectedGenreId: event.target.value }); }} >
+                                {
+                                    this.state.genres.map((genre: ComboBoxItemValue)=> {
+                                        return (
+                                            <option value={genre.itemId} selected={this.state.selectedGenreId === genre.itemId}>{genre.displayText}</option>
+                                        );                                         
+                                    })
+                                }
+                            </select>
                         </div>
                     </div>
                     <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
