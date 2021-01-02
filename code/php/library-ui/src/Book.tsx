@@ -30,6 +30,17 @@ class Book extends Component<BookProps, BookState> {
         noGenresFound: true
     };
 
+    displayWarningMessage = (message: string) => {
+        return (
+            <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Warning!</strong> {message}
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        );
+    };
+
     componentDidMount() {
         fetch(`${process.env.REACT_APP_REST_API_BASE_NAME}/genre`)
             .then(response => response.json())
@@ -99,13 +110,16 @@ class Book extends Component<BookProps, BookState> {
                     </div>
                     <div className="row align-items-start">
                         <div className="col form-group">
+                            {this.state.noAuthorsFound &&
+                                this.displayWarningMessage('No authors found: first add an Author')
+                            }
                             <label htmlFor="authorId">Author</label>
                             <select className="custom-select" id="authorId" onChange={(event) => { this.setState({ selectedAuthorId: event.target.value }); }} >
                                 {
-                                    this.state.authors.map((author: ComboBoxItemValue)=> {
+                                    this.state.authors.map((author: ComboBoxItemValue) => {
                                         return (
                                             <option value={author.itemId} selected={this.state.selectedAuthorId === author.itemId}>{author.displayText}</option>
-                                        );                                         
+                                        );
                                     })
                                 }
                             </select>
@@ -113,13 +127,16 @@ class Book extends Component<BookProps, BookState> {
                     </div>
                     <div className="row align-items-start">
                         <div className="col form-group">
+                            {this.state.noGenresFound &&
+                                this.displayWarningMessage('No genres found: first add a Genre')
+                            }
                             <label htmlFor="genreId">Genre</label>
                             <select className="custom-select" id="genreId" onChange={(event) => { this.setState({ selectedGenreId: event.target.value }); }} >
                                 {
-                                    this.state.genres.map((genre: ComboBoxItemValue)=> {
+                                    this.state.genres.map((genre: ComboBoxItemValue) => {
                                         return (
                                             <option value={genre.itemId} selected={this.state.selectedGenreId === genre.itemId}>{genre.displayText}</option>
-                                        );                                         
+                                        );
                                     })
                                 }
                             </select>
