@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Alert } from './Alert';
+import AlertType from './AlertType';
 
 interface GenreProps {
 }
@@ -6,6 +8,8 @@ interface GenreProps {
 interface GenreState {
     name: string,
     shortName: string,
+    genreAddSuccess: boolean,
+    genreAddFailed: boolean
 }
 
 class Genre extends Component<GenreProps, GenreState> {
@@ -13,6 +17,8 @@ class Genre extends Component<GenreProps, GenreState> {
     state: GenreState = {
         name: '',
         shortName: '',
+        genreAddSuccess: false,
+        genreAddFailed: false
     };
 
     handleSubmit = () => {
@@ -29,10 +35,9 @@ class Genre extends Component<GenreProps, GenreState> {
             body: JSON.stringify(GenrePayload)
         }).then(response => {
             if (response.ok) {
-                console.log('----', response)
+                this.setState({genreAddSuccess: true});
             } else {
-                // display error
-                console.error('Error', response);
+                this.setState({genreAddFailed: true});
             }
         });
     }
@@ -41,6 +46,14 @@ class Genre extends Component<GenreProps, GenreState> {
         return (
             <div>
                 <h1><span className="badge badge-pill badge-primary align-items-centre">Add Genre</span></h1>
+                {
+                    this.state.genreAddFailed &&
+                    <Alert type={AlertType.ERROR} message='Could not save the Genre, please try again.'/>
+                }
+                {
+                    this.state.genreAddSuccess &&
+                    <Alert type={AlertType.SUCCESS} message='Genre saved successfully.'/>
+                }
                 <div className="container">
                     <div className="row align-items-start">
                         <div className="col form-group">

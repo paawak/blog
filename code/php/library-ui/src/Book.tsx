@@ -12,7 +12,9 @@ interface BookState {
     authors: ComboBoxItemValue[],
     genres: ComboBoxItemValue[],
     noAuthorsFound: boolean,
-    noGenresFound: boolean
+    noGenresFound: boolean,
+    bookAddSuccess: boolean,
+    bookAddFailed: boolean
 }
 
 interface ComboBoxItemValue {
@@ -29,7 +31,9 @@ class Book extends Component<BookProps, BookState> {
         authors: [],
         genres: [],
         noAuthorsFound: true,
-        noGenresFound: true
+        noGenresFound: true,
+        bookAddSuccess: false,
+        bookAddFailed: false
     };
 
     componentDidMount() {
@@ -43,7 +47,10 @@ class Book extends Component<BookProps, BookState> {
                     } as ComboBoxItemValue;
                 });
 
-                this.setState({ genres: genres });
+                this.setState({ 
+                    genres: genres,
+                    noGenresFound: genres.length === 0
+                });
             });
 
         fetch(`${process.env.REACT_APP_REST_API_BASE_NAME}/author`)
@@ -56,7 +63,10 @@ class Book extends Component<BookProps, BookState> {
                     } as ComboBoxItemValue;
                 });
 
-                this.setState({ authors: authors });
+                this.setState({ 
+                    authors: authors,
+                    noAuthorsFound: authors.length === 0
+                });
             });
 
     }
@@ -80,10 +90,9 @@ class Book extends Component<BookProps, BookState> {
             body: JSON.stringify(BookPayload)
         }).then(response => {
             if (response.ok) {
-                console.log('----', response)
+                this.setState({bookAddSuccess: true});
             } else {
-                // display error
-                console.error('Error', response);
+                this.setState({bookAddFailed: true});
             }
         });
     }
@@ -92,6 +101,14 @@ class Book extends Component<BookProps, BookState> {
         return (
             <div>
                 <h1><span className="badge badge-pill badge-primary align-items-centre">Add Book</span></h1>
+                {
+                    this.state.bookAddFailed &&
+                    <Alert type={AlertType.ERROR} message='Could not save the Book, please try again.'/>
+                }
+                {
+                    this.state.bookAddSuccess &&
+                    <Alert type={AlertType.SUCCESS} message='Book saved successfully.'/>
+                }                
                 <div className="container">
                     <div className="row align-items-start">
                         <div className="col form-group">
@@ -106,6 +123,7 @@ class Book extends Component<BookProps, BookState> {
                             }
                             <label htmlFor="authorId">Author</label>
                             <select className="custom-select" id="authorId" onChange={(event) => { this.setState({ selectedAuthorId: event.target.value }); }} >
+                                <option value=''>---</option>
                                 {
                                     this.state.authors.map((author: ComboBoxItemValue) => {
                                         return (
@@ -123,6 +141,7 @@ class Book extends Component<BookProps, BookState> {
                             }
                             <label htmlFor="genreId">Genre</label>
                             <select className="custom-select" id="genreId" onChange={(event) => { this.setState({ selectedGenreId: event.target.value }); }} >
+                                <option value=''>---</option>
                                 {
                                     this.state.genres.map((genre: ComboBoxItemValue) => {
                                         return (
