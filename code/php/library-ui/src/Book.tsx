@@ -5,27 +5,69 @@ interface BookProps {
 
 interface BookState {
     title: string,
-    authorId: string,
-    genreId: string
+    selectedAuthorId: string,
+    selectedGenreId: string,
+    authors: ComboBoxItemValue[],
+    genres: ComboBoxItemValue[]
+}
+
+interface ComboBoxItemValue {
+    itemId: string,
+    displayText: string
 }
 
 class Book extends Component<BookProps, BookState> {
 
     state: BookState = {
         title: '',
-        authorId: '',
-        genreId: ''
+        selectedAuthorId: '',
+        selectedGenreId: '',
+        authors: [],
+        genres: []
     };
+
+    componentDidMount() {
+        fetch(`${process.env.REACT_APP_REST_API_BASE_NAME}/genre`)
+            .then(response => response.json())
+            .then(rawGenres => {
+                const genres: ComboBoxItemValue[] = rawGenres.map((rawGenre: any) => {
+                    return {
+                        itemId: rawGenre.id,
+                        displayText: rawGenre.name
+                    } as ComboBoxItemValue;
+                });
+
+                this.setState({ genres: genres });
+
+                console.log('11111111', genres);
+            });
+
+        fetch(`${process.env.REACT_APP_REST_API_BASE_NAME}/author`)
+            .then(response => response.json())
+            .then(rawAuthors => {
+                const authors: ComboBoxItemValue[] = rawAuthors.map((rawAuthor: any) => {
+                    return {
+                        itemId: rawAuthor.id,
+                        displayText: rawAuthor.firstName + ' ' + rawAuthor.lastName
+                    } as ComboBoxItemValue;
+                });
+
+                this.setState({ authors: authors });
+
+                console.log('22222222222', authors);
+            });
+
+    }
 
     handleSubmit = () => {
         const BookPayload = {
             "title": this.state.title,
             "author": {
-                "id": this.state.authorId
+                "id": this.state.selectedAuthorId
             },
             "genre": {
-                "id": this.state.genreId
-            }   
+                "id": this.state.selectedGenreId
+            }
         };
         fetch(`${process.env.REACT_APP_REST_API_BASE_NAME}/book`, {
             method: 'POST',
@@ -58,15 +100,15 @@ class Book extends Component<BookProps, BookState> {
                     <div className="row align-items-start">
                         <div className="col form-group">
                             <label htmlFor="authorId">Author</label>
-                            <input type="text" className="form-control" id="authorId" value={this.state.authorId} onChange={(event) => { this.setState({ authorId: event.target.value }); }} />
+                            <input type="text" className="form-control" id="authorId" value={this.state.selectedAuthorId} onChange={(event) => { this.setState({ selectedAuthorId: event.target.value }); }} />
                         </div>
                     </div>
                     <div className="row align-items-start">
                         <div className="col form-group">
                             <label htmlFor="genreId">Genre</label>
-                            <input type="text" className="form-control" id="genreId" value={this.state.genreId} onChange={(event) => { this.setState({ genreId: event.target.value }); }} />
+                            <input type="text" className="form-control" id="genreId" value={this.state.selectedGenreId} onChange={(event) => { this.setState({ selectedGenreId: event.target.value }); }} />
                         </div>
-                    </div>                    
+                    </div>
                     <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
                 </div>
             </div>
