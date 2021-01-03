@@ -30,11 +30,11 @@ function App() {
       }
     }} />
   } else if (selectedMenuItem === MenuAction.ADD_NEW_GENRE) {
-    componentToDisplay = <Genre />;
+    componentToDisplay = <Genre googleAccessToken={googleAccessToken} />;
   } else if (selectedMenuItem === MenuAction.ADD_NEW_AUTHOR) {
-    componentToDisplay = <Author />;
+    componentToDisplay = <Author googleAccessToken={googleAccessToken} />;
   } else if (selectedMenuItem === MenuAction.ADD_NEW_BOOK) {
-    componentToDisplay = <Book />;
+    componentToDisplay = <Book googleAccessToken={googleAccessToken} />;
   } else {
     componentToDisplay = <h1><span className="badge badge-pill badge-danger align-items-centre">Please select an item to display</span></h1>;
   }

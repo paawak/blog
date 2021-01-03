@@ -3,6 +3,7 @@ import Alert from './Alert';
 import AlertType from './AlertType';
 
 interface AuthorProps {
+    googleAccessToken: string
 }
 
 interface AuthorState {

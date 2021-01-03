@@ -3,6 +3,7 @@ import Alert from './Alert';
 import AlertType from './AlertType';
 
 interface BookProps {
+    googleAccessToken: string
 }
 
 interface BookState {
@@ -37,8 +38,11 @@ class Book extends Component<BookProps, BookState> {
     };
 
     componentDidMount() {
-        fetch(`${process.env.REACT_APP_REST_API_BASE_NAME}/genre`)
-            .then(response => response.json())
+        fetch(`${process.env.REACT_APP_REST_API_BASE_NAME}/genre`, {
+            headers: {
+                'Authorization': this.props.googleAccessToken
+            }
+        }).then(response => response.json())
             .then(rawGenres => {
                 const genres: ComboBoxItemValue[] = rawGenres.map((rawGenre: any) => {
                     return {
@@ -47,14 +51,17 @@ class Book extends Component<BookProps, BookState> {
                     } as ComboBoxItemValue;
                 });
 
-                this.setState({ 
+                this.setState({
                     genres: genres,
                     noGenresFound: genres.length === 0
                 });
             });
 
-        fetch(`${process.env.REACT_APP_REST_API_BASE_NAME}/author`)
-            .then(response => response.json())
+        fetch(`${process.env.REACT_APP_REST_API_BASE_NAME}/author`, {
+            headers: {
+                'Authorization': this.props.googleAccessToken
+            }
+        }).then(response => response.json())
             .then(rawAuthors => {
                 const authors: ComboBoxItemValue[] = rawAuthors.map((rawAuthor: any) => {
                     return {
@@ -63,7 +70,7 @@ class Book extends Component<BookProps, BookState> {
                     } as ComboBoxItemValue;
                 });
 
-                this.setState({ 
+                this.setState({
                     authors: authors,
                     noAuthorsFound: authors.length === 0
                 });
@@ -90,9 +97,9 @@ class Book extends Component<BookProps, BookState> {
             body: JSON.stringify(BookPayload)
         }).then(response => {
             if (response.ok) {
-                this.setState({bookAddSuccess: true});
+                this.setState({ bookAddSuccess: true });
             } else {
-                this.setState({bookAddFailed: true});
+                this.setState({ bookAddFailed: true });
             }
         });
     }
@@ -103,12 +110,12 @@ class Book extends Component<BookProps, BookState> {
                 <h1><span className="badge badge-pill badge-primary align-items-centre">Add Book</span></h1>
                 {
                     this.state.bookAddFailed &&
-                    <Alert type={AlertType.ERROR} message='Could not save the Book, please try again.'/>
+                    <Alert type={AlertType.ERROR} message='Could not save the Book, please try again.' />
                 }
                 {
                     this.state.bookAddSuccess &&
-                    <Alert type={AlertType.SUCCESS} message='Book saved successfully.'/>
-                }                
+                    <Alert type={AlertType.SUCCESS} message='Book saved successfully.' />
+                }
                 <div className="container">
                     <div className="row align-items-start">
                         <div className="col form-group">
@@ -136,7 +143,7 @@ class Book extends Component<BookProps, BookState> {
                     </div>
                     <div className="row align-items-start">
                         <div className="col form-group">
-                            {this.state.noGenresFound &&                                
+                            {this.state.noGenresFound &&
                                 <Alert type={AlertType.ERROR} message='No genres found: first add a Genre' />
                             }
                             <label htmlFor="genreId">Genre</label>

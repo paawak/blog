@@ -3,6 +3,7 @@ import Alert from './Alert';
 import AlertType from './AlertType';
 
 interface GenreProps {
+    googleAccessToken: string
 }
 
 interface GenreState {
