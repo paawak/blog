@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react'
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
-import { Alert } from './Alert';
+import Alert from './Alert';
 import AlertType from './AlertType';
 
 const CLIENT_ID = '955630342713-55eu6b3k5hmsg8grojjmk8mj1gi47g37.apps.googleusercontent.com';
