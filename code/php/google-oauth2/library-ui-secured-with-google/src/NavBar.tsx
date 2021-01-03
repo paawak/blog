@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
 import MenuAction from './MenuAction';
 import MenuActionListener from './MenuActionListener';
@@ -29,35 +30,47 @@ class NavBar extends Component<NavBarProps, NavBarState> {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="genreDropDown">
-                    <ul className="navbar-nav">
+                    <ul className="navbar-nav  mr-auto mt-2 mt-lg-0">
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#noLink" id="genreDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a className="nav-link dropdown-toggle" href="#" id="genreDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Genre
                             </a>
                             <div className="dropdown-menu" aria-labelledby="genreDropdownMenuLink">
-                                <a className="dropdown-item" href="#noLink" onClick={e => this.props.menuActionListener(MenuAction.SHOW_ALL_GENRES)} >Show All</a>
-                                <a className="dropdown-item" href="#noLink" onClick={e => this.props.menuActionListener(MenuAction.ADD_NEW_GENRE)} >Add New</a>
+                                <a className="dropdown-item" href="#" onClick={e => this.props.menuActionListener(MenuAction.SHOW_ALL_GENRES)} >Show All</a>
+                                <a className="dropdown-item" href="#" onClick={e => this.props.menuActionListener(MenuAction.ADD_NEW_GENRE)} >Add New</a>
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#noLink" id="authorDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a className="nav-link dropdown-toggle" href="#" id="authorDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Author
                             </a>
                             <div className="dropdown-menu" aria-labelledby="authorDropdownMenuLink">
-                                <a className="dropdown-item" href="#noLink" onClick={e => this.props.menuActionListener(MenuAction.SHOW_ALL_AUTHORS)} >Show All</a>
-                                <a className="dropdown-item" href="#noLink" onClick={e => this.props.menuActionListener(MenuAction.ADD_NEW_AUTHOR)} >Add New</a>
+                                <a className="dropdown-item" href="#" onClick={e => this.props.menuActionListener(MenuAction.SHOW_ALL_AUTHORS)} >Show All</a>
+                                <a className="dropdown-item" href="#" onClick={e => this.props.menuActionListener(MenuAction.ADD_NEW_AUTHOR)} >Add New</a>
                             </div>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#noLink" id="bookDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a className="nav-link dropdown-toggle" href="#" id="bookDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Book
                             </a>
                             <div className="dropdown-menu" aria-labelledby="bookDropdownMenuLink">
-                                <a className="dropdown-item" href="#noLink" onClick={e => this.props.menuActionListener(MenuAction.SHOW_ALL_BOOKS)} >Show All</a>
-                                <a className="dropdown-item" href="#noLink" onClick={e => this.props.menuActionListener(MenuAction.ADD_NEW_BOOK)} >Add New</a>
+                                <a className="dropdown-item" href="#" onClick={e => this.props.menuActionListener(MenuAction.SHOW_ALL_BOOKS)} >Show All</a>
+                                <a className="dropdown-item" href="#" onClick={e => this.props.menuActionListener(MenuAction.ADD_NEW_BOOK)} >Add New</a>
                             </div>
                         </li>
                     </ul>
+                    <div>
+                        <ul className="navbar-nav">
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" id="userProfile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/person-circle.svg" alt="" width="52" height="32" title="UserProfile"></img>
+                                </a>
+                                <div className="dropdown-menu" aria-labelledby="userProfile">
+                                    <a className="dropdown-item" href="#">Log Off</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         );
