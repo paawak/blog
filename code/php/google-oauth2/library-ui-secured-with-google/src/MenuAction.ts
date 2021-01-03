@@ -4,7 +4,8 @@ enum MenuAction {
     SHOW_ALL_AUTHORS = 'SHOW_ALL_AUTHORS',
     ADD_NEW_AUTHOR = 'ADD_NEW_AUTHOR',
     SHOW_ALL_BOOKS = 'SHOW_ALL_BOOKS',
-    ADD_NEW_BOOK = 'ADD_NEW_BOOK'
+    ADD_NEW_BOOK = 'ADD_NEW_BOOK',
+    LOGOUT = 'LOGOUT'
 }
 
 export default MenuAction;
