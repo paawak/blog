@@ -29,4 +29,4 @@ export const Alert: FunctionComponent<AlertProps> = ({ type, message }) => {
             </button>
         </div>
     );
-}
+};
