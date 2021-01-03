@@ -16,6 +16,9 @@ function App() {
 
   const menuSelectionChanged: MenuActionListener = function (action: MenuAction): void {
     setSelectedMenuItem(action);
+    if (action === MenuAction.LOGOUT) {
+      setGoogleAccessToken('');
+    }
   };
 
   let componentToDisplay;

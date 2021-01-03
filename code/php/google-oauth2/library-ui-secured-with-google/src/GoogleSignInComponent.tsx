@@ -3,8 +3,6 @@ import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 're
 import Alert from './Alert';
 import AlertType from './AlertType';
 
-const CLIENT_ID = '955630342713-55eu6b3k5hmsg8grojjmk8mj1gi47g37.apps.googleusercontent.com';
-
 interface GoogleSignInComponentProps {
   loginSuccess: (response: GoogleLoginResponse | GoogleLoginResponseOffline) => void;
 }
@@ -21,7 +19,7 @@ export const GoogleSignInComponent: FunctionComponent<GoogleSignInComponentProps
       }
       <p>Sign In</p>
       <GoogleLogin
-        clientId={CLIENT_ID}
+        clientId={`${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}`}
         buttonText='Google'
         onSuccess={loginSuccess}
         onFailure={(response: any) => {

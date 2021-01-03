@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FunctionComponent } from 'react'
+import { GoogleLogout } from 'react-google-login';
 import MenuAction from './MenuAction';
 import MenuActionListener from './MenuActionListener';
 
@@ -56,7 +57,13 @@ const NavBar: FunctionComponent<NavBarProps> = ({ menuActionListener }) => {
                                 <img src="/person-circle.svg" alt="" width="52" height="32" title="UserProfile"></img>
                             </a>
                             <div className="dropdown-menu" aria-labelledby="userProfile">
-                                <a className="dropdown-item" href="#">Log Off</a>
+                                <GoogleLogout
+                                    className="dropdown-item"
+                                    clientId={`${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}`}
+                                    buttonText="Logout"
+                                    onLogoutSuccess={() => menuActionListener(MenuAction.LOGOUT)}
+                                    >
+                                </GoogleLogout>
                             </div>
                         </li>
                     </ul>
