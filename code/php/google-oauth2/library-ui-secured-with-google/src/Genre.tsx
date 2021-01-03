@@ -31,7 +31,8 @@ class Genre extends Component<GenreProps, GenreState> {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Authorization': this.props.googleAccessToken
             },
             body: JSON.stringify(GenrePayload)
         }).then(response => {

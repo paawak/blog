@@ -48,7 +48,8 @@ class Author extends Component<AuthorProps, AuthorState> {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Authorization': this.props.googleAccessToken
             },
             body: JSON.stringify(authorPayload)
         }).then(response => {
