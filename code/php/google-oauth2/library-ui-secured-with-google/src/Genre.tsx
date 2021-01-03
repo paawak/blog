@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert } from './Alert';
+import Alert from './Alert';
 import AlertType from './AlertType';
 
 interface GenreProps {

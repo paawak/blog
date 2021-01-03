@@ -6,7 +6,7 @@ type AlertProps = {
     message: string
 }
 
-export const Alert: FunctionComponent<AlertProps> = ({ type, message }) => {
+const Alert: FunctionComponent<AlertProps> = ({ type, message }) => {
     let alertClassName = 'alert alert-dismissible fade show ';
     let title = '';
 
@@ -30,3 +30,5 @@ export const Alert: FunctionComponent<AlertProps> = ({ type, message }) => {
         </div>
     );
 };
+
+export default Alert;
