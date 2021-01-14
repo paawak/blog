@@ -32,42 +32,42 @@ Example of a REST Service with PHP Slim4
 ## Author
 ### Add new Author
 
-        curl -v -X POST "http://localhost:8000/author" -H  "accept: application/json" -H  "Content-Type: application/json" -d @test/add_new_author.json
+        curl -v -X POST "http://localhost:8000/author" -H  "accept: application/json" -H  "Content-Type: application/json" -H "Authorization: MySecretToken" -d @test/add_new_author.json
 
 ### Get all Authors
 
-        curl -v "http://localhost:8000/author" 
+        curl -v -H "Authorization: MySecretToken" "http://localhost:8000/author" 
 
 ### Get Author by ID
 
-        curl -v "http://localhost:8000/author/1" 
+        curl -v -H "Authorization: MySecretToken" "http://localhost:8000/author/1" 
 
 ### Search Author by Country
 
-        curl -v "http://localhost:8000/author/search?country=India" 
+        curl -v -H "Authorization: MySecretToken" "http://localhost:8000/author/search?country=India" 
 
 ## Genre
 ### Add new Genre
 
-        curl -v -X POST "http://localhost:8000/genre" -H  "accept: application/json" -H  "Content-Type: application/json" -d @test/add_new_genre.json
+        curl -v -X POST "http://localhost:8000/genre" -H "Authorization: MySecretToken" -H  "accept: application/json" -H  "Content-Type: application/json" -d @test/add_new_genre.json
 
 ### Get all Genres
 
-        curl -v "http://localhost:8000/genre" 
+        curl -v -H "Authorization: MySecretToken" "http://localhost:8000/genre" 
 
 ### Get Genre by ID
 
-        curl -v "http://localhost:8000/genre/1" 
+        curl -v -H "Authorization: MySecretToken" "http://localhost:8000/genre/1" 
 
 ## Book
 ### Add new Book
 
-        curl -v -X POST "http://localhost:8000/book" -H  "accept: application/json" -H  "Content-Type: application/json" -d @test/add_new_book.json
+        curl -v -X POST "http://localhost:8000/book" -H "Authorization: MySecretToken" -H  "accept: application/json" -H  "Content-Type: application/json" -d @test/add_new_book.json
 
 ### Get all Books
 
-        curl -v "http://localhost:8000/book" 
+        curl -v -H "Authorization: MySecretToken" "http://localhost:8000/book" 
 
 ### Get Book by ID
 
-        curl -v "http://localhost:8000/book/1" 
+        curl -v -H "Authorization: MySecretToken" "http://localhost:8000/book/1" 
