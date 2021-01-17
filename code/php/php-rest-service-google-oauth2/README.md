@@ -1,32 +1,19 @@
 # Introduction
-Example of a REST Service with PHP Slim4
+Example of how to secure REST Service with PHP Slim4, with Google authentication
 
 # Developer stuff
-## Installing dependencies with Composer
-    
-    composer.phar install
-    composer.phar update
+## Google Authentication
 
-## REST Library Slim
-1.  <http://www.slimframework.com/docs/v4/>
-1.  <http://www.slimframework.com/docs/v4/objects/request.html>
+1.  <https://developers.google.com/identity/sign-in/web/backend-auth>
 
-## Dependency Injection with PHP-DI
+### Unable to read Authorization header in Apache Server
+Solution: in .htaccess add the below line:
 
-    composer require php-di/slim-bridge
+    SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 
-1.  <https://php-di.org/doc/frameworks/slim.html>
-1.  <https://php-di.org/doc/container-configuration.html>
-1.  Demo: <https://github.com/PHP-DI/demo>
-
-## ORM Library Doctrine
-1.  Getting Started: <https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/tutorials/getting-started.html#getting-started-with-doctrine>
-1.  Configuration: <https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/configuration.html>
-1.  Repository Pattern: <https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/tutorials/getting-started.html#entity-repositories>
-
-### Update Queries
-1.  <https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/dql-doctrine-query-language.html#update-queries>
-1.  <https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/tutorials/getting-started.html#updating-entities>
+Reference:
+1.  <https://stackoverflow.com/questions/26256730/slimframework-request-headers-don%C2%B4t-read-authorization>
+1.  <https://github.com/slimphp/Slim/issues/1616>
 
 # Rest API
 ## Author
