@@ -238,7 +238,7 @@
 		<hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
 		<hibernate.version>3.2.6.ga</hibernate.version>
 		<jpa.version>1.0</jpa.version>
-		<spring.version>5.2.4.RELEASE</spring.version>
+		<spring.version>5.3.18</spring.version>
 		<jstl.version>1.1.2</jstl.version>
 		<commons.beanutils.version>1.9.4</commons.beanutils.version>
 		<commons.collections.version>3.2.2</commons.collections.version>
