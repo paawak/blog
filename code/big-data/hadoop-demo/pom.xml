@@ -95,7 +95,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<log4j.version>2.13.3</log4j.version>
 		<slf4j.version>1.7.12</slf4j.version>
-		<hadoop.version>2.8.0</hadoop.version>
+		<hadoop.version>3.2.3</hadoop.version>
 	</properties>
 
 </project>
