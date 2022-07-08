@@ -176,7 +176,7 @@
 		<hibernate.version>3.2.6.ga</hibernate.version>
 		<jpa.version>1.0</jpa.version>
 		<log4j.version>1.2.13</log4j.version>
-		<acegi.security.version>1.0.6</acegi.security.version>
+		<acegi.security.version>1.0.7</acegi.security.version>
 	</properties>
 	
 </project>
