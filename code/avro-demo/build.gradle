@@ -16,13 +16,21 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
+	implementation platform('com.fasterxml.jackson:jackson-bom:2.20.0')
+	
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-avro'
+    
+    implementation 'org.projectlombok:lombok:1.18.40'
+    
+    implementation "org.apache.avro:avro:$avroVersion"
+    
     testImplementation libs.junit.jupiter
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-    // This dependency is used by the application.
-    implementation libs.guava
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -34,7 +42,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'com.swayam.blog.demo.avro.App'
+    mainClass = 'com.swayam.blog.demo.avro.AvroDemo'
 }
 
 tasks.named('test') {
