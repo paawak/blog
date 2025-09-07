@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Function;
 
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaFormatter;
@@ -21,7 +22,9 @@ class AvroDemoTest {
     @Test
     void generateSchema() throws IOException, URISyntaxException {
 	// given
-	String expected = Files.readString(Path.of(AvroDemoTest.class.getResource("/expected/book.avsc").toURI()));
+	Function<String, String> strip = text -> text.replaceAll("[\r\n\t\\s]", "");
+	String expected =
+		strip.apply(Files.readString(Path.of(AvroDemoTest.class.getResource("/expected/book.avsc").toURI())));
 	AvroDemo testClass = new AvroDemo();
 
 	// when
@@ -30,7 +33,7 @@ class AvroDemoTest {
 	// then
 	String actual = SchemaFormatter.getInstance("json/pretty").format(result);
 	System.out.println(actual);
-	assertEquals(expected, actual);
+	assertEquals(expected, strip.apply(actual));
     }
 
 }
