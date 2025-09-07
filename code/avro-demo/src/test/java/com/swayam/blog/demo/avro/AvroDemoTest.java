@@ -3,14 +3,34 @@
  */
 package com.swayam.blog.demo.avro;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import org.apache.avro.Schema;
+import org.apache.avro.SchemaFormatter;
 import org.junit.jupiter.api.Test;
 
+import com.swayam.blog.demo.avro.model.Book;
+
 class AvroDemoTest {
+
     @Test
-    void appHasAGreeting() {
-	AvroDemo classUnderTest = new AvroDemo();
-	assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    void generateSchema() throws IOException, URISyntaxException {
+	// given
+	String expected = Files.readString(Path.of(AvroDemoTest.class.getResource("/expected/book.avsc").toURI()));
+	AvroDemo testClass = new AvroDemo();
+
+	// when
+	Schema result = testClass.generateSchema(Book.class);
+
+	// then
+	String actual = SchemaFormatter.getInstance("json/pretty").format(result);
+	System.out.println(actual);
+	assertEquals(expected, actual);
     }
+
 }

@@ -28,9 +28,14 @@ dependencies {
     
     implementation "org.apache.avro:avro:$avroVersion"
     
-    testImplementation libs.junit.jupiter
+	testImplementation platform('org.junit:junit-bom:5.13.4')
+	
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    
+	testImplementation 'org.instancio:instancio-junit:5.5.1'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -40,12 +45,10 @@ java {
     }
 }
 
-application {
-    // Define the main class for the application.
-    mainClass = 'com.swayam.blog.demo.avro.AvroDemo'
-}
-
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+    testLogging {
+        events 'STARTED', 'PASSED', 'SKIPPED', 'FAILED', 'STANDARD_OUT', 'STANDARD_ERROR'
+    }
 }
