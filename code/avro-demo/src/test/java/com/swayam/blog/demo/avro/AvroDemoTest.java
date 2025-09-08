@@ -1,6 +1,8 @@
 package com.swayam.blog.demo.avro;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -15,10 +17,12 @@ import org.apache.avro.SchemaFormatter;
 import org.apache.avro.SchemaParser;
 import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.file.DataFileWriter.AppendWriteException;
 import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DatumWriter;
 import org.apache.avro.reflect.ReflectDatumReader;
 import org.apache.avro.reflect.ReflectDatumWriter;
+import org.apache.avro.specific.SpecificDatumWriter;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +45,27 @@ class AvroDemoTest {
 	String actual = SchemaFormatter.getInstance("json/pretty").format(result);
 	System.out.println(actual);
 	assertEquals(expected, strip.apply(actual));
+    }
+
+    @Test
+    void pojoWithSpecificDatumWriterThrowsException() throws IOException, URISyntaxException {
+	// given
+	Schema bookSchema =
+		new SchemaParser().parse(AvroDemoTest.class.getResourceAsStream("/expected/book.avsc")).mainSchema();
+
+	Book book = Instancio.create(Book.class);
+
+	Path bookAvroFileLocation = Path.of("build", "book.avro");
+
+	// when
+	DatumWriter<Book> datumWriter = new SpecificDatumWriter<>();
+	@SuppressWarnings("resource")
+	DataFileWriter<Book> dataFileWriter = new DataFileWriter<>(datumWriter);
+	dataFileWriter.create(bookSchema, bookAvroFileLocation.toFile());
+	AppendWriteException result = assertThrows(AppendWriteException.class, () -> dataFileWriter.append(book));
+
+	// then
+	assertTrue(result.getMessage().startsWith("java.lang.ClassCastException: value Book"));
     }
 
     @Test
