@@ -1,0 +1,80 @@
+package com.swayam.blog.demo.avro;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
+import org.apache.avro.Schema;
+import org.apache.avro.SchemaFormatter;
+import org.apache.avro.SchemaParser;
+import org.apache.avro.file.DataFileReader;
+import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.io.DatumReader;
+import org.apache.avro.io.DatumWriter;
+import org.apache.avro.reflect.ReflectDatumReader;
+import org.apache.avro.reflect.ReflectDatumWriter;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.Test;
+
+import com.swayam.blog.demo.avro.model.Book;
+
+class AvroDemoTest {
+
+    @Test
+    void generateSchema() throws IOException, URISyntaxException {
+	// given
+	Function<String, String> strip = text -> text.replaceAll("[\r\n\t\\s]", "");
+	String expected =
+		strip.apply(Files.readString(Path.of(AvroDemoTest.class.getResource("/expected/book.avsc").toURI())));
+	AvroDemo testClass = new AvroDemo();
+
+	// when
+	Schema result = testClass.generateSchema(Book.class);
+
+	// then
+	String actual = SchemaFormatter.getInstance("json/pretty").format(result);
+	System.out.println(actual);
+	assertEquals(expected, strip.apply(actual));
+    }
+
+    @Test
+    void validatePojoAgainstSchema() throws IOException, URISyntaxException {
+	// given
+	Schema bookSchema =
+		new SchemaParser().parse(AvroDemoTest.class.getResourceAsStream("/expected/book.avsc")).mainSchema();
+
+	List<Book> booksInput = Instancio.createList(Book.class);
+
+	Path bookAvroFileLocation = Path.of("build", "book.avro");
+
+	// when
+	DatumWriter<Book> datumWriter = new ReflectDatumWriter<>();
+	DataFileWriter<Book> dataFileWriter = new DataFileWriter<>(datumWriter);
+	dataFileWriter.create(bookSchema, bookAvroFileLocation.toFile());
+	booksInput.forEach(book -> {
+	    try {
+		dataFileWriter.append(book);
+	    } catch (IOException e) {
+		throw new RuntimeException(e);
+	    }
+	});
+	dataFileWriter.close();
+
+	// then
+	DatumReader<Book> datumReader = new ReflectDatumReader<>(Book.class);
+	DataFileReader<Book> dataFileReader = new DataFileReader<>(bookAvroFileLocation.toFile(), datumReader);
+	List<Book> booksOutput = new ArrayList<>();
+	while (dataFileReader.hasNext()) {
+	    booksOutput.add(dataFileReader.next());
+	}
+	dataFileReader.close();
+	assertEquals(booksInput, booksOutput);
+    }
+
+}
