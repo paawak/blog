@@ -1,0 +1,86 @@
+{
+  "type" : "record",
+  "name" : "Book",
+  "namespace" : "com.swayam.blog.demo.avro.model",
+  "fields" : [ {
+    "name" : "author",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "Author",
+      "fields" : [ {
+        "name" : "firstName",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "id",
+        "type" : [ "null", {
+          "type" : "long",
+          "java-class" : "java.lang.Long"
+        } ]
+      }, {
+        "name" : "lastName",
+        "type" : [ "null", "string" ]
+      } ]
+    } ]
+  }, {
+    "name" : "chapters",
+    "type" : [ "null", {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "Chapter",
+        "fields" : [ {
+          "name" : "id",
+          "type" : [ "null", {
+            "type" : "long",
+            "java-class" : "java.lang.Long"
+          } ]
+        }, {
+          "name" : "plotSummary",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "sections",
+          "type" : [ "null", {
+            "type" : "array",
+            "items" : {
+              "type" : "record",
+              "name" : "Section",
+              "fields" : [ {
+                "name" : "id",
+                "type" : [ "null", {
+                  "type" : "long",
+                  "java-class" : "java.lang.Long"
+                } ]
+              }, {
+                "name" : "length",
+                "type" : {
+                  "type" : "int",
+                  "java-class" : "java.lang.Integer"
+                }
+              }, {
+                "name" : "sectionText",
+                "type" : [ "null", "string" ]
+              }, {
+                "name" : "style",
+                "type" : [ "null", "string" ]
+              } ]
+            },
+            "java-class" : "java.util.Set"
+          } ]
+        }, {
+          "name" : "title",
+          "type" : [ "null", "string" ]
+        } ]
+      },
+      "java-class" : "java.util.Set"
+    } ]
+  }, {
+    "name" : "id",
+    "type" : [ "null", {
+      "type" : "long",
+      "java-class" : "java.lang.Long"
+    } ]
+  }, {
+    "name" : "title",
+    "type" : [ "null", "string" ]
+  } ]
+}

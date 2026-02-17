@@ -115,7 +115,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.16</version>
+			<version>8.0.28</version>
 		</dependency>
 		<dependency>
             <groupId>commons-dbcp</groupId>
@@ -175,9 +175,9 @@
 		</dependency>
 	</dependencies>
 	<properties>
-		<log4j.version>2.13.3</log4j.version>
-		<jackson.version>2.12.1</jackson.version>
-		<spring.version>4.2.2.RELEASE</spring.version>
+		<log4j.version>2.17.1</log4j.version>
+		<jackson.version>2.12.7.1</jackson.version>
+		<spring.version>4.3.30.RELEASE</spring.version>
 		<slf4j.version>1.7.12</slf4j.version>
 	</properties>
 </project>
