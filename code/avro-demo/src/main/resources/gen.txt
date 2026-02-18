@@ -1,8 +1,0 @@
-DefinedSchema ds = new DefinedSchemas()
-ds.addSchema(SimpleType.constructUnsafe(Date.class)), Schema)
-VisitorFormatWrapperImpl avroSchemaGenerator = new VisitorFormatWrapperImpl(ds, null).enableLogicalTypes()
-
-AnnotationIntrospector ai = AnnotationIntrospector.pair(new AvroAnnotationIntrospector(), new JacksonAnnotationIntrospector())
-
-AvroMapper.builder.annotationIntrospector(ai).addModule(AvroJavaTimeModule());
-

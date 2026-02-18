@@ -1,14 +1,21 @@
 package com.swayam.blog.demo.avro.model;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 
 @Data
 public class Author {
 
-    private Long id;
+	private Date dateOfBirth;
 
-    private String firstName;
+	private Long id;
 
-    private String lastName;
+	@JsonProperty("name")
+	private String firstName;
+
+	private String lastName;
 
 }

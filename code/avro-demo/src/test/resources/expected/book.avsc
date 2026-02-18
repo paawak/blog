@@ -8,8 +8,11 @@
       "type" : "record",
       "name" : "Author",
       "fields" : [ {
-        "name" : "firstName",
-        "type" : [ "null", "string" ]
+        "name" : "dateOfBirth",
+        "type" : [ "null", {
+          "type" : "long",
+          "java-class" : "java.util.Date"
+        } ]
       }, {
         "name" : "id",
         "type" : [ "null", {
@@ -19,7 +22,16 @@
       }, {
         "name" : "lastName",
         "type" : [ "null", "string" ]
+      }, {
+        "name" : "name",
+        "type" : [ "null", "string" ]
       } ]
+    } ]
+  }, {
+    "name" : "bookReleaseDate",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "local-timestamp-millis"
     } ]
   }, {
     "name" : "chapters",

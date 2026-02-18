@@ -1,5 +1,6 @@
 package com.swayam.blog.demo.avro.model;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import lombok.Data;
@@ -7,12 +8,14 @@ import lombok.Data;
 @Data
 public class Book {
 
-    private Long id;
+	private LocalDateTime bookReleaseDate;
 
-    private String title;
+	private Long id;
 
-    private Author author;
+	private String title;
 
-    private Set<Chapter> chapters;
+	private Author author;
+
+	private Set<Chapter> chapters;
 
 }

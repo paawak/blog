@@ -3,14 +3,13 @@ package com.swayam.blog.demo.avro;
 import java.util.Date;
 
 import org.apache.avro.Schema;
-import org.apache.avro.Schema.Type;
 
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.type.SimpleType;
 import com.fasterxml.jackson.dataformat.avro.AvroAnnotationIntrospector;
 import com.fasterxml.jackson.dataformat.avro.AvroMapper;
+import com.fasterxml.jackson.dataformat.avro.AvroSchema;
 import com.fasterxml.jackson.dataformat.avro.jsr310.AvroJavaTimeModule;
 import com.fasterxml.jackson.dataformat.avro.schema.AvroSchemaGenerator;
 import com.fasterxml.jackson.dataformat.avro.schema.DefinedSchemas;
@@ -30,19 +29,20 @@ public class AvroSchemaGenerationDemo {
 
 	public Schema generateCustomizedSchema(Class<?> pojoClass) throws JsonMappingException {
 
-		DefinedSchemas ds = new DefinedSchemas();
-		ds.addSchema(SimpleType.constructUnsafe(Date.class), Schema.create(Type.LONG));
-		VisitorFormatWrapperImpl jsonFormatVisitorWrapper = new VisitorFormatWrapperImpl(ds, null).enableLogicalTypes();
+		DefinedSchemas definedSchemas = new DefinedSchemas();
+		definedSchemas.addSchema(SimpleType.constructUnsafe(Date.class), new DateConversion().getRecommendedSchema());
+		VisitorFormatWrapperImpl jsonFormatVisitorWrapper = new VisitorFormatWrapperImpl(definedSchemas, null)
+				.enableLogicalTypes();
 
 		AnnotationIntrospector ai = AnnotationIntrospector.pair(new AvroAnnotationIntrospector(),
-				new JacksonAnnotationIntrospector());
+				new CustomJacksonAnnotationIntrospector());
 
 		AvroMapper mapper = AvroMapper.builder().annotationIntrospector(ai).addModule(new AvroJavaTimeModule()).build();
 		// Enable logical types
 		jsonFormatVisitorWrapper.enableLogicalTypes();
 
 		mapper.acceptJsonFormatVisitor(pojoClass, jsonFormatVisitorWrapper);
-		return jsonFormatVisitorWrapper.getAvroSchema();
+		return new AvroSchema(jsonFormatVisitorWrapper.getAvroSchema()).getAvroSchema();
 	}
 
 }

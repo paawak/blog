@@ -48,6 +48,23 @@ class AvroSchemaGenerationDemoTest {
 	}
 
 	@Test
+	void generateCustomizedSchema() throws IOException, URISyntaxException {
+		// given
+		Function<String, String> strip = text -> text.replaceAll("[\r\n\t\\s]", "");
+		String expected = strip.apply(Files.readString(
+				Path.of(AvroSchemaGenerationDemoTest.class.getResource("/expected/book_customized.avsc").toURI())));
+		AvroSchemaGenerationDemo testClass = new AvroSchemaGenerationDemo();
+
+		// when
+		Schema result = testClass.generateCustomizedSchema(Book.class);
+
+		// then
+		String actual = SchemaFormatter.getInstance("json/pretty").format(result);
+		System.out.println(actual);
+		assertEquals(expected, strip.apply(actual));
+	}
+
+	@Test
 	void pojoWithSpecificDatumWriterThrowsException() throws IOException, URISyntaxException {
 		// given
 		Schema bookSchema = new SchemaParser()
