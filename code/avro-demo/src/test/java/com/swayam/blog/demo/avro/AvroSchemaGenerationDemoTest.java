@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -93,6 +94,8 @@ class AvroSchemaGenerationDemoTest {
 				.mainSchema();
 
 		List<Book> booksInput = Instancio.createList(Book.class);
+		// truncate to millis, as avro can only save till millis
+		booksInput.forEach(book -> book.setBookReleaseDate(book.getBookReleaseDate().truncatedTo(ChronoUnit.MILLIS)));
 
 		Path bookAvroFileLocation = Path.of("build", "book.avro");
 
