@@ -15,10 +15,10 @@ import java.util.function.Function;
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaFormatter;
 import org.apache.avro.SchemaParser;
+import org.apache.avro.data.TimeConversions.LocalTimestampMillisConversion;
 import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.file.DataFileWriter.AppendWriteException;
-import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DatumWriter;
 import org.apache.avro.reflect.ReflectDatumReader;
 import org.apache.avro.reflect.ReflectDatumWriter;
@@ -89,14 +89,17 @@ class AvroSchemaGenerationDemoTest {
 	void validatePojoAgainstSchema() throws IOException, URISyntaxException {
 		// given
 		Schema bookSchema = new SchemaParser()
-				.parse(AvroSchemaGenerationDemoTest.class.getResourceAsStream("/expected/book.avsc")).mainSchema();
+				.parse(AvroSchemaGenerationDemoTest.class.getResourceAsStream("/expected/book_customized.avsc"))
+				.mainSchema();
 
 		List<Book> booksInput = Instancio.createList(Book.class);
 
 		Path bookAvroFileLocation = Path.of("build", "book.avro");
 
 		// when
-		DatumWriter<Book> datumWriter = new ReflectDatumWriter<>();
+		ReflectDatumWriter<Book> datumWriter = new ReflectDatumWriter<>();
+		datumWriter.getData().addLogicalTypeConversion(new DateConversion());
+		datumWriter.getData().addLogicalTypeConversion(new LocalTimestampMillisConversion());
 		DataFileWriter<Book> dataFileWriter = new DataFileWriter<>(datumWriter);
 		dataFileWriter.create(bookSchema, bookAvroFileLocation.toFile());
 		booksInput.forEach(book -> {
@@ -109,11 +112,14 @@ class AvroSchemaGenerationDemoTest {
 		dataFileWriter.close();
 
 		// then
-		DatumReader<Book> datumReader = new ReflectDatumReader<>(Book.class);
+		ReflectDatumReader<Book> datumReader = new ReflectDatumReader<>(bookSchema);
+		datumReader.getData().addLogicalTypeConversion(new DateConversion());
+		datumReader.getData().addLogicalTypeConversion(new LocalTimestampMillisConversion());
 		DataFileReader<Book> dataFileReader = new DataFileReader<>(bookAvroFileLocation.toFile(), datumReader);
 		List<Book> booksOutput = new ArrayList<>();
 		while (dataFileReader.hasNext()) {
-			booksOutput.add(dataFileReader.next());
+			Book book = dataFileReader.next();
+			booksOutput.add(book);
 		}
 		dataFileReader.close();
 		assertEquals(booksInput, booksOutput);
